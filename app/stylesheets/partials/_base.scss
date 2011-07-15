@@ -7,6 +7,10 @@
 // Import the non-default scaffolding module.
 @import "blueprint/scaffolding";
 
+@import "compass";
+@import "compass/layout";
+
 // Generate the blueprint framework according to your configuration:
 @include blueprint;
 @include blueprint-scaffolding;
+

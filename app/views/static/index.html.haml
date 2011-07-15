@@ -4,13 +4,26 @@
 - content_for :head do
   = stylesheet_link_tag 'homepage.css', :media => 'screen, projection'
   
-.top
-  %h1
-    %img#logo{:src =>"/images/a-saucy-book-feathered-on-white.png", :alt =>"A Saucy Book"}
-    
-  %iframe{:id =>"intro_video", :width => "560", :height => "349", :src => "http://www.youtube.com/embed/ZqVg5kSFsys", :frameborder=>"0", :allowfullscreen => true}
+#header-bar
+  %h1#logo
+    A Saucy Book
 
+#main-container.container
+
+  #main-content
+    %iframe#intro-video{:width => "560", :height => "349", :src => "http://www.youtube.com/embed/ZqVg5kSFsys", :frameborder=>"0", :allowfullscreen => true}
+
+  
   %form{:action=>"/thankyou"}
-    %label{:for => "email"} Email:
-    %input#email.text{:type => "text", :name => "email"}
-    %input{:type => "submit", :name => "submit", :value => "submit"}
+    .span-4
+      %h3
+        Create your canvas
+    .span-14
+      %input#email.title{:type => "text", :name => "email", :placeholder => "Your Email Address"}
+    .span-6.last
+      %input#submit.span-6.last{:type => "submit", :name => "submit", :value => "Get Saucy!"}
+
+  #root
+    #root_footer
+  #footer
+    This is my sticky footer
