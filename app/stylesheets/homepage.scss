@@ -1,7 +1,21 @@
+$cream: #f6f6d6;
+$pink: #c5b3bd;
+$mauve: #9f9ba9;
+$green: #a0a048;
+
+$background-color: $pink;
+$accent-color: $cream;
+
 body {
-	background: url(/images/paper.png) top left repeat;
+	// background: url(/images/paper.png) top left repeat;
+	background-color: $background-color;
 }
 
-.container {
-	background-color: #fff;
+#container {
+	#top {
+		height: 500px;
+		background-color: $cream;
+	}
+	
+	
 }

@@ -1,0 +1,16 @@
+- content_for :title do
+  A Saucy Book
+
+- content_for :head do
+  = stylesheet_link_tag 'homepage.css', :media => 'screen, projection'
+  
+.top
+  %h1
+    %img#logo{:src =>"/images/a-saucy-book-feathered-on-white.png", :alt =>"A Saucy Book"}
+    
+  %iframe{:id =>"intro_video", :width => "560", :height => "349", :src => "http://www.youtube.com/embed/ZqVg5kSFsys", :frameborder=>"0", :allowfullscreen => true}
+
+  %form{:action=>"/thankyou"}
+    %label{:for => "email"} Email:
+    %input#email.text{:type => "text", :name => "email"}
+    %input{:type => "submit", :name => "submit", :value => "submit"}

@@ -11,7 +11,7 @@ module NavigationHelpers
     when /the homepage/
       '/'
     when /Thanks for your interest/
-      '/thankyou.html'
+      '/thankyou'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -1,4 +1,8 @@
 Louvre::Application.routes.draw do
+
+  root :to => "static#index"
+  match 'thankyou' => "static#thankyou"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

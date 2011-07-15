@@ -12,8 +12,12 @@ Scenario:
 
 Scenario:
     Given I am on the homepage
-    Then I should see "A Saucy Book"
+    Then I should see the logo
     
 Scenario:
     Given I am on the homepage
     Then I should see an intro video
+    
+Scenario:
+    Given I am on the homepage
+    Then the page title should be "A Saucy Book"
