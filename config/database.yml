@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: louvre_development
+  pool: 5
+  username: postgres
+  password: suite101
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: louvre_test
+  pool: 5
+  username: postgres
+  password: suite101
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: louvre_production
+  pool: 5
+  username: postgres
+  password: suite101
