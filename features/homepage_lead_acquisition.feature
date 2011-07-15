@@ -10,7 +10,10 @@ Scenario:
     And I press "submit"
     Then I should be on the "Thanks for your interest" page
 
-
 Scenario:
     Given I am on the homepage
     Then I should see "A Saucy Book"
+    
+Scenario:
+    Given I am on the homepage
+    Then I should see an intro video
