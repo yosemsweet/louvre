@@ -7,5 +7,4 @@ Scenario:
     Given I am on the homepage
     When I fill in the following:
         | email   | gill.fert@foaca.org |
-        | password | foaca |
     Then I should be taken to the "Thanks for your interest" page
