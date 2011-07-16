@@ -5,7 +5,6 @@ gem 'rails', '3.0.5'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -19,7 +18,7 @@ gem 'sqlite3'
 
 # Bundle the extra gems:
 # gem 'bj'
-# gem 'nokogiri'
+gem 'nokogiri', '1.4.4'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 
@@ -39,3 +38,4 @@ gem "factory_girl_rails", "1.0.1", :group => [:development, :test]
 gem "haml-rails", ">= 0.3.4"
 gem "compass", ">= 0.11.3"
 gem "pg"
+gem 'omniauth', ">= 0.2.6"

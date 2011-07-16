@@ -26,10 +26,14 @@ body {
 		background-color: $accent-color;
 		text-align: center;
 		margin-bottom: 10px;
+		text-shadow: 0 -1px 2px darken($accent-color, 20%),  0 1px 2px lighten($accent-color, 20%);
+		box-shadow: 0 1px 2px darken($accent-color, 20%);
 		
 		h1{ 
 			font-family: $header-text;
 			color: $background-color;
+			font-size: 4em;
+			margin-bottom: .1em;
 		}
 	}
 	
@@ -59,6 +63,8 @@ body {
 		   border-radius: 3px;
 		   -moz-border-radius: 3px;
 		   -webkit-border-radius: 3px;
+		   text-shadow: 0 -1px 2px darken($accent-color, 20%),  0 1px 2px lighten($accent-color, 20%);
+   		 box-shadow: 0 1px 2px darken($accent-color, 20%);
 		}
 		
 		p {

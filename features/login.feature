@@ -8,4 +8,4 @@ Scenario: Facebook Connect Login
   And I am on the homepage
   When I press "Connect with Facebook"
   And I am authenticated by facebook
-  Then I am authenticated
+  Then I am logged in
