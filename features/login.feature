@@ -1,10 +1,10 @@
-feature: Require Login with Facebook
+Feature: Require Login with Facebook
   In order to associate actions with people
-  As a product manager
-  I want people to register for A Saucy Book
+  People should be able to
+  Get authenticated with A Saucy Book
  
-@wip 
 Scenario: Facebook Connect Login
-  Given I am not logged in
-  When I click "Connect with Facebook"
-  Then I am logged in
+  Given I am not authenticated
+  When I press "Connect with Facebook"
+  And I am authenticated by facebook
+  Then I am authenticated
