@@ -5,6 +5,7 @@ Feature: Require Login with Facebook
  
 Scenario: Facebook Connect Login
   Given I am not authenticated
+  And I am on the homepage
   When I press "Connect with Facebook"
   And I am authenticated by facebook
   Then I am authenticated
