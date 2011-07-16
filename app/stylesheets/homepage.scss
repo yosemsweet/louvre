@@ -1,6 +1,6 @@
-@import "partials/base";
-@include sticky-footer(200px);
 @import url(http://fonts.googleapis.com/css?family=Swanky+and+Moo+Moo|Puritan:400,700,400italic&v2);
+@import "partials/base";
+
 
 $script-text: 'Puritan', sans-serif;
 $header-text: 'Swanky and Moo Moo', cursive;
@@ -8,7 +8,7 @@ $body-text: 'Puritan', sans-serif;
 
 $text-color: #333;
 
-$cream: #f6f6d6;
+$cream: #f6f6ed;
 $pink: #c5b3bd;
 $mauve: #9f9ba9;
 $green: #a0a048;
@@ -20,52 +20,56 @@ body {
 	background-color: $background-color;
 	font-family: $body-text;
 	color: $text-color;
-	
-	h1{ 
-		font-family: $header-text;
-		color: $background-color;
-	}
 
 	#header-bar {
 		padding: 10px;
 		background-color: $accent-color;
 		text-align: center;
 		margin-bottom: 10px;
+		
+		h1{ 
+			font-family: $header-text;
+			color: $background-color;
+		}
 	}
 	
-	#main-content{
-		text-align: center;
+	#content{
 		margin-bottom: 10px;
+		
+		#intro-video {
+			border: 2px solid $accent-color;
+		}
+		
+		input#email {
+			display: block;
+			width: 258px;
+			margin-right: 10px;
+			margin-top: 0px;
+		}
+		
+		input#submit {
+		   background: $accent-color;
+		   width: 150px;
+		   padding: 8px;
+			 margin-top: 0;
+		   letter-spacing: 1px;
+		   border: none;
+		   color: $background-color;
+			 font-size: 14px;
+		   border-radius: 3px;
+		   -moz-border-radius: 3px;
+		   -webkit-border-radius: 3px;
+		}
+		
+		p {
+			font-size: 14px;
+		}
+		
 	}
-	#intro-video {
-		border: 2px solid $accent-color;
-	}
-
-	input#email {
-		display: block;
-		width: 100%;
-		margin-right: 10px;
-		margin-top: 0px;
-		width: 537px;
-	}
-
-	input#submit {
-	   background: $accent-color;
-	   width: 150px;
-	   padding: 8px;
-		 margin-top: 0;
-	   letter-spacing: 1px;
-	   border: none;
-	   color: $background-color;
-		 font-size: 14px;
-	   border-radius: 3px;
-	   -moz-border-radius: 3px;
-	   -webkit-border-radius: 3px;
 	
-	}
-
 	#footer{
-		background-color: $green;
+		background-color: $cream;
+		padding-top: 10px;
 	}
 	
 }
