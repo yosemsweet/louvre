@@ -13,6 +13,9 @@ module NavigationHelpers
     when /Thanks for your interest/
       '/thankyou'
 
+		when /sign out/
+			signout_path
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
