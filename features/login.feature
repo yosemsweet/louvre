@@ -3,6 +3,7 @@ Feature: Require Login with Facebook
   People should be able to
   Get authenticated with A Saucy Book
  
+@omniauth_test
 Scenario: Facebook Connect Login
   Given I am not authenticated
   And I am on the homepage

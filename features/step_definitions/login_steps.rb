@@ -3,5 +3,5 @@ Given /^I am not authenticated$/ do
 end
 
 When /^I am authenticated by facebook$/ do
-	auth = request.env["omniauth.auth"]
+	visit 'auth/facebook/callback'
 end
