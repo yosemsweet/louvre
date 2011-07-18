@@ -1,79 +1,34 @@
 @import "partials/base";
-
-$blueprint-blue: #E5ECF9;
-$cream: #f6f6ed;
-$pink: #c5b3bd;
-$mauve: #9f9ba9;
-$green: #a0a048;
-$black: #000000;
-$grey: #888888;
-$white: #FAFAFF;
-
-$background-color: $white;
-$accent-color: darken($blueprint-blue, 20%);
-$text-color: #333333;
-
-body {
-	background-color: $background-color;
-	color: $text-color;
-
-	#header-bar {
-		padding: 10px;
-		background-color: $accent-color;
-		text-align: center;
-		margin-bottom: 10px;
-		text-shadow: 0 -1px 2px darken($accent-color, 20%),  0 1px 2px lighten($accent-color, 20%);
-		box-shadow: 0 1px 2px darken($accent-color, 20%);
-		
-		h1{ 
-			color: $background-color;
-			font-size: 4em;
-			margin-bottom: .1em;
-		}
-	}
 	
-	#content{
-		margin-bottom: 10px;
-		
-		#intro-video {
-			border: 5px solid $accent-color;
-		}
-		
-		input#email {
-			display: block;
-			width: 310px;
-			margin-top: 0px;
-			float: right;
-		}
-		
-		
-		input#submit {
-		   background: $accent-color;
-		   width: 150px;
-		   padding: 8px;
-			 margin-top: 0;
-		   letter-spacing: 1px;
-		   border: none;
-		   color: $background-color;
-			 font-size: 14px;
-		   border-radius: 3px;
-		   -moz-border-radius: 3px;
-		   -webkit-border-radius: 3px;
-		   text-shadow: 0 -1px 2px darken($accent-color, 20%),  0 1px 2px lighten($accent-color, 20%);
-   		 box-shadow: 0 1px 2px darken($accent-color, 20%);
-   		 float: right;
-		}
-		
-		p {
-			font-size: 14px;
-		}
-		
-	}
-	
-	#footer{
-		background-color: $background-color;
-		padding-top: 10px;
-	}
-	
+#intro-video {
+	border: 5px solid lighten($accent-color, 20%);
 }
 
+input#email {
+	display: block;
+	width: 310px;
+	margin-top: 0px;
+	float: right;
+}
+
+
+input#submit {
+   background: $accent-color;
+   width: 150px;
+   padding: 8px;
+	 margin-top: 0;
+   letter-spacing: 1px;
+   border: none;
+   color: $background-color;
+	 font-size: 14px;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   text-shadow: 0 -1px 2px darken($accent-color, 20%),  0 1px 2px lighten($accent-color, 20%);
+ 		 box-shadow: 0 1px 2px darken($accent-color, 20%);
+ 		 float: right;
+}
+
+p {
+	font-size: 14px;
+}

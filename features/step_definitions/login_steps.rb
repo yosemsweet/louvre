@@ -1,12 +1,12 @@
 Given /^I am not authenticated$/ do
-	Given "I go to 'sign out'"
+	Given "I go to 'log out'"
 end
 
 Given /^I am authenticated$/ do
-  Given "I sign in with \"Facebook\""
+  Given "I log in with \"Facebook\""
 end
 
 
-When /^I sign in with "([^"]*)"$/ do |provider|
+When /^I log in with "([^"]*)"$/ do |provider|
 	visit "/auth/#{provider.downcase}"
 end

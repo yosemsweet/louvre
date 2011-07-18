@@ -7,7 +7,7 @@ Feature: Require Login with Facebook
 Scenario: Facebook Login
   Given I am not authenticated
   And I am on the homepage
-  When I sign in with "Facebook"
+  When I log in with "Facebook"
   Then I should see "Logged in"
 
 @omniauth_test

@@ -3,31 +3,18 @@
 
 - content_for :head do
   = stylesheet_link_tag 'homepage.css', :media => 'screen, projection'
-  
-#user-nav
-  - if current_user
-    == Welcome #{current_user.name}!
-    = link_to "Log out", signout_path
-  - else
-    = link_to "Log in with Facebook", "/auth/facebook"
-  
-#header-bar
-  %h1#logo
-    A Saucy Book
 
-#content
-  .container
-    .span-14
-      %iframe#intro-video{:width => "540", :height => "349", :src => "http://www.youtube.com/embed/ZqVg5kSFsys", :frameborder=>"0", :allowfullscreen => true}
-    .span-10.last
-      %blockquote.box.clearfix
-        %p 
-          A Saucy Book empowers communities to bring together information from all across the web to create comprehensive, lasting bodies of knowledge. 
-        %p
-          %strong
-            Create your new canvas today.
-      
-        %form.inline{:action=>"/thankyou"}
-          %input#email.title{:type => "text", :name => "email", :placeholder => "Your Email Address", :style => "float: right;"}
-          %input#submit{:type => "submit", :name => "submit", :value => "Get Saucy!"}
+.span-14
+  %iframe#intro-video{:width => "540", :height => "349", :src => "http://www.youtube.com/embed/ZqVg5kSFsys", :frameborder=>"0", :allowfullscreen => true}
+.span-10.last
+  %blockquote.box.clearfix
+    %p 
+      A Saucy Book empowers communities to bring together information from all across the web to create comprehensive, lasting bodies of knowledge. 
+    %p
+      %strong
+        Create your new canvas today.
+  
+    %form.inline{:action=>"/thankyou"}
+      %input#email.title{:type => "text", :name => "email", :placeholder => "Your Email Address"}
+      %input#submit{:type => "submit", :name => "submit", :value => "Get Saucy!"}
 

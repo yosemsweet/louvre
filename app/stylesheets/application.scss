@@ -1,1 +1,33 @@
 @import "partials/base";
+
+body{
+	background-color: $background-color;
+	color: $text-color;
+}
+
+#header {
+	padding: 10px;
+	background-color: $accent-color;
+	text-align: center;
+	margin-bottom: 10px;
+	box-shadow: 0 1px 2px darken($accent-color, 40%);
+
+	#user-nav { 
+		float: right;
+		color: $white;
+		a {
+			color: $white;
+		}
+	}
+	
+	h1{ 
+		color: $background-color;
+		font-size: 4em;
+		margin-bottom: .1em;
+		text-shadow: 0 -1px 2px darken($accent-color, 40%),  0 1px 2px lighten($accent-color, 20%);
+	}
+}
+
+.flash {
+	text-align: center;
+}

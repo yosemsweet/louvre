@@ -2,6 +2,7 @@
 @import "blueprint/reset";
 
 // Import all the default blueprint modules so that we can access their mixins.
+$blueprint-font-size: 13px;
 @import "blueprint";
 
 // Import the non-default scaffolding module.
@@ -11,3 +12,15 @@
 @include blueprint;
 @include blueprint-scaffolding;
 
+$blueprint-blue: #E5ECF9;
+$cream: #f6f6ed;
+$pink: #c5b3bd;
+$mauve: #9f9ba9;
+$green: #a0a048;
+$black: #000000;
+$grey: #888888;
+$white: #FAFAFF;
+
+$background-color: $white;
+$accent-color: darken($blueprint-blue, 30%);
+$text-color: #333333;
