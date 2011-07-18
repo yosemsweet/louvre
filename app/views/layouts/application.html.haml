@@ -10,4 +10,8 @@
     = csrf_meta_tag
     = yield :head
   %body
+    .flash
+      -flash.each do |type, value|
+        .flash{ :class => type.to_s }
+          = value
     = yield

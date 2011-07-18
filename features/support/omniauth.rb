@@ -6,7 +6,14 @@ Before('@omniauth_test') do
       "provider"=>"facebook",
       "appid"=>"178863089564",
 			"app_secret" => "5df447b8480c97b38307cae54e1627c0", 
-      "user_info"=>{"email"=>"test@xxxx.com", "first_name"=>"Test", "last_name"=>"User", "name"=>"Test User"}
+			"uid"=>"12345", 
+      "user_info"=> {
+					"image"=>"http://www.carniola.org/theglory/images/McHammer.gif", 
+					"email"=>"test@xxxx.com", 
+					"first_name"=>"Test", 
+					"last_name"=>"User", 
+					"name"=>"Test User"
+				}
   }
 end
 
