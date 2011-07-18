@@ -10,15 +10,16 @@
 
 #content
   .container
-    .span-14.prepend-3
+    .span-14
       %iframe#intro-video{:width => "540", :height => "349", :src => "http://www.youtube.com/embed/ZqVg5kSFsys", :frameborder=>"0", :allowfullscreen => true}
-    .span-7.last
-      %p    
-        A Saucy Book empowers communities to bring together information from all across the web to create comprehensive, lasting bodies of knowledge.
-      %h2 Begin your canvas today
+    .span-10.last
+      %blockquote.box.clearfix
+        %p 
+          A Saucy Book empowers communities to bring together information from all across the web to create comprehensive, lasting bodies of knowledge. 
+        %p
+          %strong
+            Create your new canvas today.
       
-      %form{:action=>"/thankyou"}
-        %input#email.title{:type => "text", :name => "email", :placeholder => "Your Email Address"}
-        %input#submit{:type => "submit", :name => "submit", :value => "Get Saucy!"}
-
-#footer
+        %form.inline{:action=>"/thankyou"}
+          %input#email.title{:type => "text", :name => "email", :placeholder => "Your Email Address", :style => "float: right;"}
+          %button#submit Get Saucy!
