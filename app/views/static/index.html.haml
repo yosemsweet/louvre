@@ -19,9 +19,9 @@
       
       %form{:action=>"/thankyou"}
         %input#email.title{:type => "text", :name => "email", :placeholder => "Your Email Address"}
-        or
-        %input#facebook{:type => "submit", :name => "facebook-connect", :value => "Connect with Facebook"}
-        
         %input#submit{:type => "submit", :name => "submit", :value => "Get Saucy!"}
+      or
+      #twitter
+        = link_to "Sign in with Facebook", '/auth/facebook'
 
 #footer

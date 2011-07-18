@@ -1,10 +1,12 @@
-@import url(http://fonts.googleapis.com/css?family=Swanky+and+Moo+Moo|Puritan:400,700,400italic&v2);
+
+@import url(http://fonts.googleapis.com/css?family=Metrophobic:400|Merriweather:300,400,700&v2);
 @import "partials/base";
 
 
-$script-text: 'Puritan', sans-serif;
-$header-text: 'Swanky and Moo Moo', cursive;
-$body-text: 'Puritan', sans-serif;
+
+$script-text: 'Merriweather', serif;
+$header-text: 'Metrophobic', sans-serif;
+$body-text: 'Merriweather', sans-serif;
 
 $text-color: #333;
 
@@ -12,9 +14,14 @@ $cream: #f6f6ed;
 $pink: #c5b3bd;
 $mauve: #9f9ba9;
 $green: #a0a048;
+$black: #000000;
+$grey: #888888;
+$white: #FAFAFF;
 
-$background-color: $cream;
-$accent-color: $mauve;
+
+
+$background-color: $white;
+$accent-color: $black;
 
 body {
 	background-color: $background-color;
@@ -74,7 +81,7 @@ body {
 	}
 	
 	#footer{
-		background-color: $cream;
+		background-color: $background-color;
 		padding-top: 10px;
 	}
 	
