@@ -8,8 +8,9 @@ end
 
 Given /^I am signed in with "([^"]*)"$/ do |provider|
   visit "/auth/#{provider.downcase}"
+	Then "I should see \"Signed in\""
 end
 
 Given /^I am logged ([^"]*)$/ do |logged_in_state|
-	Then "I should see \"Signed #{logged_in_state}\""
+	Then "I should see \"Test User\""
 end
