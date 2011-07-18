@@ -91,7 +91,6 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.16)
     nokogiri (1.5.0)
-    pg (0.11.0)
     polyglot (0.3.1)
     rack (1.2.3)
     rack-mount (0.6.14)
@@ -160,7 +159,6 @@ DEPENDENCIES
   factory_girl_rails (= 1.0.1)
   fancy-buttons
   haml-rails (>= 0.3.4)
-  pg
   rails (= 3.0.5)
   rails3-generators
   rspec-rails (= 2.5.0)
