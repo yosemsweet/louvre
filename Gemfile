@@ -13,3 +13,4 @@ gem "factory_girl_rails", "1.0.1", :group => [:development, :test]
 gem "haml-rails", ">= 0.3.4"
 gem "compass", ">= 0.11.3"
 gem 'omniauth', ">= 0.2.6"
+gem 'watchr', :group => [:development, :test]
