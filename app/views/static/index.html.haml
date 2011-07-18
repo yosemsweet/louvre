@@ -4,6 +4,13 @@
 - content_for :head do
   = stylesheet_link_tag 'homepage.css', :media => 'screen, projection'
   
+#user-nav
+  - if current_user
+    == Welcome #{current_user.name}!
+    = link_to "Log out", signout_path
+  - else
+    = link_to "Log in with Facebook", "/auth/facebook"
+  
 #header-bar
   %h1#logo
     A Saucy Book
@@ -22,4 +29,5 @@
       
         %form.inline{:action=>"/thankyou"}
           %input#email.title{:type => "text", :name => "email", :placeholder => "Your Email Address", :style => "float: right;"}
-          %button#submit Get Saucy!
+          %input#submit{:type => "submit", :name => "submit", :value => "Get Saucy!"}
+
