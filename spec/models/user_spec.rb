@@ -1,5 +1,75 @@
 require 'spec_helper'
 
 describe User do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
+  context "validations" do
+  
+    it "should require a name" do
+      user = Factory.build(:user, :name => "")
+      user.should_not be_valid
+    end
+  
+    it "should require a provider" do
+      user = Factory.build(:user, :provider => "")
+      user.should_not be_valid
+    end
+  
+    it "should require a uid" do
+      user = Factory.build(:user, :uid => "")
+      user.should_not be_valid
+    end
+  
+  end
+  
+  describe "#create_with_omniauth" do
+    it "should exist" do
+      User.should respond_to(:create_with_omniauth)
+    end
+    
+    context "with valid auth data" do
+      
+      before(:each) do
+        @valid_auth = {
+            "provider"=>"facebook",
+            "appid"=>"178863089564",
+      			"app_secret" => "5df447b8480c97b38307cae54e1627c0", 
+      			"uid"=>"12345", 
+            "user_info"=> {
+      					"image"=>"http://www.carniola.org/theglory/images/McHammer.gif", 
+      					"email"=>"test@xxxx.com", 
+      					"first_name"=>"Test", 
+      					"last_name"=>"User", 
+      					"name"=>"Test User"
+      				}
+        }
+      end
+      
+      it "should create a user with the correct data" do
+        user = User.create_with_omniauth(@valid_auth)
+        user.provider.should == @valid_auth["provider"]  
+        user.uid.should == @valid_auth["uid"]  
+        user.name.should == @valid_auth["user_info"]["name"]  
+  			user.image.should == @valid_auth["user_info"]["image"]
+  			user.email.should == @valid_auth["user_info"]["email"]
+      end
+    end
+    
+    context "with invalid auth data" do
+      before(:each) do
+        @invalid_auth = {}
+      end
+      
+      it "should throw an active record error" do
+        expect {
+          user = User.create_with_omniauth(@invalid_auth)
+        }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+      
+    end
+    
+  end
+  
+  
+  
+  
 end
