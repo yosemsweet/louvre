@@ -10,8 +10,13 @@
   %b Image url:
   = @canvas.image_url
 %p
-  %b Owner:
-  = @canvas.owner_id
+  %b Creator:
+  = @canvas.creator_id
+%h2
+  Input Stream:
+
+%h2
+  Pages
 
 = link_to 'Edit', edit_canvas_path(@canvas)
 \|

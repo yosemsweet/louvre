@@ -1,4 +1,4 @@
-Then /^I should own "([^"]*)" canvas$/ do |canvas_name|
-	Canvas.find_by_name('Fashion of a Certain Age').owner = current_user
+Then /^I should be the creator of the "([^"]*)" canvas$/ do |canvas_name|
+	Canvas.find_by_name(canvas_name).creator.should == current_user
 end
 

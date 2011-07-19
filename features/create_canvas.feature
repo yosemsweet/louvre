@@ -27,7 +27,8 @@ When I fill in the following:
 |Mission  |Better clothing for women of a certain age!|
 |Image url|http://www.carniola.org/theglory/images/McHammer.gif|
 And I press "Save"
-Then I should be on "the Fashion of a Certain Age canvas homepage"
+Then I should be on "Fashion of a Certain Age canvas homepage"
 And I should see "Canvas created!"
-And I should own "the Fashion of a Certain Age" canvas
+And I should be the creator of the "Fashion of a Certain Age" canvas
+
 

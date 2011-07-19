@@ -7,6 +7,11 @@ describe Canvas do
 			canvas.should be_valid
 		end
 	
+	  it "should save properly to the database" do
+	    canvas = Factory.build(:canvas)
+	    canvas.save!
+	  end
+	  
 		context "attribute validations" do
 			context "Name" do
 				it "should be required" do
@@ -29,14 +34,14 @@ describe Canvas do
 				end
 			end
 			
-			context "Owner" do
-				it "should have an owner" do
+			context "Creator" do
+				it "should have a creator" do
 					canvas = Factory.build(:canvas)
-					canvas.should respond_to(:owner)
+					canvas.should respond_to(:creator)
 				end
 				
 				it "should be required" do
-					canvas = Factory.build(:canvas, :owner => nil)
+					canvas = Factory.build(:canvas, :creator => nil)
 					canvas.should_not be_valid
 				end
 			end

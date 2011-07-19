@@ -19,9 +19,13 @@ module NavigationHelpers
 		when /the New Canvas page/
 			new_canvas_path
 			
-		when /the Fashion of a Certain Age canvas homepage/
+		when /Fashion of a Certain Age canvas homepage/
 			canvas = Canvas.find_by_name('Fashion of a Certain Age')
 			canvas_path(canvas)
+			
+		when /that canvas' homepage/
+		  canvas = Canvas.last
+		  canvas_path(canvas)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

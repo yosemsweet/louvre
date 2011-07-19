@@ -42,7 +42,7 @@ class CanvaeController < ApplicationController
   def create
     @canvas = Canvas.new(params[:canvas])
 		
-		@canvas.owner = current_user
+		@canvas.creator = current_user
 
     respond_to do |format|
       if @canvas.save
