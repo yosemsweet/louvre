@@ -4,5 +4,5 @@ Factory.define :canvas do |f|
   f.name "Fashion of a Certain Age"
   f.mission "Better clothing for women of a certain age!"
   f.image_url "http://www.carniola.org/theglory/images/McHammer.gif"
-  f.owner_id 1
+	f.association :owner, :factory => :user
 end
