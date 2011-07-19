@@ -9,5 +9,5 @@ Given I am "Gill"
 And I am authenticated
 And I am on "the homepage"
 When I follow "Create Canvas"
-Then I am on "the New Canvas" page
+Then I should be on "the New Canvas page"
 

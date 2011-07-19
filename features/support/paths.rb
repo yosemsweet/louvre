@@ -15,6 +15,9 @@ module NavigationHelpers
 
 		when /log out/
 			logout_path
+			
+		when /the New Canvas page/
+			new_canvas_path
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
