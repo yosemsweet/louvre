@@ -15,7 +15,7 @@ end
 
 def run_spec_file(file)
   system('clear')
-  result = run "rake spec SPEC=#{file})"
+  result = run "rake spec SPEC=#{file}"
   growl result.split("\n").last rescue nil
   puts result
 end
