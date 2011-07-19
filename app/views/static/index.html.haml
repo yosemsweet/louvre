@@ -19,5 +19,6 @@
       %input#submit{:type => "submit", :name => "submit", :value => "Get Saucy!"}
 
 
-  = link_to 'Create Canvas', new_canvas_path
+  -if current_user
+    = link_to 'Create Canvas', new_canvas_path
 
