@@ -1,8 +1,8 @@
 # Read about factories at http://github.com/thoughtbot/factory_girl
 
 Factory.define :canvas do |f|
-  f.name "MyString"
-  f.mission "MyText"
-  f.image_url "MyString"
+  f.name "Fashion of a Certain Age"
+  f.mission "Better clothing for women of a certain age!"
+  f.image_url "http://www.carniola.org/theglory/images/McHammer.gif"
   f.owner_id 1
 end
