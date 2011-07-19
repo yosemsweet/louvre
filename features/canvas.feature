@@ -29,4 +29,5 @@ When I fill in the following:
 And I press "Save"
 Then I should be on "the Fashion of a Certain Age canvas homepage"
 And I should see "Canvas created!"
+And I should own "the Fashion of a Certain Age" canvas
 

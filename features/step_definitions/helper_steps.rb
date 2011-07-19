@@ -5,5 +5,5 @@ Then /^the page title should be "([^"]*)"$/ do |title|
 end
 
 Given /^I am "([^"]*)"$/ do |name|
-
+ current_user = Factory.create(:user, :name => name)
 end

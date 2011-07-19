@@ -41,6 +41,8 @@ class CanvaeController < ApplicationController
   # POST /canvae.xml
   def create
     @canvas = Canvas.new(params[:canvas])
+		
+		@canvas.owner = current_user
 
     respond_to do |format|
       if @canvas.save
