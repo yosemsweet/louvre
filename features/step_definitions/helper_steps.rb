@@ -3,3 +3,7 @@ Then /^the page title should be "([^"]*)"$/ do |title|
     page.should have_content(title)
   end
 end
+
+Given /^I am "([^"]*)"$/ do |name|
+
+end

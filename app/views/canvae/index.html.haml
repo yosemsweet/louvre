@@ -1,0 +1,25 @@
+%h1 Listing canvae
+
+%table
+  %tr
+    %th Name
+    %th Mission
+    %th Image url
+    %th Owner
+    %th
+    %th
+    %th
+
+  - @canvae.each do |canvas|
+    %tr
+      %td= canvas.name
+      %td= canvas.mission
+      %td= canvas.image_url
+      %td= canvas.owner_id
+      %td= link_to 'Show', canvas
+      %td= link_to 'Edit', edit_canvas_path(canvas)
+      %td= link_to 'Destroy', canvas, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Canvas', new_canvas_path

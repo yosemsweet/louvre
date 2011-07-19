@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @canvas.name
+%p
+  %b Mission:
+  = @canvas.mission
+%p
+  %b Image url:
+  = @canvas.image_url
+%p
+  %b Owner:
+  = @canvas.owner_id
+
+= link_to 'Edit', edit_canvas_path(@canvas)
+\|
+= link_to 'Back', canvae_path
