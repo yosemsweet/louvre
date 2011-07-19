@@ -4,6 +4,8 @@
 - content_for :head do
   = stylesheet_link_tag 'homepage.css', :media => 'screen, projection'
 
+- render "shared/header"
+
 .span-14
   %iframe#intro-video{:width => "540", :height => "349", :src => "http://www.youtube.com/embed/ZqVg5kSFsys", :frameborder=>"0", :allowfullscreen => true}
 .span-10.last

@@ -1,3 +1,4 @@
+= render "shared/header"
 %h1 Listing canvae
 
 %table
@@ -5,7 +6,7 @@
     %th Name
     %th Mission
     %th Image url
-    %th Owner
+    %th Creator
     %th
     %th
     %th
@@ -15,7 +16,7 @@
       %td= canvas.name
       %td= canvas.mission
       %td= canvas.image_url
-      %td= canvas.owner_id
+      %td= canvas.creator_id
       %td= link_to 'Show', canvas
       %td= link_to 'Edit', edit_canvas_path(canvas)
       %td= link_to 'Destroy', canvas, :confirm => 'Are you sure?', :method => :delete
