@@ -44,7 +44,7 @@ class CanvaeController < ApplicationController
 
     respond_to do |format|
       if @canvas.save
-        format.html { redirect_to(@canvas, :notice => 'Canvas was successfully created.') }
+        format.html { redirect_to(@canvas, :notice => 'Canvas created!') }
         format.xml  { render :xml => @canvas, :status => :created, :location => @canvas }
       else
         format.html { render :action => "new" }

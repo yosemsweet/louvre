@@ -18,6 +18,9 @@ module NavigationHelpers
 			
 		when /the New Canvas page/
 			new_canvas_path
+			
+		when /the Fashion of a Certain Age canvas homepage/
+			canvas_path(Canvas.find_by_name('Fashion of a Certain Age'))
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
