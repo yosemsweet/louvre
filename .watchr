@@ -30,7 +30,9 @@ end
 def run_all_features
   system('clear')
   result = run "rake cucumber"
-  growl result.split("\n").last rescue nil
+  results = result.split("\n")
+  
+  growl results[results.length - 3 .. results.length].join("\n") rescue nil
   puts result
 end
 
