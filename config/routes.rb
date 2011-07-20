@@ -1,8 +1,10 @@
 Louvre::Application.routes.draw do
 
-  resources :pages
-
   resources :canvae
+
+  resources :canvae do
+		resources :pages
+	end
 
   root :to => "static#index"
   match 'thankyou' => "static#thankyou"

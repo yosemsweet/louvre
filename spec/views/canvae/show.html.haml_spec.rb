@@ -18,7 +18,6 @@ describe "canvae/show.html.haml" do
   
   it "displays the canvas name for the logo" do
     render
-    puts view.content_for(:header).to_yaml
     view.content_for(:header).should have_selector('h1#logo', :content => @canvas.name) 
   end
   
