@@ -28,18 +28,12 @@
   $(function(){
     
     mpq.push(["track","hit_homepage"]);
-   // mpq.push(["track_links",$("#submit"),"click_create_canvas"]);
+    mpq.push(["track_forms",$("form"),"click_create_canvas"]);
     
     $("#login").click(function(){
       mpq.push(["track","click_login"]);
     });
     
-    $("form").submit(function(event){
-      mpq.push(["track","click_create_canvas"]);
-     });
-   
-   
-   
   })
   
 

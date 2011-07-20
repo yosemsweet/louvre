@@ -8,10 +8,6 @@
 :javascript
   $(function(){
     
-    mpq.push(["track","hit_new_canvas_page"]);
-    
-    $("form").submit(function(){
-      mpq.push(["track","click_submit_new_canvas_form"]);
-    });
-    
+      mpq.push(["track","hit_new_canvas_page"]);
+      mpq.push(["track_forms",$("form"),"click_submit_new_canvas_form"]);
   })
