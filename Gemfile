@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
 gem 'sqlite3'
+
 gem 'nokogiri'
 gem "haml-rails"
 gem "compass"
@@ -14,6 +15,7 @@ group :development, :test do
   gem "rails3-generators"
   gem "rspec-rails"
   gem "ruby-debug19"
+  gem 'webrat'
 end
 
 group :test do
@@ -21,3 +23,4 @@ group :test do
   gem "database_cleaner"
   gem "capybara"
 end
+
