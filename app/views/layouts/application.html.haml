@@ -11,20 +11,9 @@
     = yield :head
   %body
   
-
-    
     #header
-      .container
-        #user-nav
-          - if current_user
-            == Logged in as #{current_user.name}
-            |
-            = link_to "Log out", logout_path
-          - else
-            = link_to "Log in with Facebook", "/auth/facebook"
-        %h1#logo
-          A Saucy Book
-    
+      = yield :header
+          
     .container
       -flash.each do |type, value|
         .flash{ :class => type.to_s }
