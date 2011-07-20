@@ -9,18 +9,36 @@
 .span-14
   %iframe#intro-video{:width => "540", :height => "349", :src => "http://www.youtube.com/embed/S__-wDm2vNY", :frameborder=>"0", :allowfullscreen => true}
 .span-10.last
-  %blockquote.box.clearfix
+  .box.clearfix
     %p 
-      A Saucy Book empowers communities to bring together information from all across the web to create comprehensive, lasting bodies of knowledge. 
-    %p
-      %strong
-        Create your new canvas today.
+      A Saucy Book empowers communities to bring together information from all across the web to create comprehensive, lasting bodies of knowledge.
+    -if current_user
+      %h2 Create a New Canvas
+      %form.inline{:action => "#{new_canvas_path}"}
+        %input#canvas_name.title{:type => "text", :placeholder => "Canvas Name", :name => "canvas_name"}
+        %input#submit{:type => "submit", :value => "Get Saucy!"}
+    -else
+      %h2 Get Started
+      %a#login{:href=>"/auth/facebook"}
+        %img{:src=>"http://plancast.com/images/facebook/login-button.png"}
+
+ 
   
-    %form.inline{:action=>"/thankyou"}
-      %input#email.title{:type => "text", :name => "email", :placeholder => "Your Email Address"}
-      %input#submit{:type => "submit", :name => "submit", :value => "Get Saucy!"}
+:javascript
+  $(function(){
+    
+    mpq.push(["track","hit_homepage");
+    
+    $("#login").click(function(){
+      mpq.push(["track","click_login"]);
+    });
+    
+    $("#submit").click(function(){
+      mpq.push(["track","click_create_canvas"]);
+    });
+    
+  })
+  
 
 
-  -if current_user
-    = link_to 'Create Canvas', new_canvas_path
-
+  
