@@ -19,6 +19,13 @@ module NavigationHelpers
 		when /the New Canvas page/
 			new_canvas_path
 			
+		when /New Page page/
+			new_page_path
+			
+		when /Hats no one should wear page/
+			page = Page.find_by_title('Hats no one should wear')
+			page_path(page)
+			
 		when /Fashion of a Certain Age canvas homepage/
 			canvas = Canvas.find_by_name('Fashion of a Certain Age')
 			canvas_path(canvas)

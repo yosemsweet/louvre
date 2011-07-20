@@ -1,5 +1,7 @@
 Louvre::Application.routes.draw do
 
+  resources :pages
+
   resources :canvae
 
   root :to => "static#index"
