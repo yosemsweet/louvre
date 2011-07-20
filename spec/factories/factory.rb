@@ -1,6 +1,7 @@
 # Read about factories at http://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
+	
   factory :user, :aliases => [:creator] do
 	  provider "facebook"
 	  uid "12345"
@@ -21,4 +22,5 @@ FactoryGirl.define do
     creator
     canvas
   end
+
 end
