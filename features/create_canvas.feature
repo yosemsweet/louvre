@@ -3,13 +3,16 @@ Feature: Create a canvas
   I want to create a new canvas
   So that I can help Women of a Certain Age be Fashionable
  
+@wip
 @omniauth_test
 Scenario: Start Create Canvas Wizard - authenticated
 Given I am "Gill"
 And I am authenticated
 And I am on "the homepage"
-When I follow "Create Canvas"
+When I fill in "canvas_name" with "Poo"
+And I press "Get Saucy!"
 Then I should be on "the New Canvas page"
+And the "Name" should be filled with "Poo"
 
 Scenario: Can't create canvas if not authenticated
 Given I am not authenticated

@@ -5,13 +5,6 @@ Feature: homepage_lead_acquisition
 
 Scenario:
     Given I am on the homepage
-    When I fill in the following:
-        | email   | gill.fert@foaca.org |
-    And I press "submit"
-    Then I should be on the "Thanks for your interest" page
-
-Scenario:
-    Given I am on the homepage
     Then I should see the logo
     
 Scenario:
