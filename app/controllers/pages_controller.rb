@@ -1,6 +1,9 @@
 class PagesController < ApplicationController
   # GET /pages
   # GET /pages.xml
+
+	before_filter :load_canvas, :except => :destroy
+
   def index
     @pages = Page.all
 
@@ -24,7 +27,8 @@ class PagesController < ApplicationController
   # GET /pages/new
   # GET /pages/new.xml
   def new
-    @page = Page.new
+    
+		@page = @canvas.pages.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,11 +45,12 @@ class PagesController < ApplicationController
   # POST /pages.xml
   def create
 		
-    @page = Page.new(params[:page])
+		@page = @canvas.pages.new(params[:page])
+		@page.creator = current_user
 
     respond_to do |format|
       if @page.save
-        format.html { redirect_to(@page, :notice => 'Page created!') }
+        format.html { redirect_to(canvas_page_path(@canvas, @page), :notice => 'Page created!') }
         format.xml  { render :xml => @page, :status => :created, :location => @page }
       else
         format.html { render :action => "new" }
@@ -57,11 +62,12 @@ class PagesController < ApplicationController
   # PUT /pages/1
   # PUT /pages/1.xml
   def update
-    @page = Page.find(params[:id])
+
+		@page = Page.find(params[:id])
 
     respond_to do |format|
       if @page.update_attributes(params[:page])
-        format.html { redirect_to(@page, :notice => 'Page was successfully updated.') }
+        format.html { redirect_to(canvas_page_path(@canvas, @page), :notice => 'Page was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -77,8 +83,17 @@ class PagesController < ApplicationController
     @page.destroy
 
     respond_to do |format|
-      format.html { redirect_to(pages_url) }
+      format.html { redirect_to(canvas_path(@canvas)) }
       format.xml  { head :ok }
     end
   end
+
+	
+	private 
+	
+	def load_canvas
+		@canvas = Canvas.find(params[:canvas_id])
+	end
+
+
 end

@@ -3,11 +3,11 @@
 
 %p
   %b Title:
-  = @page.title
+  /= @page.title
 %p
   %b Creator:
   = @page.creator.name
 
-= link_to 'Edit', edit_page_path(@page)
+= link_to 'Edit', edit_canvas_page_path(@canvas, @page)
 \|
-= link_to 'Back', pages_path
+= link_to 'Back', canvas_path(@canvas)

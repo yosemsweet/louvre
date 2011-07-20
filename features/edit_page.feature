@@ -6,7 +6,9 @@ So that I can refine it to make it better
 
 @wip
 Scenario: Moving Widgets
-	Given I am on a page
+	Given there is a canvas 
+	And this canvas has a page titled "Pants no one should wear"
+#	And I am on "Pants no one should wear"
 	And the page has 2 widgets
 	And I press "Edit Page"
 	When I click and drag a widget to a new spot on the page
@@ -14,7 +16,9 @@ Scenario: Moving Widgets
 	Then the page should save the changes
 @wip	
 Scenario: Edit Widget
-	Given I am on a page
+	Given there is a canvas 
+ 	And this canvas has a page titled "Pants no one should wear"
+#	And I am on "Pants no one should wear"
 	And the page has a widget
 	And I press "Edit Widget"
 	When WYSIWYG form appears with the Widget text pre-populated
@@ -23,8 +27,10 @@ Scenario: Edit Widget
 	Then "hello world" should appear on the page
 @wip	
 Scenario: Change Title
-	Given I am on a page
-	When I press "Edit Title"
-	And I fill in "MC Hammer" for "Title"
-	And click "Save Title"
-	Then "Title" should be "MC Hammer" 
+	Given there is a canvas 
+	And this canvas has a page titled "Pants no one should wear"
+#	And I am on "Pants no one should wear"
+#	When I press "Edit Title"
+#	And I fill in "MC Hammer" for "Title"
+#	And click "Save Title"
+#	Then "Title" should be "MC Hammer" 
