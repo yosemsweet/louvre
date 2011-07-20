@@ -11,7 +11,7 @@ gem 'mysql2', "0.2.7" # for Rails < 3.1
 
 group :development, :test do
   gem 'watchr'
-  gem "factory_girl_rails"
+  gem "factory_girl_rails", "~> 1.1.rc1"
   gem "rails3-generators"
   gem "rspec-rails"
   gem "ruby-debug19"

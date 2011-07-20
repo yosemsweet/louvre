@@ -4,6 +4,8 @@
 %p
   %b Name:
   = @canvas.name
+  = @canvas.id
+
 %p
   %b Mission:
   = @canvas.mission
@@ -18,6 +20,11 @@
 
 %h2
   Pages
+    
+- @canvas.pages.each do |page|
+  %ul
+    %li
+      = link_to page.title, page_path(page.id)
 
 %p 
   = link_to 'Create Page', new_page_path
