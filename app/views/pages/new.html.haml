@@ -3,3 +3,15 @@
 = render 'form'
 
 = link_to 'Back', pages_path
+
+
+:javascript
+  $(function(){
+    
+    mpq.push(["track","hit_new_canvas_page");
+    
+    $("form").submit(function(){
+      mpq.push(["track","click_submit_new_canvas_form");
+    });
+    
+  })
