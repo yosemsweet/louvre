@@ -28,6 +28,15 @@ describe CommentsController do
             :thing_id => comment.thing.id
           assigns(:comment).id.should be_nil
         end
+        
+        it "returns an error code" do
+          results = post :create, 
+            :comment => {:content => comment.content, :creator_id => comment.creator.id}, 
+            :format => 'json', 
+            :canvas_id => comment.thing.canvas.id, 
+            :thing_id => comment.thing.id
+          results.status.should == 422
+        end
       end
     end
    end
