@@ -18,6 +18,16 @@ describe CommentsController do
       end
       
       describe "without valid params" do
+        let(:comment) { Factory.build(:comment, :content=>nil) }
+        
+        it "assigns new comment to @comment" do
+          post :create, 
+            :comment => {:content => comment.content, :creator_id => comment.creator.id}, 
+            :format => 'json', 
+            :canvas_id => comment.thing.canvas.id, 
+            :thing_id => comment.thing.id
+          assigns(:comment).id.should be_nil
+        end
       end
     end
    end
