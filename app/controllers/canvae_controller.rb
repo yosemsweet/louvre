@@ -24,7 +24,9 @@ class CanvaeController < ApplicationController
   # GET /canvae/new
   # GET /canvae/new.xml
   def new
-    @canvas = Canvas.new
+    
+    canvas_name = params[:canvas_name] || ""
+    @canvas = Canvas.new(:name => canvas_name)
 
     respond_to do |format|
       format.html # new.html.erb

@@ -45,6 +45,15 @@ describe Canvas do
 					canvas.should_not be_valid
 				end
 			end
+			
+			context "Pages" do
+				it "should have Pages" do
+					canvas = Factory.build(:canvas)
+					canvas.should respond_to(:pages)
+				end
+			end
+			
+			
 		end
 	
 	end
