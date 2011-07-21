@@ -5,7 +5,11 @@ Louvre::Application.routes.draw do
   end
 
   resources :canvae do
-		resources :pages
+		resources :pages do
+		  member do
+		    get 'widgets'
+	    end
+	  end
 	end
 
   root :to => "static#index"

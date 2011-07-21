@@ -4,6 +4,14 @@ class PagesController < ApplicationController
 
 	before_filter :load_canvas, :except => :destroy
 
+
+  def widgets
+    page = Page.find(params[:id])
+    @widgets = page.widgets
+    
+    render :layout => false
+  end
+
   def index
     @pages = Page.all
 

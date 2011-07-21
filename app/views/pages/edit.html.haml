@@ -1,9 +1,36 @@
 = render :partial => "header"
 
+#toolbar
+  %span#add_text_widget
+    Text
+
+#edit_dialog
+  %iframe#edit_frame{:src => "http://www.suite101.com"}
+
+#widgets
+
+
 %h1 Editing page
 
-= render 'form'
+
 
 = link_to 'Show', canvas_page_path(@canvas, @page)
 \|
 = link_to 'Back', :back
+
+:javascript
+    close_edit_dialog = function(){
+      the_edit_dialog.dialog("close");
+    }
+    
+    reload_widgets = function(){
+      $("#widgets").load("/canvae/#{@page.canvas.id}/pages/#{@page.id}/widgets");      
+    }
+    
+    $("#add_text_widget").click(function(){
+      // Open "new text widget" dialog
+      the_edit_dialog = $("#edit_dialog").dialog({minHeight:250, minWidth:500})
+      $("#edit_frame").attr("src","/canvae/#{@page.canvas.id}/widgets/new?page_id=#{@page.id}&content_type=TextContent")
+    });
+    
+    reload_widgets();

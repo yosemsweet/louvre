@@ -25,7 +25,7 @@ class WidgetsController < ApplicationController
     @widget.build_empty_content(params[:content_type])
     
     if @widget.save && @widget.content.update_attributes(params[:content])
-      head :ok
+      render :layout => false
     else
       head :bad_request
     end
