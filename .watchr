@@ -42,14 +42,14 @@ end
 
 def run_suite
   run_all_specs
-  run_all_features
+  # run_all_features
 end
 
 watch('spec/spec_helper\.rb') { run_all_specs }
 watch('spec/.*/.*_spec\.rb') { |m| run_spec_file(m[0]) }
 watch('app/.*/.*\.rb') { |m| related_spec_files(m[0]).map {|tf| run_spec_file(tf) } }
-watch('features/(.*)') { run_all_features }
-watch('features/(.*)/(.*)') { run_all_features}
+#watch('features/(.*)') { run_all_features }
+#watch('features/(.*)/(.*)') { run_all_features}
 
 # Ctrl-\
 Signal.trap 'QUIT' do

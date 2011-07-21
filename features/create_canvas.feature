@@ -3,7 +3,6 @@ Feature: Create a canvas
   I want to create a new canvas
   So that I can help Women of a Certain Age be Fashionable
  
-@wip
 @omniauth_test
 Scenario: Start Create Canvas Wizard - authenticated
 Given I am "Gill"
