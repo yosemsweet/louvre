@@ -27,14 +27,11 @@
 :javascript
   $(function(){
     
-    mpq.push(["track","hit_homepage");
+    mpq.push(["track","hit_homepage"]);
+    mpq.push(["track_forms",$("form"),"click_create_canvas"]);
     
     $("#login").click(function(){
       mpq.push(["track","click_login"]);
-    });
-    
-    $("#submit").click(function(){
-      mpq.push(["track","click_create_canvas"]);
     });
     
   })
