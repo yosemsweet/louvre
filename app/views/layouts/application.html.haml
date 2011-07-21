@@ -7,6 +7,7 @@
     /[if lt IE 8]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'          
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js', 'underscore-min','mixpanel_integration','google_analytics'
+    = javascript_include_tag 'http://texteditor.suite101.com.s3.amazonaws.com/ckeditor.js','http://texteditor.suite101.com.s3.amazonaws.com/adapters/jquery.js'
     = csrf_meta_tag
     = yield :head
   %body
@@ -19,7 +20,6 @@
         .flash{ :class => type.to_s }
           = value
       = yield
-      
     
     #footer
       .container

@@ -1,83 +1,60 @@
 class WidgetsController < ApplicationController
-  # GET /widgets
-  # GET /widgets.xml
+  
+	before_filter :load_canvas, :except => :destroy
+  
   def index
     @widgets = Widget.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @widgets }
-    end
   end
 
-  # GET /widgets/1
-  # GET /widgets/1.xml
   def show
     @widget = Widget.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @widget }
-    end
   end
 
-  # GET /widgets/new
-  # GET /widgets/new.xml
   def new
     @widget = Widget.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @widget }
-    end
+    @widget.build_empty_content(params[:content_type])
   end
 
-  # GET /widgets/1/edit
   def edit
     @widget = Widget.find(params[:id])
   end
 
-  # POST /widgets
-  # POST /widgets.xml
   def create
-    @widget = Widget.new(params[:widget])
-
-    respond_to do |format|
-      if @widget.save
-        format.html { redirect_to(@widget, :notice => 'Widget was successfully created.') }
-        format.xml  { render :xml => @widget, :status => :created, :location => @widget }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @widget.errors, :status => :unprocessable_entity }
-      end
+        
+    @widget = @canvas.widgets.new(params[:widget])
+    @widget.build_empty_content(params[:content_type])
+    
+    if @widget.save && @widget.content.update_attributes(params[:content])
+      head :ok
+    else
+      head :bad_request
     end
+
   end
 
-  # PUT /widgets/1
-  # PUT /widgets/1.xml
   def update
     @widget = Widget.find(params[:id])
 
-    respond_to do |format|
-      if @widget.update_attributes(params[:widget])
-        format.html { redirect_to(@widget, :notice => 'Widget was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @widget.errors, :status => :unprocessable_entity }
-      end
-    end
+    # TODO: Wrap these updates in a transaction
+    if @widget.content.update_attributes(params[:content]) && @widget.update_attributes(params[:widget])
+      head :ok
+    else
+      head :bad_request
+    end    
+      
   end
 
-  # DELETE /widgets/1
-  # DELETE /widgets/1.xml
+  # TODO: fix this method for nested resource
   def destroy
     @widget = Widget.find(params[:id])
     @widget.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(widgets_url) }
-      format.xml  { head :ok }
-    end
+    head :ok
   end
+  
+  private 
+	
+	def load_canvas
+		@canvas = Canvas.find(params[:canvas_id])
+	end
+  
 end

@@ -6,4 +6,12 @@ class Widget < ActiveRecord::Base
   
   validates_presence_of :canvas
   
+  def build_empty_content(type = "TextContent")
+    begin
+      self.content = type.constantize.new
+    rescue
+      self.content = TextContent.new
+    end
+  end
+  
 end
