@@ -12,6 +12,10 @@ describe Page do
 	    page.save!
 	  end
 	  
+	  it "should be able to have widgets" do
+	    Factory.build(:page).should respond_to(:widgets)
+    end
+	  
 		context "attribute validations" do
 			
 			context "Title" do
@@ -49,4 +53,3 @@ describe Page do
 	
 	end
 end
-

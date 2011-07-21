@@ -1,5 +1,7 @@
 Louvre::Application.routes.draw do
 
+  resources :widgets
+
   resources :canvae
 
   resources :canvae do
