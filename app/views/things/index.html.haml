@@ -15,9 +15,9 @@
       %td= thing.content
       %td= thing.creator_id
       %td= link_to 'Show', thing
-      %td= link_to 'Edit', edit_thing_path(thing)
+      %td= link_to 'Edit', edit_canvas_thing_path(@canvas,thing)
       %td= link_to 'Destroy', thing, :confirm => 'Are you sure?', :method => :delete
 
 %br
 
-= link_to 'New Thing', new_thing_path
+= link_to 'New Thing', new_canvas_thing_path(@canvas)

@@ -44,6 +44,7 @@ describe Thing do
   		    thing.should_not be_valid
   		  end
   		end
+  		
   	end	
   end
 end

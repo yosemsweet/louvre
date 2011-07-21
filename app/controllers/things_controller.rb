@@ -44,14 +44,16 @@ class ThingsController < ApplicationController
   # POST /things.xml
   def create
     @thing = @canvas.things.new(params[:thing])
-
+    
     respond_to do |format|
       if @thing.save
-        format.html { redirect_to(@thing, :notice => 'Thing was successfully created.') }
+        format.html { redirect_to(canvas_thing_path(@canvas,@thing), :notice => 'Thing was successfully created.') }
         format.xml  { render :xml => @thing, :status => :created, :location => @thing }
+        format.json { render :json => @thing, :status => :created }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @thing.errors, :status => :unprocessable_entity }
+        format.json { render :json => @thing.errors , :status => :unprocessable_entity }
       end
     end
   end

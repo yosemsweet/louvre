@@ -17,14 +17,17 @@
   = @canvas.creator_id
 %h2
   Input Stream:
+  %ul
+    - @canvas.things.each do |thing|
+      %li
+        = thing.content
 
 %h2
   Pages
-    
-- @canvas.pages.each do |page|
-  %ul
-    %li
-      = link_to page.title, canvas_page_path(@canvas,page.id)
+  %ul  
+    - @canvas.pages.each do |page|
+      %li
+        = link_to page.title, canvas_page_path(@canvas,page.id)
 
 %p 
   = link_to 'Create Page', new_canvas_page_path(@canvas)
