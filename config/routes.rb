@@ -1,10 +1,9 @@
 Louvre::Application.routes.draw do
-
-  resources :canvae
-
   resources :canvae do
 		resources :pages
-    resources :things
+    resources :things do
+	    resources :comments
+    end
 	end
 
   root :to => "static#index"
