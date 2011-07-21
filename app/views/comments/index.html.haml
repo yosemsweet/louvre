@@ -15,9 +15,9 @@
       %td= comment.creator_id
       %td= comment.thing_id
       %td= link_to 'Show', comment
-      %td= link_to 'Edit', edit_comment_path(comment)
+      %td= link_to 'Edit', edit_canvas_thing_comments_path(comment.thing.canvas, comment.thing, comment)
       %td= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete
 
 %br
 
-= link_to 'New Comment', new_comment_path
+= link_to 'New Comment', new_canvas_thing_comments_path(@thing.canvas, @thing)

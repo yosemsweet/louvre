@@ -21,7 +21,8 @@
     - @canvas.things.each do |thing|
       %li
         = thing.content
-
+        .comments
+          = render thing.comments
 %h2
   Pages
   %ul  

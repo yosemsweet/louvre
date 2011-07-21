@@ -23,4 +23,4 @@ Given I am browsing "cnn"
 And I have a canvas bookmarklet
 When I use the bookmarklet
 And I add a comment
-Then the note is displayed with the webpage link on the canvas' input stream
+Then that comment is displayed with the webpage link on the canvas' input stream
