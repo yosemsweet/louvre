@@ -11,6 +11,7 @@ gem 'mysql2', "0.2.7" # for Rails < 3.1
 gem 'mixpanel'
 
 group :development, :test do
+  gem 'spork'
   gem 'watchr'
   gem "factory_girl_rails", "~> 1.1.rc1"
   gem "rails3-generators"
