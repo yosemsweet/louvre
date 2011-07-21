@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110719233216) do
+ActiveRecord::Schema.define(:version => 20110721001457) do
 
   create_table "canvae", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(:version => 20110719233216) do
     t.datetime "updated_at"
     t.integer  "canvas_id"
     t.integer  "creator_id"
+  end
+
+  create_table "things", :force => true do |t|
+    t.integer  "canvas_id"
+    t.text     "content"
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

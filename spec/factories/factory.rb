@@ -22,5 +22,7 @@ FactoryGirl.define do
     creator
     canvas
   end
+  
+  
 
 end

@@ -4,7 +4,7 @@ As Gill
 I want to be able to edit a page
 So that I can refine it to make it better
 
-@wip
+
 Scenario: Moving Widgets
 	Given there is a canvas 
 	And this canvas has a page titled "Pants no one should wear"
@@ -14,7 +14,7 @@ Scenario: Moving Widgets
 	When I click and drag a widget to a new spot on the page
 	And I press "Save"
 	Then the page should save the changes
-@wip	
+	
 Scenario: Edit Widget
 	Given there is a canvas 
  	And this canvas has a page titled "Pants no one should wear"
@@ -25,7 +25,7 @@ Scenario: Edit Widget
 	And I fill in "hello world"
 	And I press "Save Widget"
 	Then "hello world" should appear on the page
-@wip	
+	
 Scenario: Change Title
 	Given there is a canvas 
 	And this canvas has a page titled "Pants no one should wear"
