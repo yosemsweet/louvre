@@ -11,6 +11,10 @@ if ['solo','app_master'].include?(node[:instance_role]) && env_name =~ /(ci|jenk
   gem_package "bundler" do
     action :install
   end
+  
+  gem_package "linecache19" do
+    action :install
+  end  
 
   execute "install_jenkins_in_resin" do
     command "/usr/local/ey_resin/ruby/bin/gem install #{node[:jenkins_slave][:gem][:install]}"
