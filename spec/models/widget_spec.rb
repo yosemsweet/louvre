@@ -5,7 +5,7 @@ describe Widget do
   context "validations" do
   
     it "should be valid with valid attributes" do
-      Factory.build(:widget, @canvas).should be_valid
+      Factory.build(:widget).should be_valid
     end
   
     it "should be able to have a page" do

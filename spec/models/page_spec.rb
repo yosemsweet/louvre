@@ -37,7 +37,7 @@ describe Page do
 				end
 			end
 
-			context "Creator" do
+			context "Canvas" do
 				it "should have a canvas" do
 					page = Factory.build(:page)
 					page.should respond_to(:canvas)
