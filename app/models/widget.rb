@@ -4,6 +4,7 @@ class Widget < ActiveRecord::Base
   belongs_to :page
   belongs_to :canvas
   
+  
   validates_presence_of :canvas
   
   def build_empty_content(type = "TextContent")
