@@ -12,6 +12,11 @@ gem 'mixpanel'
 
 group :development, :test do
   gem 'spork'
+  gem 'rb-fsevent'
+  gem 'guard-spork'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
+  gem 'growl'
   gem 'watchr'
   gem "factory_girl_rails", "~> 1.1.rc1"
   gem "rails3-generators"

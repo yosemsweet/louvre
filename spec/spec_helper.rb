@@ -34,12 +34,21 @@ Spork.prefork do
 	  # examples within a transaction, remove the following line or assign false
 	  # instead of true.
 	  config.use_transactional_fixtures = true
+	
+		if Spork.using_spork?
+		  ActiveSupport::Dependencies.clear
+		  ActiveRecord::Base.instantiate_observers
+		end
+
 	end
 end
 
 Spork.each_run do
-  # This code will be run each time you run your specs.
-  
+  # http://blog.carbonfive.com/2010/12/10/speedy-test-iterations-for-rails-3-with-spork-and-guard/
+  Factory.factories.clear
+  Dir[Rails.root.join("spec/factories/**/*.rb")].each{|f| load f}
+	Louvre::Application.reload_routes!
+  load "Sporkfile.rb" if File.exists?("Sporkfile.rb")
 end
 
 # --- Instructions ---
