@@ -3,7 +3,7 @@
   = render_form @widget.content
   
   %input{:type => "hidden", :name => "content_type", :value => "#{params[:content_type]}"}
-  %input{:type => "hidden", :name => "widget[page_id]", :value => "#{params[:page_id]}"}
+  %input{:type => "hidden", :name => "widget[page_id]", :value => "#{@widget.page ? @widget.page.id : params[:page_id]}"}
   .actions
     = f.submit 'Save'
 

@@ -37,7 +37,7 @@ class WidgetsController < ApplicationController
 
     # TODO: Wrap these updates in a transaction
     if @widget.content.update_attributes(params[:content]) && @widget.update_attributes(params[:widget])
-      head :ok
+      render :layout => false
     else
       head :bad_request
     end    
