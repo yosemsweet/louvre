@@ -1,9 +1,14 @@
 = form_for [@canvas, @widget] do |f|
 
-  = render_form @widget.content
+  - case @widget.content_type
+
+  - when 'text_content'
+    .field
+      = f.label :content
+      = f.text_field :content
   
-  %input{:type => "hidden", :name => "content_type", :value => "#{params[:content_type]}"}
-  %input{:type => "hidden", :name => "widget[page_id]", :value => "#{@widget.page ? @widget.page.id : params[:page_id]}"}
+  %input{:type => "hidden", :name => "widget[page_id]", :value => "#{@widget.page.id}"}
+  %input{:type => "hidden", :name => "widget[content_type]", :value => "#{@widget.content_type}"}
   .actions
     = f.submit 'Save'
 

@@ -4,12 +4,12 @@ describe Widget do
   
   context "validations" do
   
-    it "should be able to have a page" do
-      Factory.build(:widget).should respond_to(:page)
+    it "should be valid with valid attributes" do
+      Factory.build(:widget, @canvas).should be_valid
     end
   
-    it "should be able to have content" do
-      Factory.build(:widget).should respond_to(:content)
+    it "should be able to have a page" do
+      Factory.build(:widget).should respond_to(:page)
     end
   
     it "should be able to have a canvas" do
@@ -19,19 +19,15 @@ describe Widget do
     it "should require a canvas" do
       Factory.build(:widget, :canvas_id => nil).should_not be_valid
     end
-  
-  end
-  
-  describe "#build_empty_content" do
-    it "should build a text content with type of TextContent" do
-      content = Factory.build(:widget).build_empty_content("TextContent")
-      content.class.name.should == "TextContent"
-    end
     
-    it "should build a text content with random type" do
-      content = Factory.build(:widget).build_empty_content("Random")
-      content.class.name.should == "TextContent"
+    it "should be able to have a creator" do
+      Factory.build(:widget).should respond_to(:creator)
     end
+  
+    it "should require a creator" do
+      Factory.build(:widget, :creator_id => nil).should_not be_valid
+    end
+  
   end
   
 end
