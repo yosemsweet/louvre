@@ -4,7 +4,7 @@ describe Canvas do
   context "Validations" do
 		it "should be valid with valid parameters" do
 			canvas = Factory.build(:canvas)
-			canvas.should be_valid
+			canvas.should_not be_valid
 		end
 	
 	  it "should save properly to the database" do
