@@ -11,11 +11,12 @@ gem 'mysql2', "0.2.7" # for Rails < 3.1
 gem 'mixpanel'
 
 group :development, :test do
-  gem 'spork'
+  gem 'spork' '>=0.9.0'
   gem 'rb-fsevent'
   gem 'guard-spork'
-  gem 'guard-rspec'
   gem 'guard-cucumber'
+  gem 'guard-rspec'
+  gem 'guard-migrate'
   gem 'growl'
   gem 'watchr'
   gem "factory_girl_rails", "~> 1.1.rc1"
