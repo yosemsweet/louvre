@@ -17,6 +17,9 @@ group :development, :test do
   gem "rspec-rails"
   gem "ruby-debug19"
   gem 'webrat'
+  gem 'guard'
+  gem 'growl'
+  gem 'guard-rspec'
 end
 
 group :test do
