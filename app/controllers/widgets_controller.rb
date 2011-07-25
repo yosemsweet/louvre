@@ -14,10 +14,14 @@ class WidgetsController < ApplicationController
     @widget = Widget.new(:content_type => params[:content_type])
     @widget.page = Page.find(params[:page_id]) 
     @widget.content_type = params[:content_type]
+    
+    render :layout => "edit_widget"
   end
 
   def edit
     @widget = Widget.find(params[:id])
+    
+    render :layout => "edit_widget"
   end
 
   def create    

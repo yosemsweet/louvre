@@ -1,0 +1,16 @@
+ul#widgets {
+  padding: 0px;
+  border: 1px dotted #bbb;
+	min-height: 100px;
+	li {
+	 background-color: #DFF2FB; 
+	 border: 1px solid #D4E6C6;
+	 width: 572px;
+	 margin: 10px 8px;
+	 padding: 8px;
+	 list-style: none;
+	}
+}
+
+#edit_dialog {display:none;}
+#edit_frame {width:100%; height:400px;}

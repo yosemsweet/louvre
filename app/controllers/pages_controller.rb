@@ -4,6 +4,9 @@ class PagesController < ApplicationController
 
 	before_filter :load_canvas, :except => :destroy
 
+  def versions
+    @page = Page.find(params[:id])
+  end
 
   def widgets
     page = Page.find(params[:id])
