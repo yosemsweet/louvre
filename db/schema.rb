@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110722215015) do
+ActiveRecord::Schema.define(:version => 20110725160517) do
 
   create_table "canvae", :force => true do |t|
     t.string   "name"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20110722215015) do
     t.string   "whodunnit"
     t.text     "object"
     t.datetime "created_at"
+    t.integer  "page_id"
   end
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
