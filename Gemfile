@@ -17,10 +17,11 @@ group :development, :test do
   gem "rspec-rails"
   gem "ruby-debug19"
   gem 'webrat'
+  gem 'spork', '>=0.9.0.rc7'
   gem 'guard'
+  gem 'guard-spork'
   gem 'growl'
   gem 'guard-rspec'
-  gem 'guard-cucumber'
 end
 
 group :test do
