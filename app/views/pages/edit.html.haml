@@ -65,3 +65,72 @@
     
     reload_widgets();
     
+    $("#widgets").sortable({
+       axis: 'y',
+       containment: "#widgets",
+       tolerance: 'pointer',
+       placeholder: 'placeholder',
+       forcePlaceholderSize: true,
+       handle: 'img.handle'
+       // ,
+       // update: function(event, ui){
+       // 
+       //          var e = ui.item;
+       // 
+       //          // Get the dragged widget / widget placement.
+       //          var widget_id = e.attr("data_widget_id");
+       //          var widget_placement_id = e.attr("data_widget_placement_id");
+       // 
+       //          // Compute the new position of this widget.
+       //          var position = $("#page li[data_widget_placement_id='" + widget_placement_id + "']").index();
+       // 
+       //          if(widget_placement_id == 0){
+       //            // Add a widget placement to the page.
+       // 
+       //            $.post("/pages/#{@page.id}/widget_placements", {
+       //              widget_id : widget_id,
+       //              position : position
+       //            }, function(data){
+       //              // Save the id of the new widget placement in the dom.
+       //              e.attr("data_widget_placement_id", data);
+       // 
+       //            });
+       // 
+       //          } else {
+       //            // Update the widget placement's position.
+       // 
+       //            $.post("/pages/#{@page.id}/widget_placements/" + widget_placement_id, { 
+       //              position : position, 
+       //              _method : 'PUT' 
+       //            });
+       //          }
+       //        }
+     });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
