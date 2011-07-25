@@ -47,7 +47,7 @@
   
     %p
       ="drag the box below to your bookmark toolbar. #{host_uri}"
-    %a#bookmarklet_install{:href => "javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.innerText='canvas_id=#{@canvas.id};user_id=#{current_user.id}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='#{host_uri}/javascripts/post-link.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();"}
+    %a#bookmarklet_install{:onmousedown=>"mpq.push(['track','install_bookmark']);",:href => "javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.innerText='canvas_id=#{@canvas.id};user_id=#{current_user.id}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='#{host_uri}/javascripts/post-link.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();"}
       .info
         = "add to #{@canvas.name}"
   .info
