@@ -17,7 +17,7 @@ And I have a canvas bookmarklet
 When I use the bookmarklet
 Then I see an error
 
-@background_user, @wip
+@background_user
 Scenario: Add note with input
 Given I am browsing "cnn"
 And I have a canvas bookmarklet
