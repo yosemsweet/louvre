@@ -20,6 +20,7 @@ group :development, :test do
   gem 'guard'
   gem 'growl'
   gem 'guard-rspec'
+  gem 'guard-cucumber'
 end
 
 group :test do

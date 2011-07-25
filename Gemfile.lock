@@ -77,6 +77,9 @@ GEM
     growl (1.0.3)
     guard (0.5.1)
       thor (~> 0.14.6)
+    guard-cucumber (0.5.2)
+      cucumber (>= 0.10)
+      guard (>= 0.4.0)
     guard-rspec (0.4.0)
       guard (>= 0.4.0)
     haml (3.1.2)
@@ -232,6 +235,7 @@ DEPENDENCIES
   factory_girl_rails (~> 1.1.rc1)
   growl
   guard
+  guard-cucumber
   guard-rspec
   haml-rails
   mixpanel
