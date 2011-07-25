@@ -4,6 +4,6 @@ class AddCanvasToPages < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :pages, :canvas_id, :integer
+    remove_column :pages, :canvas_id
   end
 end
