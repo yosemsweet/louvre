@@ -4,8 +4,8 @@ Before('@omniauth_test') do
   # the symbol passed to mock_auth is the same as the name of the provider set up in the initializer
   OmniAuth.config.mock_auth[:facebook] = {
       "provider"=>"facebook",
-      "appid"=>"178863089564",
-			"app_secret" => "5df447b8480c97b38307cae54e1627c0", 
+      "appid"=>"196297497094752",
+			"app_secret" => "f2b1ddb79af75dbd498752f37fddc013", 
 			"uid"=>"12345", 
       "user_info"=> {
 					"image"=>"http://www.carniola.org/theglory/images/McHammer.gif", 
