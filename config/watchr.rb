@@ -16,21 +16,21 @@ end
 
 def run_spec_file(file)
   system('clear')
-  result = run "rake spec SPEC=#{file}"
+  result = run "rspec #{file}"
   growl result.split("\n").last rescue nil
   puts result
 end
 
 def run_all_specs
   system('clear')
-  result = run "rake spec"
+  result = run "rspec"
   growl result.split("\n").last rescue nil
   puts result
 end
 
 def run_all_features
   system('clear')
-  result = run "rake cucumber"
+  result = run "cucumber"
   results = result.split("\n")
   
   growl results[results.length - 3 .. results.length].join("\n") rescue nil

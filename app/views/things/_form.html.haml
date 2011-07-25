@@ -1,0 +1,18 @@
+= form_for([@canvas,@thing]) do |f|
+  -if @thing.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@thing.errors.count, "error")} prohibited this thing from being saved:"
+      %ul
+        - @thing.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :content
+    = f.text_area :content
+    
+    = f.fields_for :comments do |c|
+      = c.label :content
+      = c.text_area :content
+
+  .actions
+    = f.submit 'Save'

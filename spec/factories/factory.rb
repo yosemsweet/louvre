@@ -24,7 +24,7 @@ FactoryGirl.define do
     creator
     canvas
   end
-  
+
   factory :widget do
     name "Widget Name"
     position 1

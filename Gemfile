@@ -10,6 +10,7 @@ gem "paper_trail"
 
 
 group :development, :test do
+  gem 'spork'
   gem 'watchr'
   gem "factory_girl_rails", "~> 1.1.rc1"
   gem "rails3-generators"

@@ -14,6 +14,7 @@ Scenario: Moving Widgets
 	When I click and drag a widget to a new spot on the page
 	And I press "Save"
 	Then the page should save the changes
+
 @pending	
 Scenario: Edit Widget
 	Given there is a canvas 
@@ -25,6 +26,7 @@ Scenario: Edit Widget
 	And I fill in "hello world"
 	And I press "Save Widget"
 	Then "hello world" should appear on the page
+
 @pending	
 Scenario: Change Title
 	Given there is a canvas 

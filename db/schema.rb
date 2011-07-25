@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(:version => 20110725162319) do
     t.integer  "creator_id"
   end
 
+  create_table "comments", :force => true do |t|
+    t.text     "content"
+    t.integer  "creator_id"
+    t.integer  "thing_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
@@ -31,6 +39,14 @@ ActiveRecord::Schema.define(:version => 20110725162319) do
 
   create_table "text_contents", :force => true do |t|
     t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "things", :force => true do |t|
+    t.integer  "canvas_id"
+    t.text     "content"
+    t.integer  "creator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

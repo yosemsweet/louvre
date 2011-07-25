@@ -9,3 +9,10 @@ And I am on that canvas' homepage
 Then I should see "Edit"
 And I should see "Input Stream"
 And I should see "Pages"
+
+@omniauth_test
+Scenario: Canvas Bookmarklet Widget
+Given there is a canvas
+And I am authenticated
+And I am on that canvas' homepage
+Then I can install the canvas bookmarklet

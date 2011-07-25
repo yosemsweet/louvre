@@ -1,5 +1,4 @@
 Louvre::Application.routes.draw do
-
   resources :canvae do
     resources :widgets
   end
@@ -11,6 +10,9 @@ Louvre::Application.routes.draw do
 		    get 'versions'
 	    end
 	  end
+	  resources :things do
+	    resources :comments
+    end
 	end
 
   root :to => "static#index"

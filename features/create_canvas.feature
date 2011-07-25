@@ -2,7 +2,7 @@ Feature: Create a canvas
   As Gill
   I want to create a new canvas
   So that I can help Women of a Certain Age be Fashionable
- 
+
 @omniauth_test
 Scenario: Start Create Canvas Wizard - authenticated
 Given I am "Gill"
