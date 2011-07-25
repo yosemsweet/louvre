@@ -1,7 +1,18 @@
 class WidgetsController < ApplicationController
   
 	before_filter :load_canvas, :except => :destroy
-  
+
+  def update_position
+		@current_widget = Widget.find(params[:id])
+		
+		if @current_widget.update_position(params[:position])
+			head :ok
+		else
+			head :bad_request
+		end	
+		
+	end
+
   def index
     @widgets = Widget.all
   end
@@ -28,8 +39,8 @@ class WidgetsController < ApplicationController
     
     @widget = @canvas.widgets.new(params[:widget])
     @widget.creator = current_user
-    
-    
+		@widget.initialize_position
+
     if @widget.save
       render 'update_page', :layout => false
     else

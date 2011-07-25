@@ -27,7 +27,7 @@ describe Widget do
     it "should require a creator" do
       Factory.build(:widget, :creator_id => nil).should_not be_valid
     end
-  
+
   end
   
   describe "Versioning" do
@@ -45,7 +45,7 @@ describe Widget do
       it "should store the page id in version meta data" do
         @new_widget.versions.last.page_id.should == @new_widget.page.id 
       end
-      
+
     end
     
     describe "Updating" do
@@ -64,7 +64,55 @@ describe Widget do
         last_version.changeset["name"].last.should == "New Name"
       end
     end
-    
+
   end
   
+	describe "#update_position" do
+		
+		before(:each) do
+			@new_page = Factory.create(:page)
+			
+			@widget_a = Factory.create(:widget, :position => 1, :page => @new_page)
+			@widget_b = Factory.create(:widget, :position => 2, :page => @new_page)
+			@widget_c = Factory.create(:widget, :position => 3, :page => @new_page)
+		end
+		
+		it "should update the position of this widget" do
+			@widget_a.update_position(5)
+			@widget_a.reload.position.should == 5
+		end
+		
+		it "should adjust widget ordering correctly when moved down" do
+			@widget_a.update_position(3)
+			
+			@widget_b.reload.position.should == 1
+			@widget_c.reload.position.should == 2
+		end
+		
+		it "should adjust widget ordering correctly when moved up" do
+			@widget_c.update_position(1)
+			
+			@widget_a.reload.position.should == 2
+			@widget_b.reload.position.should == 3
+		end
+		
+		it "should return true if successful" do
+			@widget_a = Factory.create(:widget, :position => 1)
+			@widget_a.update_position(5).should be_true			
+		end
+		
+	end
+	
+	describe "#initialize_position" do
+		
+		it "should set the position of a widget" do
+			@new_widget = Factory.build(:widget, :position => nil)
+			@new_widget.initialize_position
+			@new_widget.save
+			
+			@new_widget.reload.position.should == 1
+		end
+		
+	end
+
 end

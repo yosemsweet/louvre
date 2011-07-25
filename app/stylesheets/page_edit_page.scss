@@ -10,6 +10,10 @@ ul#widgets {
 	 margin: 10px 8px;
 	 padding: 8px;
 	 list-style: none;
+		&.placeholder{
+		   border: 1px dotted #ddd;
+		   background-color: #FFFBEA;
+		 }
 		.handle{
 			float: left;
 			margin-right: 10px;

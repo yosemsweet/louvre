@@ -10,7 +10,7 @@ class PagesController < ApplicationController
 
   def widgets
     page = Page.find(params[:id])
-    @widgets = page.widgets
+    @widgets = page.widgets.order("position asc")
     
     render :layout => false
   end

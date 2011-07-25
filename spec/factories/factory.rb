@@ -27,7 +27,6 @@ FactoryGirl.define do
 
   factory :widget do
     name "Widget Name"
-    position 1
     content_type "text_content"
     content "This is the content"
     change_comment "This is the change comment"
