@@ -27,14 +27,16 @@ class WidgetsController < ApplicationController
   def create    
     
     @widget = @canvas.widgets.new(params[:widget])
-    @widget.creator = current_user
-    
-    
-    if @widget.save
-      render 'update_page', :layout => false
-    else
-      head :bad_request
-    end
+    @widget.creator ||= current_user
+
+		respond_to do |format|  
+    	if @widget.save
+				format.html { render 'update_page', :layout => false }
+     		format.json { render :json => @widget, :status => :created }
+	    else
+	      head :bad_request
+	    end
+		end
 
   end
 

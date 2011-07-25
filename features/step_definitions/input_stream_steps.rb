@@ -7,7 +7,7 @@ Given /^I have a canvas bookmarklet$/ do
 end
 
 When /^I use the bookmarklet$/ do
-  result = post "/canvae/#{Canvas.last.id}/things.json", :thing => {:content => current_page, :creator_id => current_user.id}
+  result = post "/canvae/#{Canvas.last.id}/widgets.json", :widget => {:content => current_page, :creator_id => current_user.id, :content_type => 'text_content'}
   set_input_stream_call_status(result.status)
 end
 
@@ -21,7 +21,7 @@ Then /^I see an error$/ do
 end
 
 When /^I add a comment$/ do
-  result = post "/canvae/#{Canvas.last.id}/things/#{Thing.last.id}/comments.json", :comment => {:content => "my comment", :creator_id => current_user.id}
+  result = post "/canvae/#{Canvas.last.id}/widgets/#{Widget.last.id}/comments.json", :comment => {:content => "my comment", :creator_id => current_user.id}
   set_input_stream_call_status(result.status)
 end
 
