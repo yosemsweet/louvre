@@ -9,9 +9,7 @@ class Page < ActiveRecord::Base
 	validates_presence_of :canvas
 	
 	def versions
-	  
 	  Version.where(:item_type => "Widget", :page_id => self.id).order("created_at DESC")  
-
   end
 	
 end
