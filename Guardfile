@@ -58,49 +58,9 @@ guard 'rspec', :all_on_start => false, :cli => "--color -f nested" do
   watch(%r{^app/controllers/(.+)_(controller)\.rb})  { |m| "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb" }
 end
 
-if Dir.glob('**/*.feature')
-  require 'guard/cucumber'
-  ::Guard::Cucumber::Runner.class_eval do
-    class << self
-      alias original_command cucumber_command
-      def cucumber_command(paths, options={})
-        command = original_command(paths, options)
-        has_focus = paths.any? do |file|
-          File.read(file) =~ /^\s*@focus/
-        end
-        command += " --tags @focus:4" if has_focus
-        command
-      end
-    end
-  end
+@nocukes = true
 
-  ::Guard::Cucumber.class_eval do
-    def run_all
-      UI.info "Preparing to accept the battle's outcome"
-      system "rake cucumber"
-    end
-  end
 
-  guard 'cucumber', :all_on_start => false, :all_after_pass => false, :cli => "-f pretty" do
-    watch(%r{^features/.+\.feature$})
-  end
-  extensions << "Guard::Cucumber"
-else
-  @nocukes = true
-end
-
-if Dir.glob('test/**/*.rb').any?
-  require 'guard/test'
-  guard 'test' do
-		watch(%r{^app/models/(.+)\.rb$})                   { |m| "test/unit/#{m[1]}_test.rb" }
-		watch(%r{^app/controllers/(.+)\.rb$})              { |m| "test/functional/#{m[1]}_test.rb" }
-		watch(%r{^app/views/.+\.rb$})                      { "test/integration" }
-		watch(%r{^lib/(.+)\.rb$})                          { |m| "test/#{m[1]}_test.rb" }
-		watch(%r{^test/.+_test.rb$})
-		watch('app/controllers/application_controller.rb') { ["test/functional", "test/integration"] }
-		watch('test/test_helper.rb')                       { "test" }
-  end
-end
 
 guard('schema') { watch('db/schema.rb') }
 guard('routes') { watch('config/routes.rb') }
