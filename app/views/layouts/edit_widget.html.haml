@@ -1,7 +1,6 @@
 !!!
 %html
   %head
-    %title= yield :title
     = stylesheet_link_tag 'application.css', :media => 'screen, projection'
     = stylesheet_link_tag 'print.css', :media => 'print'
     /[if lt IE 8]
@@ -10,21 +9,5 @@
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js', 'underscore-min','mixpanel_integration','google_analytics', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js'
     = javascript_include_tag 'http://texteditor.suite101.com.s3.amazonaws.com/ckeditor.js','http://texteditor.suite101.com.s3.amazonaws.com/adapters/jquery.js'
     = csrf_meta_tag
-    = yield :head
   %body
-  
-    #header
-      = yield :header
-          
-    .container
-      -flash.each do |type, value|
-        .flash{ :class => type.to_s }
-          = value
-      = yield
-    
-    #footer
-      .container
-        %a{:href=>"http://mixpanel.com/f/partner"}
-          %img{:src=>"http://mixpanel.com/site_media/images/partner/badge_blue.png", :alt=>"Web Analytics"}
-    
-    
+    = yield

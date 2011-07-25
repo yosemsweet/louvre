@@ -61,7 +61,6 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    escape (0.0.4)
     factory_girl (2.0.0.rc4)
     factory_girl_rails (1.1.rc1)
       factory_girl (~> 2.0.0.rc)
@@ -91,10 +90,6 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mixpanel (0.9.0)
-      escape
-      json
-      rack
     multi_json (1.0.3)
     multi_xml (0.2.2)
     multipart-post (1.1.2)
@@ -138,6 +133,8 @@ GEM
       oa-more (= 0.2.6)
       oa-oauth (= 0.2.6)
       oa-openid (= 0.2.6)
+    paper_trail (2.2.8)
+      rails (~> 3)
     polyglot (0.3.1)
     pyu-ruby-sasl (0.0.3.3)
     rack (1.2.3)
@@ -227,10 +224,10 @@ DEPENDENCIES
   database_cleaner
   factory_girl_rails (~> 1.1.rc1)
   haml-rails
-  mixpanel
   mysql2 (= 0.2.7)
   nokogiri
   omniauth (~> 0.2.6)
+  paper_trail
   rails (= 3.0.9)
   rails3-generators
   rspec-rails

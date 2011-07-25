@@ -1,7 +1,16 @@
 Louvre::Application.routes.draw do
   resources :canvae do
-		resources :pages
-    resources :things do
+    resources :widgets
+  end
+
+  resources :canvae do
+		resources :pages do
+		  member do
+		    get 'widgets'
+		    get 'versions'
+	    end
+	  end
+	  resources :things do
 	    resources :comments
     end
 	end

@@ -12,6 +12,10 @@ describe Canvas do
 	    canvas.save!
 	  end
 	  
+	  it "should be able to have widgets" do
+	    Factory.build(:canvas).should respond_to(:widgets)
+    end
+	  
 		context "attribute validations" do
 			context "Name" do
 				it "should be required" do
