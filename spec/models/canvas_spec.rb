@@ -57,13 +57,6 @@ describe Canvas do
 				end
 			end
 			
-			context "Things" do
-				it "should have Things" do
-					canvas = Factory.build(:canvas)
-					canvas.should respond_to(:things)
-				end
-			end
-			
 		end
 	
 	end

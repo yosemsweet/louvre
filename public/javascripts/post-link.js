@@ -59,8 +59,8 @@ function buildCommentForm()
 		\
 		<div id='saucy-result'></div>\
 		<div id='title_content'>Add to Canvas:</div>\
-		<form id='saucy-input-form' action='http://localhost:3000/canvae/"+canvas_id+"/things.json'> \
-		Text: <br> <textarea name='thing-content' rows='10' cols='20'>"+ bookmarkURL + "\n" +  highlighted.toString() +"</textarea> <br> \
+		<form id='saucy-input-form' action='#{host_uri}/canvae/"+canvas_id+"/widgets.json'> \
+		Text: <br> <textarea name='widget-content' rows='10' cols='20'>"+ bookmarkURL + "\n" +  highlighted.toString() +"</textarea> <br> \
 		<input type='submit' value='Get Sauced'></form>";
 	new_div.innerHTML = new_content;
 	element.appendChild(new_div);
@@ -73,10 +73,10 @@ function buildCommentForm()
 
     /* get some values from elements on the page: */
     var $form = $( this ),
-        content = $form.find( 'textarea[name="thing-content"]' ).val(),
+        content = $form.find( 'textarea[name="widget-content"]' ).val(),
         url = $form.attr( 'action' );
     /* Send the data using post and put the results in a div */
-    $.post( url, {thing:{content: content, creator_id: user_id} },
+    $.post( url, {thing:{content: content, creator_id: user_id, content_type: 'text_content'} },
       function( data ) {
 		var content = $( data ).find( '#content' );
 		$( "#saucy-result" ).empty().append( content );
@@ -96,7 +96,7 @@ function buildCommentForm()
 	
 	mpq.push(["track","hit_form_bookmarklet"]);
 
-	loadjscssfile("http://localhost:3000/stylesheets/bookmarklet_form.css","css");
+	loadjscssfile("#{host_uri}/stylesheets/bookmarklet_form.css","css");
 	loadJquery();
 	setTimeout(buildCommentForm, 500);
 })();

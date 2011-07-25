@@ -10,9 +10,6 @@ Louvre::Application.routes.draw do
 		    get 'versions'
 	    end
 	  end
-	  resources :things do
-	    resources :comments
-    end
 	end
 
   root :to => "static#index"
