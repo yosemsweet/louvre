@@ -1,3 +1,10 @@
-%span.edit_widget{:data_widget_id => "#{widget.id}"}
-  edit
-= render widget.content
+%li.widget
+  .controls
+    %a.edit_widget{:href => "#", :data_widget_id => "#{widget.id}"} edit
+  
+  .content
+    - case widget.content_type
+  
+    - when 'text_content'
+      %p= widget.content  
+  

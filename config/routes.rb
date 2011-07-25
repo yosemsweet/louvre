@@ -8,6 +8,7 @@ Louvre::Application.routes.draw do
 		resources :pages do
 		  member do
 		    get 'widgets'
+		    get 'versions'
 	    end
 	  end
 	end

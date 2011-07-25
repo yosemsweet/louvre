@@ -1,0 +1,13 @@
+= render :partial => "header"
+
+%h1 Versions
+
+- @page.versions.each do |v|
+  %p
+    %strong= v.created_at.to_date
+    = v.changeset
+        
+= link_to 'Show Page', canvas_page_path(@page.canvas, @page)
+\|
+= link_to "Edit Page", edit_canvas_page_path(@page.canvas, @page)
+

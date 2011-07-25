@@ -1,18 +1,12 @@
 class Widget < ActiveRecord::Base
   
-  belongs_to :content, :polymorphic => true
   belongs_to :page
   belongs_to :canvas
-  
-  
+	belongs_to :creator, :class_name => "User"
+
+  has_paper_trail :meta => { :page_id => Proc.new{ |widget| widget.page.id }}
+    
   validates_presence_of :canvas
-  
-  def build_empty_content(type = "TextContent")
-    begin
-      self.content = type.constantize.new
-    rescue
-      self.content = TextContent.new
-    end
-  end
+  validates_presence_of :creator
   
 end

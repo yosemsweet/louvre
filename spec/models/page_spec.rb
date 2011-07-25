@@ -37,7 +37,7 @@ describe Page do
 				end
 			end
 
-			context "Creator" do
+			context "Canvas" do
 				it "should have a canvas" do
 					page = Factory.build(:page)
 					page.should respond_to(:canvas)
@@ -52,4 +52,22 @@ describe Page do
 		end
 	
 	end
+	
+	describe "#versions" do
+	  
+	  describe "A new page" do
+	    it "shouldn't have any versions" do
+	      Factory.create(:page).should have_exactly(0).versions
+      end
+    end
+	  
+	  describe "Adding a widget" do
+	    it "should create a new page version" do
+	      page = Factory.create(:page)
+	      widget = Factory.create(:widget, :page => page)
+	      page.should have_exactly(1).versions
+      end
+    end
+  end
+	
 end

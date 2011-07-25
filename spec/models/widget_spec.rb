@@ -4,12 +4,12 @@ describe Widget do
   
   context "validations" do
   
-    it "should be able to have a page" do
-      Factory.build(:widget).should respond_to(:page)
+    it "should be valid with valid attributes" do
+      Factory.build(:widget).should be_valid
     end
   
-    it "should be able to have content" do
-      Factory.build(:widget).should respond_to(:content)
+    it "should be able to have a page" do
+      Factory.build(:widget).should respond_to(:page)
     end
   
     it "should be able to have a canvas" do
@@ -19,19 +19,52 @@ describe Widget do
     it "should require a canvas" do
       Factory.build(:widget, :canvas_id => nil).should_not be_valid
     end
+    
+    it "should be able to have a creator" do
+      Factory.build(:widget).should respond_to(:creator)
+    end
+  
+    it "should require a creator" do
+      Factory.build(:widget, :creator_id => nil).should_not be_valid
+    end
   
   end
   
-  describe "#build_empty_content" do
-    it "should build a text content with type of TextContent" do
-      content = Factory.build(:widget).build_empty_content("TextContent")
-      content.class.name.should == "TextContent"
+  describe "Versioning" do
+    
+    describe "Creation" do
+      
+      before(:each) do
+        @new_widget = Factory.create(:widget)
+      end
+        
+      it "should create a new version" do
+        @new_widget.should have_exactly(1).versions
+      end
+      
+      it "should store the page id in version meta data" do
+        @new_widget.versions.last.page_id.should == @new_widget.page.id 
+      end
+      
     end
     
-    it "should build a text content with random type" do
-      content = Factory.build(:widget).build_empty_content("Random")
-      content.class.name.should == "TextContent"
+    describe "Updating" do
+      before(:each) do
+        @updated_widget = Factory.create(:widget)
+        @updated_widget.update_attributes(:name => "New Name")
+      end
+
+      it "should create a new version" do
+        @updated_widget.should have_exactly(2).versions
+      end
+
+      it "should save a changeset showing the change" do
+        last_version = @updated_widget.versions.last
+        last_version.should respond_to(:changeset)
+        last_version.changeset["name"].last.should == "New Name"
+      end
     end
+    
   end
   
 end

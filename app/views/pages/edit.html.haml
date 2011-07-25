@@ -1,25 +1,33 @@
 = render :partial => "header"
 
-#toolbar
-  %span#add_text_widget
-    Text
+- content_for :head do
+  = stylesheet_link_tag 'page_edit_page.css', :media => 'screen, projection'
 
 #edit_dialog
   %iframe#edit_frame{:src => ""}
 
-#widgets
 
+.span-16
+  %h1 Page
+  #toolbar
+    %a#add_text_widget{:href => "#"}
+      Add Text Widget
+      
+  %ul#widgets
 
-%h1 Editing page
+.span-8.last
+  %h1 Sidebar
 
-
-
-= link_to 'Show', canvas_page_path(@canvas, @page)
-\|
-= link_to 'Back', :back
-
+.span-24.last
+  = link_to 'Show', canvas_page_path(@canvas, @page)
+  \|
+  = link_to "Versions", versions_canvas_page_path(@page.canvas, @page)
 :javascript
-    var the_edit_dialog = $("#edit_dialog").dialog({minHeight:250, minWidth:500, autoOpen:false});
+    var the_edit_dialog = $("#edit_dialog").dialog({
+      minHeight:250, 
+      minWidth:500, 
+      autoOpen:false
+    });
   
     close_edit_dialog = function(){
       the_edit_dialog.dialog("close");
@@ -27,6 +35,10 @@
     
     open_edit_dialog = function(){
       the_edit_dialog.dialog("open");
+    }
+    
+    set_dialog_title = function(title){
+      the_edit_dialog.dialog("option","title", title);
     }
     
     set_edit_frame_src = function(src){
@@ -37,15 +49,19 @@
       $("#widgets").load("/canvae/#{@page.canvas.id}/pages/#{@page.id}/widgets");      
     }
     
-    $("#add_text_widget").click(function(){
-      set_edit_frame_src("/canvae/#{@page.canvas.id}/widgets/new?page_id=#{@page.id}&content_type=TextContent");
+    $("a#add_text_widget").click(function(){
+      set_edit_frame_src("/canvae/#{@page.canvas.id}/widgets/new?page_id=#{@page.id}&content_type=text_content");
+      set_dialog_title("New Text Widget");
       open_edit_dialog();
+      return false;
     });
     
     $(".edit_widget").live("click", function(){
       var widget_id = $(this).attr("data_widget_id");
       set_edit_frame_src("/canvae/#{@page.canvas.id}/widgets/" + widget_id + "/edit");
+      set_dialog_title("Edit Widget")
       open_edit_dialog();
     });
     
     reload_widgets();
+    

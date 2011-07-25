@@ -11,21 +11,27 @@ class WidgetsController < ApplicationController
   end
 
   def new
-    @widget = Widget.new
-    @widget.build_empty_content(params[:content_type])
+    @widget = Widget.new(:content_type => params[:content_type])
+    @widget.page = Page.find(params[:page_id]) 
+    @widget.content_type = params[:content_type]
+    
+    render :layout => "edit_widget"
   end
 
   def edit
     @widget = Widget.find(params[:id])
+    
+    render :layout => "edit_widget"
   end
 
-  def create
-        
-    @widget = @canvas.widgets.new(params[:widget])
-    @widget.build_empty_content(params[:content_type])
+  def create    
     
-    if @widget.save && @widget.content.update_attributes(params[:content])
-      render :layout => false
+    @widget = @canvas.widgets.new(params[:widget])
+    @widget.creator = current_user
+    
+    
+    if @widget.save
+      render 'update_page', :layout => false
     else
       head :bad_request
     end
@@ -35,9 +41,8 @@ class WidgetsController < ApplicationController
   def update
     @widget = Widget.find(params[:id])
 
-    # TODO: Wrap these updates in a transaction
-    if @widget.content.update_attributes(params[:content]) && @widget.update_attributes(params[:widget])
-      render :layout => false
+    if @widget.update_attributes(params[:widget])
+      render 'update_page', :layout => false
     else
       head :bad_request
     end    

@@ -1,8 +1,0 @@
-= fields_for text_content do |content_form|
-  = content_form.label :body
-  = content_form.text_area :body, :name => "content[body]"
-    
-:javascript
-  $(function(){
-    $("#text_content_body").ckeditor(function(){},{toolbar:'Body', width:'400', height:'150'});
-  });  
