@@ -1,11 +1,11 @@
 @import "partials/base";
 
-body{
+.frame{
 	background-color: $background-color;
 	color: $text-color;
 }
 
-#header {
+.title {
 	padding: 10px;
 	background-color: $accent-color;
 	text-align: center;

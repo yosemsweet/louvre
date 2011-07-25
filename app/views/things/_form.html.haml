@@ -7,13 +7,12 @@
           %li= msg
 
   .field
-    = f.label :canvas_id
-    = f.text_field :canvas_id
-  .field
     = f.label :content
     = f.text_area :content
-  .field
-    = f.label :creator_id
-    = f.text_field :creator_id
+    
+    = f.fields_for :comments do |c|
+      = c.label :content
+      = c.text_area :content
+
   .actions
     = f.submit 'Save'

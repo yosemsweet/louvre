@@ -28,7 +28,8 @@ class ThingsController < ApplicationController
   # GET /things/new.xml
   def new
     @thing = @canvas.things.new
-
+    @thing.comments.build
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @thing }
@@ -44,7 +45,7 @@ class ThingsController < ApplicationController
   # POST /things.xml
   def create
     @thing = @canvas.things.new(params[:thing])
-    
+    # @thing.creator = current_user
     respond_to do |format|
       if @thing.save
         format.html { redirect_to(canvas_thing_path(@canvas,@thing), :notice => 'Thing was successfully created.') }

@@ -38,12 +38,11 @@
   .bookmarklet
     Install Bookmarklet
   
-  
-  %a{:href => "javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.innerText='canvas_id=#{@canvas.id};user_id=#{current_user.id}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='http://localhost:3000/javascripts/post-link.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();"}
-    .info
-      drag this box to your bookmark toolbar
-    
-    
+    %p
+      drag the box below to your bookmark toolbar
+    %a{:href => "javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.innerText='canvas_id=#{@canvas.id};user_id=#{current_user.id}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='http://localhost:3000/javascripts/post-link.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();"}
+      .info
+        = "add to #{@canvas.name}"
   .info
     #see_video
       %button{:onclick => "$('#instructions').removeClass('hide');$('#see_video').addClass('hide');"}
@@ -60,6 +59,7 @@
 
 :javascript
   $(function(){
-    mpq.push(["track","hit_canvas_homepage"]);  
+    mpq.push(["track","hit_canvas_homepage"]);
+    window.mixpanelobject=mpq;  
   })
 

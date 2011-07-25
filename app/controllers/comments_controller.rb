@@ -43,6 +43,9 @@ class CommentsController < ApplicationController
   # POST /comments.xml
   def create
     @comment = @thing.comments.new(params[:comment])
+    
+    #@comment.creator = current_user
+
     respond_to do |format|
       if @comment.save
         format.html { redirect_to(canvas_thing_comment_path(@thing.canvas,@thing,@comment), :notice => 'Comment was successfully created.') }
