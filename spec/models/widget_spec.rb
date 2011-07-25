@@ -30,4 +30,41 @@ describe Widget do
   
   end
   
+  describe "Versioning" do
+    
+    describe "Creation" do
+      
+      before(:each) do
+        @new_widget = Factory.create(:widget)
+      end
+        
+      it "should create a new version" do
+        @new_widget.should have_exactly(1).versions
+      end
+      
+      it "should store the page id in version meta data" do
+        @new_widget.versions.last.page_id.should == @new_widget.page.id 
+      end
+      
+    end
+    
+    describe "Updating" do
+      before(:each) do
+        @updated_widget = Factory.create(:widget)
+        @updated_widget.update_attributes(:name => "New Name")
+      end
+
+      it "should create a new version" do
+        @updated_widget.should have_exactly(2).versions
+      end
+
+      it "should save a changeset showing the change" do
+        last_version = @updated_widget.versions.last
+        last_version.should respond_to(:changeset)
+        last_version.changeset["name"].last.should == "New Name"
+      end
+    end
+    
+  end
+  
 end
