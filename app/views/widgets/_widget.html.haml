@@ -12,4 +12,8 @@
   
     - when 'text_content'
       %p= widget.content  
+      
+  = render widget.comments
+  
+  = link_to "discuss", canvas_widget_path(@canvas, widget)
   

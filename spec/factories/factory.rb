@@ -35,4 +35,10 @@ FactoryGirl.define do
     canvas
   end
 
+	factory :comment do
+		content "This is a great comment"
+		creator
+		widget
+	end
+
 end

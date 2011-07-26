@@ -38,6 +38,10 @@ module NavigationHelpers
 		  canvas = Canvas.last
 		  canvas_path(canvas)
 
+		when /that widget's page/
+		  widget = Widget.last
+		  canvas_widget_path(widget.canvas, widget)
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

@@ -1,4 +1,5 @@
 Louvre::Application.routes.draw do
+  resources :comments
 
   resources :canvae do
 		resources :pages do
