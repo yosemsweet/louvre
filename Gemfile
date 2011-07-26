@@ -31,5 +31,5 @@ group :test do
 end
 
 group :production do
-  gem 'mysql2', "0.2.7" # for Rails < 3.1  
+  gem 'pg'  
 end
