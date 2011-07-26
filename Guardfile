@@ -5,7 +5,7 @@ module ::Guard
   class Schema < ::Guard::Guard
     def run_on_change(_)
       UI.info "Clearing the way"
-      `rake db:test:prepare`
+      system('rake db:test:prepare')
       UI.clear
       UI.info "Ready to lead the charge!"
     end
@@ -42,10 +42,10 @@ end
     alias original_command rspec_command
     def rspec_command(paths, options={})
       command = original_command(paths, options)
-      has_focus = paths.any? do |file|
-        File.read(file) =~ /^\s*(describe|context|it).*?focus(:)?( =>)? true/
+      has_wip = paths.any? do |file|
+        File.read(file) =~ /^\s*(describe|context|it).*?wip(:)?( =>)? true/
       end
-      command += " -t focus" if has_focus
+      command += " -t wip" if has_wip
       command
     end
   end
@@ -58,8 +58,26 @@ guard 'rspec', :all_on_start => false, :cli => "--color -f nested --drb" do
   watch(%r{^app/controllers/(.+)_(controller)\.rb})  { |m| "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb" }
 end
 
-@nocukes = true
+if Dir.glob('**/*.feature')
+  require 'guard/cucumber'
+  ::Guard::Cucumber.class_eval do
+    def run_all
+      UI.info "Preparing to accept the battle's outcome"
+      system "rake cucumber"
+    end
+  end
 
+  guard 'cucumber', :all_on_start => false, :all_after_pass => true, :cli => "-f pretty --drb --no-profile --tags @wip:4" do
+    watch(%r{^features/.+\.feature$})
+    watch(%r{^features/support/.+$})                      { 'features' }
+    watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
+    watch(%r{^app/(.+)\.rb})                           { 'features' }
+    watch(%r{^lib/(.+)\.rb})
+  end
+  extensions << "Guard::Cucumber"
+else
+  @nocukes = true
+end
 
 
 guard('schema') { watch('db/schema.rb') }
@@ -69,7 +87,7 @@ guard('routes') { watch('config/routes.rb') }
 ::Guard::UI.info "\e[34mThe Vangaurd marches forth with the following troops:\n \e[32m#{extensions.join("\n ")}"
 ::Guard::UI.info "\e[33mRunning without cucumber. If you need this, install guard-cucumber." if @nocukes
 
-guard 'spork', :cucumber => false, :rspec_env => { 'RAILS_ENV' => 'test' } do
+guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' } do
   watch('config/application.rb')
   watch('config/environment.rb')
   watch(%r{^config/environments/.+\.rb$})
