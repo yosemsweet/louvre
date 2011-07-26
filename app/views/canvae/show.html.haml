@@ -51,14 +51,8 @@
 
 
 .span-8.last
-  %p#input-stream
-    %h2
-      Input Stream:
 
-    = render @canvas.widgets
-
-    = link_to "New Widget", new_canvas_widget_path(@canvas)
-
+  = render :partial => "/shared/input_stream"
 
 :javascript
   $(function(){
