@@ -6,9 +6,15 @@
 #edit_dialog
   %iframe#edit_frame{:src => ""}
 
-
 .span-16
   %h1 Page
+
+  = form_for([@canvas, @page]) do |f|
+    .field
+      = f.label :title
+      = f.text_field :title
+      = f.submit 'Update'
+
   #toolbar
     %a#add_text_widget{:href => "#"}
       Add Text Widget

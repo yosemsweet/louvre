@@ -55,17 +55,27 @@ describe Page do
 	
 	describe "#versions" do
 	  
+	  before(:each) do
+	    @page = Factory.create(:page)
+    end
+	  
 	  describe "A new page" do
 	    it "shouldn't have any versions" do
-	      Factory.create(:page).should have_exactly(0).versions
+	      @page.should have_exactly(0).versions
       end
     end
 	  
 	  describe "Adding a widget" do
 	    it "should create a new page version" do
-	      page = Factory.create(:page)
-	      widget = Factory.create(:widget, :page => page)
-	      page.should have_exactly(1).versions
+	      widget = Factory.create(:widget, :page => @page)
+	      @page.should have_exactly(1).versions
+      end
+    end
+    
+    describe "Updating the title" do
+      it "should create a new page version" do
+        @page.update_attributes(:title => "New Title")
+        @page.should have_exactly(1).versions
       end
     end
   end
