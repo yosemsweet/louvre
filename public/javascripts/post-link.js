@@ -76,13 +76,9 @@ function buildCommentForm()
         content = $form.find( 'textarea[name="widget-content"]' ).val(),
         url = $form.attr( 'action' );
     /* Send the data using post and put the results in a div */
-    $.post( url, {widget:{content: content, creator_id: user_id, content_type: 'text_content'} },
-      function( data ) {
-		var content = $( data ).find( '#content' );
-		$( "#saucy_book_input_stream_form" ).empty();
-		mpq.push(["track","click_save_bookmarklet"]);
-      }
-    );
+    $.post( url, {widget:{content: content, creator_id: user_id, content_type: 'text_content'} }, function(data) {});
+	$( "#saucy_book_input_stream_form" ).empty();
+	mpq.push(["track","click_save_bookmarklet"]);
   });
 }
 (function() {
