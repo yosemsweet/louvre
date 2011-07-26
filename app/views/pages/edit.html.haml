@@ -6,9 +6,15 @@
 #edit_dialog
   %iframe#edit_frame{:src => ""}
 
-
 .span-16
   %h1 Page
+
+  = form_for([@canvas, @page], :html => {:id => "update_page"}) do |f|
+    .field
+      = f.label :title
+      = f.text_field :title, :class => "title"
+      = f.submit 'Update'
+
   #toolbar
     %a#add_text_widget{:href => "#"}
       Add Text Widget
@@ -28,6 +34,11 @@
       minWidth:500, 
       autoOpen:false
     });
+    
+    var mixpanel_attributes = {
+      user_id : "#{current_user.id}", 
+      page_id : "#{@page.id}"
+    }
   
     close_edit_dialog = function(){
       the_edit_dialog.dialog("close");
@@ -53,15 +64,89 @@
       set_edit_frame_src("/canvae/#{@page.canvas.id}/widgets/new?page_id=#{@page.id}&content_type=text_content");
       set_dialog_title("New Text Widget");
       open_edit_dialog();
+      
+      mpq.push(["track","page_add_new_widget", mixpanel_attributes ]);
+      
       return false;
     });
     
     $(".edit_widget").live("click", function(){
-      var widget_id = $(this).attr("data_widget_id");
+      var widget_id = $(this).parents(".widget").attr("data_widget_id");
       set_edit_frame_src("/canvae/#{@page.canvas.id}/widgets/" + widget_id + "/edit");
-      set_dialog_title("Edit Widget")
+      set_dialog_title("Edit Widget");
       open_edit_dialog();
+      
+      mixpanel_attributes.widget_id = widget_id
+      mpq.push(["track","page_edit_widget", mixpanel_attributes]);
+      
     });
     
+    $(".delete_widget").live("click", function(){
+      // Delete from the server.
+      var $widget = $(this).parents(".widget");
+      var widget_id = $widget.attr("data_widget_id");
+      $.post("/canvae/#{@page.canvas.id}/widgets/" + widget_id, {
+        _method : 'DELETE' 
+      });
+    
+      // Remove from the DOM.
+      $widget.remove();
+      
+      mixpanel_attributes.widget_id = widget_id
+      mpq.push(["track","page_remove_widget", mixpanel_attributes]);
+    });
+    
+    
     reload_widgets();
+    
+    $("#widgets").sortable({
+       axis: 'y',
+       containment: "#widgets",
+       tolerance: 'pointer',
+       placeholder: 'placeholder',
+       forcePlaceholderSize: true,
+       handle: 'img.handle',
+       update: function(event, ui){     
+          // Get the dragged widget id.
+          var widget_id = ui.item.attr("data_widget_id");
+          // Compute the new position of this widget.
+          var position = ui.item.index() + 1;
+          
+          // Update the widget's position on the server.
+          $.post("/canvae/#{@canvas.id}/widgets/" + widget_id + "/update_position/", { 
+            position : position, 
+            _method : 'PUT' 
+          });
+          
+          mpq.push(["track","page_reorder_widgets", mixpanel_attributes]);
+          
+        }
+     });
+        
+    mpq.push(["track","hit_edit_page", mixpanel_attributes ]);
+    mpq.push(["track_forms",$("form#update_page"),"page_change_title", mixpanel_attributes]);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     

@@ -1,7 +1,18 @@
 class WidgetsController < ApplicationController
   
 	before_filter :load_canvas, :except => :destroy
-  
+
+  def update_position
+		@current_widget = Widget.find(params[:id])
+		
+		if @current_widget.update_position(params[:position])
+			head :ok
+		else
+			head :bad_request
+		end	
+		
+	end
+
   def index
     @widgets = Widget.all
   end
@@ -29,6 +40,10 @@ class WidgetsController < ApplicationController
     
     @widget = @canvas.widgets.new(params[:widget])
     @widget.creator ||= current_user
+    
+    if params[:widget][:page_id]
+		  @widget.initialize_page_position
+	  end
 
 		respond_to do |format|  
     	if @widget.save
@@ -52,10 +67,11 @@ class WidgetsController < ApplicationController
       
   end
 
-  # TODO: fix this method for nested resource
   def destroy
-    @widget = Widget.find(params[:id])
-    @widget.destroy
+    widget = Widget.find(params[:id])
+    widget.remove_page_position
+    widget.destroy
+    
     head :ok
   end
   

@@ -26,6 +26,10 @@ module NavigationHelpers
 			page = Page.find_by_title('Hats no one should wear')
 			canvas_page_path(page.canvas,page)
 			
+		when /Hats no one should wear edit page/
+			page = Page.find_by_title('Hats no one should wear')
+			edit_canvas_page_path(page.canvas,page)	
+			
 		when /Fashion of a Certain Age canvas homepage/
 			canvas = Canvas.find_by_name('Fashion of a Certain Age')
 			canvas_path(canvas)

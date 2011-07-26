@@ -5,7 +5,6 @@ describe Widget do
   context "validations" do
   	let(:widget ) { Factory.build(:widget) }
 
-
     it "should be valid with valid attributes" do
       widget.should be_valid
     end
@@ -53,8 +52,9 @@ describe Widget do
 			comments_attributes = [Factory.build(:comment).attributes.symbolize_keys ]
 			expect {Factory(:widget, :comments_attributes => comments_attributes)}.to change(Comment, :count).by(1)
 		end
-  end
-  
+		
+	end
+ 
   describe "Versioning" do
     
     describe "Creation" do
@@ -70,7 +70,7 @@ describe Widget do
       it "should store the page id in version meta data" do
         @new_widget.versions.last.page_id.should == @new_widget.page.id 
       end
-      
+
     end
     
     describe "Updating" do
@@ -89,7 +89,79 @@ describe Widget do
         last_version.changeset["name"].last.should == "New Name"
       end
     end
-    
+
   end
   
+	describe "#update_position" do
+		
+		before(:each) do
+			page = Factory.create(:page)
+			
+			@widget_a = Factory.create(:widget, :position => 1, :page => page)
+			@widget_b = Factory.create(:widget, :position => 2, :page => page)
+			@widget_c = Factory.create(:widget, :position => 3, :page => page)
+		end
+		
+		it "should update the position of this widget" do
+			@widget_a.update_position(5)
+			@widget_a.reload.position.should == 5
+		end
+		
+		it "should adjust widget ordering correctly when moved down" do
+			@widget_a.update_position(3)
+			
+			@widget_b.reload.position.should == 1
+			@widget_c.reload.position.should == 2
+		end
+		
+		it "should adjust widget ordering correctly when moved up" do
+			@widget_c.update_position(1)
+			
+			@widget_a.reload.position.should == 2
+			@widget_b.reload.position.should == 3
+		end
+		
+		it "should return true if successful" do
+			@widget_a = Factory.create(:widget, :position => 1)
+			@widget_a.update_position(5).should be_true			
+		end
+		
+	end
+	
+	describe "#initialize_page_position" do
+		
+		it "should set the position of a widget" do
+			@new_widget = Factory.build(:widget, :position => nil)
+			@new_widget.initialize_page_position
+			@new_widget.save
+			
+			@new_widget.reload.position.should == 1
+		end
+		
+	end
+	
+	describe "#remove_page_position" do
+	  
+	  before(:each) do
+	    page = Factory.create(:page)
+	    @widget_a = Factory.create(:widget, :position => 1, :page => page)
+			@widget_b = Factory.create(:widget, :position => 2, :page => page)
+			@widget_c = Factory.create(:widget, :position => 3, :page => page)
+	    @widget_b.remove_page_position
+		end
+
+    it "should set the widget's position to nil" do
+	    @widget_b.reload.position.should == nil
+    end
+	    
+	  it "should adjust the widgets after its position up one" do
+	    @widget_c.reload.position.should == 2
+    end
+	  
+	  it "should not adjust the widgets before its position" do
+	    @widget_a.reload.position.should == 1	  
+    end
+
+  end
+
 end
