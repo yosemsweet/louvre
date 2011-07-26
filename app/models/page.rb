@@ -15,6 +15,4 @@ class Page < ActiveRecord::Base
     Version.where("(item_type = \"Widget\" AND page_id = \"#{self.id}\") OR (item_type = \"Page\" AND item_id = \"#{self.id}\")").order("created_at DESC")
   end
 	
-	# Created the all_versions method. Test it to make sure it works.
-	
 end

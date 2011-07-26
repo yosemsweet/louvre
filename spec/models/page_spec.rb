@@ -54,30 +54,104 @@ describe Page do
 	end
 	
 	describe "#versions" do
-	  
-	  before(:each) do
-	    @page = Factory.create(:page)
+    
+    before(:each) do
+      @page = Factory.create(:page)
     end
 	  
-	  describe "A new page" do
-	    it "shouldn't have any versions" do
-	      @page.should have_exactly(0).versions
-      end
+	  it "should have one version for a new page" do
+	    @page.versions.length.should == 1
     end
 	  
-	  describe "Adding a widget" do
-	    it "should create a new page version" do
-	      widget = Factory.create(:widget, :page => @page)
-	      @page.should have_exactly(1).versions
+	  it "should have a new version when the page title is updated" do
+	    @page.update_attributes(:title => "New Title")
+	    @page.versions.length.should == 2
+    end
+    
+  end
+  
+  describe "#all_versions" do
+    
+    before(:each) do
+      @page = Factory.create(:page)
+    end
+    
+    context "a new page" do
+      it "should have one version" do
+        @page.all_versions.length.should == 1
+      end 
+    end
+    
+    context "updating the title" do
+      it "should add a new version" do
+        @page.update_attributes(:title => "New Title")
+  	    @page.all_versions.length.should == 2
+      end 
+    end
+    
+    context "adding a widget" do
+      it "should add a new version" do
+        Factory.create(:widget, :page => @page)
+        @page.all_versions.length.should == 2
       end
     end
     
-    describe "Updating the title" do
-      it "should create a new page version" do
+    context "in the wild" do
+      
+      before(:each) do
+        # Create new page
+        @page = Factory.create(:page)
+        # Add two widgets to the page
+        wa = Factory.create(:widget, :page => @page)
+        wb = Factory.create(:widget, :page => @page)
+        # Update the page title
         @page.update_attributes(:title => "New Title")
-        @page.should have_exactly(1).versions
+        # Add a third widget to the page
+        @wc = Factory.create(:widget, :page => @page)
+      end  
+      
+      it "should have the right number of versions" do
+        @page.all_versions.length.should == 5
+      end
+      
+      it "should list the earliest version last" do
+        v = @page.all_versions.last
+        v.item_type.should == "Page"
+        v.event.should == "create"
+      end
+      
+      it "should list the latest version first" do
+        v = @page.all_versions.first
+        v.item_type.should == "Widget"
       end
     end
   end
+	
+  # describe "#all_versions" do
+  #   
+  #   before(:each) do
+  #     @page = Factory.create(:page)
+  #     end
+  #   
+  #   describe "A new page" do
+  #     it "shouldn't have any versions" do
+  #       @page.all_versions.length.should == 0
+  #       end
+  #     end
+  #   
+  #   describe "Adding a widget" do
+  #     it "should create a new page version" do
+  #       widget = Factory.create(:widget, :page => @page)
+  #       @page.all_versions.length.should == 1
+  #       end
+  #     end
+  #     
+  #     describe "Updating the title" do
+  #       it "should create a new page version" do
+  #         @page.update_attributes(:title => "New Title")
+  #         @page.all_versions.length.should == 1
+  #       end
+  #     end
+  #   end
 	
 end
