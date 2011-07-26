@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   # GET /pages.xml
 
 	before_filter :load_canvas, :except => :destroy
+	before_filter :require_login, :except => [:show, :index, :widgets]
 
   def versions
     @page = Page.find(params[:id])

@@ -2,6 +2,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   helper_method :current_user
+  
+  def require_login
+    if !current_user
+      redirect_to('/', :notice => "Facebook sucks and logged you off.")
+    end
+  end
     
   private  
   def current_user  
