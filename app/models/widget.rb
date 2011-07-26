@@ -45,6 +45,14 @@ class Widget < ActiveRecord::Base
 	    update_attributes(:position => nil)
     end
   end
+
+	def is_on_page?
+		if self.page
+			return 1
+		else
+			return 0
+		end
+	end
 	
 	private
 	

@@ -1,11 +1,14 @@
+$widget_green_border: #D4E6C6;
+$widget_green: lighten($widget_green_border,10%);
+
 ul#is_widgets {
 	margin-top: 0px;
   padding: 0px 10px 10px 10px;
   border: 1px dotted #bbb;
 	min-height: 100px;
 	li {
-	 background-color: #DFF2FB; 
-	 border: 1px solid #D4E6C6;
+	 background-color: $widget_green; 
+	 border: 1px solid $widget_green_border;
 	 margin-top: 10px;
 	 padding: 10px;
 	 list-style: none;

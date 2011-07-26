@@ -22,106 +22,126 @@
   %ul#widgets
 
 .span-8.last
-  %h1 Sidebar
+
+  = render :partial => "shared/input_stream"
 
 .span-24.last
   = link_to 'Show', canvas_page_path(@canvas, @page)
   \|
   = link_to "Versions", versions_canvas_page_path(@page.canvas, @page)
-:javascript
-    var the_edit_dialog = $("#edit_dialog").dialog({
-      minHeight:250, 
-      minWidth:500, 
-      autoOpen:false
-    });
-    
-    var mixpanel_attributes = {
-      user_id : "#{current_user.id}", 
-      page_id : "#{@page.id}"
-    }
   
-    close_edit_dialog = function(){
-      the_edit_dialog.dialog("close");
-    }
+:javascript
+
+  var the_edit_dialog = $("#edit_dialog").dialog({
+    minHeight:250, 
+    minWidth:500, 
+    autoOpen:false
+  });
+  
+  var mixpanel_attributes = {
+    user_id : "#{current_user.id}", 
+    page_id : "#{@page.id}"
+  }
+
+  close_edit_dialog = function(){
+    the_edit_dialog.dialog("close");
+  }
+  
+  open_edit_dialog = function(){
+    the_edit_dialog.dialog("open");
+  }
+  
+  set_dialog_title = function(title){
+    the_edit_dialog.dialog("option","title", title);
+  }
+  
+  set_edit_frame_src = function(src){
+    $("#edit_frame").attr("src", src);
+  }
+  
+  reload_widgets = function(){
+    $("#widgets").load("/canvae/#{@page.canvas.id}/pages/#{@page.id}/widgets");      
+  }
+  
+  $("a#add_text_widget").click(function(){
+    set_edit_frame_src("/canvae/#{@page.canvas.id}/widgets/new?page_id=#{@page.id}&content_type=text_content");
+    set_dialog_title("New Text Widget");
+    open_edit_dialog();
     
-    open_edit_dialog = function(){
-      the_edit_dialog.dialog("open");
-    }
+    mpq.push(["track","page_add_new_widget", mixpanel_attributes ]);
     
-    set_dialog_title = function(title){
-      the_edit_dialog.dialog("option","title", title);
-    }
+    return false;
+  });
+  
+  $(".edit_widget").live("click", function(){
+    var widget_id = $(this).parents(".widget").attr("data_widget_id");
+    set_edit_frame_src("/canvae/#{@page.canvas.id}/widgets/" + widget_id + "/edit");
+    set_dialog_title("Edit Widget");
+    open_edit_dialog();
     
-    set_edit_frame_src = function(src){
-      $("#edit_frame").attr("src", src);
-    }
+    mixpanel_attributes.widget_id = widget_id
+    mpq.push(["track","page_edit_widget", mixpanel_attributes]);
     
-    reload_widgets = function(){
-      $("#widgets").load("/canvae/#{@page.canvas.id}/pages/#{@page.id}/widgets");      
-    }
-    
-    $("a#add_text_widget").click(function(){
-      set_edit_frame_src("/canvae/#{@page.canvas.id}/widgets/new?page_id=#{@page.id}&content_type=text_content");
-      set_dialog_title("New Text Widget");
-      open_edit_dialog();
-      
-      mpq.push(["track","page_add_new_widget", mixpanel_attributes ]);
-      
-      return false;
+  });
+  
+  $(".delete_widget").live("click", function(){
+    // Delete from the server.
+    var $widget = $(this).parents(".widget");
+    var widget_id = $widget.attr("data_widget_id");
+    $.post("/canvae/#{@page.canvas.id}/widgets/" + widget_id, {
+      _method : 'DELETE' 
     });
+  
+    // Remove from the DOM.
+    $widget.remove();
     
-    $(".edit_widget").live("click", function(){
-      var widget_id = $(this).parents(".widget").attr("data_widget_id");
-      set_edit_frame_src("/canvae/#{@page.canvas.id}/widgets/" + widget_id + "/edit");
-      set_dialog_title("Edit Widget");
-      open_edit_dialog();
-      
-      mixpanel_attributes.widget_id = widget_id
-      mpq.push(["track","page_edit_widget", mixpanel_attributes]);
-      
-    });
-    
-    $(".delete_widget").live("click", function(){
-      // Delete from the server.
-      var $widget = $(this).parents(".widget");
-      var widget_id = $widget.attr("data_widget_id");
-      $.post("/canvae/#{@page.canvas.id}/widgets/" + widget_id, {
-        _method : 'DELETE' 
-      });
-    
-      // Remove from the DOM.
-      $widget.remove();
-      
-      mixpanel_attributes.widget_id = widget_id
-      mpq.push(["track","page_remove_widget", mixpanel_attributes]);
-    });
-    
-    
-    reload_widgets();
-    
-    $("#widgets").sortable({
-       axis: 'y',
-       containment: "#widgets",
-       tolerance: 'pointer',
-       placeholder: 'placeholder',
-       forcePlaceholderSize: true,
-       handle: 'img.handle',
-       update: function(event, ui){     
-          // Get the dragged widget id.
-          var widget_id = ui.item.attr("data_widget_id");
-          // Compute the new position of this widget.
-          var position = ui.item.index() + 1;
-          
-          // Update the widget's position on the server.
-          $.post("/canvae/#{@canvas.id}/widgets/" + widget_id + "/update_position/", { 
-            position : position, 
-            _method : 'PUT' 
-          });
-          
-          mpq.push(["track","page_reorder_widgets", mixpanel_attributes]);
-          
-        }
-     });
+    mixpanel_attributes.widget_id = widget_id
+    mpq.push(["track","page_remove_widget", mixpanel_attributes]);
+  });
+  
+  
+  reload_widgets();
+  
+  $("#widgets").droppable({
+         drop: function(event, ui){
+           // ui.draggable.appendTo($(this));  
+           console.log("dropped");
+         }
+       }).sortable({
+     axis: 'y',
+     containment: "#widgets",
+     tolerance: 'pointer',
+     placeholder: 'placeholder',
+     forcePlaceholderSize: true,
+     handle: 'img.handle',
+     update: function(event, ui){     
+        // Get the dragged widget id.
+        var widget_id = ui.item.attr("data_widget_id");
+        // Compute the new position of this widget.
+        var position = ui.item.index() + 1;
         
-    mpq.push(["track","hit_edit_page", mixpanel_attributes ]);
-    mpq.push(["track_forms",$("form#update_page"),"page_change_title", mixpanel_attributes]);
+        // Update the widget's position on the server.
+        $.post("/canvae/#{@canvas.id}/widgets/" + widget_id + "/update_position/", { 
+          position : position, 
+          _method : 'PUT' 
+        });
+        
+        mpq.push(["track","page_reorder_widgets", mixpanel_attributes]);
+        
+      }
+   });
+      
+   $("#is_widgets li").draggable({
+     appendTo: "body",
+     helper: "clone",
+     connectToSortable: '#widgets',
+     opacity: 0.6,
+     revert: 'invalid',
+     revertDuration: 200,
+     handle: 'img.handle'
+   });      
+      
+      
+      
+  mpq.push(["track","hit_edit_page", mixpanel_attributes ]);
+  mpq.push(["track_forms",$("form#update_page"),"page_change_title", mixpanel_attributes]);
