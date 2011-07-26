@@ -12,7 +12,7 @@ class Page < ActiveRecord::Base
 	
 	# Return the versions of this page and its widgets ordered by date descending
   def all_versions
-    Version.where("(item_type = \"Widget\" AND page_id = \"#{self.id}\") OR (item_type = \"Page\" AND item_id = \"#{self.id}\")").order("created_at DESC")
+    Version.where("(item_type = \'Widget\' AND page_id = \'#{self.id}\') OR (item_type = \'Page\' AND item_id = \'#{self.id}\')").order("created_at DESC")
   end
 	
 end
