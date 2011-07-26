@@ -2,7 +2,8 @@ Louvre::Application.routes.draw do
   resources :comments
 
   resources :canvae do
-    resources :widgets
+    resources :widgets do
+		end
   end
 
   resources :canvae do
