@@ -20,6 +20,6 @@ And I am on the "New Page page"
 When I fill in the following:
 |Title     |Hats no one should wear| 
 And I press "Save"
-Then I should be on "Hats no one should wear page"
+Then I should be on "Hats no one should wear edit page"
 And I should see "Page created!"
 And I should be the creator of the "Hats no one should wear" page

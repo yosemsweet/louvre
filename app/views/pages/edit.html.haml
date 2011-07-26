@@ -12,7 +12,7 @@
   = form_for([@canvas, @page], :html => {:id => "update_page"}) do |f|
     .field
       = f.label :title
-      = f.text_field :title
+      = f.text_field :title, :class => "title"
       = f.submit 'Update'
 
   #toolbar

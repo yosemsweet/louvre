@@ -35,39 +35,25 @@ class PagesController < ApplicationController
     end
   end
 
-  # GET /pages/new
-  # GET /pages/new.xml
   def new
-    
 		@page = @canvas.pages.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @page }
-    end
   end
 
-  # GET /pages/1/edit
   def edit
     @page = Page.find(params[:id])
   end
 
-  # POST /pages
-  # POST /pages.xml
   def create
 		
 		@page = @canvas.pages.new(params[:page])
 		@page.creator = current_user
 
-    respond_to do |format|
-      if @page.save
-        format.html { redirect_to(canvas_page_path(@canvas, @page), :notice => 'Page created!') }
-        format.xml  { render :xml => @page, :status => :created, :location => @page }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @page.errors, :status => :unprocessable_entity }
-      end
+    if @page.save
+      redirect_to(edit_canvas_page_path(@canvas, @page), :notice => 'Page created!')
+    else
+      render :action => "new"
     end
+
   end
 
   # PUT /pages/1
