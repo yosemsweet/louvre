@@ -8,8 +8,6 @@ class Widget < ActiveRecord::Base
     
   validates_presence_of :canvas
   validates_presence_of :creator
-	
-	# validates :position, :numericality => { :only_integer => true }
 
 	def update_position(new_position)
 		
@@ -32,13 +30,18 @@ class Widget < ActiveRecord::Base
 		
 	end
 	
-	def initialize_position
-		if !self.page
-			self.position = nil
-		else
+	def initialize_page_position
+		if self.page
 			self.position = self.page.widgets.length + 1
 		end
 	end
+	
+	def remove_page_position
+	  if self.page
+	    decrement_after
+	    update_attributes(:position => nil)
+    end
+  end
 	
 	private
 	
@@ -66,4 +69,16 @@ SQL
 	  )
 	end
 	
+  def decrement_after
+    # Decrement all later placements on this page.
+    ActiveRecord::Base.connection.execute(<<SQL
+    UPDATE widgets SET
+      position = position - 1
+    WHERE page_id = #{self.page.id}
+      AND position >= #{self.position}
+      AND id <> #{self.id}
+SQL
+      )
+  end
+  
 end

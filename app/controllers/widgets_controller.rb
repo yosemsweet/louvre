@@ -39,7 +39,7 @@ class WidgetsController < ApplicationController
     
     @widget = @canvas.widgets.new(params[:widget])
     @widget.creator = current_user
-		@widget.initialize_position
+		@widget.initialize_page_position
 
     if @widget.save
       render 'update_page', :layout => false
@@ -60,10 +60,11 @@ class WidgetsController < ApplicationController
       
   end
 
-  # TODO: fix this method for nested resource
   def destroy
-    @widget = Widget.find(params[:id])
-    @widget.destroy
+    widget = Widget.find(params[:id])
+    widget.remove_page_position
+    widget.destroy
+    
     head :ok
   end
   

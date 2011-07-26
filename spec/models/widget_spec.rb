@@ -70,11 +70,11 @@ describe Widget do
 	describe "#update_position" do
 		
 		before(:each) do
-			@new_page = Factory.create(:page)
+			page = Factory.create(:page)
 			
-			@widget_a = Factory.create(:widget, :position => 1, :page => @new_page)
-			@widget_b = Factory.create(:widget, :position => 2, :page => @new_page)
-			@widget_c = Factory.create(:widget, :position => 3, :page => @new_page)
+			@widget_a = Factory.create(:widget, :position => 1, :page => page)
+			@widget_b = Factory.create(:widget, :position => 2, :page => page)
+			@widget_c = Factory.create(:widget, :position => 3, :page => page)
 		end
 		
 		it "should update the position of this widget" do
@@ -103,16 +103,42 @@ describe Widget do
 		
 	end
 	
-	describe "#initialize_position" do
+	describe "#initialize_page_position" do
 		
 		it "should set the position of a widget" do
 			@new_widget = Factory.build(:widget, :position => nil)
-			@new_widget.initialize_position
+			@new_widget.initialize_page_position
 			@new_widget.save
 			
 			@new_widget.reload.position.should == 1
 		end
 		
 	end
+	
+	describe "#remove_page_position" do
+	  
+	  before(:each) do
+	    page = Factory.create(:page)
+	    @widget_a = Factory.create(:widget, :position => 1, :page => page)
+			@widget_b = Factory.create(:widget, :position => 2, :page => page)
+			@widget_c = Factory.create(:widget, :position => 3, :page => page)
+	    @widget_b.remove_page_position
+		end
+
+    it "should set the widget's position to nil" do
+	    @widget_b.reload.position.should == nil
+    end
+	    
+	  it "should adjust the widgets after its position up one" do
+	    @widget_c.reload.position.should == 2
+    end
+	  
+	  it "should not adjust the widgets before its position" do
+	    @widget_a.reload.position.should == 1	  
+    end
+    
+
+    
+  end
 
 end

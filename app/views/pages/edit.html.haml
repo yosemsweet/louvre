@@ -57,11 +57,25 @@
     });
     
     $(".edit_widget").live("click", function(){
-      var widget_id = $(this).attr("data_widget_id");
+      var widget_id = $(this).parents(".widget").attr("data_widget_id");
       set_edit_frame_src("/canvae/#{@page.canvas.id}/widgets/" + widget_id + "/edit");
-      set_dialog_title("Edit Widget")
+      set_dialog_title("Edit Widget");
       open_edit_dialog();
     });
+    
+    $(".delete_widget").live("click", function(){
+      // Delete from the server.
+      var $widget = $(this).parents(".widget");
+      var widget_id = $widget.attr("data_widget_id");
+      $.post("/canvae/#{@page.canvas.id}/widgets/" + widget_id, {
+        _method : 'DELETE' 
+      });
+    
+      // Remove from the DOM.
+      $widget.remove();
+      
+    });
+    
     
     reload_widgets();
     
@@ -71,40 +85,21 @@
        tolerance: 'pointer',
        placeholder: 'placeholder',
        forcePlaceholderSize: true,
-       handle: 'img.handle'
-       ,
-       update: function(event, ui){
-       
-                var e = ui.item;
-       
-                // Get the dragged widget / widget placement.
-                var widget_id = e.attr("data_widget_id");
-                // var widget_placement_id = e.attr("data_widget_placement_id");
-       
-                // Compute the new position of this widget.
-                var position = e.index() + 1;
-       
-                // if(widget_placement_id == 0){
-                //   // Add a widget placement to the page.
-                //        
-                //   $.post("/pages/#{@page.id}/widget_placements", {
-                //     widget_id : widget_id,
-                //     position : position
-                //   }, function(data){
-                //     // Save the id of the new widget placement in the dom.
-                //     e.attr("data_widget_placement_id", data);
-                //        
-                //   });
-                //        
-                // } else {
-                  // Update the widget placement's position.
-       
-                  $.post("/canvae/#{@canvas.id}/widgets/" + widget_id + "/update_position/", { 
-                    position : position, 
-                    _method : 'PUT' 
-                  });
-                // }
-              }
+       handle: 'img.handle',
+       update: function(event, ui){     
+
+          // Get the dragged widget id.
+          var widget_id = ui.item.attr("data_widget_id");
+
+          // Compute the new position of this widget.
+          var position = ui.item.index() + 1;
+
+          // Update the widget's position on the server.
+          $.post("/canvae/#{@canvas.id}/widgets/" + widget_id + "/update_position/", { 
+            position : position, 
+            _method : 'PUT' 
+          });
+        }
      });
     
     
