@@ -40,7 +40,8 @@ class WidgetsController < ApplicationController
     
     @widget = @canvas.widgets.new(params[:widget])
     @widget.creator ||= current_user
-    if params[:page_id]
+    
+    if params[:widget][:page_id]
 		  @widget.initialize_page_position
 	  end
 

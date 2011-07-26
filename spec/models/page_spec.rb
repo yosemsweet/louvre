@@ -127,31 +127,4 @@ describe Page do
     end
   end
 	
-  # describe "#all_versions" do
-  #   
-  #   before(:each) do
-  #     @page = Factory.create(:page)
-  #     end
-  #   
-  #   describe "A new page" do
-  #     it "shouldn't have any versions" do
-  #       @page.all_versions.length.should == 0
-  #       end
-  #     end
-  #   
-  #   describe "Adding a widget" do
-  #     it "should create a new page version" do
-  #       widget = Factory.create(:widget, :page => @page)
-  #       @page.all_versions.length.should == 1
-  #       end
-  #     end
-  #     
-  #     describe "Updating the title" do
-  #       it "should create a new page version" do
-  #         @page.update_attributes(:title => "New Title")
-  #         @page.all_versions.length.should == 1
-  #       end
-  #     end
-  #   end
-	
 end
