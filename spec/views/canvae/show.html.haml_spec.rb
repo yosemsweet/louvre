@@ -15,10 +15,36 @@ describe "canvae/show.html.haml" do
      end
    end
   
+
+  context "header" do
+	  it "displays the canvas name for the logo" do
+	    render
+	    view.content_for(:header).should have_selector('h1#logo', :content => @canvas.name) 
+	  end
+	end
   
-  it "displays the canvas name for the logo" do
-    render
-    view.content_for(:header).should have_selector('h1#logo', :content => @canvas.name) 
-  end
-  
+
+	context "input stream" do
+		it "displays the canvas input stream" do
+			render
+			rendered.should have_selector('#input-stream')
+		end
+		
+		context "with widgets" do
+			before(:each) do
+				10.times do
+					@canvas.widgets.create( Factory.create(:widget) )
+				end
+			end
+			
+			it "displays all widgets in the widget stream" do
+				render
+				@canvas.widgets.each do |widget|
+					rendered.should have_selector(".widget .content", :content => widget.content)
+				end
+			end
+		end
+	end
+	
+	
 end

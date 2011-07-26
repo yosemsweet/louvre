@@ -57,11 +57,11 @@ function buildCommentForm()
 		#title_content{ padding: 10px; background-color: #6991dc;text-align: center;margin-bottom:10px;box-shadow: 0 1px 2px #173162; \
 		}</style>\
 		\
-		<div id='saucy-result'></div>\
+		<div id='saucy-result'>\
 		<div id='title_content'>Add to Canvas:</div>\
-		<form id='saucy-input-form' action='http://localhost:3000/canvae/"+canvas_id+"/things.json'> \
-		Text: <br> <textarea name='thing-content' rows='10' cols='20'>"+ bookmarkURL + "\n" +  highlighted.toString() +"</textarea> <br> \
-		<input type='submit' value='Get Sauced'></form>";
+		<form id='saucy-input-form' action='" + host_uri + "/canvae/"+canvas_id+"/widgets.json'> \
+		Text: <br> <textarea name='widget-content' rows='10' cols='20'>"+ bookmarkURL + "\n" +  highlighted.toString() +"</textarea> <br> \
+		<input type='submit' value='Get Sauced'></form></div>";
 	new_div.innerHTML = new_content;
 	element.appendChild(new_div);
 	
@@ -73,16 +73,12 @@ function buildCommentForm()
 
     /* get some values from elements on the page: */
     var $form = $( this ),
-        content = $form.find( 'textarea[name="thing-content"]' ).val(),
+        content = $form.find( 'textarea[name="widget-content"]' ).val(),
         url = $form.attr( 'action' );
     /* Send the data using post and put the results in a div */
-    $.post( url, {thing:{content: content, creator_id: user_id} },
-      function( data ) {
-		var content = $( data ).find( '#content' );
-		$( "#saucy-result" ).empty().append( content );
-		mpq.push(["track","click_save_bookmarklet"]);
-      }
-    );
+    $.post( url, {widget:{content: content, creator_id: user_id, content_type: 'text_content'} }, function(data) {});
+	$( "#saucy_book_input_stream_form" ).empty();
+	mpq.push(["track","click_save_bookmarklet"]);
   });
 }
 (function() {
@@ -96,7 +92,7 @@ function buildCommentForm()
 	
 	mpq.push(["track","hit_form_bookmarklet"]);
 
-	loadjscssfile("http://localhost:3000/stylesheets/bookmarklet_form.css","css");
+	loadjscssfile(host_uri + "/stylesheets/bookmarklet_form.css","css");
 	loadJquery();
 	setTimeout(buildCommentForm, 500);
 })();

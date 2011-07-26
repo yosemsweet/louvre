@@ -7,7 +7,9 @@
       = f.label :content
       = f.text_area :content
   
-  %input{:type => "hidden", :name => "widget[page_id]", :value => "#{@widget.page.id}"}
+  - if @widget.page
+    %input{:type => "hidden", :name => "widget[page_id]", :value => "#{@widget.page.id}"}
+
   %input{:type => "hidden", :name => "widget[content_type]", :value => "#{@widget.content_type}"}
   .actions
     = f.submit 'Save'

@@ -4,10 +4,9 @@ class Widget < ActiveRecord::Base
   belongs_to :canvas
 	belongs_to :creator, :class_name => "User"
 
-  has_paper_trail :meta => { :page_id => Proc.new{ |widget| widget.page.id }}
+  has_paper_trail :meta => { :page_id => Proc.new{ |widget| widget.page ? widget.page.id : nil }}
     
-  validates_presence_of :canvas
-  validates_presence_of :creator
+  validates_presence_of :canvas, :creator, :content_type
 
 	def update_position(new_position)
 		
@@ -80,5 +79,5 @@ SQL
 SQL
       )
   end
-  
+
 end

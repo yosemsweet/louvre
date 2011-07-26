@@ -23,8 +23,9 @@ class WidgetsController < ApplicationController
 
   def new
     @widget = Widget.new(:content_type => params[:content_type])
-    @widget.page = Page.find(params[:page_id]) 
-    @widget.content_type = params[:content_type]
+		
+    @widget.page = Page.find(params[:page_id]) if params[:page_id]
+    @widget.content_type = params[:content_type] || 'text_content'
     
     render :layout => "edit_widget"
   end
@@ -38,14 +39,19 @@ class WidgetsController < ApplicationController
   def create    
     
     @widget = @canvas.widgets.new(params[:widget])
-    @widget.creator = current_user
-		@widget.initialize_page_position
+    @widget.creator ||= current_user
+    if params[:page_id]
+		  @widget.initialize_page_position
+	  end
 
-    if @widget.save
-      render 'update_page', :layout => false
-    else
-      head :bad_request
-    end
+		respond_to do |format|  
+    	if @widget.save
+				format.html { render 'update_page', :layout => false }
+     		format.json { render :json => @widget, :status => :created }
+	    else
+	      head :bad_request
+	    end
+		end
 
   end
 

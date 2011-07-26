@@ -7,14 +7,11 @@ Louvre::Application.routes.draw do
 		    get 'versions'
 	    end
 	  end
-	
 	  resources :widgets do
 			member do
 				put 'update_position'
 			end
 		end
-		
-		
 	end
 
   root :to => "static#index"

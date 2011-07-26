@@ -15,33 +15,32 @@
 %p
   %b Creator:
   = @canvas.creator_id
-%h2
-  Input Stream:
+%p#input-stream
+  %h2
+    Input Stream:
 
-- @canvas.things.each do |thing|
-  .things
-    = thing.id
-    = thing.content
-    = thing.creator_id
-    .comments
-      = render thing.comments
+  - @canvas.widgets.each do |widget|
+    .widget
+      .id= widget.id
+      .content= widget.content
+      .creator= widget.creator.to_s
 
-= link_to "New Thing", new_canvas_thing_path(@canvas)
+  = link_to "New Widget", new_canvas_widget_path(@canvas)
 
-%h2
-  Pages
-%ul
-- @canvas.pages.each do |page|
-  %li
-    = link_to page.title, canvas_page_path(@canvas, page)
+  %h2
+    Pages
+  %ul
+  - @canvas.pages.each do |page|
+    %li
+      = link_to page.title, canvas_page_path(@canvas, page)
 
-- if current_user
-  .bookmarklet
-    Install Bookmarklet
-  
+  - if current_user
+    .bookmarklet
+      Install Bookmarklet
+
     %p
       ="drag the box below to your bookmark toolbar. #{host_uri}"
-    %a#bookmarklet_install{:href => "javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.innerText='canvas_id=#{@canvas.id};user_id=#{current_user.id}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='#{host_uri}/javascripts/post-link.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();"}
+    %a#bookmarklet_install{:onmousedown=>"mpq.push(['track','install_bookmark']);",:href => "javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.innerText='canvas_id=#{@canvas.id};user_id=#{current_user.id}';host_uri='#{host_uri}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='#{host_uri}/javascripts/post-link.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();"}
       .info
         = "add to #{@canvas.name}"
   .info

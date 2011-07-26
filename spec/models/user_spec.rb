@@ -68,8 +68,12 @@ describe User do
     end
     
   end
-  
-  
-  
+
+	context "Methods" do
+	  describe "it should show its name when called with to_s" do
+			user = Factory.build(:user)
+			user.to_s.should == user.name
+		end  
+	end
   
 end
