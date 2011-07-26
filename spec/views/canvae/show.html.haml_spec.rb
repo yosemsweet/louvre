@@ -56,7 +56,7 @@ describe "canvae/show.html.haml" do
 					render
 					@canvas.widgets.each do |widget|
 						widget.comments.find(:all, :order => "created_at DESC", :limit => 5).reverse.each do |comment|
-							rendered.should have_selector("#comment_#{comment.id}", :content => comment.content)
+							rendered.should have_selector("#comment_#{comment.id}.comment", :content => comment.content)
 						end
 					end
 				end
