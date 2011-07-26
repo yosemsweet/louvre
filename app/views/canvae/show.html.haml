@@ -19,11 +19,7 @@
   %h2
     Input Stream:
 
-  - @canvas.widgets.each do |widget|
-    .widget
-      .id= widget.id
-      .content= widget.content
-      .creator= widget.creator.to_s
+  = render @canvas.widgets
 
   = link_to "New Widget", new_canvas_widget_path(@canvas)
 

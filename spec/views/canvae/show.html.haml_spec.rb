@@ -33,7 +33,7 @@ describe "canvae/show.html.haml" do
 		context "with widgets" do
 			before(:each) do
 				10.times do
-					@canvas.widgets.create( Factory.create(:widget) )
+					Factory.create(:widget, :canvas => @canvas)
 				end
 			end
 			
@@ -41,6 +41,24 @@ describe "canvae/show.html.haml" do
 				render
 				@canvas.widgets.each do |widget|
 					rendered.should have_selector(".widget .content", :content => widget.content)
+				end
+			end
+			
+			context "with comments" do
+				before(:each) do
+					widget = @canvas.widgets.first
+					10.times do
+						Factory.create(:comment, :widget => widget, :creator => widget.creator)
+					end
+				end
+				
+				it "displays last 5 comments for a widget" do
+					render
+					@canvas.widgets.each do |widget|
+						widget.comments.find(:all, :order => "created_at DESC", :limit => 5).reverse.each do |comment|
+							rendered.should have_selector("#comment_#{comment.id}", :content => comment.content)
+						end
+					end
 				end
 			end
 		end

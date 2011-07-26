@@ -6,6 +6,8 @@ class Widget < ActiveRecord::Base
 	
 	has_many :comments
 
+	accepts_nested_attributes_for :comments
+
   has_paper_trail :meta => { :page_id => Proc.new{ |widget| widget.page ? widget.page.id : nil }}
     
   validates_presence_of :canvas, :creator, :content_type  
