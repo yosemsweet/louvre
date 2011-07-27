@@ -2,6 +2,7 @@
 %html
   %head
     = stylesheet_link_tag 'application.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'widget.css', :media => 'screen, projection'
     = stylesheet_link_tag 'print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
@@ -10,4 +11,8 @@
     = javascript_include_tag 'http://texteditor.suite101.com.s3.amazonaws.com/ckeditor.js','http://texteditor.suite101.com.s3.amazonaws.com/adapters/jquery.js'
     = csrf_meta_tag
   %body
-    = yield
+    #header
+      = yield :header
+    
+    .container
+      = yield

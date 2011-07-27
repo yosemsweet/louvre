@@ -1,5 +1,5 @@
 = render :partial => "header"
-
+= render :partial => "shared/invite", :locals => {:canvas => @canvas}
 %p#notice= notice
 
 .span-16
@@ -57,7 +57,7 @@
 
     = render @canvas.widgets
 
-    = link_to "New Widget", new_canvas_widget_path(@canvas)
+    = link_to "Add to input stream", new_canvas_widget_path(@canvas)
 
 
 :javascript
