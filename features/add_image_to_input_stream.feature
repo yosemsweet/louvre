@@ -9,5 +9,7 @@ Given there is a canvas
 And I am authenticated
 And I am on that canvas' homepage
 When I follow "Add image to input stream"
-And I fill in "image_field" with "http://url_of_image.com/image.jpg"
+And I fill in "widget_content" with "image.jpg"
+And I fill in "widget_alt_text" with "image alt text"
+And I press "Save"
 Then the image link is added to the canvas' input stream
