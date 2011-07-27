@@ -10,6 +10,20 @@ class WidgetsController < ApplicationController
 		else
 			head :bad_request
 		end	
+	end
+	
+	def clone_widget
+		
+		@widget = Widget.find(params[:id])
+		
+		@cloned_widget = @widget.widget_clone
+		@cloned_widget.page_id = params[:page_id]
+		
+		if @cloned_widget.save && @cloned_widget.insert_position(params[:position])
+			render :json => @cloned_widget.id
+		else
+			head :bad_request
+		end
 		
 	end
 
