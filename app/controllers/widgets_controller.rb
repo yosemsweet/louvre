@@ -22,7 +22,7 @@ class WidgetsController < ApplicationController
   end
 
   def new
-    @widget = Widget.new(:content_type => params[:content_type])
+    @widget = @canvas.widgets.new(:content_type => params[:content_type])
 		
     @widget.page = Page.find(params[:page_id]) if params[:page_id]
     @widget.content_type = params[:content_type] || 'text_content'
@@ -47,7 +47,7 @@ class WidgetsController < ApplicationController
 
 		respond_to do |format|  
     	if @widget.save
-				format.html { render 'update_page', :layout => false }
+				format.html { redirect_to(canvas_path(@widget.canvas), :notice => 'widget was successfully created.') }
      		format.json { render :json => @widget, :status => :created }
 	    else
 	      head :bad_request
