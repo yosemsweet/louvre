@@ -1,25 +1,93 @@
 $widget_green_border: #D4E6C6;
 $widget_green: lighten($widget_green_border,10%);
 
-ul#is_widgets {
-	margin-top: 0px;
-  padding: 0px 10px 10px 10px;
-  border: 1px dotted #bbb;
-	min-height: 100px;
+@mixin input_stream_widget {
+	
 	li {
-	 background-color: $widget_green; 
-	 border: 1px solid $widget_green_border;
-	 margin-top: 10px;
-	 padding: 10px;
-	 list-style: none;
-		&.placeholder{
-		   border: 1px dotted #ddd;
-		   background-color: #FFFBEA;
-		 }
-		.handle{
-			float: left;
-			margin-right: 10px;
-			cursor: move;
-		}
+		width: 254px;
+	 	margin: 10px 8px;
+	 	padding: 8px;
+	 	list-style: none;
 	}
+	
+	li.widget {
+		background-color: $widget_green; 
+		border: 1px solid $widget_green_border;
+		.content {
+			display: none;
+		}
+		.preview{
+			display: block;
+		}
+		.controls{
+			img.handle{
+				float: left;
+				margin-right: 10px;
+				cursor: move;
+			}
+		}
+
+	}
+}
+
+@mixin page_widget {
+	
+	li {
+		width: 572px;
+	 	margin: 10px 8px;
+	 	padding: 8px;
+	 	list-style: none;
+		@include clearfix;
+	}
+	
+	li.widget {
+		background-color: #DFF2FB; 
+	 	border: 1px solid #D4E6C6;
+		.preview{
+			display: none;
+		}
+		.controls{
+			img.handle{
+				float: left;
+				margin-right: 10px;
+				cursor: move;
+			}
+		}
+
+	}
+	
+	li.placeholder {
+		border: 1px dotted #ddd;
+		background-color: #FFFBEA;
+	}	
+}
+
+
+@mixin presentation_widget {
+
+	li {
+		width: 572px;
+		margin: 0;
+		margin-left: 10px;
+	 	padding: 0;
+	 	list-style: none;
+		@include clearfix;
+	}
+	
+	li.widget {
+		background-color: #fff; 
+	 	border: none;
+		.preview{
+			display: none;
+		}
+		.controls{
+			display: none;
+		}
+
+	}
+	
+	li.placeholder {
+		border: 1px dotted #ddd;
+		background-color: #FFFBEA;
+	}	
 }

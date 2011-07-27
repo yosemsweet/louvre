@@ -1,7 +1,7 @@
 = render :partial => "header"
 
 - content_for :head do
-  = stylesheet_link_tag 'page_edit_page.css', :media => 'screen, projection'
+  = stylesheet_link_tag 'page.css', :media => 'screen, projection'
 
 #edit_dialog
   %iframe#edit_frame{:src => ""}
@@ -19,19 +19,25 @@
     %a#add_text_widget{:href => "#"}
       Add Text Widget
       
-  %ul#widgets
+  %ul#page
 
 .span-8.last
-
-  = render :partial => "shared/input_stream"
+  %h2 Input Stream
+  %ul#input_stream
+    -# = render @canvas.input_stream_widgets
 
 .span-24.last
   = link_to 'Show', canvas_page_path(@canvas, @page)
   \|
   = link_to "Versions", versions_canvas_page_path(@page.canvas, @page)
+  \|
+  = link_to 'View Canvas', canvas_path(@canvas)
   
 :javascript
-
+  
+  // Load input stream widgets
+  $("ul#input_stream").load("/canvae/#{@page.canvas.id}/widgets"); 
+  
   var the_edit_dialog = $("#edit_dialog").dialog({
     minHeight:250, 
     minWidth:500, 
@@ -42,7 +48,7 @@
     user_id : "#{current_user.id}", 
     page_id : "#{@page.id}"
   }
-
+  
   close_edit_dialog = function(){
     the_edit_dialog.dialog("close");
   }
@@ -60,7 +66,7 @@
   }
   
   reload_widgets = function(){
-    $("#widgets").load("/canvae/#{@page.canvas.id}/pages/#{@page.id}/widgets");      
+    $("ul#page").load("/canvae/#{@page.canvas.id}/pages/#{@page.id}/widgets");      
   }
   
   $("a#add_text_widget").click(function(){
@@ -102,9 +108,9 @@
   
   reload_widgets();
   
-  $("#widgets").sortable({
+  $("ul#page").sortable({
      axis: 'y',
-     containment: "#widgets",
+     containment: "ul#page",
      tolerance: 'pointer',
      placeholder: 'placeholder',
      forcePlaceholderSize: true,
@@ -115,9 +121,9 @@
         // Compute the new position of this widget.
         var position = ui.item.index() + 1;
         // determine if this widget was already on the page
-        var is_on_page = ui.item.attr("data_is_on_page");
+        var has_page = ui.item.attr("data_is_on_page");
         
-        if (is_on_page == 1) {
+        if (has_page == 1) {
           
           // Update the widget's position on the server.
           $.post("/canvae/#{@canvas.id}/widgets/" + widget_id + "/update_position/", { 
@@ -126,7 +132,6 @@
           });
           
           mpq.push(["track","page_reorder_widgets", mixpanel_attributes]);
-
         } else {
           
           // Clone the widget and do an update
@@ -145,18 +150,16 @@
         
       }
    });
-      
-   $("#is_widgets li").draggable({
+     
+   $("#input_stream li.widget").draggable({
      appendTo: "body",
      helper: "clone",
-     connectToSortable: '#widgets',
+     connectToSortable: 'ul#page',
      opacity: 0.6,
      revert: 'invalid',
      revertDuration: 200,
      handle: 'img.handle'
    });      
-      
-      
       
   mpq.push(["track","hit_edit_page", mixpanel_attributes ]);
   mpq.push(["track_forms",$("form#update_page"),"page_change_title", mixpanel_attributes]);

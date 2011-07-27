@@ -164,7 +164,7 @@ describe Widget do
 
   end
 
-	describe "widget_clone" do
+	describe "#widget_clone" do
 		
 		before(:each) do
 			@original_widget = Factory.create(:widget, :page => nil)
@@ -188,5 +188,15 @@ describe Widget do
 		end
 		
 	end
+	
+	describe "#preview" do
+	  context "A widget" do
+	    it "should have maximum length 50 characters" do
+	      long_content = "A" * 200;
+	      widget = Factory.build(:widget, :content => long_content)
+	      widget.preview.length.should be(50)
+      end
+    end
+  end
 
 end

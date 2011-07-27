@@ -13,6 +13,12 @@ class Widget < ActiveRecord::Base
     
   validates_presence_of :canvas, :creator, :content_type
 
+  def preview
+    if content_type == 'text_content'
+      self.content.truncate(50)
+    end
+  end
+
 	def update_position(new_position)
 		
 		old_position = self.position
@@ -56,14 +62,6 @@ class Widget < ActiveRecord::Base
 	    update_attributes(:position => nil)
     end
   end
-
-	def is_on_page?
-		if self.page
-			return 1
-		else
-			return 0
-		end
-	end
 	
 	def widget_clone
 		Widget.new(
