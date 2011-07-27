@@ -15,3 +15,8 @@ Then /^the webpage link is added to the canvas' input stream$/ do
   When "I am on that canvas' homepage"
   Then "I should see \"#{current_page}\"" 
 end
+
+Then /^the image link is added to the canvas' input stream$/ do
+  When "I am on that canvas' homepage"
+  Then "I should see 'http://url_of_image.com/image.jpg'" 
+end

@@ -58,7 +58,7 @@
     = render @canvas.widgets
 
     = link_to "Add to input stream", new_canvas_widget_path(@canvas)
-
+    = link_to "Add image to input stream", new_canvas_widget_path(@canvas, :content_type => 'image_content')
 
 :javascript
   $(function(){

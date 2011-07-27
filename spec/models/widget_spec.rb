@@ -34,6 +34,10 @@ describe Widget do
 		it "should be able to have content" do
 	  	widget.should respond_to(:content)
 	  end
+
+		it "should be able to have alt text" do
+	  	widget.should respond_to(:content)
+	  end
 	
 		it "should be able to have a content_type" do
 			widget.should respond_to(:content_type)
