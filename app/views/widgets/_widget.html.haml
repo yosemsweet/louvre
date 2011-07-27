@@ -3,10 +3,15 @@
   .controls
     %img.handle{:src => "/images/grip.png"}
     %a.edit_widget{:href => "#"} edit
-    \/
-    %a.delete_widget{:href => "#"} delete
-    \/
-    = link_to "discuss", canvas_widget_path(@canvas, widget)
+    %span.delete
+      \/
+      %a.delete_widget{:href => "#"} delete
+    %span.discuss
+      \/
+      = link_to "discuss", canvas_widget_path(@canvas, widget)
+    %span.tooltip  
+      \/
+      %a.tooltip{:href => "#"} preview
     
   .content
     - case widget.content_type

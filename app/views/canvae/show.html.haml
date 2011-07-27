@@ -51,8 +51,9 @@
 
 
 .span-8.last
-
-  = render :partial => "/shared/input_stream"
+  %h2 Input Stream
+  %ul#input-stream
+    = render @canvas.input_stream_widgets
 
 :javascript
   $(function(){

@@ -1,0 +1,12 @@
+@import "partials/base";
+@import "partials/widget";
+@import "compass/utilities/general/clearfix";
+
+#edit_dialog {display:none;}
+#edit_frame {width:100%; height:400px;}
+
+
+ul#show_widget {
+	@include page_widget;
+	
+}

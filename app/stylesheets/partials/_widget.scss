@@ -19,11 +19,12 @@
 		@include widget_base(254px);
 		background-color: lighten(#D4E6C6,10%);
 		border: 1px solid #D4E6C6;
-		.content {
-			display: none;
-		}
-		.preview{
-			display: block;
+		.content { display: none; }
+		.preview{ display: block; }
+		.controls{
+			.delete{ display: none; }
+			.tooltip{ display: inline; }
+			.discuss{ display: inline; }
 		}
 	}
 }
@@ -34,8 +35,10 @@
 		@include widget_base(572px);
 		background-color: #DFF2FB; 
 	 	border: 1px solid #D4E6C6;
-		.preview{
-			display: none;
+		.preview{ display: none; }
+		.controls{
+			.tooltip{ display: none; }
+			.discuss{ display: none; }
 		}
 	}
 	
@@ -55,12 +58,7 @@
 	 	padding: 0;
 		background-color: #fff; 
 	 	border: none;
-		.preview{
-			display: none;
-		}
-		.controls{
-			display: none;
-		}
-
+		.preview{ display: none; }
+		.controls{ display: none;	}
 	}
 }

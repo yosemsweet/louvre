@@ -61,6 +61,32 @@
     $("#edit_frame").attr("src", src);
   }
   
+  enable_widget_tooltips = function(){
+    $("a.tooltip").each(function(){
+      $(this).qtip({
+        content: $(this).parents().filter(".widget").find(".content").html(),
+        show: 'mouseover',
+        hide: 'mouseout',
+        position: {
+          corner: { 
+            target: 'bottomLeft', 
+            tooltip: 'topRight' 
+          }
+        },
+        style: {
+          width: 572,
+          border: {
+            width: 5,
+            radius: 10
+          },
+          padding: 10, 
+          tip: true,
+          name: 'light' 
+        }
+      });
+    });
+  }
+  
   make_input_stream_widgets_draggable = function(){
     $("#input_stream li.widget").draggable({
       appendTo: "body",
@@ -77,7 +103,12 @@
     // Load page widgets
     $("ul#page").load("/canvae/#{@page.canvas.id}/pages/#{@page.id}/widgets");
     // Load input stream widgets
-    $("ul#input_stream").load("/canvae/#{@page.canvas.id}/widgets", make_input_stream_widgets_draggable);      
+    $("ul#input_stream").load("/canvae/#{@page.canvas.id}/widgets", function(){
+      make_input_stream_widgets_draggable();
+      enable_widget_tooltips();      
+    });
+    
+    
   }
   
   $("a#add_text_widget").click(function(){
