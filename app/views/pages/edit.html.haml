@@ -124,6 +124,8 @@
             position : position, 
             _method : 'PUT' 
           });
+          
+          mpq.push(["track","page_reorder_widgets", mixpanel_attributes]);
 
         } else {
           
@@ -135,11 +137,11 @@
               // console.log(data);
               ui.item.attr("data_widget_id",data)
             },"json"
-            );
-                      
+          );
+              
+          mpq.push(["track","page_add_widget_from_input_stream", mixpanel_attributes]);
+        
         }
-
-        mpq.push(["track","page_reorder_widgets", mixpanel_attributes]);
         
       }
    });
