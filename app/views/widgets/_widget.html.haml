@@ -1,19 +1,23 @@
-%li.widget{:data_widget_id => widget.id}
-
-  %img.handle{:src => "/images/grip.png"}
+%li.widget{:data_widget_id => widget.id, :data_has_page => widget.page ? 1 : 0}
 
   .controls
+    %img.handle{:src => "/images/grip.png"}
     %a.edit_widget{:href => "#"} edit
-    \/
-    %a.delete_widget{:href => "#"} delete
+    %span.delete
+      \/
+      %a.delete_widget{:href => "#"} delete
+    %span.discuss
+      \/
+      = link_to "discuss", canvas_widget_path(@canvas, widget)
+    %span.tooltip  
+      \/
+      %a.tooltip{:href => "#"} preview
     
   .content
     - case widget.content_type
   
     - when 'text_content'
-      %p= widget.content  
-      
-  = render widget.comments
-  
-  = link_to "discuss", canvas_widget_path(@canvas, widget)
-  
+      %p= raw(widget.content)
+
+  .preview
+    %p= raw(widget.preview)
