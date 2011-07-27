@@ -31,6 +31,14 @@ body{
 .flash {
 	text-align: center;
 }
+
+.content {
+  img {
+    max-height: 200px; 
+    max-width: 200px;
+  }  
+}
+
 #footer {
 	padding-top: 15px;
 }
