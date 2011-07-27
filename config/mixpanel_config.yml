@@ -1,0 +1,8 @@
+development:
+  token: 514bbd502c105398458bf10f8b686b0d
+
+test:
+  token: 514bbd502c105398458bf10f8b686b0d
+  
+production:
+  token: 514bbd502c105398458bf10f8b686b0d

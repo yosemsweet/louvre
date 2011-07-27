@@ -1,0 +1,8 @@
+- if current_user
+  #invite_user
+    = mail_to "", "invite", :subject => "I need your help for #{canvas.name}", :body => track_email("Hi,\nCome check out my canvas. #{link_to(canvas.name,canvas_url(canvas))}\nThanks,\n#{current_user}", canvas, current_user), :class => "invite-link",:content_type => "text/html"
+
+:javascript
+  $(function(){
+      mpq.push(["track_links",$(".invite-link"),"click_invite"]);
+    })
