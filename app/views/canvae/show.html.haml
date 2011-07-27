@@ -1,12 +1,13 @@
 = render :partial => "header"
-= render :partial => "shared/invite", :locals => {:canvas => @canvas}
+= render "fb_open_graph" 
 %p#notice= notice
 
 .span-16
+  
   %p
     %b Name:
     = @canvas.name
-    = @canvas.id
+    = render "facebook_share"
 
   %p
     %b Mission:
@@ -17,7 +18,7 @@
   %p
     %b Creator:
     = @canvas.creator_id
-
+  
   %h2
     Pages
   %ul
@@ -51,6 +52,7 @@
 
 
 .span-8.last
+ 
   %p#input-stream
     %h2
       Input Stream:
