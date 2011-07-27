@@ -3,6 +3,14 @@
   - when 'text_content'
     .field
       = f.text_area :content
+  - when 'image_content'
+    .field
+      = f.label 'image url'
+      = f.text_field :content
+    .field
+      = f.label 'image alt text'
+      = f.text_field :alt_text
+
   
   - if @widget.page
     %input{:type => "hidden", :name => "widget[page_id]", :value => "#{@widget.page.id}"}

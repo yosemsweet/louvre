@@ -12,6 +12,8 @@
   
     - when 'text_content'
       %p= widget.content  
+    - when 'image_content'
+      %img{ :src => "#{widget.content}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}" }
       
   = render widget.comments
   
