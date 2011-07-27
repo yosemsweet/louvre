@@ -28,7 +28,8 @@ class WidgetsController < ApplicationController
 	end
 
   def index
-    @widgets = Widget.all
+    @widgets = Canvas.find(params[:canvas_id]).input_stream_widgets
+    render :layout => false
   end
 
   def show

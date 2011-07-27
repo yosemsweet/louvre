@@ -8,27 +8,25 @@ body {
 	@include page_widget;
 }
 
-ul#page {
+@mixin widget_container{
 	margin-top: 5px;
   padding: 0px;
   border: 1px dotted #bbb;
 	min-height: 100px;
+}
+
+ul#page {
+	@include widget_container;
 	@include page_widget;
 }
 
 ul#input_stream {
-	margin-top: 5px;
-	padding: 0px;
-  border: 1px dotted #bbb;
-	min-height: 100px;
+	@include widget_container;
 	@include input_stream_widget;
 }
 
 ul#presentation_page {
-	margin-top: 5px;
-  padding: 0px;
+	@include widget_container;
 	padding-top: 5px;
-  border: 1px dotted #bbb;
-	min-height: 100px;
 	@include presentation_widget;
 }

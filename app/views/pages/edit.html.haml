@@ -24,7 +24,6 @@
 .span-8.last
   %h2 Input Stream
   %ul#input_stream
-    -# = render @canvas.input_stream_widgets
 
 .span-24.last
   = link_to 'Show', canvas_page_path(@canvas, @page)
@@ -34,9 +33,6 @@
   = link_to 'View Canvas', canvas_path(@canvas)
   
 :javascript
-  
-  // Load input stream widgets
-  $("ul#input_stream").load("/canvae/#{@page.canvas.id}/widgets"); 
   
   var the_edit_dialog = $("#edit_dialog").dialog({
     minHeight:250, 
@@ -65,8 +61,23 @@
     $("#edit_frame").attr("src", src);
   }
   
+  make_input_stream_widgets_draggable = function(){
+    $("#input_stream li.widget").draggable({
+      appendTo: "body",
+      helper: "clone",
+      connectToSortable: 'ul#page',
+      opacity: 0.6,
+      revert: 'invalid',
+      revertDuration: 200,
+      handle: 'img.handle'
+    });
+  }
+  
   reload_widgets = function(){
-    $("ul#page").load("/canvae/#{@page.canvas.id}/pages/#{@page.id}/widgets");      
+    // Load page widgets
+    $("ul#page").load("/canvae/#{@page.canvas.id}/pages/#{@page.id}/widgets");
+    // Load input stream widgets
+    $("ul#input_stream").load("/canvae/#{@page.canvas.id}/widgets", make_input_stream_widgets_draggable);      
   }
   
   $("a#add_text_widget").click(function(){
@@ -149,17 +160,7 @@
         }
         
       }
-   });
-     
-   $("#input_stream li.widget").draggable({
-     appendTo: "body",
-     helper: "clone",
-     connectToSortable: 'ul#page',
-     opacity: 0.6,
-     revert: 'invalid',
-     revertDuration: 200,
-     handle: 'img.handle'
-   });      
+   });   
       
   mpq.push(["track","hit_edit_page", mixpanel_attributes ]);
   mpq.push(["track_forms",$("form#update_page"),"page_change_title", mixpanel_attributes]);
