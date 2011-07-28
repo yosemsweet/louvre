@@ -11,6 +11,7 @@ Louvre::Application.routes.draw do
 	  resources :widgets do
 			member do
 				put 'update_position'
+				post 'clone_widget'
 			end
 		end
 	end

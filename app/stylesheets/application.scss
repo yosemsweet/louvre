@@ -1,4 +1,6 @@
 @import "partials/base";
+@import "partials/widget";
+@import "compass/utilities/general/clearfix";
 
 body{
 	background-color: $background-color;

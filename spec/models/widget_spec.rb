@@ -80,7 +80,7 @@ describe Widget do
     describe "Updating" do
       before(:each) do
         @updated_widget = Factory.create(:widget)
-        @updated_widget.update_attributes(:name => "New Name")
+        @updated_widget.update_attributes(:content => "New Content")
       end
 
       it "should create a new version" do
@@ -90,7 +90,7 @@ describe Widget do
       it "should save a changeset showing the change" do
         last_version = @updated_widget.versions.last
         last_version.should respond_to(:changeset)
-        last_version.changeset["name"].last.should == "New Name"
+        last_version.changeset["content"].last.should == "New Content"
       end
     end
 
@@ -166,6 +166,41 @@ describe Widget do
 	    @widget_a.reload.position.should == 1	  
     end
 
+  end
+
+	describe "#widget_clone" do
+		
+		before(:each) do
+			@original_widget = Factory.create(:widget, :page => nil)
+			@cloned_widget = @original_widget.widget_clone
+			@cloned_widget.save 
+		end
+		   
+		it "cloned widget should have the same content, canvas, creator, content_type" do
+			@cloned_widget.content.should == @original_widget.content
+			@cloned_widget.canvas.id.should == @original_widget.canvas.id
+			@cloned_widget.creator.id.should == @original_widget.creator.id
+			@cloned_widget.content_type.should == @original_widget.content_type
+		end
+		
+		it "cloned widget id should be different to original widget id" do
+			@cloned_widget.id.should_not == @original_widget.id
+		end
+		
+		it "the original widget should be the parent of the cloned widget" do
+			@cloned_widget.parent.id.should == @original_widget.id
+		end
+		
+	end
+	
+	describe "#preview" do
+	  context "A widget" do
+	    it "should have maximum length 50 characters" do
+	      long_content = "A" * 200;
+	      widget = Factory.build(:widget, :content => long_content)
+	      widget.preview.length.should be(50)
+      end
+    end
   end
 
 end

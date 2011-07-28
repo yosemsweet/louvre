@@ -29,14 +29,6 @@ ActiveRecord::Schema.define(:version => 20110727214135) do
     t.datetime "updated_at"
   end
 
-  create_table "invites", :force => true do |t|
-    t.integer  "inviter_id"
-    t.string   "invitee_email"
-    t.integer  "canvas_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
@@ -75,7 +67,6 @@ ActiveRecord::Schema.define(:version => 20110727214135) do
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
   create_table "widgets", :force => true do |t|
-    t.string   "name"
     t.integer  "position"
     t.integer  "page_id"
     t.integer  "canvas_id"
@@ -84,8 +75,12 @@ ActiveRecord::Schema.define(:version => 20110727214135) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "content"
+<<<<<<< HEAD
     t.text     "change_comment"
     t.string   "alt_text"
+=======
+    t.integer  "parent_id"
+>>>>>>> 228908a884ae2966d0620c0b5e48a91e84f1f9f2
   end
 
 end

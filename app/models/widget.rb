@@ -3,6 +3,7 @@ class Widget < ActiveRecord::Base
   belongs_to :page
   belongs_to :canvas
 	belongs_to :creator, :class_name => "User"
+	belongs_to :parent, :class_name => "Widget"
 	
 	has_many :comments
 
@@ -17,6 +18,12 @@ class Widget < ActiveRecord::Base
     content_type == 'image_content'
   end
     
+  def preview
+    if content_type == 'text_content'
+      self.content.truncate(50)
+    end
+  end
+
 	def update_position(new_position)
 		
 		old_position = self.position
@@ -38,6 +45,16 @@ class Widget < ActiveRecord::Base
 		
 	end
 	
+	def insert_position(position)
+		
+		if self.update_attributes({:position => position})
+			increment_after
+		end
+		
+		return true
+		
+	end
+	
 	def initialize_page_position
 		if self.page
 			self.position = self.page.widgets.length + 1
@@ -51,6 +68,16 @@ class Widget < ActiveRecord::Base
     end
   end
 	
+	def widget_clone
+		Widget.new(
+			:creator => self.creator,
+			:content => self.content,
+			:canvas => self.canvas,
+			:parent => self,
+			:content_type => self.content_type
+		)
+	end
+	 
 	private
 	
 	def decrement_before
