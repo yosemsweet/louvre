@@ -1,0 +1,24 @@
+%script{:type => "text/javascript", :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"}
+
+%div#container{:style => "width:800px; height: 600px; border: 1px dotted #aaa; overflow:hidden; z-index:99999999" }
+
+:javascript
+
+  $(function(){
+    setInterval(
+      function(){
+        
+        var start_left = Math.floor(Math.random()*500);
+        var speed = 5000 + Math.floor(Math.random()*10000);
+        
+        $("<div class='widget1' style='width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: " + start_left + "px'>I am a paragraph</div>").prependTo('#container').animate({
+          top: '+=1000'
+        }, speed, 'linear'
+        , function() {
+          // Animation complete.
+          $(this).remove()
+        });
+      }
+      ,1000
+    );
+  });
