@@ -1,0 +1,8 @@
+development:
+  appId: 196297497094752
+
+test:
+  appId: 196297497094752
+  
+production:
+  appId: 141901352559841
