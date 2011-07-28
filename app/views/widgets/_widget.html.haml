@@ -6,9 +6,6 @@
     %span.delete
       \/
       %a.delete_widget{:href => "#"} delete
-    %span.discuss
-      \/
-      = link_to "discuss", canvas_widget_path(widget.canvas, widget)
     %span.tooltip  
       \/
       %a.tooltip{:href => "#"} preview
@@ -20,8 +17,6 @@
       %p= raw(widget.content)  
     - when 'image_content'
       %img{ :src => "#{widget.content}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}"}
-    %p  
-      %strong= "submitted by #{widget.creator.name}"
   
   .preview
     - case widget.content_type
