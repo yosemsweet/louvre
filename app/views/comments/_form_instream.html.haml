@@ -10,12 +10,13 @@
     
 :javascript
   $(function(){
+     var reload_widgets = function(){
+        $("#canvas-widgets").load("/canvae/#{widget.canvas.id}/widgets");
+      }
+    
     $("#comment_instream_#{widget.id}").submit(function(event){
       $.post($(this).attr("action"), $(this).serialize(), function(){
-        
-        
-        
-        console.log("Awesome Sauce!");
+        reload_widgets();
       });
       event.preventDefault();
     });
