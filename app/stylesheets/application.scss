@@ -39,6 +39,17 @@ body{
   }  
 }
 
+#input-stream{
+  background-color:#D3D3D3;
+  padding: 10px 5px 5px 10px;
+}
+
+.comment_instream{
+  input[type=text]{
+    width:250px;
+  }
+}
+
 #footer {
 	padding-top: 15px;
 }

@@ -2,7 +2,7 @@
 = render :partial => "shared/invite", :locals => {:canvas => @canvas}
 %p#notice= notice
 
-.span-16
+.span-24
   %p
     %b Name:
     = @canvas.name
@@ -17,7 +17,7 @@
   %p
     %b Creator:
     = @canvas.creator_id
-
+.span-8
   %h2
     Pages
   %ul
@@ -50,16 +50,17 @@
   = link_to 'Back', canvae_path
 
 
-.span-8.last
-  %p#input-stream
+.span-16.last
+  #input-stream
     %h2
-      Input Stream:
-
-    = render @canvas.widgets
-
+      Input Stream
     = link_to "Add to input stream", new_canvas_widget_path(@canvas)
     = link_to "Add image to input stream", new_canvas_widget_path(@canvas, :content_type => 'image_content')
+    
+    #canvas-widgets
+    -# = render @canvas.widgets
 
+    
 :javascript
   $(function(){
     mpq.push(["track","hit_canvas_homepage"]);
@@ -68,7 +69,13 @@
     $("#see_video button").click(function(){
       $("#instructions").toggle();
       $("#see_video").toggle();
-    })
+    });
+    
+    var reload_widgets = function(){
+      $("#canvas-widgets").load()
+    }
+    
+    reload_widgets();
     
   })
 

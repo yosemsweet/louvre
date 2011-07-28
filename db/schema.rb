@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(:version => 20110727214135) do
     t.datetime "updated_at"
   end
 
+  create_table "invites", :force => true do |t|
+    t.integer  "inviter_id"
+    t.string   "invitee_email"
+    t.integer  "canvas_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"

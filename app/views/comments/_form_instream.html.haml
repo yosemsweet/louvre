@@ -1,0 +1,19 @@
+= form_for widget.comments.new, :html => {:id => "comment_instream_#{widget.id}" } do |f|
+  .field.comment_instream
+    = f.label "add new comment:"
+    = f.text_field :content
+  %input{:type => "hidden", :name => "comment[creator_id]", :value => "#{current_user.id}"}
+  %input{:type => "hidden", :name => "comment[widget_id]", :value => "#{widget.id}"}
+
+  .actions
+    = f.submit 'Save'
+    
+:javascript
+  $(function(){
+    $("#comment_instream_#{widget.id}").submit(function(event){
+      $.post($(this).attr("action"), $(this).serialize(), function(){
+        console.log("Awesome Sauce!");
+      });
+      event.preventDefault();
+    });
+  })
