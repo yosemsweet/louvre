@@ -1,4 +1,3 @@
-= render :partial => "header"
 = render :partial => "shared/invite", :locals => {:canvas => @canvas}
 %p#notice= notice
 
@@ -46,8 +45,6 @@
     = link_to 'Create Page', new_canvas_page_path(@canvas)
 
   = link_to 'Edit', edit_canvas_path(@canvas)
-  \|
-  = link_to 'Back', canvae_path
 
 
 .span-8.last

@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title= yield :title
+    %title= @title || "A Saucy Book (Alpha)"
     = stylesheet_link_tag 'application.css', :media => 'screen, projection'
     = stylesheet_link_tag 'print.css', :media => 'print'
     /[if lt IE 8]
@@ -15,7 +15,15 @@
   %body
   
     #header
-      = yield :header
+      .container
+        #user-nav
+          - if current_user
+            == Logged in as #{current_user.name}
+            |
+            = link_to "Log out", logout_path
+          - else
+            = link_to "Log in with Facebook", "/auth/facebook"
+        %h1#logo= @title || "A Saucy Book (Alpha)"    
           
     .container
       -flash.each do |type, value|
