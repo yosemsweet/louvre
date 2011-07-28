@@ -20,17 +20,18 @@
       %p= raw(widget.content)  
     - when 'image_content'
       %img{ :src => "#{widget.content}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}", :class=>"image_content" }
-    %br
-    = "submitted by #{widget.creator.name}"
-    .info  
-      = render widget.comments
-      - if current_user
-        = render :partial => 'comments/form_instream', :locals => { :widget => widget }
-        %br
-        = link_to "discuss", canvas_widget_path(@canvas, widget)
-      - else
-        = link_to "Log in", "/auth/facebook"
-        to comment
-
+    %p  
+      %strong= "submitted by #{widget.creator.name}"
+  
   .preview
-    %p= raw(widget.preview)
+    %p= raw(widget.preview)    
+      
+  .comments  
+    = render widget.comments
+    - if current_user
+      = render :partial => 'comments/form_instream', :locals => { :widget => widget }
+    - else
+      = link_to "Log in", "/auth/facebook"
+      to comment
+
+

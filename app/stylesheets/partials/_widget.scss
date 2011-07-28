@@ -21,6 +21,7 @@
 		border: 1px solid #D4E6C6;
 		.content { display: none; }
 		.preview{ display: block; }
+		.comments{ display: block; }
 		.controls{
 			.delete{ display: none; }
 			.tooltip{ display: inline; }
@@ -36,6 +37,7 @@
 		background-color: #DFF2FB; 
 	 	border: 1px solid #D4E6C6;
 		.preview{ display: none; }
+		.comments{ display: none; }
 		.controls{
 			.tooltip{ display: none; }
 			.discuss{ display: none; }
@@ -59,6 +61,7 @@
 		background-color: #fff; 
 	 	border: none;
 		.preview{ display: none; }
+		.comments{ display: none; }
 		.controls{ display: none;	}
 	}
 }
