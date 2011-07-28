@@ -14,8 +14,7 @@ Scenario:
 Scenario:
     Given I am on the homepage
     Then the page title should be "A Saucy Book"
-
-@wip    
+    
 Scenario:
     Given I am on the homepage
     Then I should see "Alpha"
