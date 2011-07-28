@@ -19,12 +19,17 @@
     - when 'text_content'
       %p= raw(widget.content)  
     - when 'image_content'
-      %img{ :src => "#{widget.content}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}", :class=>"image_content" }
+      %img{ :src => "#{widget.content}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}"}
     %p  
       %strong= "submitted by #{widget.creator.name}"
   
   .preview
-    %p= raw(widget.preview)    
+    - case widget.content_type
+    
+    - when 'text_content'
+      %p= raw(widget.content.truncate(40))
+    - when 'image_content'
+      %img{ :src => "#{widget.content}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}"}
       
   .comments  
     = render widget.comments

@@ -17,12 +17,6 @@ class Widget < ActiveRecord::Base
   def image?
     content_type == 'image_content'
   end
-    
-  def preview
-    if content_type == 'text_content'
-      self.content.truncate(50)
-    end
-  end
 
 	def update_position(new_position)
 		

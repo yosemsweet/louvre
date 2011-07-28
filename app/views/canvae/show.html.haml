@@ -5,6 +5,10 @@
 
 = render "fb_open_graph" 
 
+  
+#edit_dialog
+  %iframe#edit_frame{:src => ""}
+
 %p#notice= notice
 
 .span-16
@@ -56,24 +60,85 @@
 .span-8.last
   %h2 Input Stream
   %ul#input_stream
-  = link_to "Add to input stream", new_canvas_widget_path(@canvas)
-  = link_to "Add image to input stream", new_canvas_widget_path(@canvas, :content_type => 'image_content')
+  = link_to "Add Text", new_canvas_widget_path(@canvas), :data_content_type => "text_content", :class => "add_content"
+  = link_to "Add Image", new_canvas_widget_path(@canvas, :content_type => 'image_content'), :data_content_type => "image_content", :class => "add_content"
 
 :javascript
-  $(function(){
-    mpq.push(["track","hit_canvas_homepage"]);
-    window.mixpanelobject=mpq;  
-    
-    $("#see_video button").click(function(){
-      $("#instructions").toggle();
-      $("#see_video").toggle();
+  var the_edit_dialog = $("#edit_dialog").dialog({
+    minHeight:250, 
+    minWidth:500, 
+    autoOpen:false
+  });
+  
+  close_edit_dialog = function(){
+    the_edit_dialog.dialog("close");
+  }
+  
+  open_edit_dialog = function(){
+    the_edit_dialog.dialog("open");
+  }
+  
+  set_dialog_title = function(title){
+    the_edit_dialog.dialog("option","title", title);
+  }
+  
+  set_edit_frame_src = function(src){
+    $("#edit_frame").attr("src", src);
+  }
+  
+  $(".add_content").click(function(event){
+    var content_type = $(this).attr("data_content_type");
+    set_edit_frame_src("/canvae/#{@canvas.id}/widgets/new?content_type=" + content_type);
+    set_dialog_title("New Widget");
+    open_edit_dialog();
+    event.preventDefault();
+  });
+  
+  enable_widget_tooltips = function(){
+    $("a.tooltip").each(function(){
+      $(this).qtip({
+        content: $(this).parents().filter(".widget").find(".content").html(),
+        show: 'mouseover',
+        hide: 'mouseout',
+        position: {
+          corner: { 
+            target: 'bottomLeft', 
+            tooltip: 'topRight' 
+          }
+        },
+        style: {
+          width: 572,
+          border: {
+            width: 5,
+            radius: 10
+          },
+          padding: 10, 
+          tip: true,
+          name: 'light' 
+        }
+      });
+    });
+  }
+  
+  
+  reload_widgets = function(){
+    // Load input stream widgets
+    $("ul#input_stream").load("/canvae/#{@canvas.id}/widgets", function(){
+      enable_widget_tooltips();      
     });
     
-    var reload_widgets = function(){
-      $("#input_stream").load("/canvae/#{@canvas.id}/widgets");
-    }
-    
-    reload_widgets();
-    
-  })
+  }
 
+  reload_widgets();
+  
+  mpq.push(["track","hit_canvas_homepage"]);
+  window.mixpanelobject=mpq;  
+  
+  $("#see_video button").click(function(){
+    $("#instructions").toggle();
+    $("#see_video").toggle();
+  });
+
+  
+
+  
