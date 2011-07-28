@@ -62,3 +62,10 @@
 		.controls{ display: none;	}
 	}
 }
+
+@mixin widget_container{
+	margin-top: 5px;
+  padding: 0px;
+  border: 1px dotted #bbb;
+	min-height: 100px;
+}

@@ -1,6 +1,5 @@
 @import "partials/base";
-@import "partials/widget";
-@import "compass/utilities/general/clearfix";
+
 
 #edit_dialog {display:none;}
 #edit_frame {width:100%; height:400px;}
@@ -9,27 +8,20 @@ body {
 	@include page_widget;
 }
 
-@mixin widget_container{
-	margin-top: 5px;
-  padding: 0px;
-  border: 1px dotted #bbb;
-	min-height: 100px;
-}
-
 ul#page {
 	@include widget_container;
 	@include page_widget;
-}
-
-ul#input_stream {
-	@include widget_container;
-	@include input_stream_widget;
 }
 
 ul#presentation_page {
 	@include widget_container;
 	padding-top: 5px;
 	@include presentation_widget;
+}
+
+ul#input_stream {
+	@include widget_container;
+	@include input_stream_widget;
 }
 
 #edit_dialog {display:none;}

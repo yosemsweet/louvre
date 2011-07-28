@@ -1,6 +1,4 @@
 @import "partials/base";
-@import "partials/widget";
-@import "compass/utilities/general/clearfix";
 
 ul#show_widget {
 	@include page_widget;

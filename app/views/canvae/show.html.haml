@@ -1,3 +1,6 @@
+- content_for :head do
+  = stylesheet_link_tag 'canvas.css', :media => 'screen, projection'
+
 = render :partial => "shared/invite", :locals => {:canvas => @canvas}
 %p#notice= notice
 
@@ -49,7 +52,7 @@
 
 .span-8.last
   %h2 Input Stream
-  %ul#input-stream
+  %ul#input_stream
     = render @canvas.input_stream_widgets
 
 :javascript

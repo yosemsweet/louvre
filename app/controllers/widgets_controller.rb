@@ -35,18 +35,19 @@ class WidgetsController < ApplicationController
   end
 
   def new
-    @widget = @canvas.widgets.new(:content_type => params[:content_type])
+    canvas = Canvas.find(params[:canvas_id])
+    @widget = canvas.widgets.new(:content_type => params[:content_type])
 		
     @widget.page = Page.find(params[:page_id]) if params[:page_id]
     @widget.content_type = params[:content_type] || 'text_content'
     
-    render :layout => false
+    render :layout => 'empty'
   end
 
   def edit
     @widget = Widget.find(params[:id])
     
-    render :layout => false
+    render :layout => 'empty'
   end
 
   def create    
@@ -64,7 +65,7 @@ class WidgetsController < ApplicationController
 
 		respond_to do |format|  
     	if @widget.save
-				format.html { redirect_to(canvas_path(@widget.canvas), :notice => 'widget was successfully created.') }
+				format.html { render 'update_page', :layout => false }
      		format.json { render :json => @widget, :status => :created }
 	    else
 	      head :bad_request

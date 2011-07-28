@@ -24,3 +24,6 @@ $white: #FAFAFF;
 $background-color: $white;
 $accent-color: darken($blueprint-blue, 30%);
 $text-color: #333333;
+
+@import "partials/widget";
+@import "compass/utilities/general/clearfix";
