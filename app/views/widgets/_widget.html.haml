@@ -1,17 +1,21 @@
 %li.widget{:data_widget_id => widget.id, :data_has_page => widget.page ? 1 : 0}
 
-  .controls
-    %img.handle{:src => "/images/grip.png"}
-    %a.edit_widget{:href => "#"} edit
-    %span.delete
-      \/
-      %a.delete_widget{:href => "#"} delete
-    %span.discuss
-      \/
-      = link_to "discuss", canvas_widget_path(@canvas, widget)
-    %span.tooltip  
-      \/
-      %a.tooltip{:href => "#"} preview
+  .widget-nav
+    .widget-title
+      %img.handle{:src => "/images/grip.png"}
+      = "#{widget.created_at}"
+    .controls
+      %a.edit_widget{:href => "#"} edit
+      %span.delete
+        \/
+        %a.delete_widget{:href => "#"} delete
+      %span.discuss
+        \/
+        = link_to "discuss", canvas_widget_path(@canvas, widget)
+      %span.tooltip  
+        \/
+        %a.tooltip{:href => "#"} preview
+      
     
   .content
     - case widget.content_type
@@ -19,7 +23,7 @@
     - when 'text_content'
       %p= widget.content  
     - when 'image_content'
-      %img{ :src => "#{widget.content}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}" }
+      %img{ :src => "#{widget.content}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}", :class=>"image_content" }
     %br
     = "submitted by #{widget.creator.name}"
     .info  
@@ -31,7 +35,7 @@
       - else
         = link_to "Log in", "/auth/facebook"
         to comment
-    %p= raw(widget.content)
+    -# %p= raw(widget.content)
 
-  .preview
-    %p= raw(widget.preview)
+  -# .preview
+  -#     %p= raw(widget.preview)

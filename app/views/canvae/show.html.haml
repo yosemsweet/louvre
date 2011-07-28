@@ -17,7 +17,7 @@
   %p
     %b Creator:
     = @canvas.creator_id
-<<<<<<< HEAD
+
 .span-8
   %h2
     Pages
@@ -25,8 +25,6 @@
   - @canvas.pages.each do |page|
     %li
       = link_to page.title, canvas_page_path(@canvas, page)
-=======
->>>>>>> 228908a884ae2966d0620c0b5e48a91e84f1f9f2
 
   - if current_user
     %h2.bookmarklet
@@ -81,7 +79,7 @@
     });
     
     var reload_widgets = function(){
-      $("#canvas-widgets").load()
+      $("#canvas-widgets").load("/canvae/#{@canvas.id}/widgets")
     }
     
     reload_widgets();

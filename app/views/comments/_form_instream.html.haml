@@ -6,12 +6,15 @@
   %input{:type => "hidden", :name => "comment[widget_id]", :value => "#{widget.id}"}
 
   .actions
-    = f.submit 'Save'
+    = f.submit 'add comment'
     
 :javascript
   $(function(){
     $("#comment_instream_#{widget.id}").submit(function(event){
       $.post($(this).attr("action"), $(this).serialize(), function(){
+        
+        
+        
         console.log("Awesome Sauce!");
       });
       event.preventDefault();
