@@ -14,15 +14,6 @@ describe "canvae/show.html.haml" do
          helper_method :current_user
      end
    end
-  
-
-  context "header" do
-	  it "displays the canvas name for the logo" do
-	    render
-	    view.content_for(:header).should have_selector('h1#logo', :content => @canvas.name) 
-	  end
-	end
-  
 
 	context "input stream" do
 		it "displays the canvas input stream" do

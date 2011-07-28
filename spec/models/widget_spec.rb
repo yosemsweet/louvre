@@ -128,11 +128,11 @@ describe Widget do
 		
 	end
 	
-	describe "#initialize_page_position" do
+	describe "#position_last_on_page" do
 		
 		it "should set the position of a widget" do
 			@new_widget = Factory.build(:widget, :position => nil)
-			@new_widget.initialize_page_position
+			@new_widget.position_last_on_page
 			@new_widget.save
 			
 			@new_widget.reload.position.should == 1

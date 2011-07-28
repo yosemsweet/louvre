@@ -6,8 +6,8 @@
 %ul#presentation_page
   = render @page.widgets
 
-= link_to 'Edit', edit_canvas_page_path(@canvas, @page)
+= link_to 'Edit', edit_canvas_page_path(@page.canvas, @page)
 \|
 = link_to "Versions", versions_canvas_page_path(@page.canvas, @page)
 \|
-= link_to 'View Canvas', canvas_path(@canvas)
+= link_to 'View Canvas', canvas_path(@page.canvas)

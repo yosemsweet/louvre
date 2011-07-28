@@ -50,7 +50,7 @@ class Widget < ActiveRecord::Base
 		
 	end
 	
-	def initialize_page_position
+	def position_last_on_page
 		if self.page
 			self.position = self.page.widgets.length + 1
 		end
