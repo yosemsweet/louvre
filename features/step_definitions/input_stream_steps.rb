@@ -2,6 +2,10 @@ Given /^I am browsing "([^"]*)"$/ do |page|
   set_current_page(page)
 end
 
+Then /^I should see the image "(.+)"$/ do |image|
+    page.should have_xpath("//img[@src=\"#{image}\"]")
+end
+
 Given /^I have a canvas bookmarklet$/ do
   Given "there is a canvas"
 end
@@ -14,4 +18,9 @@ end
 Then /^the webpage link is added to the canvas' input stream$/ do
   When "I am on that canvas' homepage"
   Then "I should see \"#{current_page}\"" 
+end
+
+Then /^the image link is added to the canvas' input stream$/ do
+  When "I am on that canvas' homepage"
+  Then "I should see the image \"image.jpg\"" 
 end

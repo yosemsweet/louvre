@@ -12,7 +12,12 @@ class Widget < ActiveRecord::Base
   has_paper_trail :meta => { :page_id => Proc.new{ |widget| widget.page ? widget.page.id : nil }}
     
   validates_presence_of :canvas, :creator, :content_type
+  validates_presence_of :alt_text, :if => :image?
 
+  def image?
+    content_type == 'image_content'
+  end
+    
   def preview
     if content_type == 'text_content'
       self.content.truncate(50)
