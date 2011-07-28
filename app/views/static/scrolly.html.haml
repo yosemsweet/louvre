@@ -1,22 +1,91 @@
-%script{:type => "text/javascript", :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"}
+-# %script{:type => "text/javascript", :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"}
 
-%div#container{:style => "width:800px; height: 600px; border: 1px dotted #aaa; overflow:hidden; z-index:99999999" }
+-# %div#container{:style => "width:800px; height: 600px; border: 1px dotted #aaa; overflow:hidden; z-index:99999999" }
+-# 
+-# %div#scrollyHider{:style => "display:none"}
+-#   %div.widget0{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
+-#     I am widget 0
+-#   %div.widget1{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
+-#     I am widget 1
+-#   %div.widget2{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
+-#     I am widget 2
+-#   %div.widget3{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
+-#     I am widget 3
+-#   %div.widget4{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
+-#     I am widget 4
+-#   %div.widget5{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
+-#     I am widget 5
+-#   %div.widget6{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
+-#     I am widget 6
+-#   %div.widget7{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
+-#     I am widget 7
+-#   %div.widget8{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
+-#     I am widget 8
+-#   %div.widget9{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
+-#     I am widget 9
 
+%ul#scrolly
+
+%ul#scrollyHider{:style => "display:none"}
+  %li.notice
+    .content
+      %p I yam what I yam and you ...
+
+  %li.info
+    .content
+      %p I yam what I yam and you ...
+
+  %li.success
+    .content
+      %p I yam what I yam and you ...
+
+  %li.error
+    .content
+      %p I yam what I yam and you ...
+    
+  %li.notice
+    .content
+      %p I yam what I yam and you ...
+
+  %li.info
+    .content
+      %p I yam what I yam and you ...
+
+  %li.success
+    .content
+      %p I yam what I yam and you ...
+
+  %li.error
+    .content
+      %p I yam what I yam and you ...
+
+  %li.success
+    .content
+      %p I yam what I yam and you ...
+
+  %li.error
+    .content
+      %p I yam what I yam and you ...
+
+        
+        
+        
+        
 :javascript
 
   $(function(){
+
     setInterval(
       function(){
         
-        var start_left = Math.floor(Math.random()*500);
+        var start_left = Math.floor(Math.random()*800);
         var speed = 5000 + Math.floor(Math.random()*10000);
         
-        $("<div class='widget1' style='width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: " + start_left + "px'>I am a paragraph</div>").prependTo('#container').animate({
-          top: '+=1000'
+        $('#scrollyHider li:first-child').css('top','1400px').css('left',start_left).prependTo('#scrolly').animate({
+          top: '+=-1500'
         }, speed, 'linear'
         , function() {
-          // Animation complete.
-          $(this).remove()
+          $(this).appendTo('#scrollyHider');
         });
       }
       ,1000
