@@ -18,9 +18,14 @@
   %input{:type => "hidden", :name => "widget[content_type]", :value => "#{@widget.content_type}"}
   .actions
     = f.submit 'Save'
-    
-:javascript
-  $(function(){
-    $("#widget_content").ckeditor({toolbar : "Body"});
-  });
+
+= form_for widget.comments.new, :remote => true do |f|
+  .field.comment_instream
+  = f.label "add new comment:"
+  = f.text_field :content
+  %input{:type => "hidden", :name => "widget[creator_id]", :value => "#{current_user.id}"}
+  %input{:type => "hidden", :name => "widget[widget_id]", :value => "#{widget.id}"}
+
+  .actions
+= f.submit 'Save'
 

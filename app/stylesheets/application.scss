@@ -1,4 +1,6 @@
 @import "partials/base";
+@import "partials/widget";
+@import "compass/utilities/general/clearfix";
 
 body{
 	background-color: $background-color;
@@ -31,6 +33,70 @@ body{
 .flash {
 	text-align: center;
 }
+
+.content {
+  img {
+    max-height: 200px; 
+    max-width: 200px;
+  }  
+}
+
+#input-stream{
+  background-color:#D3D3D3;
+  padding: 10px 5px 5px 10px;
+
+  #canvas-widgets{
+    
+    li{
+      background-color:#F0F8FF;
+      margin-top:20px;
+      list-style: none;
+      
+      .widget-nav{
+        background-color:#D5EDF8;
+        border-color:#92CAE4;
+        min-height:50px;
+        width: 100%;
+        .controls{
+          float:right;
+          text-align: right;
+        }
+        .widget-title{
+          float:left;
+        }
+      }
+
+      .content{
+        padding: 10px 10px 0px 20px;
+        img.image_content{
+          display:block;
+          margin-left: auto;
+          margin-right: auto;
+        }  
+      
+      }
+      
+      .info{
+        width:400px;
+        margin: 10px 0px 0px 100px;
+        
+        .comment_instream{
+          input[type=text]{
+            width:250px;
+          }
+
+          .controls{
+            float:right;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+
 #footer {
 	padding-top: 15px;
 }

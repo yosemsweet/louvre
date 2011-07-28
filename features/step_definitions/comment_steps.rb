@@ -1,7 +1,7 @@
 Then /^I should see a link to comment on that widget$/ do
-  page.should have_selector('.widget') do |selector|
-		selector.should have_selector('a',:content => "discuss")
-	end
+  page.should have_selector('.widget a') do |selector|
+    selector.should have_content("discuss")
+  end
 end
 
 Then /^I should see that comment$/ do

@@ -7,4 +7,8 @@ class Canvas < ActiveRecord::Base
 	validates :mission, :presence => true
 	validates :creator, :presence => true
 
+	def input_stream_widgets
+		self.widgets.where(:page_id => nil)
+	end
+
 end

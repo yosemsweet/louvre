@@ -2,8 +2,7 @@
 = render "fb_open_graph" 
 %p#notice= notice
 
-.span-16
-  
+.span-24
   %p
     %b Name:
     = @canvas.name
@@ -18,7 +17,8 @@
   %p
     %b Creator:
     = @canvas.creator_id
-  
+
+.span-8
   %h2
     Pages
   %ul
@@ -27,7 +27,7 @@
       = link_to page.title, canvas_page_path(@canvas, page)
 
   - if current_user
-    .bookmarklet
+    %h2.bookmarklet
       Install Bookmarklet
 
     %p
@@ -42,7 +42,14 @@
       see video on how to install bookmarklet for your canvas
     #instructions{:style => "display:none"}
       %iframe{:width=>"425", :height=>"349", :src=>"http://www.youtube.com/embed/QrwevUN0KdQ"} 
-            
+
+  %h2
+    Pages
+  %ul
+  - @canvas.pages.each do |page|
+    %li
+      = link_to page.title, canvas_page_path(@canvas, page)
+        
   %p 
     = link_to 'Create Page', new_canvas_page_path(@canvas)
 
@@ -50,17 +57,15 @@
   \|
   = link_to 'Back', canvae_path
 
-
-.span-8.last
- 
-  %p#input-stream
+.span-16.last
+  #input-stream
     %h2
-      Input Stream:
-
-    = render @canvas.widgets
-
+      Input Stream
     = link_to "Add to input stream", new_canvas_widget_path(@canvas)
-
+    = link_to "Add image to input stream", new_canvas_widget_path(@canvas, :content_type => 'image_content')
+    
+    #canvas-widgets
+    -# = render @canvas.widgets
 
 :javascript
   $(function(){
@@ -70,7 +75,13 @@
     $("#see_video button").click(function(){
       $("#instructions").toggle();
       $("#see_video").toggle();
-    })
+    });
+    
+    var reload_widgets = function(){
+      $("#canvas-widgets").load("/canvae/#{@canvas.id}/widgets");
+    }
+    
+    reload_widgets();
     
   })
 

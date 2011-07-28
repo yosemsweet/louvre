@@ -1,0 +1,64 @@
+@mixin widget_base($width) {
+	width: $width;
+ 	margin: 10px 8px;
+ 	padding: 8px;
+ 	list-style: none;
+	@include clearfix;
+	.controls{
+		img.handle{
+			float: left;
+			margin-right: 10px;
+			cursor: move;
+		}
+	}
+}
+
+@mixin input_stream_widget {
+
+	li.widget {
+		@include widget_base(254px);
+		background-color: lighten(#D4E6C6,10%);
+		border: 1px solid #D4E6C6;
+		.content { display: none; }
+		.preview{ display: block; }
+		.controls{
+			.delete{ display: none; }
+			.tooltip{ display: inline; }
+			.discuss{ display: inline; }
+		}
+	}
+}
+
+@mixin page_widget {
+	
+	li.widget {
+		@include widget_base(572px);
+		background-color: #DFF2FB; 
+	 	border: 1px solid #D4E6C6;
+		.preview{ display: none; }
+		.controls{
+			.tooltip{ display: none; }
+			.discuss{ display: none; }
+		}
+	}
+	
+	li.placeholder {
+		@include widget_base(572px);
+		border: 1px dotted #ddd;
+		background-color: #FFFBEA;
+	}	
+}
+
+@mixin presentation_widget {
+	
+	li.widget {
+		@include widget_base(572px);
+		margin: 0;
+		margin-left: 10px;
+	 	padding: 0;
+		background-color: #fff; 
+	 	border: none;
+		.preview{ display: none; }
+		.controls{ display: none;	}
+	}
+}

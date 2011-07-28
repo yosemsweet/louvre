@@ -26,10 +26,8 @@ FactoryGirl.define do
   end
 
   factory :widget do
-    name "Widget Name"
     content_type "text_content"
     content "This is the content"
-    change_comment "This is the change comment"
     creator
     page
     canvas
