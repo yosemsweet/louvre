@@ -19,5 +19,5 @@ Scenario: Leave comment on widget
 Given I am authenticated
 When I am on that widget's page
 And I fill in "comment_content" with "This would be very useful"
-And I press "Save"
+And I press "add comment"
 Then I should see "This would be very useful"
