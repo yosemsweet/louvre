@@ -1,11 +1,12 @@
-%ul#scrolly
+%div{:style => "width:1000px; height:800px; overflow: hidden; background-color: #aaa"}
+  %ul#scrolly
 
-%ul#scrollyHider{:style => "display:none;"}
-  - list_classes = ['notice','success','error','info']
-  - 1.upto(50) do |i|
-    %li{:class => list_classes[rand(4)]}
-      .content
-        %p== I yam thing #{i} and I yam        
+  %ul#scrollyHider{:style => "display:none;"}
+    - list_classes = ['notice','success','error','info']
+    - 1.upto(50) do |i|
+      %li{:class => list_classes[rand(4)]}
+        .content
+          %p== I yam thing #{i} and I yam        
         
 :javascript
   var height = 49;
