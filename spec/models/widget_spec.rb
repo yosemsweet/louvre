@@ -34,10 +34,12 @@ describe Widget do
 		it "should be able to have content" do
 	  	widget.should respond_to(:content)
 	  end
-
-		it "should be able to have alt text" do
-		  widget.should respond_to(:alt_text)
-	  end
+	
+    it "should require alt text if content type is image" do
+      widget.content_type = 'image_content'
+      widget.alt_text = nil
+      widget.should_not be_valid
+    end
 	
 		it "should be able to have a content_type" do
 			widget.should respond_to(:content_type)
