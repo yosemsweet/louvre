@@ -3,18 +3,18 @@
 
   %ul#scrollyHider{:style => "display:none;"}
     - list_classes = ['notice','success','error','info']
-    - 1.upto(50) do |i|
+    - 1.upto(10) do |i|
       %li{:class => list_classes[rand(4)]}
         .content
           %p== I yam thing #{i} and I yam        
         
 :javascript
   var bottom_y = 1000;
-  var top_y = -100;
+  var top_y = 0;
   var fps = 50;
   var animation_interval = 1000. / fps;
-  var garbage_collection_interval = 1000;
-  var insertion_interval = 300;
+  var garbage_collection_interval = 500;
+  var insertion_interval = 700;
   var collision_detection_interval = 100;
   
   var height = 49;
@@ -35,34 +35,61 @@
         var start_left = Math.floor(Math.random()*800);
         var start_velocity = .05 + Math.random()*.1;
         var start_right = start_left + width;
+        var mass = 1 + Math.random()*255;
+        
+        selector.css("background-color","rgb("+ Math.floor(mass) + "," + Math.floor(mass) + "," + Math.floor(mass) + ")");
+        console.log("rgb("+ Math.floor(mass) + "," + Math.floor(mass) + "," + Math.floor(mass) + ")");
+        // selector.css("background-color","blue");
   
         // Compute the blocker candidates.
-        var blocker_candidates = [];
+        var blocker_candidates_left = [];
         _.each(bubbles, function(b){
-          if( (start_left <= b.left && start_right > b.left) || (start_right >= b.right && start_left < b.right) ){
+          if(start_left <= b.left && start_right > b.left){
             // Add to blocker candidates list.
-            blocker_candidates.push(b);
+            blocker_candidates_left.push(b);
           }
         });
-  
-        // Compute the blocker.
+        
+        // Compute the blocker candidates.
+        var blocker_candidates_right = [];
+        _.each(bubbles, function(b){
+          if(start_right >= b.right && start_left < b.right){
+            // Add to blocker candidates list.
+            blocker_candidates_right.push(b);
+          }
+        });
+
+        // Compute the left blocker.
         var blocker_y = -100000;
-        var blocker = false;
-        _.each(blocker_candidates, function(b){
+        var blocker_left = false;
+        _.each(blocker_candidates_left, function(b){
           var b_y = b.selector.position().top
           if(b_y > blocker_y){
             blocker_y = b_y;
-            blocker = getBubbleId(b);
+            blocker_left = getBubbleId(b);
           }    
         });
-  
+
+        // Compute the right blocker.
+        var blocker_y = -100000;
+        var blocker_right = false;
+        _.each(blocker_candidates_right, function(b){
+          var b_y = b.selector.position().top
+          if(b_y > blocker_y){
+            blocker_y = b_y;
+            blocker_right = getBubbleId(b);
+          }    
+        });
+
         // Save the bubble data.
         bubbles[next_bubbles_index] = {
           selector : selector, 
-          blocker : blocker,
+          blocker_left : blocker_left,
+          blocker_right : blocker_right,
           left : start_left,
           right : start_right,
-          velocity : start_velocity
+          velocity : start_velocity,
+          mass : mass
         }
         
         // Save bubble id in dom.
@@ -87,7 +114,7 @@
     // Remove any bubbles that are above the top or below the bottom of the page.
     _.each(bubbles, function(b){
       var top = b.selector.position().top;
-      if(top < top_y || top > bottom_y){
+      if(top <= top_y || top > bottom_y){
         delete bubbles[getBubbleId(b)];
         b.selector.appendTo("#scrollyHider");
       }
@@ -97,26 +124,74 @@
   var handleCollisions = function(){
     _.each(bubbles, function(b){
       
-      var blocker_id = b.blocker;
+      var blocker_id = b.blocker_left;
+      var b_top = b.selector.position().top;
+      var bubble_id = getBubbleId(b);
       
       // Check if this bubble has collided.
       if(blocker_id && bubbles[blocker_id] !== undefined){
-        var bubble_id = getBubbleId(b);
-        var b_top = b.selector.position().top;
-        var blocker_bottom = bubbles[blocker_id].selector.position().top + height;
-                
-        if(b_top < blocker_bottom){
-                
-          // Remove bubble.
-          delete bubbles[bubble_id];
-          b.selector.appendTo("#scrollyHider");
-          
-          // Remove blocker.
-          bubbles[blocker_id].selector.appendTo("#scrollyHider");
-          delete bubbles[blocker_id];
         
+        var blocker_bottom = bubbles[blocker_id].selector.position().top + height;
+        
+        if(b_top < blocker_bottom){
+          // bubbles[blocker_id].velocity = b.velocity * 1.5;
+          // b.velocity = bubbles[blocker_id].velocity * 0.3;
+          
+          v1_i = b.velocity;
+          v2_i = bubbles[blocker_id].velocity;
+          m1 = b.mass;
+          m2 = bubbles[blocker_id].mass;
+
+          var v1_f = ((m1 - m2)*v1_i + 2*m2*v2_i)/(m1 + m2);
+          var v2_f = ((2*(m1*v1_i) - (m1 - m2)*v2_i))/(m1 + m2);
+
+          // Elastic force.
+          var d = blocker_bottom - b_top;
+          var k = .01;
+          v1_f = v1_f - k*d/(2*m1);
+          v2_f = v2_f + k*d/(2*m2);
+
+          b.velocity = v1_f;
+          bubbles[blocker_id].velocity = v2_f;
+          // bubbles[blocker_id].selector.css("top", b_top - height - 1 + "px");
+          // if (bubbles[blocker_id].velocity < 0.001) {bubbles[blocker_id].velocity = 0.001;}
+          // if (b.velocity < 0.001) {b.velocity = 0.001;}   
+
         }
       }
+
+      var blocker_id = b.blocker_right;
+
+      if(blocker_id && bubbles[blocker_id] !== undefined){
+
+        var blocker_bottom = bubbles[blocker_id].selector.position().top + height;
+
+        if(b_top < blocker_bottom){
+          
+          v1_i = b.velocity;
+          v2_i = bubbles[blocker_id].velocity;
+          m1 = b.mass;
+          m2 = bubbles[blocker_id].mass;
+
+          var v1_f = ((m1 - m2)*v1_i + 2*m2*v2_i)/(m1 + m2);
+          var v2_f = ((2*(m1*v1_i) - (m1 - m2)*v2_i))/(m1 + m2);
+
+          // Elastic force.
+          var d = blocker_bottom - b_top;
+          var k = .01;
+          v1_f = v1_f - k*d/(2*m1);
+          v2_f = v2_f + k*d/(2*m2);
+
+          b.velocity = v1_f;
+          bubbles[blocker_id].velocity = v2_f;
+          // bubbles[blocker_id].selector.css("top", b_top - height - 1 + "px");
+          
+          // if (bubbles[blocker_id].velocity < 0.001) {bubbles[blocker_id].velocity = 0.001;}
+          // if (b.velocity < 0.001) {b.velocity = 0.001;}   
+
+        }
+      }
+
     });
   }
   setInterval(animateBubbles, animation_interval);
