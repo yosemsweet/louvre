@@ -6,6 +6,7 @@ gem 'nokogiri'
 gem "haml-rails"
 gem "compass"
 gem 'omniauth', "~> 0.2.6"
+gem "acts_as_opengraph", :git => "git@github.com:yosemsweet/acts_as_opengraph.git"
 gem "paper_trail"  
 gem 'engineyard'
 

@@ -1,3 +1,9 @@
+GIT
+  remote: git@github.com:yosemsweet/acts_as_opengraph.git
+  revision: 80648d93737b62228733c57305c81934341a08d0
+  specs:
+    acts_as_opengraph (0.0.5)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -244,6 +250,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_opengraph!
   capybara
   compass
   cucumber-rails
