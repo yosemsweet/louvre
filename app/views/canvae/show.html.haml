@@ -2,9 +2,6 @@
   = stylesheet_link_tag 'canvas.css', :media => 'screen, projection'
 
 = render :partial => "shared/invite", :locals => {:canvas => @canvas}
-
-= render "fb_open_graph" 
-
   
 #edit_dialog
   %iframe#edit_frame{:src => ""}
