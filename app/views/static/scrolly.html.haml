@@ -8,12 +8,22 @@
         %p== I yam thing #{i} and I yam        
         
 :javascript
+  var bottom_y = 1000;
+  var top_y = -100;
+  var fps = 50;
+  var animation_interval = 1000. / fps;
+  var garbage_collection_interval = 1000;
+  var insertion_interval = 300;
+  var collision_detection_interval = 100;
+  
   var height = 49;
   var width = 204;
   var bubbles = {};
   var next_bubbles_index = 0;
-  var bottom_y = 1000;
-  var top_y = -100;
+  
+  var getBubbleId = function(bubble){
+    return bubble.selector.attr("data_bubble_id");
+  }
   
   var insertNextBubble = function(){
       // Store the new bubble.
@@ -22,8 +32,7 @@
         
         // Choose start parameters.
         var start_left = Math.floor(Math.random()*800);
-        var start_velocity = .05 + Math.random()*.1; // pixels / millisecond? 
-  
+        var start_velocity = .05 + Math.random()*.1;
         var start_right = start_left + width;
   
         // Compute the blocker candidates.
@@ -42,10 +51,11 @@
           var b_y = b.selector.position().top
           if(b_y > blocker_y){
             blocker_y = b_y;
-            blocker = b.selector.attr("data_bubble_id");
+            blocker = getBubbleId(b);
           }    
         });
   
+        // Save the bubble data.
         bubbles[next_bubbles_index] = {
           selector : selector, 
           blocker : blocker,
@@ -56,36 +66,41 @@
         
         // Save bubble id in dom.
         selector.attr("data_bubble_id", next_bubbles_index);
-                
-        next_bubbles_index = next_bubbles_index + 1;
-      
+                      
         // Insert the new bubble and start animating it.
         var time_to_top = (bottom_y - top_y) / start_velocity;
-        selector.css('left', start_left).css('top', bottom_y + 'px').prependTo('#scrolly').animate(
-          { top : top_y}, time_to_top, 'linear', function(){
-            
-            // Remove data from bubbles array.
-            var bubble_id = $(this).attr("data_bubble_id");
-            delete bubbles[bubble_id];
-            
-            // Add to the queue.
-            $(this).appendTo("#scrollyHider");
-          });  
+        selector.css('left', start_left).css('top', bottom_y + 'px').prependTo('#scrolly');
+        
+        next_bubbles_index = next_bubbles_index + 1;
     }
   }
   
-  setInterval(insertNextBubble, 300);
+  var animateBubbles = function(){
+    _.each(bubbles, function(b){
+      var old_top = b.selector.position().top;
+      b.selector.css("top", (old_top - (b.velocity * animation_interval)) + "px");
+    });
+  }
   
-  
+  var collectGarbage = function(){
+    // Remove any bubbles that are above the top or below the bottom of the page.
+    _.each(bubbles, function(b){
+      var top = b.selector.position().top;
+      if(top < top_y || top > bottom_y){
+        delete bubbles[getBubbleId(b)];
+        b.selector.appendTo("#scrollyHider");
+      }
+    });
+  }
+    
   var handleCollisions = function(){
     _.each(bubbles, function(b){
       
       var blocker_id = b.blocker;
       
       // Check if this bubble has collided.
-      // If bubble has a blocker and bubble top is higher than blocker's bottom.
       if(blocker_id && bubbles[blocker_id] !== undefined){
-        var bubble_id = b.selector.attr("data_bubble_id");
+        var bubble_id = getBubbleId(b);
         var b_top = b.selector.position().top;
         var blocker_bottom = bubbles[blocker_id].selector.position().top + height;
                 
@@ -93,75 +108,18 @@
                 
           // Remove bubble.
           delete bubbles[bubble_id];
-          b.selector.stop();
           b.selector.appendTo("#scrollyHider");
           
           // Remove blocker.
-          bubbles[blocker_id].selector.stop();
           bubbles[blocker_id].selector.appendTo("#scrollyHider");
           delete bubbles[blocker_id];
         
         }
       }
-
     });
   }
-    
-  setInterval(handleCollisions, 100);
-    
-    // setInterval(
-    //       function(){
-    //         
-    //         var start_left = Math.floor(Math.random()*800);
-    //         var speed = 5000 + Math.floor(Math.random()*10000);
-    //         
-    //         $('#scrollyHider li:first-child').css('top','1000px').css('left',start_left).prependTo('#scrolly').animate({
-    //           top: '+=-1500'
-    //         }, speed, 'linear'
-    //         , function() {
-    //           $(this).appendTo('#scrollyHider');
-    //         });
-    //       }
-    //       ,2000
-    //     );
-    //     
-    //     setInterval(
-    //       function(){
-    //         $("li").each(function(){
-    //           var my_top = $(this).position().top;
-    //           var my_bottom = my_top + height;
-    //           var my_left = $(this).position().left;
-    //           var my_right = my_left + width;
-    //           var $me = $(this);
-    //           
-    //           
-    //           var my_index = $(this).index();
-    //           $("li").each(function(){
-    //             if($(this).index() !== my_index){
-    //               
-    //               var his_top = $(this).position().top;
-    //               var his_bottom = his_top + height;
-    //               var his_left = $(this).position().left;
-    //               var his_right = his_left + width;
-    //               
-    //               // Check to see if there is a collision
-    //               
-    //               
-    //               console.log([my_left, my_right, his_left, his_right]);
-    //               
-    //               if( my_top < his_bottom && my_bottom > his_bottom && (my_left < his_left && my_right > his_left)){
-    //                 console.log("COLLISION!");
-    //                 //|| (my_right > his_right && my_left < his_right)
-    //                 // $(this).css("background-color", "red");
-    //                 $(this).stop();
-    //                 $me.stop();
-    //                 // $me.css("background-color", "red")
-    //                 // console.log("COLLISION!");
-    //               }
-    //               
-    //             }
-    //           })
-    //         
-    //         });
-    //       }, 1000)
+  setInterval(animateBubbles, animation_interval);
+  setInterval(insertNextBubble, insertion_interval);
+  setInterval(handleCollisions, collision_detection_interval);
+  setInterval(collectGarbage, garbage_collection_interval);
 
