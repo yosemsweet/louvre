@@ -9,7 +9,7 @@ Given there is a canvas
 And I am authenticated
 And I am on that canvas' homepage
 When I follow "Add Image"
-And I fill in "widget_content" with "image.jpg"
+And I fill in "widget_content" with "imageurl"
 And I fill in "widget_alt_text" with "image alt text"
 And I press "Save"
 Then the image link is added to the canvas' input stream

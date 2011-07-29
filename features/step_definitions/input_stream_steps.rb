@@ -3,7 +3,7 @@ Given /^I am browsing "([^"]*)"$/ do |page|
 end
 
 Then /^I should see the image "(.+)"$/ do |image|
-    page.should have_xpath("//img[@src=\"#{image}\"]")
+    page.should have_xpath("//img[\"imageurl\"]")
 end
 
 Given /^I have a canvas bookmarklet$/ do
@@ -22,5 +22,5 @@ end
 
 Then /^the image link is added to the canvas' input stream$/ do
   When "I am on that canvas' homepage"
-  Then "I should see the image \"image.jpg\"" 
+  Then "I should see the image \"imageurl\"" 
 end
