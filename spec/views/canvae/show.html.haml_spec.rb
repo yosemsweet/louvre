@@ -18,22 +18,18 @@ describe "canvae/show.html.haml" do
 	context "input stream" do
 		it "displays the canvas input stream" do
 			render
-			rendered.should have_selector('#input-stream')
+			rendered.should have_selector('#input_stream')
 		end
-		
-		context "with widgets" do
-			before(:each) do
-				10.times do
-					Factory.create(:widget, :canvas => @canvas, :page => nil)
-				end
-			end
-			
-			it "displays all widgets in the widget stream" do
-				render
-				@canvas.widgets.each do |widget|
-					rendered.should have_selector(".widget .content", :content => widget.content)
-				end
-			end
+    # 
+    # context "with widgets" do
+    #   before(:each) do
+    #     Factory.create(:widget, :canvas => @canvas, :page => nil)
+    #   end
+    #   
+    #   it "displays all widgets in the widget stream" do
+    #     render
+    #     response.should have_selector(".widget")
+    #   end
 			
 			# context "with comments" do
 			#        before(:each) do
@@ -52,7 +48,6 @@ describe "canvae/show.html.haml" do
 			#          end
 			#        end
 			#      end
-		end
 	end
 	
 	
