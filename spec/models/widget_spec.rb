@@ -190,6 +190,12 @@ describe Widget do
 		it "the original widget should be the parent of the cloned widget" do
 			@cloned_widget.parent.id.should == @original_widget.id
 		end
+
+		it "cloned image widget should have alt text" do
+			@original_image_widget = Factory.build(:image_widget, :alt_text => 'image alt text')
+			@cloned_image_widget = @original_image_widget.widget_clone
+			@cloned_image_widget.alt_text.should == @original_image_widget.alt_text
+		end
 		
 	end
 	
