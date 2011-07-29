@@ -37,10 +37,9 @@
         var start_right = start_left + width;
         var mass = 1 + Math.random()*255;
         
-        selector.css("background-color","rgb("+ Math.floor(mass) + "," + Math.floor(mass) + "," + Math.floor(mass) + ")");
-        console.log("rgb("+ Math.floor(mass) + "," + Math.floor(mass) + "," + Math.floor(mass) + ")");
-        // selector.css("background-color","blue");
-  
+        // selector.css("background-color","rgb("+ Math.floor(mass) + "," + Math.floor(mass) + "," + Math.floor(mass) + ")");
+        selector.text(Math.floor(mass));
+       
         // Compute the blocker candidates.
         var blocker_candidates_left = [];
         _.each(bubbles, function(b){
@@ -120,77 +119,48 @@
       }
     });
   }
-    
+  
+  var adjustVelocity = function(b1,b2){
+    var b2_bottom = b2.selector.position().top + height;
+    var b1_top = b1.selector.position().top;
+  
+    if(b1_top < b2_bottom){
+      
+      v1_i = b1.velocity;
+      v2_i = b2.velocity;
+      m1 = b1.mass;
+      m2 = b2.mass;
+
+      var v1_f = ((m1 - m2)*v1_i + 2*m2*v2_i)/(m1 + m2);
+      var v2_f = ((2*(m1*v1_i) - (m1 - m2)*v2_i))/(m1 + m2);
+
+      // Elastic force.
+      var d = b2_bottom - b1_top;
+      var k = .01;
+      v1_f = v1_f - k*d/(2*m1);
+      v2_f = v2_f + k*d/(2*m2);
+
+      b1.velocity = v1_f;
+      b2.velocity = v2_f;
+      b2.selector.css("top", b1_top - height - 1 + "px");
+    }
+  }
+  
   var handleCollisions = function(){
     _.each(bubbles, function(b){
       
-      var blocker_id = b.blocker_left;
-      var b_top = b.selector.position().top;
       var bubble_id = getBubbleId(b);
       
       // Check if this bubble has collided.
-      if(blocker_id && bubbles[blocker_id] !== undefined){
-        
-        var blocker_bottom = bubbles[blocker_id].selector.position().top + height;
-        
-        if(b_top < blocker_bottom){
-          // bubbles[blocker_id].velocity = b.velocity * 1.5;
-          // b.velocity = bubbles[blocker_id].velocity * 0.3;
-          
-          v1_i = b.velocity;
-          v2_i = bubbles[blocker_id].velocity;
-          m1 = b.mass;
-          m2 = bubbles[blocker_id].mass;
-
-          var v1_f = ((m1 - m2)*v1_i + 2*m2*v2_i)/(m1 + m2);
-          var v2_f = ((2*(m1*v1_i) - (m1 - m2)*v2_i))/(m1 + m2);
-
-          // Elastic force.
-          var d = blocker_bottom - b_top;
-          var k = .01;
-          v1_f = v1_f - k*d/(2*m1);
-          v2_f = v2_f + k*d/(2*m2);
-
-          b.velocity = v1_f;
-          bubbles[blocker_id].velocity = v2_f;
-          // bubbles[blocker_id].selector.css("top", b_top - height - 1 + "px");
-          // if (bubbles[blocker_id].velocity < 0.001) {bubbles[blocker_id].velocity = 0.001;}
-          // if (b.velocity < 0.001) {b.velocity = 0.001;}   
-
-        }
+      if(b.blocker_left && bubbles[b.blocker_left] !== undefined){
+        adjustVelocity(b,bubbles[b.blocker_left])
       }
 
-      var blocker_id = b.blocker_right;
-
-      if(blocker_id && bubbles[blocker_id] !== undefined){
-
-        var blocker_bottom = bubbles[blocker_id].selector.position().top + height;
-
-        if(b_top < blocker_bottom){
-          
-          v1_i = b.velocity;
-          v2_i = bubbles[blocker_id].velocity;
-          m1 = b.mass;
-          m2 = bubbles[blocker_id].mass;
-
-          var v1_f = ((m1 - m2)*v1_i + 2*m2*v2_i)/(m1 + m2);
-          var v2_f = ((2*(m1*v1_i) - (m1 - m2)*v2_i))/(m1 + m2);
-
-          // Elastic force.
-          var d = blocker_bottom - b_top;
-          var k = .01;
-          v1_f = v1_f - k*d/(2*m1);
-          v2_f = v2_f + k*d/(2*m2);
-
-          b.velocity = v1_f;
-          bubbles[blocker_id].velocity = v2_f;
-          // bubbles[blocker_id].selector.css("top", b_top - height - 1 + "px");
-          
-          // if (bubbles[blocker_id].velocity < 0.001) {bubbles[blocker_id].velocity = 0.001;}
-          // if (b.velocity < 0.001) {b.velocity = 0.001;}   
-
-        }
+      // Check if this bubble has collided.
+      if(b.blocker_right && bubbles[b.blocker_right] !== undefined){
+        adjustVelocity(b,bubbles[b.blocker_right])
       }
+
 
     });
   }
