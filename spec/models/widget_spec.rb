@@ -170,12 +170,11 @@ describe Widget do
 
   end
 
-	describe "#widget_clone" do
+	describe "#clone" do
 		
 		before(:each) do
 			@original_widget = Factory.create(:widget, :page => nil)
-			@cloned_widget = @original_widget.widget_clone
-			@cloned_widget.save 
+			@cloned_widget = @original_widget.clone 
 		end
 		   
 		it "cloned widget should have the same content, canvas, creator, content_type" do
@@ -193,9 +192,14 @@ describe Widget do
 			@cloned_widget.parent.id.should == @original_widget.id
 		end
 
+    it "should get a new updated_at date" do
+      @cloned_widget.save
+      @cloned_widget.updated_at.should > @original_widget.updated_at
+    end
+
 		it "cloned image widget should have alt text" do
 			@original_image_widget = Factory.build(:image_widget, :alt_text => 'image alt text')
-			@cloned_image_widget = @original_image_widget.widget_clone
+			@cloned_image_widget = @original_image_widget.clone
 			@cloned_image_widget.alt_text.should == @original_image_widget.alt_text
 		end
 		

@@ -63,4 +63,25 @@ describe WidgetsController do
 	    end
     end
   end
+  
+  describe "Post clone_widget" do
+    
+    it "clones the passed in widget" do
+      widget = FactoryGirl.create(:widget)
+      Widget.stub(:find).and_return(widget)
+      widget.should_receive(:clone).and_return(Widget.new(widget.attributes.update :updated_at => nil, :created_at => nil, :position => nil, :parent => widget))
+      post :clone_widget,
+        :id => widget.id,
+        :canvas_id => widget.canvas.id,
+        :page_id => FactoryGirl.create(:page),
+        :position => 1
+    end
+
+    it "adds the widget to the page" do
+      pending
+    end
+
+  end
+
+  
 end
