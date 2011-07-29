@@ -25,7 +25,7 @@ FactoryGirl.define do
     canvas
   end
 
-  factory :widget do
+  factory :widget, :aliases => [:text_widget, :image_widget] do
     content_type "text_content"
     content "This is the content"
     creator
