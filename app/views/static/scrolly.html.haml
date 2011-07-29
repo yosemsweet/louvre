@@ -1,80 +1,18 @@
--# %script{:type => "text/javascript", :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"}
-
--# %div#container{:style => "width:800px; height: 600px; border: 1px dotted #aaa; overflow:hidden; z-index:99999999" }
--# 
--# %div#scrollyHider{:style => "display:none"}
--#   %div.widget0{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
--#     I am widget 0
--#   %div.widget1{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
--#     I am widget 1
--#   %div.widget2{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
--#     I am widget 2
--#   %div.widget3{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
--#     I am widget 3
--#   %div.widget4{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
--#     I am widget 4
--#   %div.widget5{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
--#     I am widget 5
--#   %div.widget6{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
--#     I am widget 6
--#   %div.widget7{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
--#     I am widget 7
--#   %div.widget8{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
--#     I am widget 8
--#   %div.widget9{:style => "width:200px; height: 50px; background-color: #bbb; position: absolute; top: -100px; left: 50px"}
--#     I am widget 9
-
 %ul#scrolly
 
 %ul#scrollyHider{:style => "display:none"}
-  %li.notice
-    .content
-      %p I yam what I yam and you ...
-
-  %li.info
-    .content
-      %p I yam what I yam and you ...
-
-  %li.success
-    .content
-      %p I yam what I yam and you ...
-
-  %li.error
-    .content
-      %p I yam what I yam and you ...
-    
-  %li.notice
-    .content
-      %p I yam what I yam and you ...
-
-  %li.info
-    .content
-      %p I yam what I yam and you ...
-
-  %li.success
-    .content
-      %p I yam what I yam and you ...
-
-  %li.error
-    .content
-      %p I yam what I yam and you ...
-
-  %li.success
-    .content
-      %p I yam what I yam and you ...
-
-  %li.error
-    .content
-      %p I yam what I yam and you ...
-
-        
-        
-        
+  - list_classes = ['notice','success','error','info']
+  - 1.upto(10) do |i|
+    %li{:class => list_classes[rand(4)]}
+      .content
+        %p== I yam thing #{i} and I yam        
         
 :javascript
-
   $(function(){
-
+    
+    var height = 49;
+    var width = 204;
+    
     setInterval(
       function(){
         
@@ -90,4 +28,39 @@
       }
       ,1000
     );
+    
+    setInterval(
+      function(){
+        $("li").each(function(){
+          var my_top = $(this).position().top;
+          var my_bottom = my_top + height;
+          var my_left = $(this).position().left;
+          var my_right = my_left + width;
+          var $me = $(this);
+          
+          
+          var my_index = $(this).index();
+          $("li").each(function(){
+            if($(this).index() !== my_index){
+              
+              var his_top = $(this).position().top;
+              var his_bottom = his_top + height;
+              var his_left = $(this).position().left;
+              var his_right = my_left + width;
+              
+              // Check to see if there is a collision
+              if( my_top < his_bottom && my_bottom > his_bottom && (my_left < his_left && my_right > his_left) || (my_right > his_right && my_left < his_right)){
+                $(this).css("background-color", "red");
+                $me.css("background-color", "red")
+                console.log("COLLISION!");
+              }
+              
+            }
+          })
+          
+          //console.log(my_y);
+        });
+      }, 100)
+    
+    
   });
