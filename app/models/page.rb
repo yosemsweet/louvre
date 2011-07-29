@@ -9,6 +9,7 @@ class Page < ActiveRecord::Base
   validates_presence_of :canvas
 
   has_paper_trail
+  acts_as_opengraph :values => { :type => "cause" }
 	
 	# Return the versions of this page and its widgets ordered by date descending
   def all_versions
