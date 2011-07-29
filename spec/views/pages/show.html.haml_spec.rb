@@ -38,6 +38,15 @@ describe "pages/show.html.haml" do
 	  end
 	end
 
+  context "facebook comments" do
+    before(:each) do
+      render
+    end
+    
+    it "show facebook comments" do
+      rendered.should have_selector("comments[href='#{CGI.escape(canvas_page_url(@page.canvas, @page))}']")
+    end
+  end
   
   # before(:each) do
   #   @page = Factory.create(:page)
