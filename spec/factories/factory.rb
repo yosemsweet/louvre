@@ -15,7 +15,7 @@ FactoryGirl.define do
       "Canvas #{n}"
     end
 	  mission "Better clothing for women of a certain age!"
-	  image_url "http://www.carniola.org/theglory/images/McHammer.gif"
+	  image "http://www.carniola.org/theglory/images/McHammer.gif"
 		creator
   end
 
