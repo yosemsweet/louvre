@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe Canvas do
+	context "attributes" do
+		let(:canvas) { Factory.build(:canvas) }
+		
+		it "should respond to name" do
+			canvas.should respond_to(:name)
+		end
+				
+		it "should respond to image" do
+			canvas.should respond_to(:image)
+		end
+	end
+	
   context "Validations" do
 		it "should be valid with valid parameters" do
 			canvas = Factory.build(:canvas)

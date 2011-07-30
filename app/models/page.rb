@@ -10,6 +10,10 @@ class Page < ActiveRecord::Base
 
   has_paper_trail
   acts_as_opengraph :values => { :type => "cause" }
+
+	def opengraph_image
+  	canvas.image if canvas.present?
+  end
 	
 	# Return the versions of this page and its widgets ordered by date descending
   def all_versions
