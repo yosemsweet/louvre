@@ -1,7 +1,5 @@
 - content_for :head do
   = stylesheet_link_tag 'canvas.css', :media => 'screen, projection'
-
-= render :partial => "shared/invite", :locals => {:canvas => @canvas}
   
 #edit_dialog
   %iframe#edit_frame{:src => ""}
@@ -9,21 +7,17 @@
 %p#notice= notice
 
 .span-16
+  = image_tag @canvas.image if @canvas.image.present?
   %p
     %b Name:
     = @canvas.name
     = render "facebook_share"
-
   %p
     %b Mission:
     = @canvas.mission
-  = if @canvas.image.present?
-    %p
-      %b Image:
-      = image_tag @canvas.image
   %p
     %b Creator:
-    = @canvas.creator_id
+    = @canvas.creator
 
   - if current_user
     %h2.bookmarklet
