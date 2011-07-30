@@ -62,14 +62,8 @@ class Widget < ActiveRecord::Base
     end
   end
 	
-	def widget_clone
-		Widget.new(
-			:creator => self.creator,
-			:content => self.content,
-			:canvas => self.canvas,
-			:parent => self,
-			:content_type => self.content_type
-		)
+	def clone
+	  Widget.new(self.attributes.update :updated_at => nil, :created_at => nil, :position => nil, :parent => self)
 	end
 	 
 	private
