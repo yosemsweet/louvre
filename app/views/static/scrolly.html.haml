@@ -17,7 +17,6 @@
   var insertion_interval = 700;
   var collision_detection_interval = 100;
   
-  var height = 49;
   var width = 204;
   var bubbles = {};
   var next_bubbles_index = 0;
@@ -35,10 +34,13 @@
         var start_left = Math.floor(Math.random()*800);
         var start_velocity = .05 + Math.random()*.1;
         var start_right = start_left + width;
-        var mass = 1 + Math.random()*255;
+        var height = Math.floor(49 * (1 + Math.random()*3));
+        // var mass = 1 + Math.random()*255;
+        var mass = height * width;
         
         // selector.css("background-color","rgb("+ Math.floor(mass) + "," + Math.floor(mass) + "," + Math.floor(mass) + ")");
-        selector.text(Math.floor(mass));
+        selector.css("height",height + "px");
+        selector.text(Math.floor(mass) + ' - ' + height);
        
         // Compute the blocker candidates.
         var blocker_candidates_left = [];
@@ -121,7 +123,7 @@
   }
   
   var adjustVelocity = function(b1,b2){
-    var b2_bottom = b2.selector.position().top + height;
+    var b2_bottom = b2.selector.position().top + b2.selector.outerHeight();
     var b1_top = b1.selector.position().top;
   
     if(b1_top < b2_bottom){
@@ -142,7 +144,7 @@
 
       b1.velocity = v1_f;
       b2.velocity = v2_f;
-      b2.selector.css("top", b1_top - height - 1 + "px");
+      b2.selector.css("top", b1_top - b2.selector.outerHeight() - 1 + "px");
     }
   }
   
