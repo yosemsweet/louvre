@@ -5,3 +5,8 @@ end
 Then /^the "([^"]*)" should be filled with "([^"]*)"$/ do |field_name, field_value|
   find_field(field_name).value.should == field_value
 end
+
+Then /^I should see any ongoing discussions for that canvas$/ do
+	page.should have_selector("#discussions")
+end
+
