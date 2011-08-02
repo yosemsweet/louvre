@@ -1,7 +1,8 @@
+- width = params[:width]||600
 .fb-discussion
   %h2
     Discussions
-  = comments_for(@canvas, :href => canvas_url(@canvas), :width => 600)
+  = comments_for(@canvas, :href => canvas_url(@canvas), :width => width)
 
 :javascript
   FB.XFBML.parse();

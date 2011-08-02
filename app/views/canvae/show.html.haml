@@ -133,7 +133,7 @@
   
   reload_discussions = function(){
     // Load input stream widgets
-    $("#discussions").load("/canvae/#{@canvas.id}/discussions");
+    $("#discussions").load("/canvae/#{@canvas.id}/discussions?width=600");
   }
   
   $(document).ready(function(){
