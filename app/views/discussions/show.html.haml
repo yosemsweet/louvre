@@ -1,4 +1,5 @@
 - width = params[:width]||600
+- defined? current_user ? user = current_user.id : user = 0
 .fb-discussion
   %h2
     Discussions
@@ -9,13 +10,13 @@
 
   FB.Event.subscribe('comment.create',
       function(response) {
-          mpq.push(["track","comment_added", {'type':"facebook", "canvas":"#{@canvas.id}","user": "#{current_user}"}]);
+          mpq.push(["track","comment_added", {'type':"facebook", "canvas":"#{@canvas.id}","user": "#{user}"}]);
       }
   );
   
   FB.Event.subscribe('comment.remove',
       function(response) {
-          mpq.push(["track","comment_removed" , {'type' : "facebook", 'canvas' : "#{@canvas.id}", "user":"#{current_user}"}]);
+          mpq.push(["track","comment_removed" , {'type' : "facebook", 'canvas' : "#{@canvas.id}", "user":"#{user}"}]);
       }
   );
   
