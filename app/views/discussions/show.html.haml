@@ -1,0 +1,8 @@
+.fb-discussion
+  %h2
+    Discussions
+  = comments_for(@canvas, :href => canvas_url(@canvas), :width => 600)
+
+:javascript
+  FB.XFBML.parse();
+  

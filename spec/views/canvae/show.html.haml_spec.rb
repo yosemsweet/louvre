@@ -29,4 +29,18 @@ describe "canvae/show.html.haml" do
 
 	end
 	
+	context "discussions" do
+	  before(:each) do
+      render
+    end
+    
+    it "displays the canvas discussions" do
+			rendered.should have_selector('#discussions')
+		end
+		
+		it "loads discussions" do
+		  rendered.should contain("load(\"#{canvas_discussions_path(@canvas)}\"")
+		end
+	end
+	
 end

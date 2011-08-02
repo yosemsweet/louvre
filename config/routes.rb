@@ -14,6 +14,7 @@ Louvre::Application.routes.draw do
 				post 'clone_widget'
 			end
 		end
+		match '/discussions' => "discussions#show"
 	end
 
   root :to => "static#index"

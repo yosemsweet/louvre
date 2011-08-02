@@ -1,5 +1,7 @@
+- content_for(:opengraph_meta_tags, opengraph_meta_tags_for(@canvas, :url => canvas_url(@canvas)))
 - content_for :head do
   = stylesheet_link_tag 'canvas.css', :media => 'screen, projection'
+
 
 #edit_dialog
   %iframe#edit_frame{:src => ""}
@@ -60,11 +62,6 @@
   = link_to "Add Image", new_canvas_widget_path(@canvas, :content_type => 'image_content'), :data_content_type => "image_content", :class => "add_content"
 
   #discussions
-    %h2
-      Discussions
-    = comments_for(@canvas, :href => canvas_url(@canvas), :width => 600)
-
-
 
 :javascript
   var the_edit_dialog = $("#edit_dialog").dialog({
@@ -133,6 +130,17 @@
   }
 
   reload_widgets();
+  
+  reload_discussions = function(){
+    // Load input stream widgets
+    $("#discussions").load("/canvae/#{@canvas.id}/discussions");
+  }
+  
+  $(document).ready(function(){
+    reload_discussions();
+  });
+  
+  reload_discussions();
   
   mpq.push(["track","hit_canvas_homepage"]);
   window.mixpanelobject=mpq;  
