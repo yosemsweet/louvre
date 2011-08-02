@@ -10,6 +10,8 @@ body{
 	background-color: $accent-color;
 	text-align: center;
 	margin-bottom: 10px;
+	z-index: 999999999999;
+	position: relative;
 	box-shadow: 0 1px 2px darken($accent-color, 40%);
 
 	#user-nav { 

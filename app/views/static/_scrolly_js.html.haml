@@ -28,10 +28,14 @@
   });
   
   // prototype settings
-  var bottom_y = 1200;
+  var window_height = $(window).height();
+  var header_height = $("#header").outerHeight();
+  var drag_start = header_height + 75;
+
+  var bottom_y = window_height + 200;
   
   // function settings
-  var top_y = -100;
+  var top_y = 0;
   var fps = 50;
   var animation_interval = 1000. / fps;
   var garbage_collection_interval = 1000;
@@ -59,9 +63,7 @@
         var final_height = height;
         var width = selector.outerWidth();
         var mass = height * width;
-        // selector.text(selector.text() + '||' + Math.floor(mass) + ' - ' + height);
-        // console.log(width);
-        
+
         // Choose start parameters.
         var start_velocity = .2 + Math.random()*.2;
         var start_right = start_left + width;
@@ -142,7 +144,7 @@
         b.velocity = b.velocity + 0.002;
       }
       b.velocity = b.velocity * (1 - b.drag);
-      if(old_top < 0){
+      if(old_top < drag_start){
         b.drag = 0.98;
       }
     });
