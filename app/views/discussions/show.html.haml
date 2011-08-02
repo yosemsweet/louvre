@@ -7,3 +7,15 @@
 :javascript
   FB.XFBML.parse();
   
+  FB.Event.subscribe('comment.create',
+      function(response) {
+          mpq.push(["track","comment_facebook_added_#{@canvas.id}"]);
+      }
+  );
+  
+  FB.Event.subscribe('comment.remove',
+      function(response) {
+          mpq.push(["track","comment_facebook_removed_#{@canvas.id}"]);
+      }
+  );
+  
