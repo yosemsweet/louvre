@@ -2,13 +2,19 @@
   %ul#scrolly
 
   %ul#scrollyHider{:style => "display:none;"}
-    - list_classes = ['notice','success','error','info']
-    - 1.upto(10) do |i|
-      %li.bubble{:class => list_classes[rand(4)]}
-        .content
-          %p== I yam thing #{i} and I yam        
+    -# - list_classes = ['notice','success','error','info']
+    -# - 1.upto(10) do |i|
+    -#   %li.bubble{:class => list_classes[rand(4)]}
+    -#     .content
+    -#       %p== I yam thing #{i} and I yam        
         
 :javascript
+  var getMoreWidgets = function(){
+      $.get('/next_scroll_widgets', function(data) {
+      $(data).appendTo("#scrollyHider");
+    });
+  }
+
   $(".bubble").mouseover(function(){
     b = bubbles[$(this).attr("data_bubble_id")];
     b.drag = 0.9;
@@ -43,6 +49,7 @@
   var collision_detection_interval = 50;
   var bubbles = {};
   var next_bubbles_index = 0;
+  var more_widgets_interval = 10 * insertion_interval;
   
   var getBubbleId = function(bubble){
     return bubble.selector.attr("data_bubble_id");
@@ -195,6 +202,8 @@
 
     });
   }
+  getMoreWidgets();
+  setInterval(getMoreWidgets, more_widgets_interval);
   setInterval(animateBubbles, animation_interval);
   setInterval(insertNextBubble, insertion_interval);
   setInterval(handleCollisions, collision_detection_interval);

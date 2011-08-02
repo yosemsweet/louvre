@@ -4,4 +4,8 @@ class StaticController < ApplicationController
 		render :layout => "empty"
 	end
 	
+	def scrolly_widgets
+		render :layout => "empty"
+	end
+	
 end

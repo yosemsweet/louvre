@@ -1,17 +1,6 @@
 class WidgetsController < ApplicationController
 
-  def update_position
-		widget = Widget.find(params[:id])
-		
-		if widget.update_position(params[:position])
-			head :ok
-		else
-			head :bad_request
-		end	
-	end
-	
 	def clone_widget
-		
 		widget = Widget.find(params[:id])
 		
 		cloned_widget = widget.clone
@@ -22,9 +11,29 @@ class WidgetsController < ApplicationController
 		else
 			head :bad_request
 		end
-		
 	end
 
+	def next_for_scroll
+		next_widgets = []
+		
+		10.times do
+			next_widgets << Widget.random
+		end
+		
+		render next_widgets
+	end
+
+  def update_position
+		widget = Widget.find(params[:id])
+		
+		if widget.update_position(params[:position])
+			head :ok
+		else
+			head :bad_request
+		end	
+	end
+
+	# REST
   def index
     @widgets = Canvas.find(params[:canvas_id]).input_stream_widgets
     render :layout => false
