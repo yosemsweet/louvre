@@ -70,6 +70,28 @@ describe Canvas do
 			end
 			
 		end
+		
+		context "facebook integration" do
+			context 'opengraph meta data' do
+				let(:canvas) { FactoryGirl.build(:canvas) }
+
+				it "should respond to opengraph_data" do
+					canvas.should respond_to(:opengraph_data)
+				end
+
+				it "should return cause as opengraph type" do
+					canvas.opengraph_type.should == 'cause'
+				end
+
+				it "should return page title as opengraph title" do
+					canvas.opengraph_title.should == canvas.name
+				end
+
+				it "should return canvas image as opengraph image" do
+					canvas.opengraph_image.should == canvas.image
+				end
+			end
+		end
 	
 	end
 end

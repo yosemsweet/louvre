@@ -38,5 +38,4 @@ FactoryGirl.define do
 		creator
 		widget
 	end
-
 end
