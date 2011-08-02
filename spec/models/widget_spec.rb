@@ -34,10 +34,12 @@ describe Widget do
 		it "should be able to have content" do
 	  	widget.should respond_to(:content)
 	  end
-
-		it "should be able to have alt text" do
-		  widget.should respond_to(:alt_text)
-	  end
+	
+    it "should require alt text if content type is image" do
+      widget.content_type = 'image_content'
+      widget.alt_text = nil
+      widget.should_not be_valid
+    end
 	
 		it "should be able to have a content_type" do
 			widget.should respond_to(:content_type)
@@ -132,11 +134,11 @@ describe Widget do
 		
 	end
 	
-	describe "#initialize_page_position" do
+	describe "#position_last_on_page" do
 		
 		it "should set the position of a widget" do
 			@new_widget = Factory.build(:widget, :position => nil)
-			@new_widget.initialize_page_position
+			@new_widget.position_last_on_page
 			@new_widget.save
 			
 			@new_widget.reload.position.should == 1
@@ -168,12 +170,11 @@ describe Widget do
 
   end
 
-	describe "#widget_clone" do
+	describe "#clone" do
 		
 		before(:each) do
 			@original_widget = Factory.create(:widget, :page => nil)
-			@cloned_widget = @original_widget.widget_clone
-			@cloned_widget.save 
+			@cloned_widget = @original_widget.clone 
 		end
 		   
 		it "cloned widget should have the same content, canvas, creator, content_type" do
@@ -190,17 +191,19 @@ describe Widget do
 		it "the original widget should be the parent of the cloned widget" do
 			@cloned_widget.parent.id.should == @original_widget.id
 		end
+
+    it "should get a new updated_at date" do
+      @cloned_widget.save
+      @cloned_widget.updated_at.should > @original_widget.updated_at
+    end
+
+		it "cloned image widget should have alt text" do
+			@original_image_widget = Factory.build(:image_widget, :alt_text => 'image alt text')
+			@cloned_image_widget = @original_image_widget.clone
+			@cloned_image_widget.alt_text.should == @original_image_widget.alt_text
+		end
 		
 	end
 	
-	describe "#preview" do
-	  context "A widget" do
-	    it "should have maximum length 50 characters" do
-	      long_content = "A" * 200;
-	      widget = Factory.build(:widget, :content => long_content)
-	      widget.preview.length.should be(50)
-      end
-    end
-  end
 
 end

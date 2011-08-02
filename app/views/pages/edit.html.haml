@@ -1,5 +1,3 @@
-= render :partial => "header"
-
 - content_for :head do
   = stylesheet_link_tag 'page.css', :media => 'screen, projection'
 
@@ -9,7 +7,7 @@
 .span-16
   %h1 Page
 
-  = form_for([@canvas, @page], :html => {:id => "update_page"}) do |f|
+  = form_for([@page.canvas, @page], :html => {:id => "update_page"}) do |f|
     .field
       = f.label :title
       = f.text_field :title, :class => "title"
@@ -26,11 +24,11 @@
   %ul#input_stream
 
 .span-24.last
-  = link_to 'Show', canvas_page_path(@canvas, @page)
+  = link_to 'Show', canvas_page_path(@page.canvas, @page)
   \|
   = link_to "Versions", versions_canvas_page_path(@page.canvas, @page)
   \|
-  = link_to 'View Canvas', canvas_path(@canvas)
+  = link_to 'View Canvas', canvas_path(@page.canvas)
   
 :javascript
   
@@ -168,7 +166,7 @@
         if (has_page == 1) {
           
           // Update the widget's position on the server.
-          $.post("/canvae/#{@canvas.id}/widgets/" + widget_id + "/update_position/", { 
+          $.post("/canvae/#{@page.canvas.id}/widgets/" + widget_id + "/update_position/", { 
             position : position, 
             _method : 'PUT' 
           });
@@ -177,7 +175,7 @@
         } else {
           
           // Clone the widget and do an update
-          $.post("/canvae/#{@canvas.id}/widgets/" + widget_id + "/clone_widget/", { 
+          $.post("/canvae/#{@page.canvas.id}/widgets/" + widget_id + "/clone_widget/", { 
             position : position,
             page_id : "#{@page.id}"
             },function(data){

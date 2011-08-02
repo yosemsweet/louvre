@@ -1,10 +1,5 @@
-- content_for :title do
-  A Saucy Book
-
 - content_for :head do
   = stylesheet_link_tag 'homepage.css', :media => 'screen, projection'
-
-- render "shared/header"
 
 .span-14
   %iframe#intro-video{:width => "540", :height => "349", :src => "http://www.youtube.com/embed/S__-wDm2vNY", :frameborder=>"0", :allowfullscreen => true}

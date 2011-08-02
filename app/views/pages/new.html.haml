@@ -1,8 +1,7 @@
-= render :partial => "header"
-
 %h1 New page
 
-= form_for([@canvas, @page]) do |f|
+
+= form_for([@page.canvas, @page]) do |f|
   .field
     = f.label :title
     = f.text_field :title

@@ -17,12 +17,6 @@ class Widget < ActiveRecord::Base
   def image?
     content_type == 'image_content'
   end
-    
-  def preview
-    if content_type == 'text_content'
-      self.content.truncate(50)
-    end
-  end
 
 	def update_position(new_position)
 		
@@ -55,7 +49,7 @@ class Widget < ActiveRecord::Base
 		
 	end
 	
-	def initialize_page_position
+	def position_last_on_page
 		if self.page
 			self.position = self.page.widgets.length + 1
 		end
@@ -68,14 +62,8 @@ class Widget < ActiveRecord::Base
     end
   end
 	
-	def widget_clone
-		Widget.new(
-			:creator => self.creator,
-			:content => self.content,
-			:canvas => self.canvas,
-			:parent => self,
-			:content_type => self.content_type
-		)
+	def clone
+	  Widget.new(self.attributes.update :updated_at => nil, :created_at => nil, :position => nil, :parent => self)
 	end
 	 
 	private

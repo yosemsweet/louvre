@@ -1,11 +1,9 @@
 class WidgetsController < ApplicationController
-  
-	before_filter :load_canvas, :except => :destroy
 
   def update_position
-		@current_widget = Widget.find(params[:id])
+		widget = Widget.find(params[:id])
 		
-		if @current_widget.update_position(params[:position])
+		if widget.update_position(params[:position])
 			head :ok
 		else
 			head :bad_request
@@ -14,13 +12,13 @@ class WidgetsController < ApplicationController
 	
 	def clone_widget
 		
-		@widget = Widget.find(params[:id])
+		widget = Widget.find(params[:id])
 		
-		@cloned_widget = @widget.widget_clone
-		@cloned_widget.page_id = params[:page_id]
-		
-		if @cloned_widget.save && @cloned_widget.insert_position(params[:position])
-			render :json => @cloned_widget.id
+		cloned_widget = widget.clone
+		cloned_widget.page_id = params[:page_id]
+
+		if cloned_widget.save && cloned_widget.insert_position(params[:position])
+			render :json => cloned_widget.id
 		else
 			head :bad_request
 		end
@@ -37,32 +35,37 @@ class WidgetsController < ApplicationController
   end
 
   def new
-    @widget = @canvas.widgets.new(:content_type => params[:content_type])
+    canvas = Canvas.find(params[:canvas_id])
+    @widget = canvas.widgets.new(:content_type => params[:content_type])
 		
     @widget.page = Page.find(params[:page_id]) if params[:page_id]
     @widget.content_type = params[:content_type] || 'text_content'
     
-    render :layout => "edit_widget"
+    render :layout => 'empty'
   end
 
   def edit
     @widget = Widget.find(params[:id])
     
-    render :layout => "edit_widget"
+    render :layout => 'empty'
   end
 
   def create    
+    canvas = Canvas.find(params[:canvas_id])
+    widget_params = params[:widget]
     
-    @widget = @canvas.widgets.new(params[:widget])
-    @widget.creator ||= current_user
+    @widget = canvas.widgets.new(widget_params)
+    if !widget_params[:creator_id]
+      @widget.creator = current_user
+    end
     
-    if params[:widget][:page_id]
-		  @widget.initialize_page_position
+    if widget_params[:page_id]
+		  @widget.position_last_on_page
 	  end
 
 		respond_to do |format|  
     	if @widget.save
-				format.html { redirect_to(canvas_path(@widget.canvas), :notice => 'widget was successfully created.') }
+				format.html { render 'update_page', :layout => false }
      		format.json { render :json => @widget, :status => :created }
 	    else
 	      head :bad_request
@@ -86,14 +89,7 @@ class WidgetsController < ApplicationController
     widget = Widget.find(params[:id])
     widget.remove_page_position
     widget.destroy
-    
     head :ok
   end
-  
-  private 
-	
-	def load_canvas
-		@canvas = Canvas.find(params[:canvas_id])
-	end
   
 end

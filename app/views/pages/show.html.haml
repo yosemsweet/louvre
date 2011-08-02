@@ -1,5 +1,4 @@
-= render :partial => "header"
-
+- content_for(:opengraph_meta_tags, opengraph_meta_tags_for(@page, :url => canvas_page_url(@page.canvas, @page)))
 - content_for :head do
   = stylesheet_link_tag 'page.css', :media => 'screen, projection'
 
@@ -8,8 +7,12 @@
 %ul#presentation_page
   = render @page.widgets
 
-= link_to 'Edit', edit_canvas_page_path(@canvas, @page)
+= link_to 'Edit', edit_canvas_page_path(@page.canvas, @page)
 \|
 = link_to "Versions", versions_canvas_page_path(@page.canvas, @page)
 \|
-= link_to 'View Canvas', canvas_path(@canvas)
+= link_to 'View Canvas', canvas_path(@page.canvas)
+
+
+%h2 comments
+= comments_for(@page, :href => canvas_page_url(@page.canvas, @page) )

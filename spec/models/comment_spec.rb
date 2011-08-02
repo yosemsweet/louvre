@@ -5,7 +5,6 @@ describe Comment do
 		let(:comment) {Factory.build(:comment)}
 		
 		it "should be valid with valid params" do
-			puts comment.creator
 			comment.should be_valid
 		end
 		
