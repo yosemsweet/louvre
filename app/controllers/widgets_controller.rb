@@ -2,7 +2,7 @@ class WidgetsController < ApplicationController
 
   def update_position
 		widget = Widget.find(params[:id])
-		
+
 		if widget.update_position(params[:position])
 			head :ok
 		else

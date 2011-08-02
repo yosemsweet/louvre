@@ -161,7 +161,7 @@
         // Compute the new position of this widget.
         var position = ui.item.index() + 1;
         // determine if this widget was already on the page
-        var has_page = ui.item.attr("data_is_on_page");
+        var has_page = ui.item.attr("data_has_page");
         
         if (has_page == 1) {
           
@@ -179,9 +179,9 @@
             position : position,
             page_id : "#{@page.id}"
             },function(data){
-              // console.log(data);
-              ui.item.attr("data_widget_id",data)
-            },"json"
+              ui.item.attr("data_widget_id", data);
+              ui.item.attr("data_has_page", 1);
+            }
           );
               
           mpq.push(["track","page_add_widget_from_input_stream", mixpanel_attributes]);
