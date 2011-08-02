@@ -3,7 +3,7 @@
 
   %ul#scrollyHider{:style => "display:none;"}
     - list_classes = ['notice','success','error','info']
-    - 1.upto(20) do |i|
+    - 1.upto(10) do |i|
       %li.bubble{:class => list_classes[rand(4)]}
         .content
           %p== I yam thing #{i} and I yam        
