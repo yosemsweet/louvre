@@ -24,5 +24,10 @@ ul#input_stream {
 	@include input_stream_widget;
 }
 
+ul#scrolly {
+	@include widget_container;
+	@include scrolly_widget;
+}
+
 #edit_dialog {display:none;}
 #edit_frame {width:100%; height:400px;}

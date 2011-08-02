@@ -8,3 +8,4 @@ gems/*
 !gems/bundler
 public/stylesheets/*
 config/database.yml
+/webrat.log

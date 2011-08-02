@@ -1,0 +1,205 @@
+:javascript
+
+  var getMoreWidgets = function(){
+      $.get('/next_scroll_widgets', function(data) {
+      $(data).appendTo("#scrollyHider");
+    });
+  }
+
+  $(".bubble").mouseover(function(){
+    b = bubbles[$(this).attr("data_bubble_id")];
+    b.drag = 0.9;
+  });
+  $(".bubble").mouseout(function(){
+    b = bubbles[$(this).attr("data_bubble_id")];
+    b.drag = 0.0;
+  });
+  $(".bubble").click(function(){
+    b = bubbles[$(this).attr("data_bubble_id")];
+    if(b.mass > 300){
+      b.drag = 0.0;
+      b.mass = 100;
+      b.selector.text(100);
+    } else {
+      b.drag = 0.98;
+      b.mass = 500;
+      b.selector.text(500)
+    }
+  });
+  
+  // prototype settings
+  var bottom_y = 1200;
+  
+  // function settings
+  var top_y = -100;
+  var fps = 50;
+  var animation_interval = 1000. / fps;
+  var garbage_collection_interval = 1000;
+  var insertion_interval = 1000;
+  var collision_detection_interval = 50;
+  var bubbles = {};
+  var next_bubbles_index = 0;
+  var more_widgets_interval = 10 * insertion_interval;
+  
+  var getBubbleId = function(bubble){
+    return bubble.selector.attr("data_bubble_id");
+  }
+  
+  var insertNextBubble = function(){
+      // Store the new bubble.
+      var selector = $('#scrollyHider li:first-child');
+      if(selector.length !== 0){
+        
+        var start_left = Math.floor(Math.random()*800);
+        
+        selector.css('left', start_left).css('top', bottom_y + 'px').prependTo('#scrolly');
+        
+        // prototype settings 
+        var height = selector.outerHeight();
+        var final_height = height;
+        var width = selector.outerWidth();
+        var mass = height * width;
+        // selector.text(selector.text() + '||' + Math.floor(mass) + ' - ' + height);
+        // console.log(width);
+        
+        // Choose start parameters.
+        var start_velocity = .2 + Math.random()*.2;
+        var start_right = start_left + width;
+        var drag = 0;
+       
+        // Compute the blocker candidates.
+        var blocker_candidates_left = [];
+        _.each(bubbles, function(b){
+          if(start_left <= b.left && start_right > b.left){
+            // Add to blocker candidates list.
+            blocker_candidates_left.push(b);
+          }
+        });
+        
+        // Compute the blocker candidates.
+        var blocker_candidates_right = [];
+        _.each(bubbles, function(b){
+          if(start_right >= b.right && start_left < b.right){
+            // Add to blocker candidates list.
+            blocker_candidates_right.push(b);
+          }
+        });
+        
+        // Compute the left blocker.
+        var blocker_y = -100000;
+        var blocker_left = false;
+        _.each(blocker_candidates_left, function(b){
+          var b_y = b.selector.position().top
+          if(b_y > blocker_y){
+            blocker_y = b_y;
+            blocker_left = getBubbleId(b);
+          }    
+        });
+        
+        // Compute the right blocker.
+        var blocker_y = -100000;
+        var blocker_right = false;
+        _.each(blocker_candidates_right, function(b){
+          var b_y = b.selector.position().top
+          if(b_y > blocker_y){
+            blocker_y = b_y;
+            blocker_right = getBubbleId(b);
+          }    
+        });
+        
+        // Save the bubble data.
+        bubbles[next_bubbles_index] = {
+          selector : selector, 
+          blocker_left : blocker_left,
+          blocker_right : blocker_right,
+          left : start_left,
+          right : start_right,
+          velocity : start_velocity,
+          mass : mass,
+          height : final_height,
+          drag : drag,
+          dom_el : selector.get(0)
+        }
+        
+        // Save bubble id in dom.
+        selector.attr("data_bubble_id", next_bubbles_index); 
+        // Insert the new bubble and start animating it.
+        var time_to_top = (bottom_y - top_y) / start_velocity;
+        
+        next_bubbles_index = next_bubbles_index + 1;
+    }
+  }
+  
+  var animateBubbles = function(){
+    _.each(bubbles, function(b){
+      
+      var old_top = parseInt(b.dom_el.style.top.substring(0, b.dom_el.style.top.length - 2));
+      b.dom_el.style.top = (old_top - (b.velocity * animation_interval)) + "px";
+
+      if(old_top > 500){
+        b.velocity = b.velocity - 0.0010;
+      } else {
+        b.velocity = b.velocity + 0.002;
+      }
+      b.velocity = b.velocity * (1 - b.drag);
+      if(old_top < 0){
+        b.drag = 0.98;
+      }
+    });
+  }
+  
+  var collectGarbage = function(){
+    // Remove any bubbles that are above the top or below the bottom of the page.
+    _.each(bubbles, function(b){
+      var top = b.selector.position().top;
+      if(top <= top_y || top > bottom_y){
+        delete bubbles[getBubbleId(b)];
+        b.selector.appendTo("#scrollyHider");
+      }
+    });
+  }
+  
+  var adjustVelocity = function(b1,b2){
+    var b2_bottom = parseInt(b2.dom_el.style.top.substring(0, b2.dom_el.style.top.length - 2)) + b2.height;
+    var b1_top = parseInt(b1.dom_el.style.top.substring(0, b1.dom_el.style.top.length - 2));
+
+    if(b1_top < b2_bottom){
+      
+      v1_i = b1.velocity;
+      v2_i = b2.velocity;
+      m1 = b1.mass;
+      m2 = b2.mass;
+      
+      var v1_f = ((m1 - m2)*v1_i + 2*m2*v2_i)/(m1 + m2);
+      var v2_f = ((2*(m1*v1_i) - (m1 - m2)*v2_i))/(m1 + m2);
+
+      b1.velocity = 0.9*v1_f;
+      b2.velocity = 0.9*v2_f;
+      b2.dom_el.style.top = b1_top - b2.height + "px";
+    }
+  }
+  
+  var handleCollisions = function(){
+    _.each(bubbles, function(b){
+      
+      var bubble_id = getBubbleId(b);
+      
+      // Check if this bubble has collided.
+      if(b.blocker_left && bubbles[b.blocker_left] !== undefined){
+        adjustVelocity(b,bubbles[b.blocker_left])
+      }
+      if(b.blocker_right && bubbles[b.blocker_right] !== undefined){
+        adjustVelocity(b,bubbles[b.blocker_right])
+      }
+
+
+    });
+  }
+  
+  getMoreWidgets();
+  
+  setInterval(getMoreWidgets, more_widgets_interval);
+  setInterval(animateBubbles, animation_interval);
+  setInterval(insertNextBubble, insertion_interval);
+  setInterval(handleCollisions, collision_detection_interval);
+  setInterval(collectGarbage, garbage_collection_interval);
