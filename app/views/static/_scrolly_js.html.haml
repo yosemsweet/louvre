@@ -1,20 +1,49 @@
 :javascript
 
-  var getMoreWidgets = function(){
-      $.get('/next_scroll_widgets', function(data) {
-      $(data).appendTo("#scrollyHider");
+  enable_widget_tooltips = function(){
+    $("a.tooltip").each(function(){
+      $(this).qtip({
+        content: $(this).parents().filter(".widget").find(".content").html(),
+        show: 'mouseover',
+        hide: 'mouseout',
+        position: {
+          corner: { 
+            target: 'bottomLeft', 
+            tooltip: 'topRight'
+          },
+          adjust: { screen: true }
+        },
+        style: {
+          width: 572,
+          border: {
+            width: 5,
+            radius: 10
+          },
+          padding: 10, 
+          tip: true,
+          name: 'light' 
+        }
+      });
     });
   }
 
-  $(".bubble").mouseover(function(){
+  var getMoreWidgets = function(){
+      $.get('/next_scroll_widgets', function(data) {
+      $(data).appendTo("#scrollyHider");
+      enable_widget_tooltips();
+    });
+  }
+
+  $(".widget").mouseover(function(){
     b = bubbles[$(this).attr("data_bubble_id")];
     b.drag = 0.9;
   });
-  $(".bubble").mouseout(function(){
+  $(".widget").mouseout(function(){
     b = bubbles[$(this).attr("data_bubble_id")];
     b.drag = 0.0;
   });
-  $(".bubble").click(function(){
+  $(".widget").click(function(){
+    alert('Clicked!');
     b = bubbles[$(this).attr("data_bubble_id")];
     if(b.mass > 300){
       b.drag = 0.0;
@@ -35,7 +64,7 @@
   var bottom_y = window_height + 200;
   
   // function settings
-  var top_y = 0;
+  var top_y = -50;
   var fps = 50;
   var animation_interval = 1000. / fps;
   var garbage_collection_interval = 1000;
@@ -156,7 +185,8 @@
       var top = b.selector.position().top;
       if(top <= top_y || top > bottom_y){
         delete bubbles[getBubbleId(b)];
-        b.selector.appendTo("#scrollyHider");
+        // b.selector.appendTo("#scrollyHider");
+        b.selector.empty().remove();
       }
     });
   }

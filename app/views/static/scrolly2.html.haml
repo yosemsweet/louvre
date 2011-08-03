@@ -39,3 +39,33 @@
         - else
           = link_to "Log in", "/auth/facebook"
           to comment
+          
+:javascript
+  
+  $("a.tooltip").each(function(){
+    $(this).qtip({
+      content: $(this).parents().filter(".widget").find(".content").html(),
+      show: 'mouseover',
+      hide: 'mouseout',
+      position: {
+        corner: { 
+          target: 'bottomLeft', 
+          tooltip: 'topRight'
+        },
+        adjust: { screen: true }
+      },
+      style: {
+        width: 572,
+        border: {
+          width: 5,
+          radius: 10
+        },
+        padding: 10, 
+        tip: true,
+        name: 'light' 
+      }
+    });
+  });
+
+  
+  
