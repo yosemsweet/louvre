@@ -1,4 +1,14 @@
-:javascript
+:javascript 
+  var ANIMATE = true;
+  
+  var start_animation = function(){
+    ANIMATE = true;
+  }
+  
+  var pause_animation = function(){
+    ANIMATE = false;
+  }
+  
   enableWidgetTooltips = function(){
     $("a.tooltip").each(function(){
       $(this).qtip({
@@ -35,28 +45,9 @@
   }
   
   // Widget hover / click handling
-  $(".widget").live('mouseover', function(){
-    // Mouseover
-    b = bubbles[$(this).attr("data_bubble_id")];
-    b.drag = 0.95;
-    
-  }).live('mouseout', function(){
-    // Mouseout
-    b = bubbles[$(this).attr("data_bubble_id")];
-    b.drag = 0.0;
-    
-  }).live('click', function(){
-    // Click
-    b = bubbles[$(this).attr("data_bubble_id")];
-    if(b.mass > 3000000){
-      b.drag = 0.0;
-      b.mass = 100;
-    } else {
-      b.drag = 1.0;
-      b.mass = 50000000;
-    }
-    
-  });
+  $(".widget")
+    .live('mouseover', pause_animation)
+    .live('mouseout', start_animation);
   
   // function settings
   var window_height = $(window).height();
@@ -78,6 +69,7 @@
   }
   
   var insertNextBubble = function(){
+    if(ANIMATE){
       // Store the new bubble.
       var selector = $('#scrollyHider li:first-child');
       if(selector.length !== 0){
@@ -91,48 +83,36 @@
         var final_height = height;
         var width = selector.outerWidth();
         var mass = height * width;
-        var start_velocity = .2 + Math.random()*.2;
+        var start_velocity = .1 + Math.random()*.2;
         var start_right = start_left + width;
         var drag = 0;
        
-        // Compute the blocker candidates.
-        var blocker_candidates_left = [];
+        // Compute the right blocker.
+        var blocker_right_y = -100000;
+        var blocker_right = false;
+        
         _.each(bubbles, function(b){
-          if(start_left <= b.left && start_right > b.left){
-            // Add to blocker candidates list.
-            blocker_candidates_left.push(b);
+          if(start_left <= b.left && start_right > b.left){    
+            var b_y = b.selector.position().top; 
+            if(b_y > blocker_right_y){
+              blocker_right = getBubbleId(b);
+              blocker_right_y = b_y;
+            }
           }
         });
         
-        // Compute the blocker candidates.
-        var blocker_candidates_right = [];
+        // Compute the left candidates.
+        var blocker_left_y = -100000;
+        var blocker_left = false;
+        
         _.each(bubbles, function(b){
           if(start_right >= b.right && start_left < b.right){
-            // Add to blocker candidates list.
-            blocker_candidates_right.push(b);
+            var b_y = b.selector.position().top; 
+            if(b_y > blocker_left_y){
+              blocker_left = getBubbleId(b);
+              blocker_left_y = b_y;
+            }
           }
-        });
-        
-        // Compute the left blocker.
-        var blocker_y = -100000;
-        var blocker_left = false;
-        _.each(blocker_candidates_left, function(b){
-          var b_y = b.selector.position().top
-          if(b_y > blocker_y){
-            blocker_y = b_y;
-            blocker_left = getBubbleId(b);
-          }    
-        });
-        
-        // Compute the right blocker.
-        var blocker_y = -100000;
-        var blocker_right = false;
-        _.each(blocker_candidates_right, function(b){
-          var b_y = b.selector.position().top
-          if(b_y > blocker_y){
-            blocker_y = b_y;
-            blocker_right = getBubbleId(b);
-          }    
         });
         
         // Save the bubble data.
@@ -155,35 +135,42 @@
         var time_to_top = (bottom_y - top_y) / start_velocity;
         
         next_bubbles_index = next_bubbles_index + 1;
+        
+      }
     }
   }
   
   var animateBubbles = function(){
-    _.each(bubbles, function(b){
+    if(ANIMATE){
+      _.each(bubbles, function(b){
+        // Update the widget's position.
+        var old_top = parseInt(b.dom_el.style.top.substring(0, b.dom_el.style.top.length - 2));
+        b.dom_el.style.top = (old_top - (b.velocity * animation_interval)) + "px";
+        
+        // Update velocity for gravity.
+        if(old_top < 500){
+          // Accelerate up near the top of the page.
+          b.velocity = b.velocity + 0.002;
+        }
       
-      var old_top = parseInt(b.dom_el.style.top.substring(0, b.dom_el.style.top.length - 2));
-      b.dom_el.style.top = (old_top - (b.velocity * animation_interval)) + "px";
-
-      if(old_top > 500){
-        b.velocity = b.velocity - 0.0010;
-      } else {
-        b.velocity = b.velocity + 0.002;
-      }
-      
-      b.velocity = b.velocity * (1 - b.drag);
-      if(old_top < drag_start){
-        b.drag = 0.98;
-      }
-    });
+        // Update velocity for drag.
+        b.velocity = b.velocity * (1 - b.drag);
+        
+        // Add drag at the top of the page.
+        if(old_top < drag_start){
+          b.drag = 0.98;
+        }
+        
+      });
+    }
   }
   
   var collectGarbage = function(){
     // Remove any bubbles that are above the top or below the bottom of the page.
     _.each(bubbles, function(b){
       var top = b.selector.position().top;
-      if(top <= top_y || top > bottom_y){
+      if(top <= top_y || top > bottom_y + 200){
         delete bubbles[getBubbleId(b)];
-        // b.selector.appendTo("#scrollyHider");
         b.selector.empty().remove();
       }
     });
