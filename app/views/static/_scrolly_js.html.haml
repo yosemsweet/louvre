@@ -1,5 +1,6 @@
 :javascript 
   var ANIMATE = true;
+  var MAX_SCROLLIES = 10;
   
   var start_animation = function(){
     ANIMATE = true;
@@ -69,7 +70,10 @@
   }
   
   var insertNextBubble = function(){
-    if(ANIMATE){
+    
+    var number_of_scrollies = $("#scrolly").children(".widget").length;
+    
+    if(ANIMATE && number_of_scrollies <= MAX_SCROLLIES ){
       // Store the new bubble.
       var selector = $('#scrollyHider li:first-child');
       if(selector.length !== 0){
