@@ -1,5 +1,4 @@
 :javascript
-
   enableWidgetTooltips = function(){
     $("a.tooltip").each(function(){
       $(this).qtip({
@@ -27,43 +26,37 @@
       });
     });
   }
-
+  
   var getMoreWidgets = function(){
       $.get('/next_scroll_widgets', function(data) {
       $(data).appendTo("#scrollyHider");
       enableWidgetTooltips();
-      clickMeWidgets();
-      mouseOverWidgets();
-      mouseOutWidgets();
-    });
-  }
-
-  var mouseOverWidgets = function(){
-    $(".widget").mouseover(function(){
-      b = bubbles[$(this).attr("data_bubble_id")];
-      b.drag = 0.95;
     });
   }
   
-  var mouseOutWidgets = function(){
-    $(".widget").mouseout(function(){
-      b = bubbles[$(this).attr("data_bubble_id")];
+  // Widget hover / click handling
+  $(".widget").live('mouseover', function(){
+    // Mouseover
+    b = bubbles[$(this).attr("data_bubble_id")];
+    b.drag = 0.95;
+    
+  }).live('mouseout', function(){
+    // Mouseout
+    b = bubbles[$(this).attr("data_bubble_id")];
+    b.drag = 0.0;
+    
+  }).live('click', function(){
+    // Click
+    b = bubbles[$(this).attr("data_bubble_id")];
+    if(b.mass > 3000000){
       b.drag = 0.0;
-    });
-  }
-  
-  var clickMeWidgets = function(){
-    $(".widget").click(function(){
-      b = bubbles[$(this).attr("data_bubble_id")];
-      if(b.mass > 3000000){
-        b.drag = 0.0;
-        b.mass = 100;
-      } else {
-        b.drag = 1.0;
-        b.mass = 50000000;
-      }
-    });
-  }
+      b.mass = 100;
+    } else {
+      b.drag = 1.0;
+      b.mass = 50000000;
+    }
+    
+  });
   
   // function settings
   var window_height = $(window).height();
