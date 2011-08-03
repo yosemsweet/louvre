@@ -4,6 +4,7 @@ describe "pages/show.html.haml" do
   
   before(:each) do
     @page = Factory.create(:page)
+    @widgets = @page.widgets_in_order
   end
   
   before do

@@ -7,6 +7,7 @@ class PagesController < ApplicationController
   end
 
   def show
+    @widgets = @page.widgets_in_order
   end
 
   def edit
@@ -16,7 +17,7 @@ class PagesController < ApplicationController
   end
 
   def widgets
-    @widgets = @page.widgets.order("position asc")
+    @widgets = @page.widgets_in_order
     render :layout => false
   end
 

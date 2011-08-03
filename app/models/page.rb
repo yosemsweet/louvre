@@ -19,5 +19,9 @@ class Page < ActiveRecord::Base
   def all_versions
     Version.where("(item_type = \'Widget\' AND page_id = \'#{self.id}\') OR (item_type = \'Page\' AND item_id = \'#{self.id}\')").order("created_at DESC")
   end
+  
+  def widgets_in_order
+    self.widgets.order("position asc")
+  end
 	
 end
