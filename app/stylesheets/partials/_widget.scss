@@ -17,6 +17,30 @@
 	}
 }
 
+@mixin scrolly_widget {
+
+	li.widget {
+		@include widget_base(254px);
+		height: 100px;
+		background-color: lighten(#D4E6C6,10%);
+		border: 1px solid #D4E6C6;
+		.content { display: none; }
+		.preview{ 
+			display: block; 
+		}
+		.comments{ display: none; }
+		.controls{
+			.delete{ display: none; }
+			.tooltip{ display: inline; }
+			.handle{ display: none; }
+			.edit_widget{ display: none; }
+			.delete{ display: none; }
+			.delete_widget{ display: none; }
+			.tooltip_divide{ display: none; }
+		}
+	}
+}
+
 @mixin input_stream_widget {
 
 	li.widget {

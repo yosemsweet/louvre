@@ -14,6 +14,11 @@ class Widget < ActiveRecord::Base
   validates_presence_of :canvas, :creator, :content_type
   validates_presence_of :alt_text, :if => :image?
 
+	def self.random
+		total_widgets = Widget.all
+		return total_widgets[rand(total_widgets.length)]
+	end
+
   def image?
     content_type == 'image_content'
   end

@@ -89,4 +89,25 @@ describe "Widgets Requests" do
     
     
   end
+
+	describe "GET /next_scroll_widgets" do
+		
+		before(:each) do
+			canvas = Factory.create(:canvas)
+			@widgets = []
+			10.times do |i|
+				@widgets << Factory.create(:widget, :canvas => canvas, :page => nil, :content => "#{i}")
+			end				
+			visit "/next_scroll_widgets"
+		end
+		
+		it "should render html for 10 widgets" do
+			response.body.should have_css("li.widget", :count => 10)
+		end
+		
+		it "should work" do
+      response.status.should be(200)
+		end
+				
+	end
 end

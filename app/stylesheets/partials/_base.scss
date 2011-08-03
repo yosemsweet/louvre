@@ -25,5 +25,7 @@ $background-color: $white;
 $accent-color: darken($blueprint-blue, 30%);
 $text-color: #333333;
 
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
 @import "partials/widget";
 @import "compass/utilities/general/clearfix";
