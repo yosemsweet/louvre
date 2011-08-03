@@ -1,10 +1,10 @@
 - content_for :head do
-  = stylesheet_link_tag 'homepage.css', :media => 'screen, projection'
+  = stylesheet_link_tag 'homepage.css', 'scrolly.css', :media => 'screen, projection'
 
 .span-14
-  %iframe#intro-video{:width => "540", :height => "349", :src => "http://www.youtube.com/embed/S__-wDm2vNY", :frameborder=>"0", :allowfullscreen => true}
+  %iframe#intro-video{:width => "540", :height => "349", :src => "http://www.youtube.com/embed/S__-wDm2vNY", :frameborder=>"0", :allowfullscreen => true, :style => "position: relative; z-index: 999999999999"}
 .span-10.last
-  .box.clearfix
+  .box.clearfix{:style => "position: relative; z-index: 999999999999"}
     %p 
       A Saucy Book empowers communities to bring together information from all across the web to create comprehensive, lasting bodies of knowledge.
     -if current_user
@@ -30,7 +30,11 @@
     });
     
   })
-  
 
+%ul#scrolly
+
+%ul#scrollyHider
+
+= render :partial => "static/scrolly_js"
 
   
