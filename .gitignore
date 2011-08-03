@@ -9,3 +9,4 @@ gems/*
 public/stylesheets/*
 config/database.yml
 rerun.txt
+/webrat.log

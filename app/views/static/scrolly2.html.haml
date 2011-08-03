@@ -1,0 +1,71 @@
+- content_for :head do
+  = stylesheet_link_tag 'page.css', :media => 'screen, projection'
+
+%div{:style => "width:1000px; height:800px; overflow: hidden;"}
+  %ul#scrolly
+    %li.widget{:data_widget_id => @widget.id, :data_has_page => @widget.page ? 1 : 0}
+
+      .controls
+        %img.handle{:src => "/images/grip.png"}
+        %a.edit_widget{:href => "#"} edit
+        %span.delete
+          \/
+          %a.delete_widget{:href => "#"} delete
+        %span.tooltip_divide
+          \/
+        %span.tooltip
+          %a.tooltip{:href => "#"} preview
+
+      .content
+        - case @widget.content_type
+
+        - when 'text_content'
+          %p= raw(@widget.content)  
+        - when 'image_content'
+          %img{ :src => "#{@widget.content}", :alt => "#{@widget.alt_text}", :title => "#{@widget.alt_text}"}
+
+      .preview
+        - case @widget.content_type
+
+        - when 'text_content'
+          %p= raw(@widget.content.truncate(40))
+        - when 'image_content'
+          %img{ :src => "#{@widget.content}", :alt => "#{@widget.alt_text}", :title => "#{@widget.alt_text}"}
+
+      .comments  
+        = render @widget.comments
+        - if current_user
+          = render :partial => 'comments/form_instream', :locals => { :widget => @widget }
+        - else
+          = link_to "Log in", "/auth/facebook"
+          to comment
+          
+:javascript
+  
+  $("a.tooltip").each(function(){
+    $(this).qtip({
+      content: $(this).parents().filter(".widget").find(".content").html(),
+      show: 'mouseover',
+      hide: 'mouseout',
+      position: {
+        corner: { 
+          target: 'bottomLeft', 
+          tooltip: 'topRight'
+        },
+        adjust: { screen: true }
+      },
+      style: {
+        width: 572,
+        border: {
+          width: 5,
+          radius: 10
+        },
+        padding: 10, 
+        tip: true,
+        name: 'light' 
+      }
+    });
+  });
+
+  
+  

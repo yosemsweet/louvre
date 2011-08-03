@@ -10,6 +10,8 @@ body{
 	background-color: $accent-color;
 	text-align: center;
 	margin-bottom: 10px;
+	z-index: 999999999999;
+	position: relative;
 	box-shadow: 0 1px 2px darken($accent-color, 40%);
 
 	#user-nav { 
@@ -39,70 +41,26 @@ body{
   }  
 }
 
-// #input-stream{
-//   background-color:#D3D3D3;
-//   padding: 10px 5px 5px 10px;
-// 
-//   #canvas-widgets{
-//     
-//     li{
-//       background-color:#F0F8FF;
-//       margin-top:20px;
-//       list-style: none;
-//       
-//       .widget-nav{
-//         background-color:#D5EDF8;
-//         border-color:#92CAE4;
-//         min-height:50px;
-//         width: 100%;
-//         .controls{
-//           float:right;
-//           text-align: right;
-//         }
-//         .widget-title{
-//           float:left;
-//         }
-//       }
-// 
-//       .content{
-//         padding: 10px 10px 0px 20px;
-//         img{
-//           display:block;
-//           margin-left: auto;
-//           margin-right: auto;
-//         }
-//       }
-// 
-// 			.preview img{
-// 				width: 50px;
-// 				height: 50px;
-// 			}
-//       
-//       .info{
-//         width:400px;
-//         margin: 10px 0px 0px 100px;
-//         
-//         .comment_instream{
-//           input[type=text]{
-//             width:250px;
-//           }
-// 
-//           .controls{
-//             float:right;
-//           }
-//         }
-//       }
-//     }
-//   }
-// 
-// }
-
-
-
 #footer {
 	padding-top: 15px;
 }
 
 .invite_user{
   display:inline;
+}
+
+@mixin scrolly_widget{
+   li{
+       padding: 10px;
+       list-style: none;
+       height: 25px;
+       width: 180px;
+			 position: fixed;
+       @include border-radius(8px, 8px);
+       // @include box-shadow(#999 2px 2px 10px); 
+   }
+}
+
+ul#scrolly{
+   @include scrolly_widget;
 }
