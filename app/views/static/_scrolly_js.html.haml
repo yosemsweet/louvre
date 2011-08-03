@@ -51,6 +51,7 @@
     .live('mouseout', start_animation);
   
   // function settings
+  var window_width = $(window).width();
   var window_height = $(window).height();
   var header_height = $("#header").outerHeight();
   var drag_start = header_height + 75;
@@ -77,17 +78,16 @@
       // Store the new bubble.
       var selector = $('#scrollyHider li:first-child');
       if(selector.length !== 0){
-        
-        var start_left = Math.floor(Math.random()*800);
-        
-        selector.css('left', start_left).css('top', bottom_y + 'px').prependTo('#scrolly');
-        
+            
+        // Insert the scrolly into the dom so we can calculate its dimensions.
+        selector.prependTo("#scrolly");
+      
         // Choose start parameters.
         var height = selector.outerHeight();
-        var final_height = height;
         var width = selector.outerWidth();
         var mass = height * width;
         var start_velocity = .1 + Math.random()*.2;
+        var start_left = Math.floor( Math.random() * (window_width - width) );
         var start_right = start_left + width;
         var drag = 0;
        
@@ -128,15 +128,15 @@
           right : start_right,
           velocity : start_velocity,
           mass : mass,
-          height : final_height,
+          height : height,
           drag : drag,
           dom_el : selector.get(0)
         }
         
         // Save bubble id in dom.
         selector.attr("data_bubble_id", next_bubbles_index); 
-        // Insert the new bubble and start animating it.
-        var time_to_top = (bottom_y - top_y) / start_velocity;
+        
+        selector.css('left', start_left).css('top', bottom_y + 'px');
         
         next_bubbles_index = next_bubbles_index + 1;
         

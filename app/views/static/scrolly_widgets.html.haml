@@ -1,9 +1,8 @@
 - content_for :head do
   = stylesheet_link_tag 'page.css', :media => 'screen, projection'
 
-%div{:style => "width:1000px; height:800px; overflow: hidden;"}
-  %ul#scrolly
+%ul#scrolly
 
-  %ul#scrollyHider{:style => "display:none;"}
+%ul#scrollyHider{:style => "display:none;"}
 
 = render :partial => "static/scrolly_js"
