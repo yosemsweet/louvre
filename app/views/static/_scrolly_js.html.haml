@@ -1,11 +1,12 @@
 :javascript
 
-  enable_widget_tooltips = function(){
+  enableWidgetTooltips = function(){
     $("a.tooltip").each(function(){
       $(this).qtip({
         content: $(this).parents().filter(".widget").find(".content").html(),
         show: 'mouseover',
         hide: 'mouseout',
+        show: { delay: 0 },
         position: {
           corner: { 
             target: 'bottomLeft', 
@@ -30,40 +31,45 @@
   var getMoreWidgets = function(){
       $.get('/next_scroll_widgets', function(data) {
       $(data).appendTo("#scrollyHider");
-      enable_widget_tooltips();
+      enableWidgetTooltips();
+      clickMeWidgets();
+      mouseOverWidgets();
+      mouseOutWidgets();
     });
   }
 
-  $(".widget").mouseover(function(){
-    b = bubbles[$(this).attr("data_bubble_id")];
-    b.drag = 0.9;
-  });
-  $(".widget").mouseout(function(){
-    b = bubbles[$(this).attr("data_bubble_id")];
-    b.drag = 0.0;
-  });
-  $(".widget").click(function(){
-    alert('Clicked!');
-    b = bubbles[$(this).attr("data_bubble_id")];
-    if(b.mass > 300){
-      b.drag = 0.0;
-      b.mass = 100;
-      b.selector.text(100);
-    } else {
-      b.drag = 0.98;
-      b.mass = 500;
-      b.selector.text(500)
-    }
-  });
+  var mouseOverWidgets = function(){
+    $(".widget").mouseover(function(){
+      b = bubbles[$(this).attr("data_bubble_id")];
+      b.drag = 0.95;
+    });
+  }
   
-  // prototype settings
+  var mouseOutWidgets = function(){
+    $(".widget").mouseout(function(){
+      b = bubbles[$(this).attr("data_bubble_id")];
+      b.drag = 0.0;
+    });
+  }
+  
+  var clickMeWidgets = function(){
+    $(".widget").click(function(){
+      b = bubbles[$(this).attr("data_bubble_id")];
+      if(b.mass > 3000000){
+        b.drag = 0.0;
+        b.mass = 100;
+      } else {
+        b.drag = 1.0;
+        b.mass = 50000000;
+      }
+    });
+  }
+  
+  // function settings
   var window_height = $(window).height();
   var header_height = $("#header").outerHeight();
   var drag_start = header_height + 75;
-
   var bottom_y = window_height + 200;
-  
-  // function settings
   var top_y = -50;
   var fps = 50;
   var animation_interval = 1000. / fps;
@@ -87,13 +93,11 @@
         
         selector.css('left', start_left).css('top', bottom_y + 'px').prependTo('#scrolly');
         
-        // prototype settings 
+        // Choose start parameters.
         var height = selector.outerHeight();
         var final_height = height;
         var width = selector.outerWidth();
         var mass = height * width;
-
-        // Choose start parameters.
         var start_velocity = .2 + Math.random()*.2;
         var start_right = start_left + width;
         var drag = 0;
@@ -172,6 +176,7 @@
       } else {
         b.velocity = b.velocity + 0.002;
       }
+      
       b.velocity = b.velocity * (1 - b.drag);
       if(old_top < drag_start){
         b.drag = 0.98;
@@ -213,9 +218,7 @@
   
   var handleCollisions = function(){
     _.each(bubbles, function(b){
-      
       var bubble_id = getBubbleId(b);
-      
       // Check if this bubble has collided.
       if(b.blocker_left && bubbles[b.blocker_left] !== undefined){
         adjustVelocity(b,bubbles[b.blocker_left])
@@ -223,8 +226,6 @@
       if(b.blocker_right && bubbles[b.blocker_right] !== undefined){
         adjustVelocity(b,bubbles[b.blocker_right])
       }
-
-
     });
   }
   
