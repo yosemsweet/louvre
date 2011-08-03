@@ -17,8 +17,13 @@
       %a#login{:href=>"/auth/facebook"}
         %img{:src=>"http://plancast.com/images/facebook/login-button.png"}
 
- 
-  
+  #recent_canvases.box{:style => "position: relative; z-index: 999999999999"}
+    %h2 Recent Canvases
+    %ul
+      -@recent_canvases.each do |e|
+        %li= link_to e.name, canvas_path(e)
+
+
 :javascript
   $(function(){
     
