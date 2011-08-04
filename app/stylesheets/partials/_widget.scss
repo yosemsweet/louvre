@@ -63,10 +63,10 @@ $widget-border-width : 1px;
 	}
 }
 
-@mixin page_widget {
+@mixin page_widget($width) {
 	
 	li.widget {
-		@include widget_base(572px);
+		@include widget_base($width - $widget-margin-width);
 		background-color: #DFF2FB; 
 	 	border: 1px solid #D4E6C6;
 		.preview{ display: none; }
@@ -77,24 +77,27 @@ $widget-border-width : 1px;
 	}
 	
 	li.placeholder {
-		@include widget_base(572px);
+		@include widget_base($width);
 		border: 1px dotted #ddd;
 		background-color: #FFFBEA;
 	}	
 }
 
-@mixin presentation_widget {
+@mixin presentation_widget($width) {
 	
 	li.widget {
-		@include widget_base(572px);
+		@include widget_base($width - 2 * $widget-margin-width);
 		margin: 0;
-		margin-left: 10px;
+		margin-left: $widget-margin-width;
 	 	padding: 0;
 		background-color: #fff; 
 	 	border: none;
 		.preview{ display: none; }
 		.comments{ display: none; }
 		.controls{ display: none;	}
+	}
+	.comments-view-add{
+	  @include widget_fb_comments( $width - 4 * $widget-margin-width );
 	}
 }
 
@@ -104,4 +107,8 @@ $widget-border-width : 1px;
   border: $widget-container-border-width dotted #bbb;
 	min-height: 100px;
 	width: $width - $widget-container-border-width * 2;
+}
+
+@mixin widget_fb_comments($width){
+  width: $width;
 }
