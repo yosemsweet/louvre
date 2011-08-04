@@ -20,7 +20,7 @@
   <!-- This file lives in public/404.html -->
   <div class="dialog">
     <h1>A Saucy Book is closed for maintenance</h1>
-    <p>Sorry... you'll have to get your sauce elsewhere</p>
+    <p>Sorry... you'll have to get your sauce somewhere else</p>
   </div>
 </body>
 </html>
