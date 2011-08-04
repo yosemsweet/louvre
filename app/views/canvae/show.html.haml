@@ -16,8 +16,12 @@
       = @canvas.name
       = render "facebook_share"
       - if current_user
-        #follow
-          %button Follow
+        #follow_status
+          #follow
+            %button Follow
+          #unfollow
+            %button Stop following
+            Following this canvas
     %p
       %b Mission:
       = @canvas.mission
@@ -75,11 +79,37 @@
       .attr("href", "javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.innerText='canvas_id=#{@canvas.id};user_id=#{current_user.id}';host_uri='#{host_uri}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='#{host_uri}/javascripts/post-link.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();"
       );
     
+    
 :javascript
+  var user = {
+    is_logged_in : #{!current_user.nil?},
+    is_following : #{current_user ? current_user.following_canvas?(@canvas) : false}
+  }
   
+  if(user.is_logged_in){
+    if(user.is_following){
+      $("#follow").hide();
+    } else {
+      $("#unfollow").hide();
+    }
+  } else {
+    $("#follow_status").hide();
+  }
+  
+  var toggle_follow_status = function(){
+    $("#follow").toggle();
+    $("#unfollow").toggle();
+  }
+    
   $("#follow button").click(function(){
-    $(this).parent().html("<div class='success'>Following this canvas</div>");
-  })
+    toggle_follow_status();
+    $.post("/canvae/#{@canvas.id}/canvas_follow");
+  });
+  
+  $("#unfollow button").click(function(){
+    toggle_follow_status();
+    $.post("/canvae/#{@canvas.id}/canvas_follow", {_method : "DELETE"});
+  });
   
   var the_edit_dialog = $("#edit_dialog").dialog({
     minHeight:250, 

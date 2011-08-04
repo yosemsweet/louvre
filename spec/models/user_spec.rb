@@ -68,6 +68,24 @@ describe User do
     end
     
   end
+  
+  describe "#following_canvas?" do
+    
+    before(:each) do
+      @user = Factory.build(:user)
+      @canvas = Factory.build(:canvas)
+    end
+    
+    it "should return true if the user is following the canvas" do
+      @user.followed_canvae << @canvas
+      @user.following_canvas?(@canvas).should == true
+    end
+    
+    it "should return false if the user is not following the canvas" do
+      @user.following_canvas?(@canvas).should == false
+    end
+    
+  end
 
 	context "Methods" do
 	  describe "it should show its name when called with to_s" do

@@ -16,15 +16,3 @@ Given there is a canvas
 And I am authenticated
 And I am on that canvas' homepage
 Then I can install the canvas bookmarklet
-
-@wip
-@omniauth_test
-@javascript
-Scenario: Follow a canvas
-Given there is a canvas
-And I am authenticated
-And I am on that canvas' homepage
-Then I should see a follow button
-When I press "Follow"
-Then I should not see a follow button
-And I should see "Following"

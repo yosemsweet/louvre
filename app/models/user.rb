@@ -22,4 +22,8 @@ class User < ActiveRecord::Base
 	def to_s
 		name
 	end
+	
+	def following_canvas?(canvas)
+	  followed_canvae.include?(canvas)
+  end
 end
