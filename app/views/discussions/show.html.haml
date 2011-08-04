@@ -3,20 +3,42 @@
 .fb-discussion
   %h2
     Discussions
-  = comments_for(@canvas, :href => canvas_url(@canvas), :width => width)
+  = comments_for(@obj, :href => @href, :width => width)
 
 :javascript
   FB.XFBML.parse();
-
+  
+  function updateCount( ref ){
+    count = getCommentCount(ref, function(cnt)
+    {
+      $('div[comment_href="'+ref+'"]').html( cnt + " comments");
+      $('li[comment_href="'+ref+'"]').attr("comments", cnt);
+    });   
+  }
+  
+  function getCommentCount(ref, callback){
+   FB.api('/comments?ids=' + ref, function(response) {
+      length = 0;
+      if( ref in response ){
+        pageinfo = response[ref]; 
+        if( "data" in pageinfo ){
+          length = pageinfo["data"]["length"];
+        }
+      }
+      callback(length);
+    });
+  }
+  
   FB.Event.subscribe('comment.create',
       function(response) {
-          mpq.push(["track","comment_added", {'type':"facebook", "canvas":"#{@canvas.id}","user": "#{user}"}]);
+          mpq.push(["track","comment_added", {'type':"facebook", "#{@obj.class.name}":"#{@obj.id}","user": "#{user}"}]);
+          updateCount(response['href']);
       }
   );
   
   FB.Event.subscribe('comment.remove',
       function(response) {
-          mpq.push(["track","comment_removed" , {'type' : "facebook", 'canvas' : "#{@canvas.id}", "user":"#{user}"}]);
+          mpq.push(["track","comment_removed" , {'type' : "facebook", '#{@obj.class.name}' : "#{@obj.id}", "user":"#{user}"}]);
       }
   );
   

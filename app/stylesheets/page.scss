@@ -1,31 +1,31 @@
 @import "partials/base";
-
+$widget-width: 572px;
 
 #edit_dialog {display:none;}
 #edit_frame {width:100%; height:400px;}
 
 body {
-	@include page_widget;
+	@include page_widget($widget-width);
 }
 
 ul#page {
-	@include widget_container;
-	@include page_widget;
+	@include widget_container($widget-width);
+	@include page_widget($widget-width);
 }
 
 ul#presentation_page {
-	@include widget_container;
+	@include widget_container($widget-width);
 	padding-top: 5px;
-	@include presentation_widget;
+	@include presentation_widget($widget-width);
 }
 
 ul#input_stream {
-	@include widget_container;
-	@include input_stream_widget;
+	@include widget_container($widget-width);
+	@include input_stream_widget($widget-width);
 }
 
 ul#scrolly {
-	@include widget_container;
+	@include widget_container($widget-width);
 	@include scrolly_widget;
 }
 

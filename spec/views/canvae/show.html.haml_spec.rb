@@ -39,7 +39,7 @@ describe "canvae/show.html.haml" do
 		end
 		
 		it "loads discussions" do
-		  rendered.should contain("load(\"#{canvas_discussions_path(@canvas)}?width=600\"")
+		  rendered.should contain("load(\"#{discussion_path(@canvas.class.to_s.downcase, @canvas.id)}?href=#{canvas_url(@canvas)}&width=600")
 		end
 	end
 	
