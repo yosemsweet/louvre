@@ -2,6 +2,7 @@ Louvre::Application.routes.draw do
   resources :comments
   
   resources :canvae do
+    resource :canvas_follow
 		resources :pages do
 		  member do
 		    get 'widgets'

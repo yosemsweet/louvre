@@ -4,3 +4,12 @@ Then /^I can install the canvas bookmarklet$/ do
     link.should have_content("Add to #{Canvas.last.name}")
   end
 end
+
+Then /^I should see a follow button$/ do
+  page.should have_selector("#follow button")
+end
+
+
+Then /^I should not see a follow button$/ do
+  page.should_not have_selector("#follow button")
+end

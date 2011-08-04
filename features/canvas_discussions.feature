@@ -3,7 +3,6 @@ Feature: canvas homepage
   I want to participate in discussions around my canvas' mission
   So I can learn from and guide the community.
   
-@wip
 Scenario: Canvas Homepage Discussions - 
 Given there is a canvas 
 And I am on that canvas' homepage

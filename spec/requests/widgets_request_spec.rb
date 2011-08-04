@@ -98,7 +98,7 @@ describe "Widgets Requests" do
 			10.times do |i|
 				@widgets << Factory.create(:widget, :canvas => canvas, :page => nil, :content => "#{i}")
 			end				
-			visit "/next_scroll_widgets"
+			get "/next_scroll_widgets"
 		end
 		
 		it "should render html for 10 widgets" do

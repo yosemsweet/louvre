@@ -3,7 +3,7 @@ Feature: canvas homepage
   I want to visit the canvas homepage
   so that I participant in the community 
   
-Scenario: Canvas Homepage Sections - 
+Scenario: Canvas Homepage Sections
 Given there is a canvas 
 And I am on that canvas' homepage
 Then I should see "Edit"
@@ -16,3 +16,15 @@ Given there is a canvas
 And I am authenticated
 And I am on that canvas' homepage
 Then I can install the canvas bookmarklet
+
+@wip
+@omniauth_test
+@javascript
+Scenario: Follow a canvas
+Given there is a canvas
+And I am authenticated
+And I am on that canvas' homepage
+Then I should see a follow button
+When I press "Follow"
+Then I should not see a follow button
+And I should see "Following"
