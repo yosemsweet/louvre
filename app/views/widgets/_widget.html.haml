@@ -29,9 +29,9 @@
       
   %div{:id => "comments_widget_#{widget.id}", :class => "comments"}
   
-  %div{:id => "comment_hide_#{widget.id}", :class => "comments-hide hide"}
+  %a{:id => "comment_hide_#{widget.id}", :class => "comments-hide hide", :style => "cursor:pointer;"}
     hide comments
-  %div{:id => "comment_see_#{widget.id}", :class => "comments-see"}
+  %a{:id => "comment_see_#{widget.id}", :class => "comments-see", :style => "cursor:pointer;"}
     see all comments
   
   
@@ -47,7 +47,12 @@
   });
 
   $("#comment_see_#{widget.id}").click( function(){
-    $("#comments_view_add_#{widget.id}").load( '#{discussion_path(widget.class.name.to_s.downcase, widget.id)}?href=#{canvas_widget_url(widget.canvas, widget)}&width=600' );
+    if( $("#comments_view_add_#{widget.id}").hasClass( 'hide' ) ){
+      $("#comments_view_add_#{widget.id}").removeClass( 'hide' );
+    }
+    else {
+      $("#comments_view_add_#{widget.id}").load( '#{discussion_path(widget.class.name.to_s.downcase, widget.id)}?href=#{canvas_widget_url(widget.canvas, widget)}&width=600' );
+    }
     mpq.push(['track','comment_read', {'type':'facebook', '#{widget.class.name}':'#{widget.id}','user': '#{user}'}]);  
     $("#comment_see_#{widget.id}").addClass('hide');
     $("#comment_hide_#{widget.id}").removeClass('hide');
