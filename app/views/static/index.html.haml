@@ -1,12 +1,7 @@
 - content_for :head do
   = stylesheet_link_tag 'homepage.css', 'scrolly.css', :media => 'screen, projection'
 
--# .span-14
-  -# %iframe#intro-video{:width => "540", :height => "349", :src => "http://www.youtube.com/embed/S__-wDm2vNY", :frameborder=>"0", :allowfullscreen => true, :style => "position: relative; z-index: 999999999999"}
--# .span-10.last
 .box.clearfix{:style => "width: 355px; margin: auto; margin-top: 50px; margin-bottom: 300px; position: relative; z-index: 5000"}
-  -# %p 
-    -# A Saucy Book empowers communities to bring together information from all across the web to create comprehensive, lasting bodies of knowledge.
   .clearfix
     -if current_user
       %h2 Create a New Canvas
@@ -41,5 +36,12 @@
 %ul#scrollyHider
 
 = render :partial => "static/scrolly_js"
-
+    
+#footer{:style => "position: absolute"}
+  .container
+    %a{:href=>"http://mixpanel.com/f/partner"}
+      %img{:src=>"http://mixpanel.com/site_media/images/partner/badge_blue.png", :alt=>"Web Analytics"}
+      
+:javascript
+  $("#footer").css("top",$(window).height() - 60 + "px")
   

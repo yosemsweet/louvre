@@ -20,15 +20,9 @@
             = link_to "Log in with Facebook", "/auth/facebook"
         %h1#logo= @title || "A Saucy Book (Alpha)"    
           
-    .container
-      -flash.each do |type, value|
-        .flash{ :class => type.to_s }
-          = value
-      = yield
-    
-    #footer
+    #body
       .container
-        %a{:href=>"http://mixpanel.com/f/partner"}
-          %img{:src=>"http://mixpanel.com/site_media/images/partner/badge_blue.png", :alt=>"Web Analytics"}
-    
-    
+        -flash.each do |type, value|
+          .flash{ :class => type.to_s }
+            = value
+        = yield    
