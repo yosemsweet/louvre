@@ -11,9 +11,9 @@ describe "widgets/_widget.html.haml" do
       rendered.should contain("FB.api('/comments?ids=#{canvas_widget_url(@widget.canvas, @widget)}'") 
     end
     
-    it "should show all comments" do
+    it "should show all comments if viewing from input stream" do
       rendered.should have_selector(".comments-view-add") 
-      rendered.should contain("#{discussion_path(@widget.class.to_s.downcase, @widget.id)}?href=#{canvas_widget_url(@widget.canvas, @widget)}&width=600" ) 
+      rendered.should contain("#{discussion_path(@widget.class.to_s.downcase, @widget.id)}?href=#{canvas_widget_url(@widget.canvas, @widget)}&width=" ) 
     end
     
     it "should track when people read comments" do
