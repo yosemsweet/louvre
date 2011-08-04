@@ -27,3 +27,5 @@ Louvre::Application.routes.draw do
 	
 	match "/next_scroll_widgets" => "widgets#next_for_scroll"
 	match "/scrollywidgets" => "static#scrolly_widgets"
+
+end
