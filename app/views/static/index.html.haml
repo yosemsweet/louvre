@@ -10,7 +10,7 @@
         %input#submit{:type => "submit", :value => "Get Saucy!"}
     -else
       %h2 Get Started
-      %a#login{:href=>"/auth/facebook"}
+      =login_link do
         %img{:src=>"http://plancast.com/images/facebook/login-button.png"}
 
   #recent_canvases{:style => "padding-top: 20px"}
