@@ -149,4 +149,16 @@ describe Page do
 		end
 	end
 	
+	describe "#widgets_in_order" do
+	  it "returns the page's widgets ordered by position" do
+	    page = Factory.create(:page)
+	    w1 = Factory.create(:widget, :page => page, :position => 2)
+	    w2 = Factory.create(:widget, :page => page, :position => 1)
+	    
+	    page.widgets_in_order.first.id.should == w2.id
+	    
+    end
+	  
+  end
+	
 end

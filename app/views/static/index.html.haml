@@ -1,12 +1,13 @@
 - content_for :head do
-  = stylesheet_link_tag 'homepage.css', :media => 'screen, projection'
+  = stylesheet_link_tag 'homepage.css', 'scrolly.css', :media => 'screen, projection'
 
-.span-14
-  %iframe#intro-video{:width => "540", :height => "349", :src => "http://www.youtube.com/embed/S__-wDm2vNY", :frameborder=>"0", :allowfullscreen => true}
-.span-10.last
-  .box.clearfix
-    %p 
-      A Saucy Book empowers communities to bring together information from all across the web to create comprehensive, lasting bodies of knowledge.
+-# .span-14
+  -# %iframe#intro-video{:width => "540", :height => "349", :src => "http://www.youtube.com/embed/S__-wDm2vNY", :frameborder=>"0", :allowfullscreen => true, :style => "position: relative; z-index: 999999999999"}
+-# .span-10.last
+.box.clearfix{:style => "width: 355px; margin: auto; margin-top: 50px; margin-bottom: 300px; position: relative; z-index: 5000"}
+  -# %p 
+    -# A Saucy Book empowers communities to bring together information from all across the web to create comprehensive, lasting bodies of knowledge.
+  .clearfix
     -if current_user
       %h2 Create a New Canvas
       %form.inline{:action => "#{new_canvas_path}"}
@@ -17,8 +18,12 @@
       %a#login{:href=>"/auth/facebook"}
         %img{:src=>"http://plancast.com/images/facebook/login-button.png"}
 
- 
-  
+  #recent_canvases{:style => "padding-top: 20px"}
+    %h2 Recent Canvases
+    %ul
+      -@recent_canvases.each do |e|
+        %li= link_to e.name, canvas_path(e)
+
 :javascript
   $(function(){
     
@@ -30,7 +35,11 @@
     });
     
   })
-  
 
+%ul#scrolly
+
+%ul#scrollyHider
+
+= render :partial => "static/scrolly_js"
 
   

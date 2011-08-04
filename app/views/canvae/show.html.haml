@@ -45,17 +45,18 @@
         Install Bookmarklet
 
       %p
-        ="Drag the box below to your bookmark toolbar."
-        %span#see_video
-          %a
-            How to install a bookmarklet?
-      #instructions{:style => "display:none"}
-        .info
-          %iframe{:width=>"425", :height=>"349", :src=>"http://www.youtube.com/embed/QrwevUN0KdQ"}
+        ="drag the box below to your bookmark toolbar. #{host_uri}"
+      
+      .info
+        %a#bookmarklet{:href => "#"}== add to #{@canvas.name}
         
-      %a#bookmarklet_install{:onmousedown=>"mpq.push(['track','install_bookmark']);",:href => "javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.innerText='canvas_id=#{@canvas.id};user_id=#{current_user.id}';host_uri='#{host_uri}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='#{host_uri}/javascripts/post-link.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();"}
-        .info
-          = "add to #{@canvas.name}"
+    .info
+      #see_video
+        %button
+          Click here
+        see video on how to install bookmarklet for your canvas
+      #instructions{:style => "display:none"}
+        %iframe{:width=>"425", :height=>"349", :src=>"http://www.youtube.com/embed/QrwevUN0KdQ"} 
 
   %h2 Input Stream
   %ul#input_stream
@@ -64,7 +65,17 @@
 
   #discussions
 
-:javascript
+- if current_user
+  :javascript
+    $("a#bookmarklet")
+      .mousedown(function(){
+        // Track the bookmarklet install.
+        mpq.push(['track','install_bookmark']);
+      })
+      .attr("href", "javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.innerText='canvas_id=#{@canvas.id};user_id=#{current_user.id}';host_uri='#{host_uri}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='#{host_uri}/javascripts/post-link.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();"
+      );
+    
+:javascript    
   var the_edit_dialog = $("#edit_dialog").dialog({
     minHeight:250, 
     minWidth:500, 

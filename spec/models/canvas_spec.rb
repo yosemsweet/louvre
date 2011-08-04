@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Canvas do
+	
 	context "attributes" do
 		let(:canvas) { Factory.build(:canvas) }
 		
@@ -91,6 +92,31 @@ describe Canvas do
 					canvas.opengraph_image.should == canvas.image
 				end
 			end
+		end
+		
+		context "#recently_updated" do
+			
+			before :each do
+				@canvas12 = Factory.create(:canvas)
+				11.times do |i| 
+					Factory.create(:canvas)
+				end
+				@canvas12.name = 'My awesome canvas1234'
+				@canvas12.save
+			end
+				
+			it "should return the n most recently updated canvases" do
+				Canvas.recently_updated(10).length.should == 10
+			end
+			
+			it "should return a list of canvases" do
+				Canvas.recently_updated(10).first.class.name.should == 'Canvas'
+			end
+			
+			it "should have the most recent edited canvas first" do
+				Canvas.recently_updated(10).first.id.should == @canvas12.id
+			end
+					
 		end
 	
 	end

@@ -205,5 +205,17 @@ describe Widget do
 		
 	end
 	
+	describe "#random" do
+		
+		before(:each) do
+			@random_widget = Factory.create(:widget)
+		end
+		
+		it "should return a widget" do
+			Widget.random.should == @random_widget
+		end
+		
+	end
+	
 
 end

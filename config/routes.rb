@@ -25,4 +25,5 @@ Louvre::Application.routes.draw do
 	match "/auth/:provider/callback" => "sessions#create"  
 	match "/logout" => "sessions#destroy", :as => :logout 
 	
-end
+	match "/next_scroll_widgets" => "widgets#next_for_scroll"
+	match "/scrollywidgets" => "static#scrolly_widgets"

@@ -1,0 +1,9 @@
+@import "partials/base";
+
+ul#scrolly {
+	@include scrolly_widget;
+}
+
+ul#scrollyHider {
+	display: none;
+}

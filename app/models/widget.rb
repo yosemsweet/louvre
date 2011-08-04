@@ -15,6 +15,11 @@ class Widget < ActiveRecord::Base
   validates_presence_of :canvas, :creator, :content_type
   validates_presence_of :alt_text, :if => :image?
 
+	def self.random
+		total_widgets = Widget.all
+		return total_widgets[rand(total_widgets.length)]
+	end
+
   def image?
     content_type == 'image_content'
   end
@@ -25,11 +30,11 @@ class Widget < ActiveRecord::Base
 		position_change = new_position.to_i - old_position
 		
 		if self.update_attributes({:position => new_position})
-			
+
 			if position_change > 0
-				decrement_before
+				decrement_position_between(new_position,old_position)
 			elsif position_change < 0
-				increment_after
+				increment_position_between(new_position,old_position)
 			end
 			
 			return true
@@ -93,6 +98,19 @@ SQL
 	  )
 	end
 	
+	def increment_position_between(position1, position2)
+	  # Incremement placements on this page between 2 positions
+	  ActiveRecord::Base.connection.execute(<<SQL
+	    UPDATE widgets SET
+	     position = position + 1
+	    WHERE page_id = #{self.page.id}
+	      AND position >= #{position1}
+				AND position < #{position2}
+	      AND id <> #{self.id}
+SQL
+	  )
+	end
+	
   def decrement_after
     # Decrement all later placements on this page.
     ActiveRecord::Base.connection.execute(<<SQL
@@ -104,5 +122,18 @@ SQL
 SQL
       )
   end
+
+	def decrement_position_between(position1, position2)
+		# decrements placements on a page between 2 positions
+	  ActiveRecord::Base.connection.execute(<<SQL
+	  UPDATE widgets SET
+	    position = position - 1
+	  WHERE page_id = #{self.page.id}
+	    AND position <= #{position1}
+			AND position > #{position2}
+	    AND id <> #{self.id}
+SQL
+	    )
+	end
 
 end
