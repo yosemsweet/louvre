@@ -125,7 +125,7 @@
     set_dialog_title("Edit Widget");
     open_edit_dialog();
     
-    mixpanel_attributes.widget_id = widget_id
+    mixpanel_attributes.widget_id = widget_id;
     mpq.push(["track","page_edit_widget", mixpanel_attributes]);
     
   });
@@ -141,7 +141,7 @@
     // Remove from the DOM.
     $widget.remove();
     
-    mixpanel_attributes.widget_id = widget_id
+    mixpanel_attributes.widget_id = widget_id;
     mpq.push(["track","page_remove_widget", mixpanel_attributes]);
   });
   
@@ -183,7 +183,7 @@
               ui.item.attr("data_has_page", 1);
             }
           );
-              
+          mixpanel_attributes.comment_count =  ui.item.attr("comments");
           mpq.push(["track","page_add_widget_from_input_stream", mixpanel_attributes]);
         
         }
