@@ -15,5 +15,9 @@ describe "widgets/_widget.html.haml" do
       rendered.should have_selector(".comments-view-add") 
       rendered.should contain("#{discussion_path(@widget.class.to_s.downcase, @widget.id)}?href=#{canvas_widget_url(@widget.canvas, @widget)}&width=600" ) 
     end
+    
+    it "should track when people read comments" do
+      rendered.should contain("mpq.push(['track','comment_read', {'type':'facebook', '#{@widget.class.name}':'#{@widget.id}'" ) 
+    end
   end
 end

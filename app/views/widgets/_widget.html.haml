@@ -1,3 +1,4 @@
+- defined? current_user ? user = current_user.id : user = 0
 %li.widget{:data_widget_id => widget.id, :data_has_page => widget.page ? 1 : 0}
 
   .controls
@@ -46,7 +47,8 @@
   });
 
   $("#comment_see_#{widget.id}").click( function(){
-    $("#comments_view_add_#{widget.id}").load( '#{discussion_path(widget.class.name.to_s.downcase, widget.id)}?href=#{canvas_widget_url(widget.canvas, widget)}&width=600' );    
+    $("#comments_view_add_#{widget.id}").load( '#{discussion_path(widget.class.name.to_s.downcase, widget.id)}?href=#{canvas_widget_url(widget.canvas, widget)}&width=600' );
+    mpq.push(['track','comment_read', {'type':'facebook', '#{widget.class.name}':'#{widget.id}','user': '#{user}'}]);  
     $("#comment_see_#{widget.id}").addClass('hide');
     $("#comment_hide_#{widget.id}").removeClass('hide');
   });
