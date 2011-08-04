@@ -37,11 +37,11 @@
 
 = render :partial => "static/scrolly_js"
     
-#footer{:style => "position: absolute"}
+#mixpanel{:style => "position: absolute"}
   .container
     %a{:href=>"http://mixpanel.com/f/partner"}
       %img{:src=>"http://mixpanel.com/site_media/images/partner/badge_blue.png", :alt=>"Web Analytics"}
       
 :javascript
-  $("#footer").css("top",$(window).height() - 60 + "px")
+  $("#mixpanel").css("top",$(window).height() - 60 + "px")
   
