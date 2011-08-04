@@ -1,8 +1,8 @@
 @import "partials/base";
 
 ul#input_stream {
-	@include widget_container;
-	@include input_stream_widget;
+	@include widget_container(span(20));
+	@include input_stream_widget(span(20));
 	li.widget{
 		img.handle{ display: none;}
 	}

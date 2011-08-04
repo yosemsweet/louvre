@@ -3,9 +3,17 @@ Feature: homepage
     People should be able to
     Get to an email signup page
 
-Scenario:
+Background:
     Given I am on the homepage
+
+Scenario: Homepage logo
     Then I should see the logo
-    And the page title should be "A Saucy Book"
-    And I should see "Alpha"
-    And I should see recent canvases
+    
+Scenario: Homepage title
+    Then the page title should be "Loorp!"
+    
+Scenario: Indicate we're still working on this puppy
+    Then I should see "v0"
+    
+Scenario: Show recent canvae
+    Then I should see recent canvases

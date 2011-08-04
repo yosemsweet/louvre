@@ -1,6 +1,6 @@
 Louvre::Application.routes.draw do
   resources :comments
-
+  
   resources :canvae do
 		resources :pages do
 		  member do
@@ -14,11 +14,13 @@ Louvre::Application.routes.draw do
 				post 'clone_widget'
 			end
 		end
-		match '/discussions' => "discussions#show"
 	end
-
+	
+  match 'discussions/:type/:id' => "discussions#show", :as => :discussion
+  
   root :to => "static#index"
   match 'thankyou' => "static#thankyou"
+  match 'testpage' => "static#testpage"
 
 	match "/auth/:provider/callback" => "sessions#create"  
 	match "/logout" => "sessions#destroy", :as => :logout 

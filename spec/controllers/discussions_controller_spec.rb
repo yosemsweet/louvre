@@ -5,13 +5,13 @@ describe DiscussionsController do
     let (:canvas) {Factory.create(:canvas)}
     
     it "should respond with 200" do
-      get :show, :canvas_id => canvas.id
+      get :show, :type => 'canvas', :id => canvas.id
     end
     
     
-    it "should set @canvas" do
-       get :show, :canvas_id => canvas.id
-       assigns(:canvas).id.should == canvas.id
+    it "should set @obj" do
+       get :show, :type => 'canvas', :id => canvas.id
+       assigns(:obj).id.should == canvas.id
     end
   end
 end

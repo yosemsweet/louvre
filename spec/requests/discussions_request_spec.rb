@@ -2,11 +2,11 @@ require "spec_helper"
 
 describe "Dicussions Requests" do
 
-  describe "GET /canvae/[id]/discussions" do
+  describe "GET discussions" do
 
     before(:each) do
       @canvas = Factory.create(:canvas)
-      get "/canvae/#{@canvas.id}/discussions"
+      get "/discussions/canvas/#{@canvas.id}", :href => canvas_url(@canvas)
     end
 
     it "should work" do

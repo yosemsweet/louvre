@@ -27,12 +27,37 @@
     - when 'image_content'
       %img{ :src => "#{widget.content}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}"}
       
-  .comments  
-    = render widget.comments
-    - if current_user
-      = render :partial => 'comments/form_instream', :locals => { :widget => widget }
-    - else
-      = link_to "Log in", "/auth/facebook"
-      to comment
+  %div{:id => "comments_widget_#{widget.id}", :class => "comments"}
+  
+  %div{:id => "comment_hide_#{widget.id}", :class => "comments-hide hide"}
+    hide comments
+  %div{:id => "comment_see_#{widget.id}", :class => "comments-see"}
+    see all comments
+  
+  
+  %div{:id => "comments_view_add_#{widget.id}", :class => "comments-view-add"}
+    -# = comments_for(widget, :href => "#{canvas_widget_url(widget.canvas, widget)}", :width => 600, :num_posts => 2)
 
+:javascript
+  FBCallbacks.push(function (){
+    FB.api('/comments?ids=#{canvas_widget_url(widget.canvas, widget)}', function(response) {
+      pageinfo = response["#{canvas_widget_url(widget.canvas, widget)}"]["data"];
+      length = pageinfo["length"];
+      $("#comments_widget_#{widget.id}").html( length + ' comments');
+    });
+  });
+
+  $("#comment_see_#{widget.id}").click( function(){
+    $("#comments_view_add_#{widget.id}").load( '#{discussion_path(widget.class.name.to_s.downcase, widget.id)}?href=#{canvas_widget_url(widget.canvas, widget)}&width=600' );    
+    $("#comment_see_#{widget.id}").addClass('hide');
+    $("#comment_hide_#{widget.id}").removeClass('hide');
+  });
+  
+  $("#comment_hide_#{widget.id}").click( function(){
+    $("#comments_view_add_#{widget.id}").addClass( 'hide' );
+    $("#comment_hide_#{widget.id}").addClass('hide');    
+    $("#comment_see_#{widget.id}").removeClass('hide');
+    
+  });
+  
 
