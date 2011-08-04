@@ -1,8 +1,7 @@
 class CanvasFollowsController < ApplicationController
 
-  def create
-    puts current_user.name    
-    @canvas_follow = CanvasFollow.new(params[:canvas_follow])
+  def create    
+    @canvas_follow = CanvasFollow.new(:canvas_id => params[:canvas_id], :user_id => current_user.id)
     if @canvas_follow.save
       head :ok
     else

@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   validates :provider, :presence => true
 
 	has_many :canvae, :class_name => "Canvas", :foreign_key => 'creator_id'
+  has_many :canvas_follows
+  has_many :followed_canvae, :through => :canvas_follows
 	
   def self.create_with_omniauth(auth)  
     create! do |user|  
