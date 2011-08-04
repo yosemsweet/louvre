@@ -17,18 +17,21 @@
             |
             = link_to "Log out", logout_path
           - else
-            = link_to "Log in with Facebook", "/auth/facebook"
+            = login_link :text => "Log in with Facebook"
         %h1#logo= @title || "A Saucy Book (Alpha)"    
           
-    .container
-      -flash.each do |type, value|
-        .flash{ :class => type.to_s }
-          = value
-      = yield
-    
-    #footer
+    #body
       .container
-        %a{:href=>"http://mixpanel.com/f/partner"}
-          %img{:src=>"http://mixpanel.com/site_media/images/partner/badge_blue.png", :alt=>"Web Analytics"}
+        #flash.span-24{:style => "display:none; position: absolute"}
+          -flash.each do |type, value|
+            .flash{ :class => type.to_s }
+              = value
     
-    
+        = yield 
+        
+    :javascript
+      $(function() {
+         $('#flash').delay(500).fadeIn('normal', function() {
+            $(this).delay(2500).fadeOut('slow');
+         });
+      });   

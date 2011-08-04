@@ -1,6 +1,6 @@
 :javascript 
   var ANIMATE = true;
-  var MAX_SCROLLIES = 10;
+  var MAX_SCROLLIES = 7;
   
   var start_animation = function(){
     ANIMATE = true;
@@ -39,10 +39,14 @@
   }
   
   var getMoreWidgets = function(){
-      $.get('/next_scroll_widgets', function(data) {
-      $(data).appendTo("#scrollyHider");
-      enableWidgetTooltips();
-    });
+    var number_of_waiting_scrollies = $("#scrollyHider").children(".widget").length;
+    
+    if(number_of_waiting_scrollies < MAX_SCROLLIES) {  
+        $.get('/next_scroll_widgets', function(data) {
+        $(data).appendTo("#scrollyHider");
+        enableWidgetTooltips();
+      });   
+    }
   }
   
   // Widget hover / click handling
@@ -64,7 +68,7 @@
   var collision_detection_interval = 70;
   var bubbles = {};
   var next_bubbles_index = 0;
-  var more_widgets_interval = 10 * insertion_interval;
+  var more_widgets_interval = MAX_SCROLLIES * insertion_interval;
   
   var getBubbleId = function(bubble){
     return bubble.selector.attr("data_bubble_id");
