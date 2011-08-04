@@ -1,7 +1,14 @@
+$widget-padding: 8px;
+$widget-margin-height: 10px;
+$widget-margin-width: 8px;
+$widget-container-border-width : 1px;
+$widget-border-width : 1px;
+
+
 @mixin widget_base($width) {
 	width: $width;
- 	margin: 10px 8px;
- 	padding: 8px;
+ 	margin: $widget-margin-height $widget-margin-width;
+ 	padding: $widget-padding;
  	list-style: none;
 	@include clearfix;
 	.controls{
@@ -17,12 +24,12 @@
 	}
 }
 
-@mixin input_stream_widget {
+@mixin input_stream_widget($width){
 
 	li.widget {
-		@include widget_base(254px);
+		@include widget_base( $width - (2 * $widget-padding) - (2 * $widget-margin-width) - (2 * $widget-container-border-width) - (2 * $widget-border-width) );
 		background-color: lighten(#D4E6C6,10%);
-		border: 1px solid #D4E6C6;
+		border: $widget-border-width solid #D4E6C6;
 		.content { display: none; }
 		.preview{ display: block; }
 		.comments{ display: block; }
@@ -68,9 +75,10 @@
 	}
 }
 
-@mixin widget_container{
+@mixin widget_container($width){
 	margin-top: 5px;
   padding: 0px;
-  border: 1px dotted #bbb;
+  border: $widget-container-border-width dotted #bbb;
 	min-height: 100px;
+	width: $width - $widget-container-border-width * 2;
 }

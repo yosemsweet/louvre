@@ -1,4 +1,4 @@
-- content_for(:opengraph_meta_tags, opengraph_meta_tags_for(@canvas, :url => canvas_url(@canvas)))
+- content_for(:opengraph_meta_tags, opengraph_meta_tags_for(@canvas, :url => canvas_url(@canvas), :site_name => @canvas.name))
 - content_for :head do
   = stylesheet_link_tag 'canvas.css', :media => 'screen, projection'
 
@@ -8,7 +8,9 @@
 
 %p#notice= notice
 
-.span-8.first
+.span-4.first
+  #results
+    comment
   #overview
     = image_tag @canvas.image if @canvas.image.present?
     %p
@@ -36,25 +38,24 @@
     %p 
       = link_to 'Create Page', new_canvas_page_path(@canvas)
 
-.span-16.last
+.span-20.last
   #inputs
     - if current_user
       %h2.bookmarklet
         Install Bookmarklet
 
       %p
-        ="drag the box below to your bookmark toolbar. #{host_uri}"
+        ="Drag the box below to your bookmark toolbar."
+        %span#see_video
+          %a
+            How to install a bookmarklet?
+      #instructions{:style => "display:none"}
+        .info
+          %iframe{:width=>"425", :height=>"349", :src=>"http://www.youtube.com/embed/QrwevUN0KdQ"}
+        
       %a#bookmarklet_install{:onmousedown=>"mpq.push(['track','install_bookmark']);",:href => "javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.innerText='canvas_id=#{@canvas.id};user_id=#{current_user.id}';host_uri='#{host_uri}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='#{host_uri}/javascripts/post-link.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();"}
         .info
           = "add to #{@canvas.name}"
-    .info
-      #see_video
-        %button
-          Click here
-        see video on how to install bookmarklet for your canvas
-      #instructions{:style => "display:none"}
-        %iframe{:width=>"425", :height=>"349", :src=>"http://www.youtube.com/embed/QrwevUN0KdQ"} 
-
 
   %h2 Input Stream
   %ul#input_stream
@@ -133,7 +134,7 @@
   
   reload_discussions = function(){
     // Load input stream widgets
-    $("#discussions").load("/canvae/#{@canvas.id}/discussions?width=600");
+    $("#discussions").load("#{discussion_path(@canvas.class.to_s.downcase, @canvas.id)}?href=#{canvas_url(@canvas)}&width=600");
   }
   
   $(document).ready(function(){
@@ -145,10 +146,28 @@
   mpq.push(["track","hit_canvas_homepage"]);
   window.mixpanelobject=mpq;  
   
-  $("#see_video button").click(function(){
+  $("#see_video").click(function(){
     $("#instructions").toggle();
-    $("#see_video").toggle();
   });
-
-
+  
+  $("#instructions").click(function(){
+    $("#instructions").toggle();
+  });
+  // 
+  // FBCallbacks.push(function (){
+  //  FB.api('/?ids=#{canvas_url(@canvas)}', function(response) {
+  //      comments = response["#{canvas_url(@canvas)}"]["comments"];
+  //      $("#results").html( comments + ' comments');
+  //    });
+  // });
+  
+  
+         
+  // FBCallbacks.push(function (){
+  //      FB.api('/comments?ids=#{canvas_url(@canvas)}', function(response) {
+  //          pageinfo = response["#{canvas_url(@canvas)}"]["data"];
+  //          length = pageinfo["length"];
+  //          $("#results").html( length + ' comments')
+  //      });
+  //    });
   
