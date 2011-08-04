@@ -10,3 +10,5 @@ public/stylesheets/*
 config/database.yml
 rerun.txt
 /webrat.log
+test.sqlite3-journal
+
