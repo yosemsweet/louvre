@@ -65,17 +65,17 @@ describe "pages/show.html.haml" do
 		 end
 	 
 	 
-		it "displays the canvas name for the logo" do
-			pending "https://www.pivotaltracker.com/story/show/16051937"
-		    #render
-		  #view.content_for(:header).should have_selector('h1#logo', :content => @page.canvas.name) 
-		end
-	 
-		it "displays the page title" do
-		 	pending "https://www.pivotaltracker.com/story/show/16051937"
-		    #render
-				#page.should have_content(@page.title)
-		end
+		# it "displays the canvas name for the logo" do
+		#       pending "https://www.pivotaltracker.com/story/show/16051937"
+		#         #render
+		#       #view.content_for(:header).should have_selector('h1#logo', :content => @page.canvas.name) 
+		#     end
+		#    
+		#     it "displays the page title" do
+		#       pending "https://www.pivotaltracker.com/story/show/16051937"
+		#         #render
+		#         #page.should have_content(@page.title)
+		#     end
 	end
  
 end
