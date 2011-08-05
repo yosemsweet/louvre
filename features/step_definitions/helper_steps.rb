@@ -34,3 +34,7 @@ end
 When /^(?:|I )reload the page$/ do
   visit(current_path)
 end
+
+When /^I wait a second$/ do
+  sleep 1
+end

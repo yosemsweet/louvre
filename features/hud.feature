@@ -12,6 +12,8 @@ Scenario: Listing followed canvases
   And I am on that canvas' homepage
   When I press "Follow" 
   And I follow "Hud"
-  Then I should see "Your Hud"
-  And I should see a that canvas' name
+  And I wait a second
+  Then I should see the hud
+  And I should see that canvas' name in the hud
+  
   
