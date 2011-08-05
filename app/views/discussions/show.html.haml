@@ -11,7 +11,6 @@
   function updateCount( ref ){
     count = getCommentCount(ref, function(cnt)
     {
-      alert('here');
       $('div[comment_href="'+ref+'"]').html( cnt + " comments");
       $('li[comment_href="'+ref+'"]').attr("comments", cnt);
     });   
@@ -19,17 +18,13 @@
   
   function getCommentCount(ref, callback){
    FB.api('/comments?ids=' + ref, function(response) {
-      test = response;
       length = 0;
-      alert( "hello world 2 = " + ref );
       if( ref in response ){
-        alert( "hello world 4a = " + ref );
         pageinfo = response[ref]; 
         if( "data" in pageinfo ){
           length = pageinfo["data"]["length"];
         }
       }
-      alert( 'leaving getCommentCount = ' + length );
       callback(length);
     });
   }
