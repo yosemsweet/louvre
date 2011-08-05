@@ -10,6 +10,7 @@ class Widget < ActiveRecord::Base
 	accepts_nested_attributes_for :comments
 
   has_paper_trail :meta => { :page_id => Proc.new{ |widget| widget.page ? widget.page.id : nil }}
+  acts_as_opengraph :values => { :type => "cause" }
     
   validates_presence_of :canvas, :creator, :content_type
   validates_presence_of :alt_text, :if => :image?

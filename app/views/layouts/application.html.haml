@@ -1,14 +1,14 @@
 !!!
 %html
   %head
-    %title= @title || "A Saucy Book (Alpha)"
+    %title= @title || "Loorp! v0"
     = render :partial => "layouts/stylesheets"        
     = render :partial => "layouts/javascripts"
     = csrf_meta_tag
     = yield :head
     = yield :opengraph_meta_tags
   %body
-  
+    = fb_javascript_include_tag
     #header
       .container
         #user-nav
@@ -18,7 +18,7 @@
             = link_to "Log out", logout_path
           - else
             = login_link :text => "Log in with Facebook"
-        %h1#logo= @title || "A Saucy Book (Alpha)"    
+        %h1#logo= @title || "Loorp! v0"    
           
     #body
       .container

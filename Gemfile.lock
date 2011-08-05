@@ -1,8 +1,8 @@
 GIT
   remote: git@github.com:yosemsweet/acts_as_opengraph.git
-  revision: 80648d93737b62228733c57305c81934341a08d0
+  revision: a8e318130c05f3636511bc51967147a8762cf476
   specs:
-    acts_as_opengraph (0.0.5)
+    acts_as_opengraph (0.0.7)
 
 GEM
   remote: http://rubygems.org/

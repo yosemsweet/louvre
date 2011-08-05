@@ -3,8 +3,9 @@ require 'spec_helper'
 describe "discussions/show.html.haml" do
   
   before (:each) do
-    @canvas = Factory.create(:canvas)
-    render
+    @obj = Factory.create(:canvas)
+    assign(:href, canvas_url(@obj))
+    render :template => "discussions/show.html"
   end
   
   it "should call fbxml parse" do

@@ -1,5 +1,3 @@
 .invite_user
   .facebook-share
-    #fb-root
-      = javascript_include_tag "http://connect.facebook.net/en_US/all.js#xfbml=1"
-      %fb:send{:href => "#{canvas_url(@canvas)}", :font => ""}
+    %fb:send{:href => "#{canvas_url(@canvas)}", :font => ""}

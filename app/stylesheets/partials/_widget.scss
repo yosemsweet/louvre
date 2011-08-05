@@ -1,7 +1,14 @@
+$widget-padding: 8px;
+$widget-margin-height: 10px;
+$widget-margin-width: 8px;
+$widget-container-border-width : 1px;
+$widget-border-width : 1px;
+
+
 @mixin widget_base($width) {
 	width: $width;
- 	margin: 10px 8px;
- 	padding: 8px;
+ 	margin: $widget-margin-height $widget-margin-width;
+ 	padding: $widget-padding;
  	list-style: none;
 	@include clearfix;
 	.controls{
@@ -23,7 +30,7 @@
 		@include widget_base(254px);
 		height: 100px;
 		background-color: lighten(#D4E6C6,10%);
-		border: 1px solid #D4E6C6;
+		border: $widget-border-width solid #D4E6C6;
 		.content { display: none; }
 		.preview{ 
 			display: block; 
@@ -41,12 +48,13 @@
 	}
 }
 
-@mixin input_stream_widget {
+
+@mixin input_stream_widget($width){
 
 	li.widget {
-		@include widget_base(254px);
+		@include widget_base( $width - (2 * $widget-padding) - (2 * $widget-margin-width) - (2 * $widget-container-border-width) - (2 * $widget-border-width) );
 		background-color: lighten(#D4E6C6,10%);
-		border: 1px solid #D4E6C6;
+		border: $widget-border-width solid #D4E6C6;
 		.content { display: none; }
 		.preview{ display: block; }
 		.comments{ display: block; }
@@ -57,10 +65,10 @@
 	}
 }
 
-@mixin page_widget {
+@mixin page_widget($width) {
 	
 	li.widget {
-		@include widget_base(572px);
+		@include widget_base($width - $widget-margin-width);
 		background-color: #DFF2FB; 
 	 	border: 1px solid #D4E6C6;
 		.preview{ display: none; }
@@ -71,18 +79,18 @@
 	}
 	
 	li.placeholder {
-		@include widget_base(572px);
+		@include widget_base($width);
 		border: 1px dotted #ddd;
 		background-color: #FFFBEA;
 	}	
 }
 
-@mixin presentation_widget {
+@mixin presentation_widget($width) {
 	
 	li.widget {
-		@include widget_base(572px);
+		@include widget_base($width - 2 * $widget-margin-width);
 		margin: 0;
-		margin-left: 10px;
+		margin-left: $widget-margin-width;
 	 	padding: 0;
 		background-color: #fff; 
 	 	border: none;
@@ -90,11 +98,19 @@
 		.comments{ display: none; }
 		.controls{ display: none;	}
 	}
+	.comments-view-add{
+	  @include widget_fb_comments( $width - 4 * $widget-margin-width );
+	}
 }
 
-@mixin widget_container{
+@mixin widget_container($width){
 	margin-top: 5px;
   padding: 0px;
-  border: 1px dotted #bbb;
+  border: $widget-container-border-width dotted #bbb;
 	min-height: 100px;
+	width: $width - $widget-container-border-width * 2;
+}
+
+@mixin widget_fb_comments($width){
+  width: $width;
 }
