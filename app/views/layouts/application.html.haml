@@ -32,24 +32,50 @@
         = yield 
     
     - if current_user
-      #hud{:style =>"position: fixed; border: 1px solid #aaa"}
-        %a#hide_hud{:href => "#"} Hide!!!
+      #hud
+        %a#hide_hud{:href => "#"} Hide
         #hud_content
         
     - if current_user
       :javascript
         $("#hud").hide();
-        $("#hud").css("left", $(window).width() - 200 + "px").css("top", $("#header").outerHeight() + 20 + "px");
-        $("#hud_content").load("#{hud_user_path(current_user)}");
+        
+        var hud_width = $("#hud").outerWidth();
+        $("#hud").css("top", $("#header").outerHeight() + "px");
+        $("#hud").css("right", -1 * hud_width + "px");
+        
+        var reload_hud = function(){
+          $("#hud_content").load("#{hud_user_path(current_user)}");  
+        }
+        
+        var toggle_hud = function(){
+          
+          if(parseInt($("#hud").css("right")) < 0){
+            $("#hud").toggle();
+            $("#hud").animate({
+              right: "+=" + hud_width
+            }, 300);
+          } else {
+            $("#hud").animate({
+              right: "-=" + hud_width
+            }, 300, function(){
+              $("#hud").toggle();
+            });
+          }
+          
+          //$("#hud").toggle(300);
+        }        
+        
+        reload_hud();        
         
         $("#show_hud").click(function(event){
           event.preventDefault();
-          $("#hud").fadeIn('slow');
+          toggle_hud();
         });  
         
         $("#hide_hud").click(function(event){
           event.preventDefault();
-          $("#hud").fadeOut('slow');
+          toggle_hud();
         });
           
     :javascript

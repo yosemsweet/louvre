@@ -103,12 +103,18 @@
     
   $("#follow button").click(function(){
     toggle_follow_status();
-    $.post("/canvae/#{@canvas.id}/canvas_follow");
+    $.post("/canvae/#{@canvas.id}/canvas_follow", function(){
+      reload_hud();  
+    });
+    
   });
   
   $("#unfollow button").click(function(){
     toggle_follow_status();
-    $.post("/canvae/#{@canvas.id}/canvas_follow", {_method : "DELETE"});
+    $.post("/canvae/#{@canvas.id}/canvas_follow", {_method : "DELETE"}, function(){
+      reload_hud();
+    });
+    
   });
   
   var the_edit_dialog = $("#edit_dialog").dialog({

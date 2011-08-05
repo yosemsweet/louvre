@@ -64,3 +64,19 @@ body{
 ul#scrolly{
    @include scrolly_widget;
 }
+
+#hud{
+	position: fixed; 
+	border-left: 1px solid #aaa;
+	padding: 10px;
+	margin: 0px;
+	height: 100%;
+	width: 200px;
+	background-color: #f3f3f3;
+	@include box-shadow(#999 -1px -1px 5px); 
+	
+	#hide_hud {
+		float: right;
+	}
+	
+}
