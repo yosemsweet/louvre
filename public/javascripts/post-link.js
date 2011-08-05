@@ -61,7 +61,7 @@ function buildCommentForm()
 		<div id='title_content'>Add to Canvas:</div>\
 		<form id='saucy-input-form' action='" + host_uri + "/canvae/"+canvas_id+"/widgets.json'> \
 		Text: <br> <textarea name='widget-content' rows='10' cols='20'>"+ bookmarkURL + "\n" +  highlighted.toString() +"</textarea> <br> \
-		<input type='submit' value='Get Sauced'></form></div>";
+		<input type='submit' value='Loorp It!'></form></div>";
 	new_div.innerHTML = new_content;
 	element.appendChild(new_div);
 	
