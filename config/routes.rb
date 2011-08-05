@@ -18,7 +18,13 @@ Louvre::Application.routes.draw do
 	end
 	
   match 'discussions/:type/:id' => "discussions#show", :as => :discussion
-  
+
+  resources :users do
+    member do
+      get 'hud'
+    end  
+  end
+
   root :to => "static#index"
   match 'thankyou' => "static#thankyou"
   match 'testpage' => "static#testpage"

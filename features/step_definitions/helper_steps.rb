@@ -12,6 +12,11 @@ Given /^I am "([^"]*)"$/ do |name|
  set_current_user( Factory.create(:user, :name => name) )
 end
 
+Given /^I am logged in$/ do
+  @user = Factory.create(:user)
+  set_current_user(@user)
+end
+
 Given /^this canvas has a page titled "([^"]*)"$/ do |pagetitle|
   page = Factory.create(:page, :title => pagetitle, :canvas => Canvas.last)
 end

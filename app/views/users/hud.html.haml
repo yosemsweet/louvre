@@ -1,0 +1,7 @@
+%h1 Your Hud
+
+%p== you have #{current_user.followed_canvae.length} canvases
+
+- current_user.followed_canvae.each do |canvas|
+  = link_to canvas.name, canvas_path(canvas)
+  

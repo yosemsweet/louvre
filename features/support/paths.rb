@@ -41,6 +41,10 @@ module NavigationHelpers
 		when /that widget's page/
 		  widget = Widget.last
 		  canvas_widget_path(widget.canvas, widget)
+		  
+		when /the user hud page/
+		  puts("Path is #{hud_user_path(current_user)}")
+		  hud_user_path(current_user)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
