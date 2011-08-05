@@ -9,8 +9,6 @@
 %p#notice= notice
 
 .span-4.first
-  #results
-    comment
   #overview
     = image_tag @canvas.image if @canvas.image.present?
     %p
@@ -53,8 +51,8 @@
         .info
           %iframe{:width=>"425", :height=>"349", :src=>"http://www.youtube.com/embed/QrwevUN0KdQ"}
         
-        .info
-          %a#bookmarklet{:href => "#", :style => "padding:15px 400px 15px 15px"} 
+      .info
+        %a#bookmarklet{:href => "#", :style => "padding:10px 100% 10px 0"} 
           = "add to #{@canvas.name}"
 
   %h2 Input Stream
@@ -143,7 +141,7 @@
   reload_widgets();
   
   reload_discussions = function(){
-    // Load input stream widgets
+    // Load canvas discussion
     $("#discussions").load("#{discussion_path(@canvas.class.to_s.downcase, @canvas.id)}?href=#{canvas_url(@canvas)}&width=600");
   }
   
@@ -163,21 +161,4 @@
   $("#instructions").click(function(){
     $("#instructions").toggle();
   });
-  // 
-  // FBCallbacks.push(function (){
-  //  FB.api('/?ids=#{canvas_url(@canvas)}', function(response) {
-  //      comments = response["#{canvas_url(@canvas)}"]["comments"];
-  //      $("#results").html( comments + ' comments');
-  //    });
-  // });
-  
-  
-         
-  // FBCallbacks.push(function (){
-  //      FB.api('/comments?ids=#{canvas_url(@canvas)}', function(response) {
-  //          pageinfo = response["#{canvas_url(@canvas)}"]["data"];
-  //          length = pageinfo["length"];
-  //          $("#results").html( length + ' comments')
-  //      });
-  //    });
-  
+
