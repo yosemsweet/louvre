@@ -173,16 +173,15 @@
     });
   }
   
-  
   reload_widgets = function(){
     // Load input stream widgets
     $("ul#input_stream").load("/canvae/#{@canvas.id}/widgets", function(){
-      enable_widget_tooltips();      
+      enable_widget_tooltips();
     });
-    
   }
 
   reload_widgets();
+  setInterval(reload_widgets, 10000);
   
   reload_discussions = function(){
     // Load canvas discussion
