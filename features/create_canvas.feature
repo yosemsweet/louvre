@@ -9,7 +9,7 @@ Given I am "Gill"
 And I am authenticated
 And I am on "the homepage"
 When I fill in "canvas_name" with "Poo"
-And I press "Get Saucy!"
+And I press "Loorp it!"
 Then I should be on "the New Canvas page"
 And the "Name" should be filled with "Poo"
 
