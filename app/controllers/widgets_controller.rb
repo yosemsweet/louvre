@@ -23,6 +23,12 @@ class WidgetsController < ApplicationController
 		render next_widgets
 	end
 
+	def new_canvas_widgets
+		new_canvas_widgets = Widget.where(:canvas_id => params[:canvas_id]).where("id > #{params[:last_widget_id]}")
+		
+		render new_canvas_widgets
+	end
+
   def update_position
 		widget = Widget.find(params[:id])
 		
