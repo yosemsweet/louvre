@@ -28,7 +28,8 @@ Louvre::Application.routes.draw do
   root :to => "static#index"
   match 'thankyou' => "static#thankyou"
   match 'testpage' => "static#testpage"
-
+	
+	match "/login" => "static#login"
 	match "/auth/:provider/callback" => "sessions#create"  
 	match "/logout" => "sessions#destroy", :as => :logout 
 	
@@ -36,5 +37,6 @@ Louvre::Application.routes.draw do
 	match "/scrollywidgets" => "static#scrolly_widgets"
 	
 	match "/new_canvas_widgets" => "widgets#new_canvas_widgets"
+	
 
 end
