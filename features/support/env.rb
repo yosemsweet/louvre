@@ -11,6 +11,7 @@ Spork.prefork do
 	require 'ruby-debug'
 
 	Capybara.default_selector = :css
+	Capybara.javascript_driver = :webkit
 
   # Fail whenever there are rails errors.
   # Doesn't allow us to check error handling of our app.

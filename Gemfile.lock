@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/thoughtbot/capybara-webkit
+  revision: 612028dc6fd5fc08eb9c5d33553fac6c88b890b0
+  specs:
+    capybara-webkit (0.5.0)
+      capybara (~> 1.0.0)
+
+GIT
   remote: git@github.com:yosemsweet/acts_as_opengraph.git
   revision: 21303ec9f49b1fa4544f9f30bcf1eb7a82506a70
   specs:
@@ -249,6 +256,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_opengraph!
   capybara
+  capybara-webkit!
   compass
   cucumber-rails
   database_cleaner
