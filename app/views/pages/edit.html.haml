@@ -31,13 +31,12 @@
   = link_to 'View Canvas', canvas_path(@page.canvas)
   
 :javascript
-  
   var the_edit_dialog = $("#edit_dialog").dialog({
     minHeight:250, 
     minWidth:500, 
     autoOpen:false
   });
-  
+    
   var mixpanel_attributes = {
     user_id : "#{current_user.id}", 
     page_id : "#{@page.id}"
@@ -58,7 +57,7 @@
   set_edit_frame_src = function(src){
     $("#edit_frame").attr("src", src);
   }
-  
+      
   enable_widget_tooltips = function(){
     $("a.tooltip").each(function(){
       $(this).qtip({
