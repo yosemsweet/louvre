@@ -22,7 +22,11 @@
             = link_to "Log out", logout_path
           - else
             = login_link :text => "Log in with Facebook"
-        %h1#logo= @title || "Loorp! v0"    
+        %h1#logo
+          -if @title 
+            = link_to @title, canvas_path(@canvas) 
+          -else 
+            Loorp! v0
           
     #body
       .container
