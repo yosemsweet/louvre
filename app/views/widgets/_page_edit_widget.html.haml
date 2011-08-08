@@ -1,0 +1,17 @@
+- widget = page_edit_widget
+
+%li.widget.page_edit{:data_widget_id => widget.id}
+
+  = render :partial => "widgets/widget_content", :object => widget
+
+  .controls
+    %img.handle{:src => "/images/grip.png"}
+    %a.edit_widget{:href => "#"} edit
+    %span.delete
+      \/
+      %a.delete_widget{:href => "#"} delete
+    %span.tooltip_divide
+      \/
+    %span.tooltip
+      %a.tooltip{:href => "#"} preview
+      

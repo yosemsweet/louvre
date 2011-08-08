@@ -1,0 +1,30 @@
+- widget = canvas_input_stream_widget
+
+%li.widget.page_edit{:data_widget_id => widget.id, :comment_href => "#{canvas_widget_url(widget.canvas, widget)}"}
+
+  .content
+    = render :partial => "widgets/widget_content", :object => widget
+
+  .preview
+    - case widget.content_type
+  
+    - when 'text_content'
+      %p= strip_tags(widget.content.truncate(40))
+    - when 'image_content'
+      %img{ :src => "#{widget.content}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}"}
+
+  .controls
+    %img.handle{:src => "/images/grip.png"}
+    %a.edit_widget{:href => "#"} edit
+    %span.delete
+      \/
+      %a.delete_widget{:href => "#"} delete
+    %span.tooltip_divide
+      \/
+    %span.tooltip
+      %a.tooltip{:href => "#"} preview
+      
+  .comments
+    .facebook_comments
+    %a.toggle_comments{:href => "#"} see all comments
+    .facebook_new_comment
