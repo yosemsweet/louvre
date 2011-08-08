@@ -1,4 +1,7 @@
 .widget.scrolly_widget{:data_widget_id => widget.id}
+
+  = render_widget_section("toggle_preview_link")
+
   .content
     = render_widget_section("content", widget)
 

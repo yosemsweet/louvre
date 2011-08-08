@@ -5,7 +5,7 @@ class StaticController < ApplicationController
 	end
 	
 	def test_widget
-	  @widgets = Widget.all[0..2]
+	  @widgets = Widget.all[10..15]
   end
 	
 end
