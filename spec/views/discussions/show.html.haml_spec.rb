@@ -9,6 +9,6 @@ describe "discussions/show.html.haml" do
   end
   
   it "should call fbxml parse" do
-    rendered.should contain("FB.XFBML.parse();")
+    rendered.should include("FB.XFBML.parse();")
   end
 end

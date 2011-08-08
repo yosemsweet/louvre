@@ -18,11 +18,11 @@ describe 'SessionsHelper' do
 			end
 		
 			it "should set the link text based on options[:text]" do
-				helper.login_link(:text=>"Foo").should contain("Foo")
+				helper.login_link(:text=>"Foo").should include("Foo")
 			end
 		
 			it "should default the link text to 'click here'" do
-				helper.login_link().should contain("click here")
+				helper.login_link().should include("click here")
 			end
 		
 			it "should add class login-link to the link" do
@@ -34,14 +34,14 @@ describe 'SessionsHelper' do
 				link = helper.login_link do
 					"Block Rock"
 				end
-				link.should contain("Block Rock")
+				link.should include("Block Rock")
 				
 			end
 		end
 		
 		context "mixpanel tracking" do
 			it "should track_links" do
-				helper.login_link.should contain(%(mpq.push(["track_links",$(".login-link"),"click_login"]);))
+				helper.login_link.should include(%(mpq.push(["track_links",$(".login-link"),"click_login"]);))
 			end
 		end
 	
