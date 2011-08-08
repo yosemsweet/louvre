@@ -53,7 +53,7 @@ $widget-border-width : 1px;
 
 	li.widget {
 		@include widget_base( $width - (2 * $widget-padding) - (2 * $widget-margin-width) - (2 * $widget-container-border-width) - (2 * $widget-border-width) );
-		background-color: #EEC7FF;
+		background-color: #f6f6ed;
 		border: $widget-border-width solid #A862C7;
 		.content { display: none; }
 		.preview{ display: block; }
