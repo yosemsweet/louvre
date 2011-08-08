@@ -5,6 +5,7 @@ class StaticController < ApplicationController
 	end
 	
   def login
+		session[:return_to] = request.referer
     render :layout => 'basic'
   end
 
