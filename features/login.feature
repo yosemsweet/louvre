@@ -1,7 +1,7 @@
 Feature: Require Login with Facebook
   In order to associate actions with people
   People should be able to
-  Get authenticated with A Saucy Book
+  Get authenticated with Loorp
  
 @omniauth_test
 Scenario: Facebook Login

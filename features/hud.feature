@@ -1,5 +1,5 @@
 Feature: user hud
-  As a member of asaucybook
+  As a member of loorp
   I want to see canvae that I'm interested in
   So I can easily participate in their communities
 
