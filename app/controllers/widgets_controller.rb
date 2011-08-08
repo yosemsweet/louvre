@@ -1,6 +1,6 @@
 class WidgetsController < ApplicationController
 
-	before_filter :require_login, :only => [:new, :edit, :create, :update, :destroy]
+	before_filter :require_login, :only => [:new, :edit, :update, :destroy]
 	
 	def clone_widget
 		widget = Widget.find(params[:id])

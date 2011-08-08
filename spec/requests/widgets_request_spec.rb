@@ -75,20 +75,19 @@ describe "Widgets Requests" do
     
   end
   
-  describe "DELETE /canvae/[canvas_id]/widgets/[widget_id]" do
-    
-    before(:each) do
-      canvas = Factory.create(:canvas)
-      widget = Factory.create(:widget, :canvas => canvas, :position => 1)
-      delete "/canvae/#{canvas.id}/widgets/#{widget.id}"
-    end
-    
-    it "should delete the widget" do
-      Widget.all.length.should == 0
-    end
-    
-    
-  end
+  # describe "DELETE /canvae/[canvas_id]/widgets/[widget_id]" do
+  #   
+  #   before(:each) do
+  #     canvas = Factory.create(:canvas)
+  #     widget = Factory.create(:widget, :canvas => canvas, :position => 1)
+  #     delete "/canvae/#{canvas.id}/widgets/#{widget.id}"
+  #   end
+  #   
+  #   it "should delete the widget" do
+  #     Widget.all.length.should == 0
+  #   end
+  #   
+  # end
 
 	describe "GET /next_scroll_widgets" do
 		
