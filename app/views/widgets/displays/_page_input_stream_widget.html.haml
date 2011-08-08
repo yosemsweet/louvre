@@ -1,0 +1,18 @@
+%li.widget.page_input_stream_widget{:data_widget_id => widget.id}
+
+  %img.handle{:src => "/images/grip.png"}
+
+  = render_widget_section("delete_link")
+  = render_widget_section("toggle_preview_link")
+  = render_widget_section("edit_link")
+
+  .content
+    = render_widget_section("content", widget)  
+
+  .preview
+    = render_widget_section("preview", widget)  
+
+  .comments
+    .facebook_comments
+    %a.toggle_comments{:href => "#"} see all comments
+    .facebook_new_comment
