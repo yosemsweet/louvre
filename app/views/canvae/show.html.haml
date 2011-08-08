@@ -188,7 +188,7 @@
     var max_widget_id = 0;
     // loop over all current widgets to get latest widget
     $("#input_stream li").each(function(){
-      if ($(this).attr("data_widget_id") > max_widget_id) {
+      if ($(this).attr("data_widget_id") * 1 > max_widget_id) {
         max_widget_id = $(this).attr("data_widget_id");
       }
     });
@@ -198,11 +198,12 @@
         $(data).appendTo("#input_stream");
         enable_widget_tooltips();
       }
-    });
+    });  
+    setTimeout(get_new_widgets, 15000);
   }
   
-  // get_new_widgets();
-  setInterval(get_new_widgets, 15000);
+  get_new_widgets();
+  // setInterval(get_new_widgets, 15000);
   
   reload_discussions = function(){
     // Load canvas discussion
