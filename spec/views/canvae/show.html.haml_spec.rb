@@ -24,7 +24,7 @@ describe "canvae/show.html.haml" do
      
      it "loads widgets" do
        render
-       rendered.should contain("load(\"#{canvas_widgets_path(@canvas)}\"")
+       rendered.should include("load(\"#{canvas_widgets_path(@canvas)}\"")
      end
 
 	end
@@ -39,7 +39,7 @@ describe "canvae/show.html.haml" do
 		end
 		
 		it "loads discussions" do
-		  rendered.should contain("load(\"#{discussion_path(@canvas.class.to_s.downcase, @canvas.id)}?href=#{canvas_url(@canvas)}&width=600")
+		  rendered.should include("load(\"#{discussion_path(@canvas.class.to_s.downcase, @canvas.id)}?href=#{canvas_url(@canvas)}&width=600")
 		end
 	end
 	
