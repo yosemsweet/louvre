@@ -14,4 +14,8 @@ module ApplicationHelper
 
   end
   
+  def render_widgets(widgets, widget_type)
+    render :partial => "widgets/presentation_widget", :collection => widgets
+  end
+  
 end

@@ -37,4 +37,6 @@ Louvre::Application.routes.draw do
 	
 	match "/new_canvas_widgets" => "widgets#new_canvas_widgets"
 
+  match "/test_widget" => "static#test_widget"
+
 end
