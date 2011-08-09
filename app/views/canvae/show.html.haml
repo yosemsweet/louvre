@@ -62,8 +62,8 @@
         %a#bookmarklet{:href => "#", :style => "padding:10px 400px 10px 0"} 
           = "add to #{@canvas.name}"
 
-  %h2 Input Stream
-  %ul#input_stream
+  %h2 Feed
+  %ul#feed
   %a.add_widget{:data_content_type => "text_content", :href => "#"} Add Text
   %a.add_widget{:data_content_type => "image_content", :href => "#"} Add Image 
 
@@ -133,9 +133,21 @@
     $widget_dialog.dialog("open");
   });
   
+  $(".widget .edit").live("click", function(event){
+    var widget_id = $(this).parents(".widget").attr("data_widget_id");
+    $("iframe", $widget_dialog).attr("src", "/widgets/" + widget_id + "/edit");
+    $widget_dialog.dialog("option","title", "Edit Widget");
+    $widget_dialog.dialog("open");
+    
+    mixpanel_attributes.widget_id = widget_id;
+    mpq.push(["track","canvas_edit_widget", mixpanel_attributes]);
+    
+    event.preventDefault();
+  });
+  
   var enable_widget_tooltips = function(){
     // Enable the toggle preview qtips.
-    $("a.toggle_preview", $(this)).each(function(){
+    $(".toggle_preview").each(function(){
       $(this).qtip({
         content: $(this).parents().filter(".widget").find(".content").html(),
         show: 'mouseover', hide: 'mouseout',
@@ -150,26 +162,23 @@
       });
     });
   }
-  
-  var reload_feed_widgets = function(){
-    $("ul#input_stream").load("/widgets/for_canvas/" + canvas_id + "/canvas_feed", function(){
+    
+  var reload_widgets = function(){
+    $("ul#feed").load("/widgets/for_canvas/" + canvas_id + "/canvas_feed", function(){
        enable_widget_tooltips();
     });
-  }
-  
-  reload_widgets = function(){
-    reload_feed_widgets();
-  }
+  }  
   reload_widgets();
   
-  close_edit_dialog = function(){
+  var update_after_edit = function(){
+    reload_widgets();
     $widget_dialog.dialog("close");
   }
-  
-  var get_new_widgets = function(){
+    
+  var load_new_widgets = function(){
      // Get highest data_widget_id value on page.
      var max_widget_id = 0;
-     $("#input_stream li.widget").each(function(){
+     $("#feed li.widget").each(function(){
        if ($(this).attr("data_widget_id") * 1 > max_widget_id) {
          max_widget_id = $(this).attr("data_widget_id");
        }
@@ -177,13 +186,12 @@
      // Get html for any new widgets and append to the feed.
      $.get('/widgets/for_canvas/' + canvas_id + '/canvas_feed?start=' + (1*max_widget_id + 1), function(data) {
        if(data.length > 1){
-         $(data).appendTo("#input_stream");
+         $(data).appendTo("#feed");
          enable_widget_tooltips();
        }
      });  
    };
-   
-  setInterval(get_new_widgets, 15000); 
+  setInterval(load_new_widgets, 15000); 
   
   var reload_discussions = function(){
     $("#discussions").load("#{discussion_path(@canvas.class.to_s.downcase, @canvas.id)}?href=#{canvas_url(@canvas)}&width=600");

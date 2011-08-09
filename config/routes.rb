@@ -1,5 +1,17 @@
 Louvre::Application.routes.draw do
+
+  root :to => "static#index"
+  
+  match "/auth/:provider/callback" => "sessions#create"  
+	match "/logout" => "sessions#destroy", :as => :logout
+
   resources :comments
+  
+  resources :users do
+    member do
+      get 'hud'
+    end  
+  end
   
   resources :canvae do
     resource :canvas_follow
@@ -20,28 +32,7 @@ Louvre::Application.routes.draw do
       put 'move/:position' => "widgets#move"
     end
   end
-  
 	
   match 'discussions/:type/:id' => "discussions#show", :as => :discussion
-
-  resources :users do
-    member do
-      get 'hud'
-    end  
-  end
-
-  root :to => "static#index"
-  match 'thankyou' => "static#thankyou"
-  match 'testpage' => "static#testpage"
-
-	match "/auth/:provider/callback" => "sessions#create"  
-	match "/logout" => "sessions#destroy", :as => :logout 
-	
-  # match "/next_scroll_widgets" => "widgets#next_for_scroll"
-  # match "/scrollywidgets" => "static#scrolly_widgets"
-  # 
-  # match "/new_canvas_widgets" => "widgets#new_canvas_widgets"
-
-  match "/test_widget" => "static#test_widget"
 
 end
