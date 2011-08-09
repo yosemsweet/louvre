@@ -16,7 +16,7 @@ class WidgetsController < ApplicationController
     render :partial => params[:display], :collection => @widgets, :as => :widget
   end
 
-	def clone_widget
+	def copy_to_page
 		widget = Widget.find(params[:id])
 		
 		cloned_widget = widget.clone
@@ -28,14 +28,8 @@ class WidgetsController < ApplicationController
 			head :bad_request
 		end
 	end
-
-	def new_canvas_widgets
-		new_canvas_widgets = Widget.where(:canvas_id => params[:canvas_id]).where("id > #{params[:last_widget_id]}")
-		
-		render new_canvas_widgets
-	end
-
-  def update_position
+	
+	def move
 		widget = Widget.find(params[:id])
 		
 		if widget.update_position(params[:position])
@@ -44,19 +38,29 @@ class WidgetsController < ApplicationController
 			head :bad_request
 		end	
 	end
-
-
+	
+  # Amalgamate this into the for_canvas action
+	def new_canvas_widgets
+		new_canvas_widgets = Widget.where(:canvas_id => params[:canvas_id]).where("id > #{params[:last_widget_id]}")
+		
+		render new_canvas_widgets
+	end
 
   def show
     @widget = Widget.find(params[:id])
   end
 
   def new
-    canvas = Canvas.find(params[:canvas_id])
-    @widget = canvas.widgets.new(:content_type => params[:content_type])
-		
-    @widget.page = Page.find(params[:page_id]) if params[:page_id]
-    @widget.content_type = params[:content_type] || 'text_content'
+    
+    if params[:page_id]
+      page = Page.find(params[:page_id])
+      canvas = page.canvas  
+    else
+      page = nil
+      canvas = Canvas.find(params[:canvas_id])
+    end
+    
+    @widget = canvas.widgets.new(:content_type => params[:content_type], :page => page)
     
     render :layout => 'empty'
   end

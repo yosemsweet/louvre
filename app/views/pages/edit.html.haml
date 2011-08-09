@@ -42,11 +42,11 @@
   }
     
   var reload_page_widgets = function(){
-    $("ul#page").load("/canvae/" + canvas_id + "/pages/" + page_id + "/widgets");
+    $("ul#page").load("/widgets/for_page/" + page_id + "/editable/");
   }
   
   var reload_input_stream_widgets = function(){
-    $("ul#input_stream").load("/canvae/" + canvas_id + "/widgets", function(){
+    $("ul#input_stream").load("/widgets/for_canvas/" + canvas_id + "/page_feed", function(){
       
       // Make the widgets draggable.
       $("li.widget", $(this)).draggable({
@@ -94,7 +94,7 @@
   }
   
   $("a#add_text_widget").click(function(event){
-    $("iframe", $widget_dialog).attr("src", "/canvae/" + canvas_id + "/widgets/new?page_id=" + page_id + "&content_type=text_content");
+    $("iframe", $widget_dialog).attr("src", "/widgets/new?page_id=" + page_id + "&content_type=text_content");
     $widget_dialog.dialog("option","title", "New Text Widget");
     $widget_dialog.dialog("open");
     
@@ -105,7 +105,7 @@
   
   $(".page_edit_widget .edit").live("click", function(event){
     var widget_id = $(this).parents(".widget").attr("data_widget_id");
-    $("iframe", $widget_dialog).attr("src", "/canvae/" + canvas_id + "/widgets/" + widget_id + "/edit");
+    $("iframe", $widget_dialog).attr("src", "/widgets/" + widget_id + "/edit");
     $widget_dialog.dialog("option","title", "Edit Widget");
     $widget_dialog.dialog("open");
     
@@ -119,9 +119,7 @@
     // Delete from the server.
     var $widget = $(this).parents(".widget");
     var widget_id = $widget.attr("data_widget_id");
-    $.post("/canvae/" + canvas_id + "/widgets/" + widget_id, {
-      _method : 'DELETE' 
-    });
+    $.post("/widgets/" + widget_id, { _method : 'DELETE' });
   
     // Remove from the DOM.
     $widget.remove();
@@ -152,10 +150,7 @@
           ui.item.text("Loading...");
                     
           // Clone the widget.
-          $.post("/canvae/" + canvas_id + "/widgets/" + widget_id + "/clone_widget/", { 
-            position : position,
-            page_id : page_id
-            },function(data){              
+          $.post("/widgets/" + widget_id + "/copy_to_page/" + page_id, { position : position }, function(data){               
               reload_page_widgets();
             }
           );
@@ -166,10 +161,7 @@
         } else {
           
           // Update the widget's position on the server.
-          $.post("/canvae/" + canvas_id + "/widgets/" + widget_id + "/update_position/", { 
-            position : position, 
-            _method : 'PUT' 
-          });
+          $.post("/widgets/" + widget_id + "/move/" + position, { _method : 'PUT' });
         
           mpq.push(["track","page_reorder_widgets", mixpanel_attributes]);
         

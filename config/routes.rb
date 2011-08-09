@@ -15,6 +15,10 @@ Louvre::Application.routes.draw do
       get 'for_page/:page_id/:display' => "widgets#for_page"
       get 'for_canvas/:canvas_id/:display' => "widgets#for_canvas"
     end
+    member do
+      post 'copy_to_page/:page_id' => "widgets#copy_to_page"
+      put 'move/:position' => "widgets#move"
+    end
   end
   
 	

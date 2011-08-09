@@ -1,4 +1,4 @@
-= form_for [@widget.canvas, @widget] do |f|
+= form_for @widget do |f|
   - case @widget.content_type
   - when 'text_content'
     .field
@@ -14,6 +14,8 @@
   
   - if @widget.page
     %input{:type => "hidden", :name => "widget[page_id]", :value => "#{@widget.page.id}"}
+  - else
+    %input{:type => "hidden", :name => "widget[canvas_id]", :value => "#{@widget.canvas.id}"}
 
   %input{:type => "hidden", :name => "widget[content_type]", :value => "#{@widget.content_type}"}
   .actions

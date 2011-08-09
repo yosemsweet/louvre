@@ -64,8 +64,8 @@
 
   %h2 Input Stream
   %ul#input_stream
-  = link_to "Add Text", new_canvas_widget_path(@canvas), :data_content_type => "text_content", :class => "add_content"
-  = link_to "Add Image", new_canvas_widget_path(@canvas, :content_type => 'image_content'), :data_content_type => "image_content", :class => "add_content"
+  %a.add_widget{:data_content_type => "text_content", :href => "#"} Add Text
+  %a.add_widget{:data_content_type => "image_content", :href => "#"} Add Image 
 
   #discussions
 
@@ -139,9 +139,8 @@
     $("#edit_frame").attr("src", src);
   }
   
-  $(".add_content").click(function(event){
-    var content_type = $(this).attr("data_content_type");
-    set_edit_frame_src("/canvae/#{@canvas.id}/widgets/new?content_type=" + content_type);
+  $(".add_widget").click(function(event){
+    set_edit_frame_src("/widgets/new?content_type=" + $(this).attr("data_content_type") + "&canvas_id=#{@canvas.id}");
     set_dialog_title("New Widget");
     open_edit_dialog();
     event.preventDefault();
