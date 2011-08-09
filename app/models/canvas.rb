@@ -10,9 +10,6 @@ class Canvas < ActiveRecord::Base
 
   acts_as_opengraph :values => { :type => "cause" }
 
-	def input_stream_widgets
-		self.widgets.where(:page_id => nil)
-	end
 
 	def self.recently_updated(i)
 		Canvas.order('updated_at desc').limit(i)

@@ -15,6 +15,22 @@ class Widget < ActiveRecord::Base
   validates_presence_of :canvas, :creator, :content_type
   validates_presence_of :alt_text, :if => :image?
 
+  def self.site_feed
+    widgets = []
+		10.times do
+			widgets << Widget.random
+		end
+		return widgets
+  end
+  
+  def self.for_canvas(canvas_id)
+    Canvas.find(canvas_id).widgets.where(:page_id => nil)
+  end
+  
+  def self.for_page(page_id)
+    Page.find(page_id).widgets.order("position asc")
+  end
+
 	def self.random
 		total_widgets = Widget.all
 		return total_widgets[rand(total_widgets.length)]

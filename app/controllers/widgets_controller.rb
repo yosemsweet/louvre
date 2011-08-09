@@ -1,4 +1,20 @@
 class WidgetsController < ApplicationController
+  layout false
+
+  def index 
+    @widgets = Widget.site_feed
+    render :partial => "scrolly", :collection => @widgets, :as => :widget
+  end
+  
+  def for_canvas
+    @widgets = Widget.for_canvas(params[:canvas_id])
+    render :partial => params[:display], :collection => @widgets, :as => :widget
+  end
+  
+  def for_page
+    @widgets = Widget.for_page(params[:page_id])
+    render :partial => params[:display], :collection => @widgets, :as => :widget
+  end
 
 	def clone_widget
 		widget = Widget.find(params[:id])
@@ -11,16 +27,6 @@ class WidgetsController < ApplicationController
 		else
 			head :bad_request
 		end
-	end
-
-	def next_for_scroll
-		next_widgets = []
-		
-		10.times do
-			next_widgets << Widget.random
-		end
-		
-		render next_widgets
 	end
 
 	def new_canvas_widgets
@@ -39,10 +45,7 @@ class WidgetsController < ApplicationController
 		end	
 	end
 
-  def index
-    @widgets = Canvas.find(params[:canvas_id]).input_stream_widgets
-    render :layout => false
-  end
+
 
   def show
     @widget = Widget.find(params[:id])
