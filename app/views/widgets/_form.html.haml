@@ -10,14 +10,15 @@
     .field
       = f.label 'image alt text'
       = f.text_field :alt_text
-
+      
+  %input{:type => "hidden", :name => "widget[content_type]", :value => "#{@widget.content_type}"}
+  %input{:type => "hidden", :name => "widget[creator_id]", :value => "#{current_user.id}"}
   
   - if @widget.page
-    %input{:type => "hidden", :name => "widget[page_id]", :value => "#{@widget.page.id}"}
+    %input{:type => "hidden", :name => "page_id", :value => "#{@widget.page.id}"}
   - else
-    %input{:type => "hidden", :name => "widget[canvas_id]", :value => "#{@widget.canvas.id}"}
+    %input{:type => "hidden", :name => "canvas_id", :value => "#{@widget.canvas.id}"}
 
-  %input{:type => "hidden", :name => "widget[content_type]", :value => "#{@widget.content_type}"}
   .actions
     = f.submit 'Save'
     

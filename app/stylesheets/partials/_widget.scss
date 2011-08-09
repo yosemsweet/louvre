@@ -25,11 +25,11 @@
 	
 }
 
-.widget.page_edit_widget {
+.widget.editable_widget {
 	@include list_widget;
 }
 
-.widget.page_input_stream_widget {
+.widget.page_feed_widget {
 	@include list_widget;
 	.content { display: none; }
 	img.handle {
@@ -39,7 +39,7 @@
 	}
 }
 
-.widget.canvas_input_stream_widget {
+.widget.canvas_feed_widget {
 	@include list_widget;
 	.content { display: none; }
 }

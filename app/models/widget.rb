@@ -23,8 +23,12 @@ class Widget < ActiveRecord::Base
 		return widgets
   end
   
-  def self.for_canvas(canvas_id)
-    Canvas.find(canvas_id).widgets.where(:page_id => nil)
+  def self.for_canvas(canvas_id, start)
+    canvae = Canvas.find(canvas_id).widgets.where(:page_id => nil)
+    if start
+      canvae = canvae.where("id >= #{start}")
+    end
+    return canvae
   end
   
   def self.for_page(page_id)

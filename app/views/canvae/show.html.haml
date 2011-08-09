@@ -3,8 +3,8 @@
   = stylesheet_link_tag 'canvas.css', :media => 'screen, projection'
 
 
-#edit_dialog
-  %iframe#edit_frame{:src => ""}
+#widget_dialog
+  %iframe{:src => ""}
 
 %p#notice= notice
 
@@ -81,6 +81,9 @@
     
     
 :javascript
+  var user_id = #{current_user.id};
+  var canvas_id = #{@canvas.id};
+  
   var user = {
     is_logged_in : #{!current_user.nil?},
     is_following : #{current_user ? current_user.following_canvas?(@canvas) : false}
@@ -117,54 +120,29 @@
     
   });
   
-  var the_edit_dialog = $("#edit_dialog").dialog({
+  var $widget_dialog = $("#widget_dialog").dialog({
     minHeight:250, 
     minWidth:500, 
     autoOpen:false
   });
-  
-  close_edit_dialog = function(){
-    the_edit_dialog.dialog("close");
-  }
-  
-  open_edit_dialog = function(){
-    the_edit_dialog.dialog("open");
-  }
-  
-  set_dialog_title = function(title){
-    the_edit_dialog.dialog("option","title", title);
-  }
-  
-  set_edit_frame_src = function(src){
-    $("#edit_frame").attr("src", src);
-  }
-  
+      
   $(".add_widget").click(function(event){
-    set_edit_frame_src("/widgets/new?content_type=" + $(this).attr("data_content_type") + "&canvas_id=#{@canvas.id}");
-    set_dialog_title("New Widget");
-    open_edit_dialog();
     event.preventDefault();
+    $("iframe", $widget_dialog).attr("src", "/widgets/new?content_type=" + $(this).attr("data_content_type") + "&canvas_id=" + canvas_id);
+    $widget_dialog.dialog("option","title", "New Widget");
+    $widget_dialog.dialog("open");
   });
   
-  enable_widget_tooltips = function(){
-    $("a.tooltip").each(function(){
+  var enable_widget_tooltips = function(){
+    // Enable the toggle preview qtips.
+    $("a.toggle_preview", $(this)).each(function(){
       $(this).qtip({
         content: $(this).parents().filter(".widget").find(".content").html(),
-        show: 'mouseover',
-        hide: 'mouseout',
-        position: {
-          corner: { 
-            target: 'bottomLeft', 
-            tooltip: 'topRight' 
-          },
-          adjust: { screen: true }
-        },
+        show: 'mouseover', hide: 'mouseout',
+        position: { corner: { target: 'bottomLeft', tooltip: 'topRight' }, adjust: { screen: true } },
         style: {
           width: 572,
-          border: {
-            width: 5,
-            radius: 10
-          },
+          border: { width: 5, radius: 10 },
           padding: 10, 
           tip: true,
           name: 'light' 
@@ -173,47 +151,44 @@
     });
   }
   
-  reload_widgets = function(){
-    // Load input stream widgets
-    $("ul#input_stream").load("/canvae/#{@canvas.id}/widgets", function(){
-      enable_widget_tooltips();
+  var reload_feed_widgets = function(){
+    $("ul#input_stream").load("/widgets/for_canvas/" + canvas_id + "/canvas_feed", function(){
+       enable_widget_tooltips();
     });
   }
-
+  
+  reload_widgets = function(){
+    reload_feed_widgets();
+  }
+  
   reload_widgets();
   
-  get_new_widgets = function(){
-    // get highest data_widget_id value on page
-    var max_widget_id = 0;
-    // loop over all current widgets to get latest widget
-    $("#input_stream li").each(function(){
-      if ($(this).attr("data_widget_id") * 1 > max_widget_id) {
-        max_widget_id = $(this).attr("data_widget_id");
-      }
-    });
-    // do ajax request to see if there are newer widgets available for this canvas and append them to the list if so
-    $.get('/new_canvas_widgets/?last_widget_id=' + max_widget_id + "&canvas_id=#{@canvas.id}", function(data) {
-      if(data.length > 1){
-        $(data).appendTo("#input_stream");
-        enable_widget_tooltips();
-      }
-    });  
-    setTimeout(get_new_widgets, 15000);
+  close_edit_dialog = function(){
+    $widget_dialog.dialog("close");
   }
   
-  get_new_widgets();
-  // setInterval(get_new_widgets, 15000);
+  var get_new_widgets = function(){
+     // Get highest data_widget_id value on page.
+     var max_widget_id = 0;
+     $("#input_stream li.widget").each(function(){
+       if ($(this).attr("data_widget_id") * 1 > max_widget_id) {
+         max_widget_id = $(this).attr("data_widget_id");
+       }
+     });
+     // Get html for any new widgets and append to the feed.
+     $.get('/widgets/for_canvas/' + canvas_id + '/canvas_feed?start=' + (1*max_widget_id + 1), function(data) {
+       if(data.length > 1){
+         $(data).appendTo("#input_stream");
+         enable_widget_tooltips();
+       }
+     });  
+   };
+   
+  setInterval(get_new_widgets, 5000); 
   
-  reload_discussions = function(){
-    // Load canvas discussion
+  var reload_discussions = function(){
     $("#discussions").load("#{discussion_path(@canvas.class.to_s.downcase, @canvas.id)}?href=#{canvas_url(@canvas)}&width=600");
-  }
-  
-  $(document).ready(function(){
-    reload_discussions();
-  });
-  
-  reload_discussions();
+  }();
   
   mpq.push(["track","hit_canvas_homepage"]);
   window.mixpanelobject=mpq;  

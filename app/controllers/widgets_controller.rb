@@ -7,7 +7,7 @@ class WidgetsController < ApplicationController
   end
   
   def for_canvas
-    @widgets = Widget.for_canvas(params[:canvas_id])
+    @widgets = Widget.for_canvas(params[:canvas_id], params[:start])
     render :partial => params[:display], :collection => @widgets, :as => :widget
   end
   
@@ -38,13 +38,6 @@ class WidgetsController < ApplicationController
 			head :bad_request
 		end	
 	end
-	
-  # Amalgamate this into the for_canvas action
-	def new_canvas_widgets
-		new_canvas_widgets = Widget.where(:canvas_id => params[:canvas_id]).where("id > #{params[:last_widget_id]}")
-		
-		render new_canvas_widgets
-	end
 
   def show
     @widget = Widget.find(params[:id])
@@ -71,16 +64,18 @@ class WidgetsController < ApplicationController
     render :layout => 'empty'
   end
 
-  def create    
-    canvas = Canvas.find(params[:canvas_id])
-    widget_params = params[:widget]
-    
-    @widget = canvas.widgets.new(widget_params)
-    if !widget_params[:creator_id]
-      @widget.creator = current_user
+  def create      
+    if params[:page_id]
+      page = Page.find(params[:page_id])
+      canvas = page.canvas
+    else
+      page = nil
+      canvas = Canvas.find(params[:canvas_id])
     end
     
-    if widget_params[:page_id]
+    @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas))
+    
+    if page
 		  @widget.position_last_on_page
 	  end
 
