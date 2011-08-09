@@ -1,6 +1,7 @@
 .widget {
 	padding: 8px;
-	margin: 10px;
+	margin: 0;
+	margin-bottom: 10px;
 	@include clearfix;
 	img.handle {
 		float: left;
@@ -11,6 +12,7 @@
 		width: 50px;
 		height: 50px;
 	}
+	min-height: 100px;
 }
 
 @mixin list_widget{
