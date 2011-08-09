@@ -83,7 +83,7 @@ class WidgetsController < ApplicationController
       if request.xhr?
         head :created
       else
-        render 'update_page', :layout => false
+        render :inline => "<script type='text/javascript'>window.top.update_after_edit();</script>"
       end
     else
       head :bad_request
@@ -94,7 +94,7 @@ class WidgetsController < ApplicationController
     @widget = Widget.find(params[:id])
 
     if @widget.update_attributes(params[:widget])
-      render 'update_page', :layout => false
+      render :inline => "<script type='text/javascript'>window.top.update_after_edit();</script>"
     else
       head :bad_request
     end    
