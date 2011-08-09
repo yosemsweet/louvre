@@ -39,7 +39,6 @@ class WidgetsController < ApplicationController
 		end	
 	end
 
-	# REST
   def index
     @widgets = Canvas.find(params[:canvas_id]).input_stream_widgets
     render :layout => false
