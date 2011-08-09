@@ -1,0 +1,9 @@
+%li.widget.page_edit_widget{:data_widget_id => widget.id}
+
+  %img.handle{:src => "/images/grip.png"}
+
+  = render_widget_section("delete_link")
+  = render_widget_section("edit_link")
+
+  .content
+    = render_widget_section("content", widget)  
