@@ -79,15 +79,15 @@ class WidgetsController < ApplicationController
 		  @widget.position_last_on_page
 	  end
 
-		respond_to do |format|  
-    	if @widget.save
-				format.html { render 'update_page', :layout => false }
-     		format.json { render :json => @widget, :status => :created }
-	    else
-	      head :bad_request
-	    end
-		end
-
+    if @widget.save
+      if request.xhr?
+        head :created
+      else
+        render 'update_page', :layout => false
+      end
+    else
+      head :bad_request
+    end
   end
 
   def update

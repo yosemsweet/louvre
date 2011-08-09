@@ -160,7 +160,6 @@
   reload_widgets = function(){
     reload_feed_widgets();
   }
-  
   reload_widgets();
   
   close_edit_dialog = function(){
@@ -184,7 +183,7 @@
      });  
    };
    
-  setInterval(get_new_widgets, 5000); 
+  setInterval(get_new_widgets, 15000); 
   
   var reload_discussions = function(){
     $("#discussions").load("#{discussion_path(@canvas.class.to_s.downcase, @canvas.id)}?href=#{canvas_url(@canvas)}&width=600");
