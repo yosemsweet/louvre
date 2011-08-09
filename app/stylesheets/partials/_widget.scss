@@ -45,10 +45,12 @@
 }
 
 .widget.scrolly_widget {
-	@include list_widget;
 	.content { display: none; }
 	width: 254px;
 	height: 100px;
+	border: 1px solid #A862C7;
+	background-color: #EEC7FF;
+	position: fixed;
 }
 
 // $widget-padding: 8px;
