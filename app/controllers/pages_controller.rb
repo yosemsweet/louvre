@@ -16,11 +16,6 @@ class PagesController < ApplicationController
   def versions
   end
 
-  def widgets
-    @widgets = @page.widgets_in_order
-    render :layout => false
-  end
-
   def new
     canvas = Canvas.find(params[:canvas_id])
     @page = Page.new

@@ -2,6 +2,11 @@
 	padding: 8px;
 	margin: 0;
 	margin-bottom: 10px;
+	min-height: 100px;
+	border: 2px solid #A862C7;
+	background-color: #F8E7FF;
+  color: #205791;	
+	
 	@include clearfix;
 	img.handle {
 		float: left;
@@ -12,17 +17,11 @@
 		width: 50px;
 		height: 50px;
 	}
-	min-height: 100px;
-	.facebook_comments {
-		display: none;
-		background-color: white;
-	}
+	.facebook_comments { display: none;	}
 }
 
 @mixin list_widget{
 	list-style: none;
-	border: 1px solid #A862C7;
-	background-color: #EEC7FF;
 }
 
 .widget.presentation_widget {
@@ -48,10 +47,8 @@
 }
 
 .widget.scrolly_widget {
-	.content { display: none; }
 	width: 254px;
 	height: 100px;
-	border: 1px solid #A862C7;
-	background-color: #EEC7FF;
 	position: fixed;
+	.content { display: none; }
 }
