@@ -8,3 +8,22 @@
   @include box($background, $border);
 	box-shadow: 0 1px 5px $trim-color, inset 0 0 5px $border;
 }
+
+@mixin title-box($background:$accent-color, $border:$accent-color, $text-color:$background-color, $height:100px) {
+  @include box($background, $border);
+  height:$height;
+  
+  .title {
+  
+    -webkit-transform:rotate(90deg);
+  	-moz-transform:rotate(90deg);
+  	-o-transform: rotate(90deg);
+  	transform: rotate(90deg);
+	
+
+    h2 {
+    	@include box-label;
+    	color:$text-color;
+    }
+  }
+}
