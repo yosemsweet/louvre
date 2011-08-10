@@ -47,4 +47,27 @@
       reload_hud();
     });
 
-  });
+  });  
+      
+  FB.XFBML.parse();
+  
+  var user = #{current_user ? current_user.id : 0};
+  
+  FB.Event.subscribe('comment.create',
+      function(response) {
+          widget_id = _.last(response.href.split('/')) * 1;
+          if (user !== 0){
+            $.post("/follows/", {followable_type: 'widget', followable_id: widget_id}, function(){
+              reload_hud();
+              });
+          }
+          mpq.push(["track","comment_added", {'type':"facebook", "widget":widget_id,"user": user}]);
+      }
+  );
+  
+  FB.Event.subscribe('comment.remove',
+      function(response) {
+          mpq.push(["track","comment_removed" , {'type' : "facebook", 'widget' : widget_id, "user": user}]);
+      }
+  );
+
