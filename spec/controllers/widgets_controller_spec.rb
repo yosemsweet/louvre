@@ -4,21 +4,6 @@ describe WidgetsController do
 
    describe "Post create" do
      
-     #!describe "nested comments" do
-      #! let(:widget) { Factory.build(:widget) }
-       
-     #!#!  before (:each) do
-     #!   widget.comments.build({:creator => widget.creator, :content => 'test'})
-     #!  end
-       
-    #!   it 'creates comments from parameters' do
-     #!    post :create, 
-     #!     :widget =>  {:content => widget.content, :creator_id => widget.creator.id, :comments => [{:content=>'hellow',:creator_id=>widget.creator.id}]},
-     #!     :canvas_id => widget.canvas.id
-     #!    assigns(:widget).comments.should_not be_empty
-    #!  end
-   #!  end
-     
      describe "with json" do
       describe "with valid params" do
         let(:widget) { Factory.build(:widget) }
@@ -36,7 +21,7 @@ describe WidgetsController do
             :widget => {:content => widget.content, :creator_id => widget.creator.id,  :content_type => widget.content_type}, 
             :format => 'json', 
             :canvas_id => widget.canvas.id
-          results.status.should == 201
+          results.status.should == 200
         end
       end
       
@@ -57,7 +42,7 @@ describe WidgetsController do
 		          :widget => {:content => widget.content, :creator_id => widget.creator.id,  :content_type => widget.content_type}, 
 		          :format => 'json', 
 		          :canvas_id => widget.canvas.id
-		        results.status.should == 406
+		        results.status.should == 400
 		      end
 				end
 	    end
