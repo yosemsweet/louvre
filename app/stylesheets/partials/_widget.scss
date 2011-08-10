@@ -1,10 +1,8 @@
 .widget {
-	padding: 8px;
+  @include box;
 	margin: 0;
 	margin-bottom: 10px;
 	min-height: 100px;
-	border: 2px solid #A862C7;
-	background-color: #F8E7FF;
   color: #205791;	
 
 	@include clearfix;
@@ -47,6 +45,7 @@
 }
 
 .widget.scrolly_widget {
+  @include floating-box;
 	width: 254px;
 	height: 100px;
 	position: fixed;
