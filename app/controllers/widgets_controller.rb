@@ -1,48 +1,30 @@
 class WidgetsController < ApplicationController 
-  before_filter :require_login, :only => [:new, :edit, :update, :destroy]
+  before_filter :require_login, :only => [:new, :edit, :update, :move, :copy_to_page, :destroy]
 
+  # GET /widgets
   def index 
     @widgets = Widget.site_feed
     render :partial => "scrolly", :collection => @widgets, :as => :widget
   end
   
+  # GET /widgets/for_canvas/:canvas_id/:display
   def for_canvas
     @widgets = Widget.for_canvas(params[:canvas_id], params[:start])
     render :partial => params[:display], :collection => @widgets, :as => :widget
   end
   
+  # GET /widgets/for_page/:canvas_id/:display  
   def for_page
     @widgets = Widget.for_page(params[:page_id])
     render :partial => params[:display], :collection => @widgets, :as => :widget
   end
 
-	def copy_to_page
-		widget = Widget.find(params[:id])
-		
-		cloned_widget = widget.clone
-		cloned_widget.page_id = params[:page_id]
-
-		if cloned_widget.save && cloned_widget.insert_position(params[:position])
-			render :json => cloned_widget.id
-		else
-			head :bad_request
-		end
-	end
-	
-	def move
-		widget = Widget.find(params[:id])
-		
-		if widget.update_position(params[:position])
-			head :ok
-		else
-			head :bad_request
-		end	
-	end
-
+  # GET /widgets/:id
   def show
-    @widget = Widget.find(params[:id])
+    render :json => Widget.find(params[:id])
   end
 
+  # GET /widgets/:id/new
   def new
     if params[:page_id]
       page = Page.find(params[:page_id])
@@ -57,12 +39,14 @@ class WidgetsController < ApplicationController
     render :layout => 'empty'
   end
 
+  # GET /widgets/:id/edit
   def edit
     @widget = Widget.find(params[:id])
     
     render :layout => 'empty'
   end
 
+  # POST /widgets
   def create      
     if params[:page_id]
       page = Page.find(params[:page_id])
@@ -88,7 +72,22 @@ class WidgetsController < ApplicationController
       head :bad_request
     end
   end
+  
+  # POST /widgets/:id/copy_to_page/:page_id
+  def copy_to_page
+		widget = Widget.find(params[:id])
+		
+		cloned_widget = widget.clone
+		cloned_widget.page_id = params[:page_id]
 
+		if cloned_widget.save && cloned_widget.insert_position(params[:position])
+			render :json => cloned_widget.id
+		else
+			head :bad_request
+		end
+	end
+
+  # PUT /widgets/:id
   def update
     @widget = Widget.find(params[:id])
 
@@ -99,7 +98,19 @@ class WidgetsController < ApplicationController
     end    
       
   end
+  
+  # PUT /widgets/:id/:position
+  def move
+		widget = Widget.find(params[:id])
+		
+		if widget.update_position(params[:position])
+			head :ok
+		else
+			head :bad_request
+		end	
+	end
 
+  # DELETE /widgets/:id
   def destroy
     widget = Widget.find(params[:id])
     widget.remove_page_position
