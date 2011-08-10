@@ -3,6 +3,10 @@
   - when 'text_content'
     .field
       = f.text_area :content
+      :javascript
+        $(function(){
+          $("#widget_content").ckeditor({toolbar : "Body"});
+        });      
   - when 'image_content'
     .field
       = f.label 'image url'
@@ -22,8 +26,4 @@
   .actions
     = f.submit 'Save'
     
-:javascript
-  $(function(){
-    $("#widget_content").ckeditor({toolbar : "Body"});
-  });
 
