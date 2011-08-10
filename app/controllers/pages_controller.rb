@@ -3,7 +3,9 @@ class PagesController < ApplicationController
 	before_filter :require_login, :except => [:show, :index, :widgets]
   before_filter :only => [:show, :edit, :versions, :widgets] do
     @page = Page.find(params[:id])
+		# for header in application layout
     @title = @page.canvas.name
+    @canvas = @page.canvas
   end
 
   def show
