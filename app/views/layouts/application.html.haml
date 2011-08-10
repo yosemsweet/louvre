@@ -24,7 +24,7 @@
             = login_link :text => "Log in with Facebook"
         %h1#logo
           -if @title 
-            = link_to @title, canvas_path(@canvas) 
+            = link_to_unless_current @title, canvas_path(@canvas) 
           -else 
             Loorp! v0
           
