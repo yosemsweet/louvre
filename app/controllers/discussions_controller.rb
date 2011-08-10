@@ -1,6 +1,5 @@
 class DiscussionsController < ApplicationController
   
-  
   def show
     klass = params[:type].capitalize.constantize
     head :bad_request unless klass.respond_to?(:find)

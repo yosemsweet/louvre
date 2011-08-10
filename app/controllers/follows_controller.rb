@@ -4,7 +4,7 @@ class FollowsController < ApplicationController
 		@status = :ok
 		
 		begin 
-			followable_class = params[:followable_type].capitalize.constantize
+			followable_class = params[:followable_type].classify.constantize
 		rescue
 			@status = :bad_request
 		end

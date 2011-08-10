@@ -1,5 +1,4 @@
 - width = params[:width] || 600
-- defined? current_user ? user = current_user.id : user = 0
 
 .fb-discussion
   = comments_for(@obj, :href => @href, :width => width)
@@ -7,16 +6,21 @@
 :javascript
   FB.XFBML.parse();
   
+  var user = #{current_user ? current_user.id : 0};
+  
   FB.Event.subscribe('comment.create',
       function(response) {
-          mpq.push(["track","comment_added", {'type':"facebook", "#{@obj.class.name}":"#{@obj.id}","user": "#{user}"}]);
-          updateCount(response['href']);
+          widget_id = _.last(response.href.split('/')) * 1;
+          $.post("/follows/", {followable_type: 'widget', followable_id: widget_id}, function(){
+            reload_hud();
+            });
+          mpq.push(["track","comment_added", {'type':"facebook", "widget":widget_id,"user": user}]);
       }
   );
   
   FB.Event.subscribe('comment.remove',
       function(response) {
-          mpq.push(["track","comment_removed" , {'type' : "facebook", '#{@obj.class.name}' : "#{@obj.id}", "user":"#{user}"}]);
+          mpq.push(["track","comment_removed" , {'type' : "facebook", 'widget' : widget_id, "user": user}]);
       }
   );
   

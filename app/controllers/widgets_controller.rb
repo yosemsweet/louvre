@@ -21,7 +21,8 @@ class WidgetsController < ApplicationController
 
   # GET /widgets/:id
   def show
-    render :json => Widget.find(params[:id])
+    # render :json => Widget.find(params[:id])
+		@widget = Widget.find(params[:id])
   end
 
   # GET /widgets/:id/new

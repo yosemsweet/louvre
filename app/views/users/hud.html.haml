@@ -1,10 +1,21 @@
 %h2 HUD
 
-%p== Following #{@number_of_followed_canvae} #{pluralize(@number_of_follow_canvae, "canvas")}
+%p== Following #{pluralize(current_user.following_by_type_count('Canvas'), "canvas")}
 
 %ul
-  - current_user.followed_canvae.each do |canvas|
+  - current_user.following_by_type('Canvas').each do |canvas|
     %li= link_to canvas.name, canvas_path(canvas)
   
+%p== Following #{pluralize(current_user.following_pages_count, "page")}
+
+%ul
+  - current_user.following_by_type('Page').each do |page|
+    %li= link_to page.title, canvas_page_path(page.canvas, page)
+
+%p== Following #{pluralize(current_user.following_widgets_count, "widget")}
+
+%ul
+  - current_user.following_by_type('Widget').each do |widget|
+    %li= link_to widget.content.truncate(30), widget_path(widget)
 
   
