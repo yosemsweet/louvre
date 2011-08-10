@@ -29,8 +29,25 @@ describe "canvae/_brief.html.haml" do
 		rendered.should include(@canvas.name)
 	end
 
-	it "should display the canvas' mission" do
-		rendered.should include(@canvas.mission)
+	it "should display the canvas' mission inside an element with class mission" do
+		rendered.should have_selector(".mission", :content => @canvas.mission)
+	end
+
+	context "image present" do
+
+		it "should show the canvas' image" do
+			rendered.should have_selector("img[src='#{@canvas.image}']")
+		end
+	end
+	
+	context "no image present" do
+		before(:each) do
+			@canvas.image = nil
+		end
+		
+		it "shouldn't show the canvas' image" do
+			rendered.should_not have_selector("img[src='#{@canvas.image}']")
+		end
 	end
 
 end

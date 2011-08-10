@@ -1,4 +1,5 @@
 .brief[canvas]
     %h2= canvas.name
+    = image_tag @canvas.image if @canvas.image.present?
     %p.mission= canvas.mission
     
