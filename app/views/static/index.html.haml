@@ -20,16 +20,26 @@
       -@recent_canvases.each do |e|
         %li= link_to e.name, canvas_path(e)
 
+-if current_user
+  :javascript
+    $(function(){
+      mpq.push(["name_tag","#{current_user.name}"]);
+      mpq.push(["track","hit_homepage",{"logged_in": "true"}]);
+    })
+-else
+  :javascript
+    $(function(){
+      mpq.push(["identify"]);
+      mpq.push(["track","hit_homepage",{"logged_in": "false"}]);
+    })
+  
 :javascript
   $(function(){
-    
-    mpq.push(["track","hit_homepage"]);
     mpq.push(["track_forms",$("form"),"click_create_canvas"]);
-    
+  
     $("#login").click(function(){
       mpq.push(["track","click_login"]);
-    });
-    
+    }); 
   })
 
 #scrolly
@@ -42,5 +52,6 @@
       %img{:src=>"http://mixpanel.com/site_media/images/partner/badge_blue.png", :alt=>"Web Analytics"}
       
 :javascript
-  $("#mixpanel").css("top",$(window).height() - 60 + "px")
+  // $("#mixpanel").css("top",$(window).height() - 60 + "px")
+  $("#mixpanel").css("bottom", "0px")
   

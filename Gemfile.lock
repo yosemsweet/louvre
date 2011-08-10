@@ -1,8 +1,15 @@
 GIT
-  remote: git@github.com:yosemsweet/acts_as_opengraph.git
-  revision: a8e318130c05f3636511bc51967147a8762cf476
+  remote: git://github.com/thoughtbot/capybara-webkit
+  revision: 612028dc6fd5fc08eb9c5d33553fac6c88b890b0
   specs:
-    acts_as_opengraph (0.0.7)
+    capybara-webkit (0.5.0)
+      capybara (~> 1.0.0)
+
+GIT
+  remote: git@github.com:yosemsweet/acts_as_opengraph.git
+  revision: 21303ec9f49b1fa4544f9f30bcf1eb7a82506a70
+  specs:
+    acts_as_opengraph (0.0.8)
 
 GEM
   remote: http://rubygems.org/
@@ -89,7 +96,7 @@ GEM
       rack (>= 1.1.0, < 2)
     ffi (1.0.9)
     fssm (0.2.7)
-    gherkin (2.4.5)
+    gherkin (2.4.6)
       json (>= 1.4.6)
     growl (1.0.3)
     guard (0.5.1)
@@ -249,6 +256,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_opengraph!
   capybara
+  capybara-webkit!
   compass
   cucumber-rails
   database_cleaner

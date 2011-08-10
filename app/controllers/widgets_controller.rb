@@ -1,5 +1,5 @@
-class WidgetsController < ApplicationController
-  layout false
+class WidgetsController < ApplicationController 
+  before_filter :require_login, :only => [:new, :edit, :update, :destroy]
 
   def index 
     @widgets = Widget.site_feed
@@ -44,7 +44,6 @@ class WidgetsController < ApplicationController
   end
 
   def new
-    
     if params[:page_id]
       page = Page.find(params[:page_id])
       canvas = page.canvas  
