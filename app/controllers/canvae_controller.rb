@@ -6,9 +6,11 @@ class CanvaeController < ApplicationController
   end
 
   def edit
+		add_breadcrumb "Edit '#{@canvas.name}'", edit_canvas_path(@canvas)
   end  
     
   def show
+		add_breadcrumb @canvas.name, canvas_path(@canvas)
   end
     
   def index
@@ -18,6 +20,8 @@ class CanvaeController < ApplicationController
   def new
     canvas_name = params[:canvas_name] || ""
     @canvas = Canvas.new(:name => canvas_name)
+
+		add_breadcrumb "Add Canvas", new_canvas_path()
   end
 
   def create

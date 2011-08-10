@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user
   
+  add_breadcrumb "Home", :root_path
+
   def require_login
     if !current_user
       redirect_to('/login', :notice => "Facebook sucks and logged you off.")
