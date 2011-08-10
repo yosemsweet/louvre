@@ -17,9 +17,10 @@
 #canvae
   .title
     %h2 Canvae
-    =# %ul
-    =#  -@recent_canvases.each do |e|
-    =#    %li= link_to e.name, canvas_path(e)
+  .contents
+    %ul
+      -@recent_canvases.each do |e|
+        %li= link_to e.name, canvas_path(e)
 
 -if current_user
   :javascript

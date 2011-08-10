@@ -33,13 +33,19 @@ p {
 	font-size: 14px;
 }
 
-#canvae{
- @include floating-box;
- @include title-box($height:400px);
- position: absolute;
- top: 100px;
- left: 0;
- width:40px;
- z-index: $z-top
+#canvae {
+  @include floating-box;
+  @include title-box($height:400px);
+  position: absolute;
+  top: 100px;
+  left: 0;
+  z-index:$z-top;
+
+ .contents {
+    @include floating-box;
+    position:absolute;
+    left:$box-title-default-width + 20px;
+    top:0;
+  }
  
 }
