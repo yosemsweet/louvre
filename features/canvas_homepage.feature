@@ -7,7 +7,7 @@ Scenario: Canvas Homepage Sections
 Given there is a canvas 
 And I am on that canvas' homepage
 Then I should see "Edit"
-And I should see "Input Stream"
+And I should see "Feed"
 And I should see "Pages"
 
 @omniauth_test

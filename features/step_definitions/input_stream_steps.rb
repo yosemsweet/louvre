@@ -11,7 +11,7 @@ Given /^I have a canvas bookmarklet$/ do
 end
 
 When /^I use the bookmarklet$/ do
-  result = post "/canvae/#{Canvas.last.id}/widgets.json", :widget => {:content => current_page, :creator_id => current_user.id, :content_type => 'text_content'}
+  result = post "/widgets/", :canvas_id => Canvas.last.id, :widget => {:content => current_page, :creator_id => current_user.id, :content_type => 'text_content'}
   set_input_stream_call_status(result.status)
 end
 
