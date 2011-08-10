@@ -11,7 +11,7 @@
 @mixin header-font {
   font: {
     family: 'Droid Serif', serif;
-    size: 1.33em;
+    size: 2em;
     weight: bold;
   }
 }
@@ -32,3 +32,11 @@
     size: 4em;
   }
 }
+
+
+* {
+ @include body-font; 
+}
+
+a:visited { color:$visited-link-color; }
+a:link { color:$link-color; }

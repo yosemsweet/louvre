@@ -26,6 +26,8 @@ $background-color: $white;
 $accent-color: $grey;
 $trim-color: $accent-grey;
 $text-color: $dark-grey;
+$visited-link-color: $purple;
+$link-color: $blue;
 
 //Z-order
 $z-top:5000;
@@ -35,6 +37,7 @@ $z-bottom:5;
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
 @import "partials/box";
-@import "partials/widget";
 @import "partials/typography";
+@import "partials/widget";
+@import "partials/canvas";
 @import "compass/utilities/general/clearfix";

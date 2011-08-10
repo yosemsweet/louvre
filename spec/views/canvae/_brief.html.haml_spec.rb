@@ -29,6 +29,10 @@ describe "canvae/_brief.html.haml" do
 	it "should display canvas name" do
 		rendered.should include(@canvas.name)
 	end
+	
+	it "should link to the canvas homepage" do
+		rendered.should have_selector("a[href='#{canvas_path(@canvas)}']")
+	end
 
 	it "should display the canvas' mission inside an element with class mission" do
 		rendered.should have_selector(".mission", :content => @canvas.mission)

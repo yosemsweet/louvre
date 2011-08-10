@@ -46,6 +46,13 @@ p {
     position:absolute;
     left:$box-title-default-width + 20px;
     top:0;
+    width:span(14);
+    
+    ul {
+      margin-left: 0;
+      padding-left: 0;
+      list-style: none;
+    }
   }
  
 }
