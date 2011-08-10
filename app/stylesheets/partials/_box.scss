@@ -1,0 +1,6 @@
+@mixin box ($background:$background-color, $border:$accent-color, $shadow:$trim-color){
+  padding: 10px;
+  background-color: $background;
+  border: 1px solid $border;
+	box-shadow: 0 1px 5px $trim-color, inset 0 0 5px $border;
+}
