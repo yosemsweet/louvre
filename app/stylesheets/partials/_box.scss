@@ -1,6 +1,10 @@
-@mixin box ($background:$background-color, $border:$accent-color, $shadow:$trim-color){
+@mixin box ($background:$background-color, $border:$accent-color){
   padding: 10px;
   background-color: $background;
   border: 1px solid $border;
+}
+
+@mixin floating-box($background:$background-color, $border:$accent-color, $shadow:$trim-color) {
+  @include box($background, $border);
 	box-shadow: 0 1px 5px $trim-color, inset 0 0 5px $border;
 }
