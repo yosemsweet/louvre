@@ -212,12 +212,7 @@
     var $facebook_comments = $(this).siblings(".facebook_comments")  
     $facebook_comments.toggle();
     
-    if($facebook_comments.is(":visible")){
-      $(this).text("Hide Comments");
-    } else {
-      $(this).text("Show Comments");
-    }
-    
+    $(this).remove();    
     
   });
 

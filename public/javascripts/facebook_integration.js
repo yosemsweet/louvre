@@ -1,6 +1,6 @@
-function getCommentCount(comment_href){
+function countComments(comment_href, callback){
   
-  var number_of_comments = 0;
+  
   FB.api('/comments?ids=' + comment_href, function(response) {
     length = 0;
     if( comment_href in response ){
@@ -9,7 +9,7 @@ function getCommentCount(comment_href){
         length = pageinfo["data"]["length"];
       }
     }
-    number_of_comments = length;
+		
+		callback(length);
   });
-  return number_of_comments;
 }
