@@ -20,7 +20,7 @@
   .contents
     %ul
       -@recent_canvases.each do |e|
-        %li= link_to e.name, canvas_path(e)
+        %li= render :partial => 'canvae/brief', :object => e, :as => :canvas
 
 -if current_user
   :javascript

@@ -1,5 +1,7 @@
 .brief[canvas]
-    %h2= canvas.name
-    = image_tag @canvas.image if @canvas.image.present?
-    %p.mission= canvas.mission
+  %h2= canvas.name
+  = image_tag canvas.image if canvas.image.present?
+  %p.mission= canvas.mission
+  = like_button_for(canvas, :href => canvas_url(canvas))
+  
     
