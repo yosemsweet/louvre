@@ -1,0 +1,42 @@
+// Typography
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Serif:400,700);
+
+@mixin body-font {
+  font: {
+    family: 'Droid Sans', sans-serif;
+    size: 1em;
+  }
+}
+
+@mixin header-font {
+  font: {
+    family: 'Droid Serif', serif;
+    size: 2em;
+    weight: bold;
+  }
+}
+
+@mixin box-label {
+  font: {
+    family: 'Droid Sans', sans-serif;
+    size: 2.5em;
+    variant:small-caps;
+  }
+}
+
+
+@mixin logo-font {
+  letter-spacing: -2px;
+  font: {
+    family: 'Trebuchet MS';
+    size: 4em;
+  }
+}
+
+
+* {
+ @include body-font; 
+}
+
+a:visited { color:$visited-link-color; }
+a:link { color:$link-color; }

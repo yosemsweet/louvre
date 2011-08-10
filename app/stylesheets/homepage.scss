@@ -33,3 +33,40 @@ p {
 	font-size: 14px;
 }
 
+
+$canvae-top: 100px;
+$box-height: 400px;
+#canvae {
+  position: absolute;
+  top: $canvae-top;
+  left: 0;
+  
+  .title-box{
+    @include floating-box;
+    @include title-box($width:span(1)+ 10, $height:$box-height);
+    position: relative;
+    z-index:$z-top + 1;
+    cursor:pointer;
+  }
+
+ .contents {
+    @include floating-box;
+    position:absolute;
+    left:$box-title-default-width + 20px;
+    top:0;
+    width:span(14);
+    z-index:$z-top;
+    min-height:$box-height;
+    
+    ul {
+      margin-left: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+  }
+  
+  .handle{
+    @include handle-bar-right($left: span(14) + span(1) - 10 , $box-height: $box-height);
+    z-index:$z-top;
+  }
+}

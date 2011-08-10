@@ -1,0 +1,9 @@
+.brief[canvas]
+  .img
+    = image_tag canvas.image if canvas.image.present?
+  .content
+    %h2= link_to(canvas.name, canvas_path(canvas))
+    %p.mission= canvas.mission
+    = like_button_for(canvas, :href => canvas_url(canvas))
+  
+    

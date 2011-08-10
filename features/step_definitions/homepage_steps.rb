@@ -7,5 +7,5 @@ Then /^I should see an intro video$/ do
 end
 
 Then /^I should see recent canvases$/ do
-  page.should have_css('#recent_canvases')
+  page.should have_css('#canvae')
 end

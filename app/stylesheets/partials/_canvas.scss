@@ -1,0 +1,29 @@
+.canvas.brief {
+
+  .img {
+    @include image-box;
+    width:70px;
+    height:70px;
+    overflow:hidden;
+    float:left;
+    img {
+      height:70px;
+    }
+  }
+
+
+  .content {
+    float:left;
+    width:span(10);
+    
+    h2 {
+      @include header-font;
+      padding-top: 0;
+      margin-bottom: 0;
+    }
+    
+    .mission {
+      font-style:italic;
+    }
+  }
+}

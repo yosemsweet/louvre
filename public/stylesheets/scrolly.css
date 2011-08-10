@@ -1297,17 +1297,35 @@ form.inline p {
   margin-bottom: 0;
 }
 
-/* line 1, ../../app/stylesheets/partials/_widget.scss */
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Serif:400,700);
+/* line 37, ../../app/stylesheets/partials/_typography.scss */
+* {
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 1em;
+}
+
+/* line 41, ../../app/stylesheets/partials/_typography.scss */
+a:visited {
+  color: #663399;
+}
+
+/* line 42, ../../app/stylesheets/partials/_typography.scss */
+a:link {
+  color: #0066ff;
+}
+
+/* line 2, ../../app/stylesheets/partials/_widget.scss */
 .widget {
-  padding: 8px;
+  background-color: white;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 5px #999999, inset 0 0 5px #cccccc;
   margin: 0;
   margin-bottom: 10px;
   min-height: 100px;
-  border: 2px solid #A862C7;
-  background-color: #F8E7FF;
-  color: #205791;
+  color: #333333;
   overflow: hidden;
   *zoom: 1;
+  overflow: visible;
 }
 /* line 11, ../../app/stylesheets/partials/_widget.scss */
 .widget img.handle {
@@ -1316,53 +1334,192 @@ form.inline p {
   cursor: move;
 }
 /* line 16, ../../app/stylesheets/partials/_widget.scss */
-.widget .preview img {
-  width: 50px;
-  height: 50px;
+.widget .preview {
+  padding: 10px;
 }
-/* line 20, ../../app/stylesheets/partials/_widget.scss */
-.widget .facebook_comments {
+/* line 19, ../../app/stylesheets/partials/_widget.scss */
+.widget .preview img {
+  max-width: 100%;
+  max-height: 100%;
+}
+/* line 25, ../../app/stylesheets/partials/_widget.scss */
+.widget .toggle_preview {
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  width: 32px;
+  height: 32px;
+  background: url("/images/icons/expand.png") no-repeat 0px 0px;
+  display: block;
+}
+/* line 27, ../../app/stylesheets/partials/_widget.scss */
+.widget .title {
+  float: left;
+  width: 30px;
+}
+/* line 32, ../../app/stylesheets/partials/_widget.scss */
+.widget .title .comment_count {
+  padding: 0;
+}
+/* line 35, ../../app/stylesheets/partials/_widget.scss */
+.widget .title .comment_count a {
+  position: absolute;
+  display: block;
+  bottom: 0;
+  padding: 0;
+  margin: 10px;
+  width: 32px;
+  height: 32px;
+  color: white;
+  font-size: 1.33em;
+  text-align: center;
+  background: url("/images/icons/comment.png") no-repeat 0px 0px;
+}
+/* line 47, ../../app/stylesheets/partials/_widget.scss */
+.widget .title .comment_count a span {
+  display: none;
+}
+/* line 52, ../../app/stylesheets/partials/_widget.scss */
+.widget .edit {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  background: url("/images/icons/edit.png") no-repeat 0px 0px;
+}
+/* line 60, ../../app/stylesheets/partials/_widget.scss */
+.widget .edit span {
   display: none;
 }
 
-/* line 30, ../../app/stylesheets/partials/_widget.scss */
+/* line 73, ../../app/stylesheets/partials/_widget.scss */
 .widget.editable_widget {
   list-style: none;
 }
 
-/* line 34, ../../app/stylesheets/partials/_widget.scss */
+/* line 77, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget {
   list-style: none;
 }
-/* line 36, ../../app/stylesheets/partials/_widget.scss */
+/* line 79, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .content {
   display: none;
 }
-/* line 37, ../../app/stylesheets/partials/_widget.scss */
+/* line 80, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget img.handle {
   float: left;
   margin-right: 10px;
   cursor: move;
 }
 
-/* line 44, ../../app/stylesheets/partials/_widget.scss */
+/* line 88, ../../app/stylesheets/partials/_widget.scss */
 .widget.canvas_feed_widget {
-  list-style: none;
+  background-color: #cccccc;
+  border: 1px solid #cccccc;
+  position: relative;
+  min-height: 200px;
 }
-/* line 46, ../../app/stylesheets/partials/_widget.scss */
+/* line 93, ../../app/stylesheets/partials/_widget.scss */
 .widget.canvas_feed_widget .content {
   display: none;
 }
-
-/* line 49, ../../app/stylesheets/partials/_widget.scss */
-.widget.scrolly_widget {
-  width: 254px;
-  height: 100px;
-  position: fixed;
+/* line 94, ../../app/stylesheets/partials/_widget.scss */
+.widget.canvas_feed_widget .preview {
+  background-color: white;
+  border: 1px solid #cccccc;
+  box-shadow: inset 0 0 5px #999999;
+  position: relative;
+  min-height: 200px;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  margin-left: 50px;
 }
-/* line 53, ../../app/stylesheets/partials/_widget.scss */
+/* line 105, ../../app/stylesheets/partials/_widget.scss */
+.widget.canvas_feed_widget .preview p {
+  width: 638px;
+}
+
+/* line 115, ../../app/stylesheets/partials/_widget.scss */
+.widget.scrolly_widget {
+  background-color: white;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 5px #999999, inset 0 0 5px #cccccc;
+  background-color: #cccccc;
+  border: 1px solid #cccccc;
+  position: fixed;
+  overflow: visible;
+  width: 242px;
+}
+/* line 122, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget .content {
   display: none;
+}
+/* line 123, ../../app/stylesheets/partials/_widget.scss */
+.widget.scrolly_widget .comments {
+  display: none;
+}
+/* line 125, ../../app/stylesheets/partials/_widget.scss */
+.widget.scrolly_widget .preview {
+  background-color: white;
+  border: 1px solid #cccccc;
+  box-shadow: inset 0 0 5px #999999;
+  position: relative;
+  margin-left: 50px;
+  height: 100px;
+  width: 172px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+}
+
+/* line 141, ../../app/stylesheets/partials/_widget.scss */
+.text_content {
+  background: url("/images/icons/text.png") no-repeat 10px 10px;
+}
+
+/* line 145, ../../app/stylesheets/partials/_widget.scss */
+.image_content {
+  background: url("/images/icons/picture.png") no-repeat 10px 10px;
+}
+
+/* line 149, ../../app/stylesheets/partials/_widget.scss */
+.link_content {
+  background: url("/images/icons/link.png") no-repeat 10px 10px;
+}
+
+/* line 3, ../../app/stylesheets/partials/_canvas.scss */
+.canvas.brief .img {
+  background-color: white;
+  border: 1px solid #cccccc;
+  padding: 0;
+  margin: 10px;
+  box-shadow: 0 1px 2px #cccccc;
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  float: left;
+}
+/* line 9, ../../app/stylesheets/partials/_canvas.scss */
+.canvas.brief .img img {
+  height: 70px;
+}
+/* line 15, ../../app/stylesheets/partials/_canvas.scss */
+.canvas.brief .content {
+  float: left;
+  width: 390px;
+}
+/* line 19, ../../app/stylesheets/partials/_canvas.scss */
+.canvas.brief .content h2 {
+  font-family: 'Droid Serif', serif;
+  font-size: 2em;
+  font-weight: bold;
+  padding-top: 0;
+  margin-bottom: 0;
+}
+/* line 25, ../../app/stylesheets/partials/_canvas.scss */
+.canvas.brief .content .mission {
+  font-style: italic;
 }
 
 /* line 3, ../../app/stylesheets/scrolly.scss */

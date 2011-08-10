@@ -12,8 +12,6 @@ Scenario: Homepage logo
 Scenario: Homepage title
     Then the page title should be "Loorp!"
     
-Scenario: Indicate we're still working on this puppy
-    Then I should see "v0"
     
 Scenario: Show recent canvae
     Then I should see recent canvases
