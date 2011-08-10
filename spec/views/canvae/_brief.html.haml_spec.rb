@@ -3,6 +3,7 @@ require 'spec_helper'
 describe "canvae/_brief.html.haml" do
   before(:each) do
     @canvas = Factory.create(:canvas)
+		controller.stubs(:like_button_for).returns("<fb:like url='#{@canvas.id}/>".html_safe)
 		render :partial => 'brief', :object => @canvas, :as => :canvas
   end
   
@@ -47,6 +48,13 @@ describe "canvae/_brief.html.haml" do
 		
 		it "shouldn't show the canvas' image" do
 			rendered.should_not have_selector("img[src='#{@canvas.image}']")
+		end
+	end
+
+	context "facebook tools" do
+		
+		it "should provide facebook like for canvas" do
+			pending "Ran into troubles getting like_button_for stub to work with the view."
 		end
 	end
 
