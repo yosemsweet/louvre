@@ -1,3 +1,16 @@
-.facebook_comments
-%a.toggle_comments{:href => "#"} see all comments
-.facebook_new_comment
+%p.comment_count Loading...
+
+%a.toggle_facebook_comments{:href => "#"} Show Comments
+
+.facebook_comments{:data_comment_href => "#{widget_url(widget)}"}
+
+:javascript
+  
+  var widget_id = #{widget.id};
+  var $widget = $(".widget[data_widget_id=" + widget_id + "]");
+  
+  var $facebook_comments = $(".facebook_comments", $widget);
+  
+  $facebook_comments.load("/discussions/widget/" + widget_id, { href: $facebook_comments.attr("data_comment_href"), width : 750 }, function(){
+    $(this).siblings(".comment_count").text( "Number of comments: " +  getCommentCount($(this).attr("data_comment_href")));  
+  });

@@ -2,7 +2,7 @@ class DiscussionsController < ApplicationController
   
   
   def show
-    klass = eval(params[:type].capitalize)
+    klass = params[:type].capitalize.constantize
     head :bad_request unless klass.respond_to?(:find)
     
     @obj = klass.find(params[:id])

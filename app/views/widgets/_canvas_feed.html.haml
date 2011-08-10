@@ -1,4 +1,4 @@
-%li.widget.canvas_feed_widget{:data_widget_id => widget.id, :comment_href => "#{widget_url(widget)}"}
+%li.widget.canvas_feed_widget{:data_widget_id => widget.id}
 
   = render_widget_section("toggle_preview_link")
   = render_widget_section("edit_link")
@@ -10,4 +10,4 @@
     = render_widget_section("preview", widget)
     
   .comments
-    = render_widget_section("comments")
+    = render_widget_section("comments", widget)

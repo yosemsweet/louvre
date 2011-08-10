@@ -67,6 +67,7 @@
   %a.add_widget{:data_content_type => "text_content", :href => "#"} Add Text
   %a.add_widget{:data_content_type => "image_content", :href => "#"} Add Image 
 
+  %h2 Discussions
   #discussions
 
 - if current_user
@@ -165,7 +166,7 @@
     
   var reload_widgets = function(){
     $("ul#feed").load("/widgets/for_canvas/" + canvas_id + "/canvas_feed", function(){
-       enable_widget_tooltips();
+       enable_widget_tooltips();       
     });
   }  
   reload_widgets();
@@ -194,7 +195,7 @@
   setInterval(load_new_widgets, 15000); 
   
   var reload_discussions = function(){
-    $("#discussions").load("#{discussion_path(@canvas.class.to_s.downcase, @canvas.id)}?href=#{canvas_url(@canvas)}&width=600");
+    $("#discussions").load("/discussions/canvas/" + canvas_id, { href : "/canvas/" + canvas_id, widget : 600});
   }();
   
   mpq.push(["track","hit_canvas_homepage"]);
@@ -206,5 +207,20 @@
   
   $("#instructions").click(function(){
     $("#instructions").toggle();
+  });
+  
+  $(".widget .toggle_facebook_comments").live('click', function(event){
+    event.preventDefault();
+    
+    var $facebook_comments = $(this).siblings(".facebook_comments")  
+    $facebook_comments.toggle();
+    
+    if($facebook_comments.is(":visible")){
+      $(this).text("Hide Comments");
+    } else {
+      $(this).text("Show Comments");
+    }
+    
+    
   });
 

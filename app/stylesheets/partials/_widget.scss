@@ -13,6 +13,10 @@
 		height: 50px;
 	}
 	min-height: 100px;
+	.facebook_comments {
+		display: none;
+		background-color: white;
+	}
 }
 
 @mixin list_widget{
