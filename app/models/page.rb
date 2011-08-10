@@ -10,6 +10,7 @@ class Page < ActiveRecord::Base
 
   has_paper_trail
   acts_as_opengraph :values => { :type => "cause" }
+	acts_as_followable
 
 	def opengraph_image
   	canvas.image if canvas.present?

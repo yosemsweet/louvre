@@ -1,4 +1,5 @@
 class Canvas < ActiveRecord::Base
+	
 	belongs_to :creator, :class_name => "User"
 	has_many :pages
   has_many :widgets
@@ -8,8 +9,8 @@ class Canvas < ActiveRecord::Base
 	validates :mission, :presence => true
 	validates :creator, :presence => true
 
-  acts_as_opengraph :values => { :type => "cause" }
-
+  acts_as_opengraph :values => { :type => "cause" }	
+	acts_as_followable
 
 	def self.recently_updated(i)
 		Canvas.order('updated_at desc').limit(i)
