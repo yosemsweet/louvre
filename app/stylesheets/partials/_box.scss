@@ -9,9 +9,12 @@
 	box-shadow: 0 1px 5px $trim-color, inset 0 0 5px $border;
 }
 
-@mixin title-box($background:$accent-color, $border:$accent-color, $text-color:$background-color, $height:100px) {
+$box-title-default-height : 100px;
+$box-title-default-width : 20px;
+@mixin title-box($background:$accent-color, $border:$accent-color, $text-color:$background-color, $height:$box-title-default-height, $width:$box-title-default-width) {
   @include box($background, $border);
   height:$height;
+  width:$width;
   
   .title {
   
@@ -27,3 +30,4 @@
     }
   }
 }
+
