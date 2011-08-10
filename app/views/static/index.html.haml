@@ -1,5 +1,6 @@
 - content_for :head do
-  = stylesheet_link_tag 'homepage.css', 'scrolly.css', :media => 'screen, projection'
+  = stylesheet_link_tag 'homepage', 'scrolly', :media => 'screen, projection'
+  = javascript_include_tag 'scrolly'
 
 .box.clearfix{:style => "width: 355px; margin: auto; margin-top: 50px; margin-bottom: 300px; position: relative; z-index: 5000"}
   .clearfix
@@ -41,11 +42,9 @@
     }); 
   })
 
-%ul#scrolly
+#scrolly
 
-%ul#scrollyHider
-
-= render :partial => "static/scrolly_js"
+#scrollyHider
     
 #mixpanel{:style => "position: absolute"}
   .container

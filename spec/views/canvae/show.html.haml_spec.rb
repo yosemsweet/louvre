@@ -18,13 +18,13 @@ describe "canvae/show.html.haml" do
 	context "input stream" do
 		it "displays the canvas input stream" do
 			render
-			rendered.should have_selector('#input_stream')
+			rendered.should have_selector('#feed')
 		end
      
      
      it "loads widgets" do
        render
-       rendered.should include("load(\"#{canvas_widgets_path(@canvas)}\"")
+       rendered.should include("load(\"/widgets/for_canvas/\"")
      end
 
 	end
@@ -39,7 +39,7 @@ describe "canvae/show.html.haml" do
 		end
 		
 		it "loads discussions" do
-		  rendered.should include("load(\"#{discussion_path(@canvas.class.to_s.downcase, @canvas.id)}?href=#{canvas_url(@canvas)}&width=600")
+		  rendered.should include("load(\"/discussions/canvas/\"")
 		end
 	end
 	

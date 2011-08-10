@@ -55,7 +55,7 @@
     }  
     
   $("#comment_see_#{widget.id}").click( function(){
-
+    
     if( $("#comments_view_add_#{widget.id}").hasClass( 'hide' ) ){
       $("#comments_view_add_#{widget.id}").removeClass( 'hide' );
     }
@@ -71,7 +71,7 @@
       // add comment box
       $("#comments_view_add_#{widget.id}").load( '#{discussion_path(widget.class.name.to_s.downcase, widget.id)}?href=#{canvas_widget_url(widget.canvas, widget)}&width=' + width );
     }
-
+    
     mpq.push(['track','comment_read', {'type':'facebook', '#{widget.class.name}':'#{widget.id}','user': '#{user}'}]);  
     $("#comment_see_#{widget.id}").addClass('hide');
     $("#comment_hide_#{widget.id}").removeClass('hide');

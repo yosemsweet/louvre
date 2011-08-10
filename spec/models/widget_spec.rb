@@ -205,7 +205,7 @@ describe Widget do
 		
 	end
 	
-	describe "#random" do
+	describe "::random" do
 		
 		before(:each) do
 			@random_widget = Factory.create(:widget)
@@ -217,5 +217,14 @@ describe Widget do
 		
 	end
 	
+	describe "::for_page" do
+	  it "returns the page's widgets ordered by position" do
+	    page = Factory.create(:page)
+	    w1 = Factory.create(:widget, :page => page, :position => 2)
+	    w2 = Factory.create(:widget, :page => page, :position => 1)
+	    
+	    Widget.for_page(page.id).first.id.should == w2.id	    
+    end
+  end
 
 end

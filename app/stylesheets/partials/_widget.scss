@@ -1,116 +1,54 @@
-$widget-padding: 8px;
-$widget-margin-height: 10px;
-$widget-margin-width: 8px;
-$widget-container-border-width : 1px;
-$widget-border-width : 1px;
-
-
-@mixin widget_base($width) {
-	width: $width;
- 	margin: $widget-margin-height $widget-margin-width;
- 	padding: $widget-padding;
- 	list-style: none;
+.widget {
+	padding: 8px;
+	margin: 0;
+	margin-bottom: 10px;
+	min-height: 100px;
+	border: 2px solid #A862C7;
+	background-color: #F8E7FF;
+  color: #205791;	
+	
 	@include clearfix;
-	.controls{
-		img.handle{
-			float: left;
-			margin-right: 10px;
-			cursor: move;
-		}
+	img.handle {
+		float: left;
+		margin-right: 10px;
+		cursor: move;
 	}
 	.preview img{
 		width: 50px;
 		height: 50px;
 	}
+	.facebook_comments { display: none;	}
 }
 
-@mixin scrolly_widget {
+@mixin list_widget{
+	list-style: none;
+}
 
-	li.widget {
-		@include widget_base(254px);
-		height: 100px;
-		background-color: #EEC7FF;
-		border: $widget-border-width solid #A862C7;
-		.content { display: none; }
-		.preview{ 
-			display: block; 
-		}
-		.comments{ display: none; }
-		.controls{
-			.delete{ display: none; }
-			.tooltip{ display: inline; }
-			.handle{ display: none; }
-			.edit_widget{ display: none; }
-			.delete{ display: none; }
-			.delete_widget{ display: none; }
-			.tooltip_divide{ display: none; }
-		}
+.widget.presentation_widget {
+}
+
+.widget.editable_widget {
+	@include list_widget;
+}
+
+.widget.page_feed_widget {
+	@include list_widget;
+	.content { display: none; }
+	img.handle {
+		float: left;
+		margin-right: 10px;
+		cursor: move;
 	}
 }
 
-
-@mixin input_stream_widget($width){
-
-	li.widget {
-		@include widget_base( $width - (2 * $widget-padding) - (2 * $widget-margin-width) - (2 * $widget-container-border-width) - (2 * $widget-border-width) );
-		background-color: #f6f6ed;
-		border: $widget-border-width solid #A862C7;
-		.content { display: none; }
-		.preview{ display: block; }
-		.comments{ display: block; }
-		.controls{
-			.delete{ display: none; }
-			.tooltip{ display: inline; }
-		}
-	}
+.widget.canvas_feed_widget {
+	@include list_widget;
+	.content { display: none; }
 }
 
-@mixin page_widget($width) {
-	
-	li.widget {
-		@include widget_base($width - $widget-margin-width);
-		background-color: #EEC7FF; 
-	 	border: 1px solid #A862C7;
-		.preview{ display: none; }
-		.comments{ display: none; }
-		.controls{
-			.tooltip{ display: none; }
-		}
-	}
-	
-	li.placeholder {
-		@include widget_base($width);
-		border: 1px dotted #ddd;
-		background-color: #EEC7FF;
-	}	
-}
-
-@mixin presentation_widget($width) {
-	
-	li.widget {
-		@include widget_base($width - 2 * $widget-margin-width);
-		margin: 0;
-		margin-left: $widget-margin-width;
-	 	padding: 0;
-		background-color: #fff; 
-	 	border: none;
-		.preview{ display: none; }
-		.comments{ display: none; }
-		.controls{ display: none;	}
-	}
-	.comments-view-add{
-	  @include widget_fb_comments( $width - 4 * $widget-margin-width );
-	}
-}
-
-@mixin widget_container($width){
-	margin-top: 5px;
-  padding: 0px;
-  border: $widget-container-border-width dotted #bbb;
-	min-height: 100px;
-	width: $width - $widget-container-border-width * 2;
-}
-
-@mixin widget_fb_comments($width){
-  width: $width;
+.widget.scrolly_widget {
+	width: 254px;
+	height: 100px;
+	position: fixed;
+	.content { display: none; }
 }

@@ -7,18 +7,13 @@ class PagesController < ApplicationController
   end
 
   def show
-    @widgets = @page.widgets_in_order
+    @widgets = Widget.for_page(@page.id)
   end
 
   def edit
   end
 
   def versions
-  end
-
-  def widgets
-    @widgets = @page.widgets_in_order
-    render :layout => false
   end
 
   def new

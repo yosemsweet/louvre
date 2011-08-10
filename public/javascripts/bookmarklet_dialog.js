@@ -28,10 +28,11 @@ function createBookmarkletDialog(){
 	dialog_element.id = 'loorp_bookmarklet';
 	dialog_element.innerHTML = "\
 		<h2>Add to Canvas</h2>\
-		<form action='" + host_uri + "/canvae/" + canvas_id + "/widgets.json'> \
+		<form action='" + host_uri + "/widgets'> \
 			<textarea name='widget[content]' rows='10' cols='36'>" + bookmarkURL + "\n" + getHighlightedText() + "</textarea> <br> \
 			<input type='hidden' name='widget[content_type]' value='text_content'/> \
 			<input type='hidden' name='widget[creator_id]' value='" + user_id + "'/> \
+			<input type='hidden' name='canvas_id' value='" + canvas_id + "'/> \
 			<input type='submit' value='OK'> \
 			<a id='cancel' href='#'>Cancel</a> \
 		</form> \

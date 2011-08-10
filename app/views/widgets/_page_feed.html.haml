@@ -1,0 +1,11 @@
+%li.widget.page_feed_widget{:data_widget_id => widget.id}
+
+  %img.handle{:src => "/images/grip.png"}
+
+  = render_widget_section("toggle_preview_link")
+
+  .content
+    = render_widget_section("content", widget)  
+
+  .preview
+    = render_widget_section("preview", widget)  

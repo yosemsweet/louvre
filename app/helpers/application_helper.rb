@@ -14,4 +14,12 @@ module ApplicationHelper
 
   end
   
+  def render_widgets(widgets, display_type)
+    html = ""
+    widgets.each do |widget|
+      html << render(:partial => "widgets/displays/#{display_type}_widget", :locals => {:widget => widget})
+    end    
+    return html.html_safe
+  end
+  
 end

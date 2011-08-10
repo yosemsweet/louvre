@@ -5,7 +5,7 @@
 %h1= @page.title
 
 %ul#presentation_page
-  = render @widgets
+  = render :partial => "widgets/presentation", :collection => @widgets, :as => :widget
 
 = link_to 'Edit', edit_canvas_page_path(@page.canvas, @page)
 \|
