@@ -33,4 +33,8 @@ FactoryGirl.define do
     canvas
   end
   
+  factory :tag do
+    name "TagName"
+  end
+  
 end

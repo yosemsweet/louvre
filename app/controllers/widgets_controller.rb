@@ -9,7 +9,13 @@ class WidgetsController < ApplicationController
   
   # GET /widgets/for_canvas/:canvas_id/:display
   def for_canvas
+    
     @widgets = Widget.for_canvas(params[:canvas_id], params[:start])
+    
+    if params[:tag_ids] && !params[:tag_ids].blank?
+      @widgets = @widgets.filter_by_tag_ids(params[:tag_ids].split(','))
+    end
+
     render :partial => params[:display], :collection => @widgets, :as => :widget
   end
   

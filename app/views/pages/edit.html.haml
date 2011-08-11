@@ -21,6 +21,12 @@
 
 .span-8.last
   %h2 Feed
+  
+  %form
+    .field
+      %label{:for => "tag_ids"} Filter by tags:
+      %input#tag_ids{:type => "text", :name => "tag_ids"}
+  
   %ul#feed
 
 .span-24.last
@@ -41,6 +47,13 @@
     page_id : page_id
   }
     
+  $('#tag_ids').tokenInput('/tags', { 
+    crossDomain: false,
+    theme: 'facebook',
+    onDelete : function(){ reload_feed_widgets()},
+    onAdd : function(){ reload_feed_widgets()}
+  });
+    
   var $widget_dialog = $("#widget_dialog").dialog({
     minHeight:250, 
     minWidth:500, 
@@ -52,7 +65,13 @@
   }
   
   var reload_feed_widgets = function(){
-    $("ul#feed").load("/widgets/for_canvas/" + canvas_id + "/page_feed", function(){
+    
+    // Get the tags to filter by
+    var tag_ids = $("#tag_ids").val();
+    
+    console.log(tag_ids);
+    
+    $("ul#feed").load("/widgets/for_canvas/" + canvas_id + "/page_feed?tag_ids=" + tag_ids, function(){
       
       // Make the widgets draggable.
       $("li.widget", $(this)).draggable({

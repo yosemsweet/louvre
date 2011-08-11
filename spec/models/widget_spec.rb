@@ -217,5 +217,41 @@ describe Widget do
 	    Widget.for_page(page.id).first.id.should == w2.id	    
     end
   end
+  
+  describe "::filter_by_tag_ids" do
+    
+    before(:each) do
+      @w1 = Factory.create(:widget)
+      @w2 = Factory.create(:widget)
+      @w3 = Factory.create(:widget)
+      
+      
+      @t1 = Factory.create(:tag)
+      @t2 = Factory.create(:tag)
+      
+      @w1.tags << @t1
+      @w2.tags << @t2
+    end
+    
+    it "should return widgets with matching tags" do
+      Widget.filter_by_tag_ids([@t1.id]).map(&:id).should include(@w1.id)
+    end
+    
+    it "should not return widgets that don't match any of the tags" do
+      widget_ids = Widget.filter_by_tag_ids([@t1.id]).map(&:id)
+      widget_ids.should_not include(@w2.id)
+      widget_ids.should_not include(@w3.id)
+    end
+    
+    it "should return all matching widgets for all tags passed" do
+      widget_ids = Widget.filter_by_tag_ids([@t1.id, @t2.id]).map(&:id)
+      
+      widget_ids.should include(@w1.id)
+      widget_ids.should include(@w2.id)
+      widget_ids.should_not include(@w3.id)
+    end
+    
+    
+  end
 
 end

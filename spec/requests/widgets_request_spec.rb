@@ -120,25 +120,69 @@ describe "Widgets Requests" do
     describe "GET /widgets/for_canvas/[id]/canvas_feed" do
   
       before(:each) do
-        canvas = Factory.create(:canvas)
-        page = Factory.create(:page)
-        @w_on_page = Factory.create(:widget, :canvas => canvas, :page => page, :content => "Happy Feet")
-        @w_not_on_page = Factory.create(:widget, :canvas => canvas, :page => nil, :content => "Hungry Almas")
-        get "/widgets/for_canvas/#{canvas.id}/canvas_feed"
+        @canvas = Factory.create(:canvas)
+        @page = Factory.create(:page)
       end
   
-      it "should work" do
-        response.status.should be(200)
-      end
+      context "with no tag_ids filter" do
   
-      it "renders the widgets on the canvas" do
-        response.body.should include(@w_not_on_page.content)  
+        before(:each) do
+          @w_on_page = Factory.create(:widget, :canvas => @canvas, :page => @page, :content => "Happy Feet")
+          @w_not_on_page = Factory.create(:widget, :canvas => @canvas, :page => nil, :content => "Hungry Almas")
+          get "/widgets/for_canvas/#{@canvas.id}/canvas_feed"
+        end
+  
+        it "should work" do
+          response.status.should be(200)
+        end
+  
+        it "renders the widgets on the canvas" do
+          response.body.should include(@w_not_on_page.content)  
+        end
+      
+        it "doesn't render any widgets that are on a page" do
+          response.body.should_not include(@w_on_page.content)  
+        end
+        
       end
       
-      it "doesn't render any widgets that are on a page" do
-        response.body.should_not include(@w_on_page.content)  
+      context "with tag_ids filter" do
+        
+        before(:each) do
+          @tag = Factory.create(:tag, :name => "MyTag")
+          @tagged_widget = Factory.create(:widget, :content => "Tagged", :canvas => @canvas, :page => nil)
+          @untagged_widget = Factory.create(:widget, :content => "NoneOfEm", :canvas => @canvas, :page => nil)
+          
+          @tagged_widget.tags << @tag
+          
+          get "/widgets/for_canvas/#{@canvas.id}/canvas_feed", {:tag_ids => @tag.id}
+        end
+        
+        it "should get tagged widgets" do
+          response.body.should include(@tagged_widget.content)
+        end
+        
+        it "should not get untagged widgets" do
+          response.body.should_not include(@untagged_widget.content)
+        end
+        
+      end
+      
+      context "with empty tag_ids filter" do
+        before(:each) do
+          @widget = Factory.create(:widget, :content => "Tagged", :canvas => @canvas, :page => nil)
+          get "/widgets/for_canvas/#{@canvas.id}/canvas_feed", {:tag_ids => ""}
+        end
+        
+        it "should not filter the widgets" do
+          response.body.should include(@widget.content)
+        end
+        
       end
       
     end
+    
+    
+    
 	
 end

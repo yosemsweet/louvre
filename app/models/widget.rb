@@ -1,5 +1,12 @@
 class Widget < ActiveRecord::Base
   
+  has_many :taggings, :dependent => :destroy
+  has_many :tags, :through => :taggings
+  
+  attr_writer :tag_ids
+  after_save :assign_tags
+  
+  
   belongs_to :page
   belongs_to :canvas
 	belongs_to :creator, :class_name => "User"
@@ -11,6 +18,14 @@ class Widget < ActiveRecord::Base
     
   validates_presence_of :canvas, :creator, :content_type
   validates_presence_of :alt_text, :if => :image?
+
+  def tag_ids
+    @tag_ids || tags.map(&:id).join(',')
+  end
+  
+  def self.filter_by_tag_ids(tag_ids)
+    Widget.joins(:taggings) & Tagging.where(:tag_id => tag_ids)
+  end
 
   def self.site_feed
     widgets = []
@@ -90,6 +105,14 @@ class Widget < ActiveRecord::Base
 	end
 	 
 	private
+	
+	def assign_tags
+	  if @tag_ids
+	    self.tags = @tag_ids.split(',').map do |tag_id|
+	      Tag.find(tag_id)
+      end
+    end
+  end
 	
 	def decrement_before
 	  # Decrement all earlier placements on this page.

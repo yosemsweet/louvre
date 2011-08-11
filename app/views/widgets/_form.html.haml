@@ -1,5 +1,8 @@
 = form_for @widget do |f|
-  - case @widget.content_type
+  .field
+    = f.label :tag_ids, "Tags"
+    = f.text_field :tag_ids, "data-pre" => @widget.tags.map(&:attributes).to_json
+  - case @widget.content_type  
   - when 'text_content'
     .field
       = f.text_area :content
@@ -25,5 +28,14 @@
 
   .actions
     = f.submit 'Save'
-    
 
+:javascript
+  // Tokenize the tag_id field
+  $(function () {  
+    
+    $('#widget_tag_ids').tokenInput('/tags', { 
+      crossDomain: false,
+      prePopulate: $(this).data('pre'),
+      theme: 'facebook'
+    });
+  });
