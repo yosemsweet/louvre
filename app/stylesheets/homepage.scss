@@ -41,7 +41,6 @@ $box-height: 400px;
   top: $canvae-top;
   left: 0;
   
-  
   .title-box{
     @include floating-box;
     @include title-box($height:$box-height);
@@ -57,6 +56,9 @@ $box-height: 400px;
     top:0;
     width:span(14);
     z-index:$z-top;
+    overflow-y:auto;
+    overflow-x:hidden;
+    max-height:800px;
     
     ul {
       margin-left: 0;
