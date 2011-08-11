@@ -6,7 +6,6 @@ public/uploads/*
 gems/*
 !gems/cache
 !gems/bundler
-public/stylesheets/*
 config/database.yml
 rerun.txt
 /webrat.log
