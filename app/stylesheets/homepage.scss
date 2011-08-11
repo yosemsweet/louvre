@@ -56,6 +56,7 @@ $box-height: 400px;
     top:0;
     width:span(14);
     z-index:$z-top;
+    
     overflow-y:auto;
     overflow-x:visible;
     max-height:800px;
@@ -69,10 +70,7 @@ $box-height: 400px;
   }
 
   .handle{
-    @include handle-bar-rght($left: 20px, $box-height: $box-height);
-  }
-  
-  .handle-content{
-    @include handle-bar-rght($left: span(14));
+    @include handle-bar-rght($left: span(14) + $box-title-default-width + 20px , $box-height: $box-height);
+    z-index:$z-top;
   }
 }
