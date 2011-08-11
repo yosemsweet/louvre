@@ -20,12 +20,9 @@
   .handle.toggle_canvae
     ='='
   .contents
-    .handle-content.toggle_canvae
-      ='='
     %ul
-      -@recent_canvases.each do |e|
-        %li= render :partial => 'canvae/brief', :object => e, :as => :canvas
-  
+      - for e in 0...5
+        %li= render :partial => 'canvae/brief', :object => @recent_canvases[e], :as => :canvas  
 
 -if current_user
   :javascript
@@ -64,6 +61,7 @@
   $("#mixpanel").css("bottom", "0px");
   
   content_width = $(".contents").outerWidth() + $("#canvae").outerWidth();
+  handle_expand = $(".contents").outerWidth();
   
   var toggle_canvae = function (){
     if(parseInt($(".contents").css("left")) < 0){
@@ -71,12 +69,18 @@
         $(".contents").animate({
           left: "+=" + content_width
         }, 300);
+        $(".handle").animate({
+          left: "+=" + handle_expand
+        }, 300);
       } else {
         $(".contents").animate({
           left: "-=" + content_width
         }, 300, function(){
           $(".contents").hide();
         });
+         $(".handle").animate({
+            left: "-=" + handle_expand
+          }, 300);
       }
 
   }
