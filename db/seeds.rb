@@ -13,3 +13,10 @@ User.create(
     :image => "https://s3.amazonaws.com/randomfile/#{i%5 + 1}.png"
   )
 end
+
+filename = 'db/tags.txt'
+file = File.open(filename, 'r')
+
+file.each_line("\n") do |row|
+  Tag.create(:name => row)
+end
