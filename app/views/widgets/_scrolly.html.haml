@@ -1,9 +1,10 @@
-.widget.scrolly_widget
-
-  = render_widget_section("toggle_preview_link")
+.widget.scrolly_widget{:class => widget.content_type}
+  .title
 
   .content
     = render_widget_section("content", widget)
 
   .preview
     = render_widget_section("preview", widget)
+    = render_widget_section("toggle_preview_link")
+    

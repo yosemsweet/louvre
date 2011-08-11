@@ -8,7 +8,25 @@
     = yield :head
     = yield :opengraph_meta_tags
   %body
-    = fb_javascript_include_tag
+    :javascript
+      // Common javascript request variables
+      var request = {
+        root_url : "#{root_url}",
+        is_authenticated : #{!current_user.nil?},
+        user_id : #{current_user ? current_user.id : 0}
+      };
+      
+    #fb-root
+      :javascript
+        FBCallbacks = new Array();
+        FB.init({appId: '196297497094752', status: true, cookie: true, xfbml: true});
+        this.callbacks = new Object();
+        this.callbacks.push = function(func){func();};
+        for(var i=0; i < FBCallbacks.length; i++){
+          FBCallbacks[i]();
+        }
+        FBCallbacks = this.callbacks;
+
     #header
       .container
         #user-nav
@@ -29,7 +47,12 @@
             loorp
           
     #body
+      
       .container
+      
+        #breadcrumbs{:style => "border-bottom: 1px dotted; padding: 0 0 5px 5px"}
+          = render_breadcrumbs
+      
         #flash.span-24{:style => "display:none; position: absolute"}
           -flash.each do |type, value|
             .flash{ :class => type.to_s }

@@ -1,31 +1,31 @@
 %a.toggle_facebook_comments{:href => "#"} Join the discussion
 
-.facebook_comments{:data_comment_href => "#{widget_url(widget)}"}
+.facebook_comments
+  .fb-discussion
+    = comments_for(widget, :href => widget_url(widget), :width => 750)
 
-:javascript
+
   
-  var widget_id = #{widget.id};
-  var $widget = $(".widget[data_widget_id=" + widget_id + "]");
+  // var widget_id = #{widget.id};
+  // var $widget = $(".widget[data_widget_id=" + widget_id + "]");
   
-  var $facebook_comments = $(".facebook_comments", $widget);
+  // var $facebook_comments = $(".facebook_comments", $widget);
   
-  $facebook_comments.load("/discussions/widget/" + widget_id, { href: $facebook_comments.attr("data_comment_href"), width : 750 }, function(){
-    
-    var that = this;
-    
-    countComments($(this).attr("data_comment_href"), function(n){
-      
-      console.log("Got a comment count of " + n);
-      console.log($(that));
-      var text = ""
-      if(n == 0){
-        text = "Join the discussion";
-      } else if(n == 1){
-        text = "Show 1 comment.";
-      } else {
-        update_comments_text("Show " + n + " comments.");
-      }
-      $(that).siblings(".toggle_facebook_comments").text( text );
-      
-    });
-  });
+  // $facebook_comments.load("/discussions/widget/" + widget_id, { href: $facebook_comments.attr("data_comment_href"), width : 750 }, function(){
+  //   
+  //   var that = this;
+  //   
+  //   countComments($(this).attr("data_comment_href"), function(n){
+  // 
+  //     var text = "";
+  //     if(n == 0){
+  //       text = "Join the discussion";
+  //     } else if(n == 1){
+  //       text = "Show 1 comment.";
+  //     } else {
+  //       text = "Show " + n + " comments.";
+  //     }
+  //     $(that).siblings(".toggle_facebook_comments").text( text );
+  //     
+  //   });
+  // });

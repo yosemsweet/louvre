@@ -17,7 +17,7 @@ Spork.prefork do
   # Doesn't allow us to check error handling of our app.
 	ActionController::Base.allow_rescue = false
 
-	DatabaseCleaner.strategy = :transaction
+	# DatabaseCleaner.strategy = :transaction
 end
 
 Spork.each_run do

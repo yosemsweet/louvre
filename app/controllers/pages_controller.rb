@@ -1,27 +1,35 @@
 class PagesController < ApplicationController
 
-	before_filter :require_login, :except => [:show, :index, :widgets]
-  before_filter :only => [:show, :edit, :versions, :widgets] do
+	before_filter :require_login, :except => [:show, :index]
+  before_filter :only => [:show, :edit, :versions] do
     @page = Page.find(params[:id])
 		# for header in application layout
     @title = @page.canvas.name
     @canvas = @page.canvas
+		add_canvas_breadcrumb(@page.canvas)
   end
 
   def show
     @widgets = Widget.for_page(@page.id)
+
+    add_page_breadcrumb(@page)
   end
 
   def edit
+		add_breadcrumb "Edit '#{@page.title}'", edit_canvas_page_path(@page.canvas, @page)
   end
 
   def versions
+    add_breadcrumb "Versions of '#{@page.title}'", versions_canvas_page_path(@page.canvas, @page)
   end
 
   def new
     canvas = Canvas.find(params[:canvas_id])
     @page = Page.new
     @page.canvas = canvas
+		
+		add_canvas_breadcrumb(canvas)
+		add_breadcrumb "Add Page", new_canvas_page_path(canvas)
   end
   
   def create

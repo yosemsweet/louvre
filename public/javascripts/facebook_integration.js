@@ -1,5 +1,4 @@
-function countComments(comment_href, callback){
-  
+function countComments(comment_href, callback){  
   
   FB.api('/comments?ids=' + comment_href, function(response) {
     length = 0;
@@ -12,4 +11,5 @@ function countComments(comment_href, callback){
 		
 		callback(length);
   });
+
 }

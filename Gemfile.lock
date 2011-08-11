@@ -44,6 +44,7 @@ GEM
     addressable (2.2.4)
     archive-tar-minitar (0.5.2)
     arel (2.0.10)
+    breadcrumbs_on_rails (2.0.0)
     builder (2.1.2)
     capybara (1.0.0)
       mime-types (>= 1.16)
@@ -255,6 +256,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_opengraph!
+  breadcrumbs_on_rails
   capybara
   capybara-webkit!
   compass
