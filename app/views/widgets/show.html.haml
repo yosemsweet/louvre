@@ -48,7 +48,17 @@
     });
 
   });  
-      
+    
+  $(".widget .toggle_facebook_comments").live('click', function(event){
+    event.preventDefault();
+
+    var $facebook_comments = $(this).siblings(".facebook_comments")  
+    $facebook_comments.toggle();
+
+    $(this).remove();    
+
+  });
+
   FB.XFBML.parse();
   
   var user = #{current_user ? current_user.id : 0};

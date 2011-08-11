@@ -77,8 +77,7 @@
       })
       .attr("href", "javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.text='canvas_id=#{@canvas.id};user_id=#{current_user.id}';host_uri='#{host_uri}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='#{host_uri}/javascripts/bookmarklet_dialog.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();"
       );
-    
-    
+
 :javascript
   var canvas_id = #{@canvas.id};
   
@@ -163,7 +162,8 @@
     
   var reload_widgets = function(){
     $("ul#feed").load("/widgets/for_canvas/" + canvas_id + "/canvas_feed", function(){
-       enable_widget_tooltips();       
+       enable_widget_tooltips();     
+       FB.XFBML.parse();
     });
   }  
   reload_widgets();
@@ -190,35 +190,27 @@
      });  
    };
   setInterval(load_new_widgets, 15000); 
-      
-  var reload_discussions = function(){
-    $("#discussions").load("/discussions/canvas/" + canvas_id, { href : "/canvas/" + canvas_id, widget : 600},function(){
-      
-      FB.XFBML.parse();
 
-      var user = #{current_user ? current_user.id : 0};
+  var user = #{current_user ? current_user.id : 0};
 
-      FB.Event.subscribe('comment.create',
-          function(response) {
-              widget_id = _.last(response.href.split('/')) * 1;
-              if (user !== 0){
-                $.post("/follows/", {followable_type: 'widget', followable_id: widget_id}, function(){
-                  reload_hud();
-                  });
-              }
-              mpq.push(["track","comment_added", {'type':"facebook", "widget":widget_id,"user": user}]);
+  FB.Event.subscribe('comment.create',
+      function(response) {
+          widget_id = _.last(response.href.split('/')) * 1;
+          if (user !== 0){
+            $.post("/follows/", {followable_type: 'widget', followable_id: widget_id}, function(){
+              reload_hud();
+              });
           }
-      );
+          mpq.push(["track","comment_added", {'type':"facebook", "widget":widget_id,"user": user}]);
+      }
+  );
 
-      FB.Event.subscribe('comment.remove',
-          function(response) {
-              mpq.push(["track","comment_removed" , {'type' : "facebook", 'widget' : widget_id, "user": user}]);
-          }
-      );
+  FB.Event.subscribe('comment.remove',
+      function(response) {
+          mpq.push(["track","comment_removed" , {'type' : "facebook", 'widget' : widget_id, "user": user}]);
+      }
+  );
 
-    });
-  }();
-  
   mpq.push(["track","hit_canvas_homepage"]);
   window.mixpanelobject=mpq;  
   

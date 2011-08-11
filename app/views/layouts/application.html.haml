@@ -8,7 +8,18 @@
     = yield :head
     = yield :opengraph_meta_tags
   %body
-    = fb_javascript_include_tag
+
+    #fb-root
+      :javascript
+        FBCallbacks = new Array();
+        FB.init({appId: '196297497094752', status: true, cookie: true, xfbml: true});
+        this.callbacks = new Object();
+        this.callbacks.push = function(func){func();};
+        for(var i=0; i < FBCallbacks.length; i++){
+          FBCallbacks[i]();
+        }
+        FBCallbacks = this.callbacks;
+
     #header
       .container
         #user-nav
