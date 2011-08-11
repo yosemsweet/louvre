@@ -9,6 +9,8 @@ describe "Tags Requests" do
       1.upto(10) do |i|
         @tags << Factory.create(:tag, :name => "Tag #{i}")
       end
+      @awesome_sauce_widget = Factory.create(:tag, :name => "AwesomeSauce")
+      @tags << @awesome_sauce_widget
       get '/tags'
     end
     
@@ -16,9 +18,22 @@ describe "Tags Requests" do
       response.status.should == 200
     end
         
-    it "should render all the tags as json" do    
-      response.body.should == @tags.map(&:attributes).to_json
-    end
+    context "when no query string is provided" do
+      it "should render json for all the tags" do    
+        response.body.should == @tags.map(&:attributes).to_json
+      end
+    end    
+    
+    context "when a query string is provided" do
+      
+      it "should only render json for the tags whose name matches the query" do
+        get '/tags', {:q => "esomeSa"}
+        response.body.should == [@awesome_sauce_widget].map(&:attributes).to_json
+      end
+      
+    end    
+
+
     
   end
       

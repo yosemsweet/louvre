@@ -1,7 +1,8 @@
 class TagsController < ApplicationController
 
   def index
-    render :json => Tag.all.map(&:attributes)
+    @tags = Tag.where("name like ?", "%#{params[:q]}%")
+    render :json => @tags.map(&:attributes)
   end
   
 end
