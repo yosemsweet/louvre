@@ -62,8 +62,7 @@
           = "add to #{@canvas.name}"
 
   %h2 Feed
-  %a.add_widget{:data_content_type => "text_content", :href => "#"} Add Text
-  %a.add_widget{:data_content_type => "image_content", :href => "#"} Add Image
+  = render :partial => 'shared/add_widgets'
   %ul#feed
 
 
@@ -78,7 +77,6 @@
       );
 
 :javascript
-  var canvas_id = #{@canvas.id};
   
   var user = {
     is_logged_in : #{!current_user.nil?},
@@ -102,7 +100,7 @@
     
   $("#follow button").click(function(){
     toggle_follow_status();
-    $.post("/follows/", {followable_type: 'canvas', followable_id: canvas_id}, function(){
+    $.post("/follows/", {followable_type: 'canvas', followable_id: request.canvas_id}, function(){
       reload_hud();  
     });
     
@@ -110,7 +108,7 @@
   
   $("#unfollow button").click(function(){
     toggle_follow_status();
-    $.post("/follows/", {_method : "DELETE", followable_type: 'canvas', followable_id: canvas_id}, function(){
+    $.post("/follows/", {_method : "DELETE", followable_type: 'canvas', followable_id: request.canvas_id}, function(){
       reload_hud();
     });
     
@@ -136,7 +134,7 @@
   }
     
   var reload_widgets = function(){
-    $("ul#feed").load("/widgets/for_canvas/" + canvas_id + "/canvas_feed", function(){
+    $("ul#feed").load("/widgets/for_canvas/" + request.canvas_id + "/canvas_feed", function(){
        enable_widget_tooltips();     
        FB.XFBML.parse();
        $("ul#feed .widget").each(function(){
@@ -163,8 +161,8 @@
   reload_widgets();
   
   var update_after_edit = function(){
+    close_widget_dialog();
     reload_widgets();
-    $widget_dialog.dialog("close");
   }
     
   var load_new_widgets = function(){
@@ -176,7 +174,7 @@
        }
      });
      // Get html for any new widgets and append to the feed.
-     $.get('/widgets/for_canvas/' + canvas_id + '/canvas_feed?start=' + (1*max_widget_id + 1), function(data) {
+     $.get('/widgets/for_canvas/' + request.canvas_id + '/canvas_feed?start=' + (1*max_widget_id + 1), function(data) {
        if(data.length > 1){
          $(data).appendTo("#feed");
          enable_widget_tooltips();
