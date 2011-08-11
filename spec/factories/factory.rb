@@ -32,10 +32,5 @@ FactoryGirl.define do
     page
     canvas
   end
-
-	factory :comment do
-		content "This is a great comment"
-		creator
-		widget
-	end
+  
 end
