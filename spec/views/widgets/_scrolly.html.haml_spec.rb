@@ -10,6 +10,10 @@ describe "widgets/_scrolly.html.haml" do
 		it "should have a preview element as a child of the widget" do
 			rendered.should have_selector(".widget > .preview")
 		end
+		
+		it "should have a link to expand the widget" do
+			rendered.should have_selector("a.toggle_preview[href='#']")
+		end
 	end
 		
 	context "content" do

@@ -16,6 +16,8 @@
 		height: 50px;
 	}
 	.facebook_comments { display: none;	}
+	
+	.toggle_preview { position:absolute; right:10px; bottom: 0; width: 32px; height: 32px; background:  url('/images/icons/expand.png') no-repeat 0px 0px; display:block;}
 }
 
 @mixin list_widget{
@@ -48,7 +50,7 @@ $scrolly-height:100px;
 
 .widget.scrolly_widget {
   @include floating-box;
-  @include title-box($width:span(1), $height:$scrolly-height);
+  @include title-box($width:span(1) + 5, $height:$scrolly-height);
 	position: fixed;
 	overflow: visible;
 
@@ -68,14 +70,14 @@ $scrolly-height:100px;
 }
 
 .text_content {
-  background :  url('/images/icons/text.png') no-repeat 0px 5px;
+  background :  url('/images/icons/text.png') no-repeat 0px 10px;
 }
 
 .image_content {
-  background :  url('/images/icons/image.png') no-repeat 0px 5px;
+  background :  url('/images/icons/picture.png') no-repeat 0px 10px;
 }
 
 .link_content {
-  background :  url('/images/icons/link.png') no-repeat 0px 5px;
+  background :  url('/images/icons/link.png') no-repeat 0px 10px;
 }
 
