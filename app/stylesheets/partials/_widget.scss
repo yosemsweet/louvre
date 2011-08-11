@@ -64,6 +64,8 @@ $scrolly-height:100px;
      height: $scrolly-height;
      width: span(5);
      overflow: hidden;
+     text-overflow: ellipsis;
+     word-wrap: break-word;
      
   }
 	

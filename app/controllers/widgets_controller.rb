@@ -4,8 +4,7 @@ class WidgetsController < ApplicationController
   # GET /widgets
   def index 
     @widgets = Widget.site_feed[0..0]
-    # render :partial => "scrolly", :collection => @widgets, :as => :widget
-		render
+    render :partial => "scrolly", :collection => @widgets, :as => :widget
   end
   
   # GET /widgets/for_canvas/:canvas_id/:display
