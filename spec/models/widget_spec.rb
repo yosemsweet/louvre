@@ -50,15 +50,6 @@ describe Widget do
 			widget.should_not be_valid
 		end
 		
-		it "should have comments" do
-			widget.should respond_to(:comments)
-		end
-		
-		it "should support nested attributes for comments" do
-			comments_attributes = [Factory.build(:comment).attributes.symbolize_keys ]
-			expect {Factory(:widget, :comments_attributes => comments_attributes)}.to change(Comment, :count).by(1)
-		end
-		
 	end
  
   describe "Versioning" do

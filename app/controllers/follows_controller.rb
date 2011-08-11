@@ -2,9 +2,8 @@ class FollowsController < ApplicationController
 
 	before_filter do
 		@status = :ok
-		
 		begin 
-			followable_class = params[:followable_type].classify.constantize
+			followable_class = params[:followable_type].camelize.constantize
 		rescue
 			@status = :bad_request
 		end
