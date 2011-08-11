@@ -4,6 +4,13 @@
   border: 1px solid $border;
 }
 
+@mixin rotation($rotate:90deg) {
+  -webkit-transform:rotate(90deg);
+  -moz-transform:rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
 @mixin floating-box($background:$background-color, $border:$accent-color, $shadow:$trim-color) {
   @include box($background, $border);
 	box-shadow: 0 1px 5px $shadow, inset 0 0 5px $border;
@@ -17,12 +24,7 @@ $box-title-default-width : 20px;
   width:$width;
   
   .title {
-  
-    -webkit-transform:rotate(90deg);
-  	-moz-transform:rotate(90deg);
-  	-o-transform: rotate(90deg);
-  	transform: rotate(90deg);
-	
+    @include rotation;
 
     h2 {
     	@include box-label;
@@ -36,4 +38,26 @@ $box-title-default-width : 20px;
   padding: 0;
   margin: 10px;
 	box-shadow: 0 1px 2px $shadow;
+}
+
+
+@mixin handle-bar-rght($left: 20px, $box-height: 400px){
+  @include rotation;
+  position:absolute;
+  cursor:pointer;
+  background-color: $trim-color;
+  color: $white;
+  
+  width: 70px;
+  height: 10px;
+  top: $box-height / 2 - 35;
+  left:$left - 10px;
+  
+  -moz-border-radius-topright: 25px;
+  -moz-border-radius-topleft: 25px;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  text-align:center;
+  
+  line-height:8px;
 }
