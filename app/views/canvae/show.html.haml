@@ -1,7 +1,8 @@
 - content_for(:opengraph_meta_tags, opengraph_meta_tags_for(@canvas, :url => canvas_url(@canvas), :site_name => @canvas.name))
 - content_for :head do
   = stylesheet_link_tag 'canvas.css', :media => 'screen, projection'
-
+- content_for :javascripts do
+  = javascript_include_tag 'widget.js'  
 
 #widget_dialog
   %iframe{:src => ""}
@@ -114,31 +115,7 @@
     });
     
   });
-  
-  var $widget_dialog = $("#widget_dialog").dialog({
-    minHeight:250, 
-    minWidth:500, 
-    autoOpen:false
-  });
-      
-  $(".add_widget").click(function(event){
-    event.preventDefault();
-    $("iframe", $widget_dialog).attr("src", "/widgets/new?content_type=" + $(this).attr("data_content_type") + "&canvas_id=" + canvas_id);
-    $widget_dialog.dialog("option","title", "New Widget");
-    $widget_dialog.dialog("open");
-  });
-  
-  $(".widget .edit").live("click", function(event){
-    var widget_id = $(this).parents(".widget").attr("data_widget_id");
-    $("iframe", $widget_dialog).attr("src", "/widgets/" + widget_id + "/edit");
-    $widget_dialog.dialog("option","title", "Edit Widget");
-    $widget_dialog.dialog("open");
-    
-    mixpanel_attributes.widget_id = widget_id;
-    mpq.push(["track","canvas_edit_widget", mixpanel_attributes]);
-    
-    event.preventDefault();
-  });
+
   
   var enable_widget_tooltips = function(){
     // Enable the toggle preview qtips.
