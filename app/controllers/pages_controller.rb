@@ -6,14 +6,13 @@ class PagesController < ApplicationController
 		# for header in application layout
     @title = @page.canvas.name
     @canvas = @page.canvas
-		# set up breadcrumbs
-		add_breadcrumb @page.canvas.name, canvas_path(@page.canvas)
+		add_canvas_breadcrumb(@page.canvas)
   end
 
   def show
     @widgets = Widget.for_page(@page.id)
 
-		add_breadcrumb @page.title, canvas_page_path(@page.canvas, @page)
+    add_page_breadcrumb(@page)
   end
 
   def edit
@@ -21,6 +20,7 @@ class PagesController < ApplicationController
   end
 
   def versions
+    add_breadcrumb "Versions of '#{@page.title}'", versions_canvas_page_path(@page.canvas, @page)
   end
 
   def new
@@ -28,7 +28,7 @@ class PagesController < ApplicationController
     @page = Page.new
     @page.canvas = canvas
 		
-		add_breadcrumb canvas.name, canvas_path(canvas)
+		add_canvas_breadcrumb(canvas)
 		add_breadcrumb "Add Page", new_canvas_page_path(canvas)
   end
   

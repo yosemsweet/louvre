@@ -10,7 +10,7 @@ class CanvaeController < ApplicationController
   end  
     
   def show
-		add_breadcrumb @canvas.name, canvas_path(@canvas)
+		add_canvas_breadcrumb(@canvas)
   end
     
   def index

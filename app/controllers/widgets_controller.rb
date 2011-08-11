@@ -21,13 +21,10 @@ class WidgetsController < ApplicationController
 
   # GET /widgets/:id
   def show
-    # render :json => Widget.find(params[:id])
 		@widget = Widget.find(params[:id])
 		
-		add_breadcrumb @widget.canvas.name, canvas_path(@widget.canvas)
-		if @widget.page
-			add_breadcrumb @widget.page.title, canvas_page_path(@widget.canvas, @widget.page)
-		end
+		add_canvas_breadcrumb(@widget.canvas)
+		add_page_breadcrumb(@widget.page) if @widget.page
 		add_breadcrumb @widget.content.truncate(30), widget_path(@widget)
   end
 
