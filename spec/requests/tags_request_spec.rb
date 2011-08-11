@@ -13,12 +13,11 @@ describe "Tags Requests" do
     end
     
     it "should work" do
-
       response.status.should == 200
     end
         
-    it "should render all the tag ids as json" do    
-      response.body.should == @tags.map(&:id).to_json
+    it "should render all the tags as json" do    
+      response.body.should == @tags.map(&:attributes).to_json
     end
     
   end

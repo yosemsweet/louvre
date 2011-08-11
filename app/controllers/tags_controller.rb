@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
 
   def index
-    head :ok
+    render :json => Tag.all.map(&:attributes)
   end
   
 end
