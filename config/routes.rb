@@ -37,5 +37,7 @@ Louvre::Application.routes.draw do
 
 	post '/follows' => "follows#create"
 	delete '/follows' => "follows#delete"
+	
+	get '/tags' => "tags#index"
 
 end
