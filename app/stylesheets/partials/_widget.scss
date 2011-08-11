@@ -44,10 +44,38 @@
 	.content { display: none; }
 }
 
+$scrolly-height:100px;
+
 .widget.scrolly_widget {
   @include floating-box;
-	width: 254px;
-	height: 100px;
+  @include title-box($width:span(1), $height:$scrolly-height);
 	position: fixed;
+	overflow: visible;
+
 	.content { display: none; }
+
+  .preview {
+     @include floating-box;
+     position:absolute;
+     left:span(1);
+     top:0;
+     height: $scrolly-height;
+     width: span(5);
+     overflow: hidden;
+     
+  }
+	
 }
+
+.text_content {
+  background :  url('/images/icons/text.png') no-repeat 0px 5px;
+}
+
+.image_content {
+  background :  url('/images/icons/image.png') no-repeat 0px 5px;
+}
+
+.link_content {
+  background :  url('/images/icons/link.png') no-repeat 0px 5px;
+}
+

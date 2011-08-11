@@ -15,7 +15,7 @@ $box-title-default-width : 20px;
   @include box($background, $border);
   height:$height;
   width:$width;
-  
+
   .title {
   
     -webkit-transform:rotate(90deg);
@@ -27,7 +27,7 @@ $box-title-default-width : 20px;
     h2 {
     	@include box-label;
     	color:$text-color;
-    }
+    }    
   }
 }
 
