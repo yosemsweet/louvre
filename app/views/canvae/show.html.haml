@@ -61,9 +61,10 @@
           = "add to #{@canvas.name}"
 
   %h2 Feed
-  %ul#feed
   %a.add_widget{:data_content_type => "text_content", :href => "#"} Add Text
-  %a.add_widget{:data_content_type => "image_content", :href => "#"} Add Image 
+  %a.add_widget{:data_content_type => "image_content", :href => "#"} Add Image
+  %ul#feed
+
 
 - if current_user
   :javascript
