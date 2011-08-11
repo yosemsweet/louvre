@@ -21,8 +21,8 @@
     ='='
   .contents
     %ul
-      - for e in 0...5
-        %li= render :partial => 'canvae/brief', :object => @recent_canvases[e], :as => :canvas  
+      -@recent_canvases.first(5).each do |e|
+        %li= render :partial => 'canvae/brief', :object => e, :as => :canvas  
 
 -if current_user
   :javascript
