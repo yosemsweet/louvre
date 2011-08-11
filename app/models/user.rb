@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 	has_many :canvae, :class_name => "Canvas", :foreign_key => 'creator_id'
   has_many :canvas_follows
   has_many :followed_canvae, :through => :canvas_follows
+
+	acts_as_follower
 	
   def self.create_with_omniauth(auth)  
     create! do |user|  
@@ -23,7 +25,4 @@ class User < ActiveRecord::Base
 		name
 	end
 	
-	def following_canvas?(canvas)
-	  followed_canvae.include?(canvas)
-  end
 end

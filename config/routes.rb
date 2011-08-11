@@ -35,4 +35,7 @@ Louvre::Application.routes.draw do
 	
   match 'discussions/:type/:id' => "discussions#show", :as => :discussion
 
+	post '/follows' => "follows#create"
+	delete '/follows' => "follows#delete"
+
 end

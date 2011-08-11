@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user
   
+  add_breadcrumb "Home", :root_path
+
   def require_login
     if !current_user
       redirect_to('/login', :notice => "Facebook sucks and logged you off.")
@@ -19,6 +21,14 @@ class ApplicationController < ActionController::Base
 		
 		return @current_user
 		
+  end
+  
+  def add_canvas_breadcrumb(canvas)
+    add_breadcrumb canvas.name, canvas_path(canvas)
+  end
+  
+  def add_page_breadcrumb(page)
+		add_breadcrumb page.title, canvas_page_path(page.canvas, page)
   end
 
 end
