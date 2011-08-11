@@ -159,32 +159,28 @@
       });
     });
   }
-  // var $facebook_comments = $(".facebook_comments", $widget);
-  
-  // $facebook_comments.load("/discussions/widget/" + widget_id, { href: $facebook_comments.attr("data_comment_href"), width : 750 }, function(){
-  //   
-  //   var that = this;
-    //   countComments($(this).attr("data_comment_href"), function(n){
-    // 
-    //     var text = "";
-    //     if(n == 0){
-    //       text = "Join the discussion";
-    //     } else if(n == 1){
-    //       text = "Show 1 comment.";
-    //     } else {
-    //       text = "Show " + n + " comments.";
-    //     }
-    //     $(that).siblings(".toggle_facebook_comments").text( text );
-    //     
-    //   });
     
   var reload_widgets = function(){
     $("ul#feed").load("/widgets/for_canvas/" + canvas_id + "/canvas_feed", function(){
        enable_widget_tooltips();     
        FB.XFBML.parse();
        $("ul#feed .widget").each(function(){
-         $(this).attr('data_widget_id');
-         $('.toggle_facebook_comments', $(this)).text('rafe rules');
+         
+         var $widget = $(this);
+         var widget_url = request.root_url + "widgets/" + $widget.attr("data_widget_id");
+         
+         countComments(widget_url, function(n){
+           var text = "";
+           if(n == 0){
+             text = "Join the discussion";
+           } else if(n == 1){
+             text = "Show 1 comment.";
+           } else {
+             text = "Show " + n + " comments.";
+           }
+           $('.toggle_facebook_comments', $widget).text( text );
+           
+         });
          
        })
     });
