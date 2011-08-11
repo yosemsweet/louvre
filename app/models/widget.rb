@@ -22,6 +22,10 @@ class Widget < ActiveRecord::Base
   def tag_ids
     @tag_ids || tags.map(&:id).join(',')
   end
+  
+  def self.filter_by_tag_ids(tag_ids)
+    Widget.joins(:taggings) & Tagging.where(:tag_id => tag_ids)
+  end
 
   def self.site_feed
     widgets = []

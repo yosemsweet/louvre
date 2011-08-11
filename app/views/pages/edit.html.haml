@@ -50,9 +50,8 @@
   $('#tag_ids').tokenInput('/tags', { 
     crossDomain: false,
     theme: 'facebook',
-    onAdd : function(){    
-      reload_feed_widgets();
-    }
+    onDelete : function(){ reload_feed_widgets()},
+    onAdd : function(){ reload_feed_widgets()}
   });
     
   var $widget_dialog = $("#widget_dialog").dialog({
@@ -68,11 +67,11 @@
   var reload_feed_widgets = function(){
     
     // Get the tags to filter by
-    var tag_ids = $("#tag_ids").value();
+    var tag_ids = $("#tag_ids").val();
     
-    $("ul#feed").load("/widgets/for_canvas/" + canvas_id + "/page_feed", {
-      tag_ids : tag_ids
-    }, function(){
+    console.log(tag_ids);
+    
+    $("ul#feed").load("/widgets/for_canvas/" + canvas_id + "/page_feed?tag_ids=" + tag_ids, function(){
       
       // Make the widgets draggable.
       $("li.widget", $(this)).draggable({

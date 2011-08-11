@@ -20,7 +20,7 @@ describe "Tags Requests" do
         
     context "when no query string is provided" do
       it "should render json for all the tags" do    
-        response.body.should == @tags.map(&:attributes).to_json
+        response.body.should == @tags.map{|t| {:id => t.id, :name => t.name}}.to_json
       end
     end    
     
@@ -28,7 +28,7 @@ describe "Tags Requests" do
       
       it "should only render json for the tags whose name matches the query" do
         get '/tags', {:q => "esomeSa"}
-        response.body.should == [@awesome_sauce_widget].map(&:attributes).to_json
+        response.body.should == [@awesome_sauce_widget].map{|t| {:id => t.id, :name => t.name}}.to_json
       end
       
     end    
