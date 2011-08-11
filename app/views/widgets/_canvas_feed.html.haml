@@ -1,13 +1,14 @@
-%li.widget.canvas_feed_widget{:data_widget_id => widget.id}
+%li.widget.canvas_feed_widget{:data_widget_id => widget.id,:class => widget.content_type}
 
-  = render_widget_section("toggle_preview_link")
-  = render_widget_section("edit_link")
-    
+  .title    
   .content
     = render_widget_section("content", widget)
 
   .preview
     = render_widget_section("preview", widget)
+    = render_widget_section("toggle_preview_link")  
+    = render_widget_section("edit_link")
     
-  .comments
-    = render_widget_section("comments", widget)
+  = render_widget_section("comments", widget)
+    
+  

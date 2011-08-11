@@ -169,13 +169,13 @@
          countComments(widget_url, function(n){
            var text = "";
            if(n == 0){
-             text = "Join the discussion";
+             text = "Comments";
            } else if(n == 1){
              text = "Show 1 comment.";
            } else {
              text = "Show " + n + " comments.";
            }
-           $('.toggle_facebook_comments', $widget).text( text );
+           $('.toggle_facebook_comments span', $widget).text( text );
            
          });
          

@@ -1,7 +1,9 @@
 @mixin box ($background:$background-color, $border:$accent-color){
-  padding: 10px;
+
   background-color: $background;
   border: 1px solid $border;
+  
+  div > * { padding:10px;}
 }
 
 @mixin rotation($rotate:90deg) {
