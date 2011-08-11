@@ -3,7 +3,7 @@ class WidgetsController < ApplicationController
 
   # GET /widgets
   def index 
-    @widgets = Widget.site_feed[0..0]
+    @widgets = Widget.site_feed
     render :partial => "scrolly", :collection => @widgets, :as => :widget
   end
   

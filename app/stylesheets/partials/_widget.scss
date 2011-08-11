@@ -51,6 +51,7 @@ $scrolly-height:100px;
 .widget.scrolly_widget {
   @include floating-box;
   @include title-box($width:span(1) + 5, $height:$scrolly-height);
+
 	position: fixed;
 	overflow: visible;
 

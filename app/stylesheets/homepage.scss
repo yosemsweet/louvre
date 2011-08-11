@@ -33,13 +33,21 @@ p {
 	font-size: 14px;
 }
 
+
+$canvae-top: 100px;
+$box-height: 400px;
 #canvae {
-  @include floating-box;
-  @include title-box($height:400px);
   position: absolute;
-  top: 100px;
+  top: $canvae-top;
   left: 0;
-  z-index:$z-top;
+  
+  .title-box{
+    @include floating-box;
+    @include title-box($height:$box-height);
+    position: relative;
+    z-index:$z-top + 1;
+    cursor:pointer;
+  }
 
  .contents {
     @include floating-box;
@@ -47,6 +55,11 @@ p {
     left:$box-title-default-width + 20px;
     top:0;
     width:span(14);
+    z-index:$z-top;
+    overflow-y:auto;
+    overflow-x:visible;
+    max-height:800px;
+    min-height:$box-height;
     
     ul {
       margin-left: 0;
@@ -54,5 +67,12 @@ p {
       list-style: none;
     }
   }
- 
+
+  .handle{
+    @include handle-bar-rght($left: 20px, $box-height: $box-height);
+  }
+  
+  .handle-content{
+    @include handle-bar-rght($left: span(14));
+  }
 }
