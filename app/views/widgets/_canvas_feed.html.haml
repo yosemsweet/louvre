@@ -1,13 +1,19 @@
-%li.widget.canvas_feed_widget{:data_widget_id => widget.id,:class => widget.content_type}
+%li
+  .widget.canvas_feed_widget{:data_widget_id => widget.id,:class => widget.content_type}
 
-  .title    
-  .content
-    = render_widget_section("content", widget)
+    .title
+      .comment_count
+        %a.toggle_facebook_comments{:href => "#"} 
+          %span
+            comment
+            
+    .content
+      = render_widget_section("content", widget)
 
-  .preview
-    = render_widget_section("preview", widget)
-    = render_widget_section("toggle_preview_link")  
-    = render_widget_section("edit_link")
+    .preview
+      = render_widget_section("preview", widget)
+      = render_widget_section("toggle_preview_link")  
+      = render_widget_section("edit_link")
     
   = render_widget_section("comments", widget)
     

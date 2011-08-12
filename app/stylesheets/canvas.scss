@@ -6,6 +6,12 @@ ul#feed {
 	border: 1px dotted #bbb;
 	min-height: 100px;
 	padding: 10px 10px 0 10px;
+	
+	list-style: none;
+
+	.facebook_comments{
+	  display:none;
+	}		
 }
 
 #widget_dialog iframe {

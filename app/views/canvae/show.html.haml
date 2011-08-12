@@ -169,13 +169,11 @@
          countComments(widget_url, function(n){
            var text = "";
            if(n == 0){
-             text = "Comments";
-           } else if(n == 1){
-             text = "Show 1 comment.";
+             text = "";
            } else {
-             text = "Show " + n + " comments.";
+             text = n;
            }
-           $('.toggle_facebook_comments span', $widget).text( text );
+           $('.toggle_facebook_comments span', $widget).text( text ).show();
            
          });
          
@@ -240,11 +238,8 @@
   
   $(".widget .toggle_facebook_comments").live('click', function(event){
     event.preventDefault();
-    
-    var $facebook_comments = $(this).siblings(".facebook_comments")  
-    $facebook_comments.toggle();
-    
-    $(this).remove();    
-    
+    console.log($(this).parents(".widget").first().parent().find(".facebook_comments"));
+    $(this).parents(".widget").first().parent().find(".facebook_comments").toggle();
+    FB.XFBML.parse();
   });
 
