@@ -1,5 +1,5 @@
 - content_for(:opengraph_meta_tags, opengraph_meta_tags_for(@canvas, :url => canvas_url(@canvas), :site_name => @canvas.name))
-- content_for :head do
+- content_for :stylesheets do
   = stylesheet_link_tag 'canvas.css', :media => 'screen, projection'
 - content_for :javascripts do
   = javascript_include_tag 'widget.js'  
