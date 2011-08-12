@@ -22,12 +22,10 @@ $(document).ready(function(){
 	       countComments(widget_url, function(n){
 	         var text = "";
 	         if(n == 0){
-	           text = "Join the discussion";
-	         } else if(n == 1){
-	           text = "Show 1 comment.";
+	           text = "";
 	         } else {
-	           text = "Show " + n + " comments.";
-	         }
+	           text = n;
+					 }
 	         $('.toggle_facebook_comments', $widget).text( text );
          
 	       });

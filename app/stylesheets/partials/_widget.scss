@@ -1,5 +1,5 @@
 $icon-size: 32px;
-.widget {
+.widget .body {
   @include floating-box;
 	margin: 0;
 	margin-bottom: 10px;
@@ -13,7 +13,7 @@ $icon-size: 32px;
 		margin-right: 10px;
 		cursor: move;
 	}
-	.preview {
+	.excerpt {
 	  padding:10px;
 	  
 	  img {
@@ -22,7 +22,7 @@ $icon-size: 32px;
     	}
 	}
 	
-	.toggle_preview { position:absolute; right:10px; bottom: 0; width: $icon-size; height: $icon-size; background:  url('/images/icons/expand.png') no-repeat 0px 0px; display:block;}
+	.toggle_excerpt { position:absolute; right:10px; bottom: 0; width: $icon-size; height: $icon-size; background:  url('/images/icons/expand.png') no-repeat 0px 0px; display:block;}
 
 	.title {
 	
@@ -67,14 +67,14 @@ $icon-size: 32px;
 	list-style: none;
 }
 
-.widget.presentation_widget {
+.widget.presentation_widget .body{
 }
 
-.widget.editable_widget {
+.widget.editable_widget .body{
 	@include list_widget;
 }
 
-.widget.page_feed_widget {
+.widget.page_feed_widget .body {
 	@include list_widget;
 	.content { display: none; }
 	img.handle {
@@ -85,13 +85,13 @@ $icon-size: 32px;
 }
 
 $canvas-feed-height: 200px;
-.widget.canvas_feed_widget {
+.widget.canvas_feed_widget .body{
   @include box($background:$accent-color, $border:$accent-color);
 	position:relative;
 	min-height: 200px;
 
 	.content { display: none; }
-	.preview {
+	.excerpt {
 	  @include box;
   	box-shadow: inset 0 0 5px $trim-color;
 	  position:relative;
@@ -110,9 +110,9 @@ $canvas-feed-height: 200px;
 
 $scrolly-height:100px;
 $scrolly-width:242px;
-$scrolly-preview-width:172px;
+$scrolly-excerpt-width:172px;
 
-.widget.scrolly_widget {
+.widget.scrolly_widget .body{
   @include floating-box;
   @include box($background:$accent-color, $border:$accent-color);
 	position: fixed;
@@ -122,14 +122,14 @@ $scrolly-preview-width:172px;
 	.content { display: none; }
 	.comments { display:none; }
 
-  .preview {
+  .excerpt {
 	   @include box;
      box-shadow: inset 0 0 5px $trim-color;
      position:relative;
-     margin-left:$scrolly-width - $scrolly-preview-width - 20px;
+     margin-left:$scrolly-width - $scrolly-excerpt-width - 20px;
 
      height: $scrolly-height;
-     width: $scrolly-preview-width;
+     width: $scrolly-excerpt-width;
      
      overflow: hidden;
      text-overflow: ellipsis;
