@@ -26,7 +26,7 @@ $(document).ready( function(){
 	      opacity: 0.6,
 	      revert: 'invalid',
 	      revertDuration: 200,
-	      handle: 'img.handle'
+	      handle: '.widget'
 	    });
     
 	    enable_widget_previews();
@@ -49,7 +49,7 @@ $(document).ready( function(){
 	   tolerance: 'pointer',
 	   placeholder: 'placeholder',
 	   forcePlaceholderSize: true,
-	   handle: 'img.handle',
+	   handle: false,
 	   update: function(event, ui){     
 	      // Get the dragged widget id.
 	      var widget_id = ui.item.data("widget_id");
