@@ -5,14 +5,12 @@
     = render :partial => "layouts/stylesheets"        
     = render :partial => "layouts/javascripts"
     = csrf_meta_tag
-    = yield :head
     = yield :opengraph_meta_tags
   %body
     :javascript
       // Common javascript request variables
       var request = {
         root_url : "#{root_url}",
-        is_authenticated : #{!current_user.nil?},
         user_id : #{current_user ? current_user.id : 0},
         canvas_id : #{@canvas ? @canvas.id : 0},
         page_id : #{@page ? @page.id : 0}
