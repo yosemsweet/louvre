@@ -112,17 +112,17 @@ $scrolly-height:100px;
 
 .widget.scrolly_widget {
   @include floating-box;
-  @include title-box($width:span(1) + 5, $height:$scrolly-height);
+  @include title-box($width:span(1) + 10, $height:$scrolly-height);
 
 	position: fixed;
 	overflow: visible;
 
-	.preview { display: none; }
+	.content { display: none; }
 
   .preview {
      @include floating-box;
      position:absolute;
-     left:span(2) - 20px;
+     left:span(1) + 10px;
      top:0;
      padding:10px;
      height: $scrolly-height;
