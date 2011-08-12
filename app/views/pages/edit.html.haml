@@ -123,7 +123,6 @@
      tolerance: 'pointer',
      placeholder: 'placeholder',
      forcePlaceholderSize: true,
-     handle: '.title',
      update: function(event, ui){     
         // Get the dragged widget id.
         var widget_id = ui.item.data("widget_id");
@@ -153,7 +152,7 @@
         }
         
       }
-   });      
+   });
       
   mpq.push(["track","hit_edit_page", mixpanel_attributes ]);
   mpq.push(["track_forms",$("form#update_page"),"page_change_title", mixpanel_attributes]);

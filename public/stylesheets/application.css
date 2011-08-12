@@ -1314,7 +1314,22 @@ a:link {
   color: #0066ff;
 }
 
-/* line 2, ../../app/stylesheets/partials/_widget.scss */
+/* line 1, ../../app/stylesheets/partials/_widget.scss */
+.text_content {
+  background: url("/images/icons/text.png") no-repeat 10px 10px;
+}
+
+/* line 4, ../../app/stylesheets/partials/_widget.scss */
+.image_content {
+  background: url("/images/icons/picture.png") no-repeat 10px 10px;
+}
+
+/* line 7, ../../app/stylesheets/partials/_widget.scss */
+.link_content {
+  background: url("/images/icons/link.png") no-repeat 10px 10px;
+}
+
+/* line 14, ../../app/stylesheets/partials/_widget.scss */
 .widget {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1327,20 +1342,44 @@ a:link {
   *zoom: 1;
   overflow: visible;
 }
-/* line 11, ../../app/stylesheets/partials/_widget.scss */
-.widget img.handle {
-  float: left;
-}
-/* line 14, ../../app/stylesheets/partials/_widget.scss */
+/* line 23, ../../app/stylesheets/partials/_widget.scss */
 .widget .preview {
   padding: 10px;
 }
-/* line 17, ../../app/stylesheets/partials/_widget.scss */
+/* line 26, ../../app/stylesheets/partials/_widget.scss */
 .widget .preview img {
   max-width: 100%;
   max-height: 100%;
 }
-/* line 23, ../../app/stylesheets/partials/_widget.scss */
+/* line 32, ../../app/stylesheets/partials/_widget.scss */
+.widget .toolbox {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 101;
+  padding: 5px 0 5px 5px;
+  box-shadow: 1px 1px 5px #999999;
+}
+/* line 40, ../../app/stylesheets/partials/_widget.scss */
+.widget .toolbox .icon {
+  float: right;
+  padding-right: 5px;
+  width: 32px;
+  height: 32px;
+}
+/* line 46, ../../app/stylesheets/partials/_widget.scss */
+.widget .toolbox .icon span {
+  display: none;
+}
+/* line 51, ../../app/stylesheets/partials/_widget.scss */
+.widget .toolbox .edit {
+  background: url("/images/icons/edit.png") no-repeat 0px 0px;
+}
+/* line 55, ../../app/stylesheets/partials/_widget.scss */
+.widget .toolbox .delete {
+  background: url("/images/icons/delete.png") no-repeat 0px 0px;
+}
+/* line 60, ../../app/stylesheets/partials/_widget.scss */
 .widget .toggle_preview {
   position: absolute;
   right: 10px;
@@ -1350,16 +1389,16 @@ a:link {
   background: url("/images/icons/expand.png") no-repeat 0px 0px;
   display: block;
 }
-/* line 25, ../../app/stylesheets/partials/_widget.scss */
+/* line 68, ../../app/stylesheets/partials/_widget.scss */
 .widget .title {
   float: left;
   width: 30px;
 }
-/* line 30, ../../app/stylesheets/partials/_widget.scss */
+/* line 73, ../../app/stylesheets/partials/_widget.scss */
 .widget .title .comment_count {
   padding: 0;
 }
-/* line 33, ../../app/stylesheets/partials/_widget.scss */
+/* line 76, ../../app/stylesheets/partials/_widget.scss */
 .widget .title .comment_count a {
   position: absolute;
   display: block;
@@ -1373,56 +1412,43 @@ a:link {
   text-align: center;
   background: url("/images/icons/comment.png") no-repeat 0px 0px;
 }
-/* line 45, ../../app/stylesheets/partials/_widget.scss */
+/* line 88, ../../app/stylesheets/partials/_widget.scss */
 .widget .title .comment_count a span {
   display: none;
 }
-/* line 50, ../../app/stylesheets/partials/_widget.scss */
-.widget .edit {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 32px;
-  height: 32px;
-  background: url("/images/icons/edit.png") no-repeat 0px 0px;
-}
-/* line 58, ../../app/stylesheets/partials/_widget.scss */
-.widget .edit span {
-  display: none;
-}
 
-/* line 71, ../../app/stylesheets/partials/_widget.scss */
+/* line 101, ../../app/stylesheets/partials/_widget.scss */
 .widget.editable_widget {
   list-style: none;
 }
 
-/* line 75, ../../app/stylesheets/partials/_widget.scss */
+/* line 105, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget {
   list-style: none;
 }
-/* line 77, ../../app/stylesheets/partials/_widget.scss */
+/* line 107, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .content {
   display: none;
 }
-/* line 78, ../../app/stylesheets/partials/_widget.scss */
+/* line 108, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget img.handle {
   float: left;
   margin-right: 10px;
   cursor: move;
 }
 
-/* line 86, ../../app/stylesheets/partials/_widget.scss */
+/* line 116, ../../app/stylesheets/partials/_widget.scss */
 .widget.canvas_feed_widget {
   background-color: #cccccc;
   border: 1px solid #cccccc;
   position: relative;
   min-height: 200px;
 }
-/* line 91, ../../app/stylesheets/partials/_widget.scss */
+/* line 121, ../../app/stylesheets/partials/_widget.scss */
 .widget.canvas_feed_widget .content {
   display: none;
 }
-/* line 92, ../../app/stylesheets/partials/_widget.scss */
+/* line 122, ../../app/stylesheets/partials/_widget.scss */
 .widget.canvas_feed_widget .preview {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1433,12 +1459,12 @@ a:link {
   word-wrap: break-word;
   margin-left: 50px;
 }
-/* line 103, ../../app/stylesheets/partials/_widget.scss */
+/* line 133, ../../app/stylesheets/partials/_widget.scss */
 .widget.canvas_feed_widget .preview p {
   width: 638px;
 }
 
-/* line 113, ../../app/stylesheets/partials/_widget.scss */
+/* line 143, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1449,15 +1475,15 @@ a:link {
   overflow: visible;
   width: 242px;
 }
-/* line 120, ../../app/stylesheets/partials/_widget.scss */
+/* line 150, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget .content {
   display: none;
 }
-/* line 121, ../../app/stylesheets/partials/_widget.scss */
+/* line 151, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget .comments {
   display: none;
 }
-/* line 123, ../../app/stylesheets/partials/_widget.scss */
+/* line 153, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget .preview {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1471,7 +1497,7 @@ a:link {
   word-wrap: break-word;
 }
 
-/* line 144, ../../app/stylesheets/partials/_widget.scss */
+/* line 174, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1483,20 +1509,20 @@ a:link {
   width: 290px;
   cursor: move;
 }
-/* line 152, ../../app/stylesheets/partials/_widget.scss */
+/* line 182, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .title {
   width: 30px;
   height: 100%;
 }
-/* line 157, ../../app/stylesheets/partials/_widget.scss */
+/* line 187, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .content {
   display: none;
 }
-/* line 158, ../../app/stylesheets/partials/_widget.scss */
+/* line 188, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .comments {
   display: none;
 }
-/* line 160, ../../app/stylesheets/partials/_widget.scss */
+/* line 190, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .preview {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1510,19 +1536,34 @@ a:link {
   word-wrap: break-word;
 }
 
-/* line 177, ../../app/stylesheets/partials/_widget.scss */
-.text_content {
-  background: url("/images/icons/text.png") no-repeat 10px 10px;
+/* line 207, ../../app/stylesheets/partials/_widget.scss */
+.widget.editable_widget {
+  background-color: #cccccc;
+  border: 1px solid #cccccc;
+  position: relative;
+  min-height: 0;
+  cursor: move;
+  padding: 0 0 0 10px;
 }
-
-/* line 181, ../../app/stylesheets/partials/_widget.scss */
-.image_content {
-  background: url("/images/icons/picture.png") no-repeat 10px 10px;
+/* line 216, ../../app/stylesheets/partials/_widget.scss */
+.widget.editable_widget .preview {
+  display: none;
 }
-
-/* line 185, ../../app/stylesheets/partials/_widget.scss */
-.link_content {
-  background: url("/images/icons/link.png") no-repeat 10px 10px;
+/* line 217, ../../app/stylesheets/partials/_widget.scss */
+.widget.editable_widget .tags {
+  display: none;
+}
+/* line 218, ../../app/stylesheets/partials/_widget.scss */
+.widget.editable_widget .content {
+  background-color: white;
+  border: 1px solid #cccccc;
+  position: relative;
+  padding: 10px;
+}
+/* line 224, ../../app/stylesheets/partials/_widget.scss */
+.widget.editable_widget .toolbox {
+  display: none;
+  background-color: rgba(153, 153, 153, 0.7);
 }
 
 /* line 3, ../../app/stylesheets/partials/_canvas.scss */

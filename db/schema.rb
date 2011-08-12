@@ -34,6 +34,14 @@ ActiveRecord::Schema.define(:version => 20110811173927) do
   add_index "follows", ["followable_id", "followable_type"], :name => "fk_followables"
   add_index "follows", ["follower_id", "follower_type"], :name => "fk_follows"
 
+  create_table "invites", :force => true do |t|
+    t.integer  "inviter_id"
+    t.string   "invitee_email"
+    t.integer  "canvas_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
@@ -93,8 +101,8 @@ ActiveRecord::Schema.define(:version => 20110811173927) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "content"
-    t.integer  "parent_id"
     t.string   "alt_text"
+    t.integer  "parent_id"
   end
 
 end

@@ -1,0 +1,22 @@
+- content_for :head do
+  %meta{ :property => "og:title" , :content => "test title"}
+  %meta{ :property => "og:type" , :content => "cause"}
+  %meta{ :property => "og:url" , :content => "http://www.imdb.com/title/tt0117500/"}
+  %meta{ :property => "og:site_name" , :content => "test site"}
+  %meta{ :property => "fb:app_id" , :content => "#{FACEBOOK_CONFIG[:appId]}"}
+  %meta{ :property => "og:image" , :content => "http://ia.media-imdb.com/rock.jpg"}
+
+:javascript
+  function facebook_init_callback(){
+    FB.api('/?ids=http://www.example.com', function(response) {
+      dddd = response;
+      pageinfo = response["http://www.example.com"]["comments"];
+      //length = pageinfo["length"];
+    });
+  }
+  FBCallbacks.push(facebook_init_callback);
+  
+  FBCallbacks.push(function (){
+    FB.ui({ method: 'feed', 
+          message: 'Facebook for Websites is super-cool'});
+  });
