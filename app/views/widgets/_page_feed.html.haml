@@ -1,15 +1,9 @@
-%li.widget_list_item
-  .widget.page_feed_widget{:data => {:widget_id => widget.id}}
-
-    %img.handle{:src => "/images/grip.png"}
-
+%li.widget.page_feed_widget{:data => {:widget_id => widget.id}}
+  .body
     = render_widget_section("toggle_preview_link")
-
     .content
       = render_widget_section("content", widget)  
-
-    .preview
+    .excerpt
       = render_widget_section("preview", widget)
-  
   .tags
     = render_widget_section("tags", widget)
