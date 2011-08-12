@@ -16,9 +16,9 @@
       = render "facebook_share"
       - if current_user
         #follow_status
-          #follow{:class => current_user.following?(@canvas) ? "hide" : ""}
+          #follow{:style => hidden_if(current_user.following?(@canvas))}
             %button Follow
-          #stop_following{:class => current_user.following?(@canvas) ? "" : "hide"}
+          #stop_following{:style => hidden_if(!current_user.following?(@canvas))}
             %button Stop following
             %p
               Following this canvas
@@ -52,12 +52,10 @@
 
       %p
         ="Drag the box below to your bookmark toolbar."
-        %span#see_video
-          %a
-            How to install a bookmarklet?
-      #instructions{:style => "display:none"}
-        .info
-          %iframe{:width=>"425", :height=>"349", :src=>"http://www.youtube.com/embed/QrwevUN0KdQ"}
+      %p
+        %a#toggle_bookmarklet_video{:href => "#"} How to install a bookmarklet?
+      #bookmarklet_video.info{:style => "display:none"}
+        %iframe{:width=>"425", :height=>"349", :src => "http://www.youtube.com/embed/QrwevUN0KdQ"}
         
       .info
         %a#bookmarklet{:href => "#", :style => "padding:10px 400px 10px 0"} 
@@ -160,7 +158,7 @@
   
   FB.Event.subscribe('comment.create',
       function(response) {
-          widget_id = _.last(response.href.split('/')) * 1;
+          var widget_id = _.last(response.href.split('/')) * 1;
           if (request.user_id !== 0){
             FollowHelper.follow('widget', widget_id, reload_hud);
           }
@@ -176,14 +174,10 @@
   
   mpq.push(["track","hit_canvas_homepage"]);  
   
-  $("#see_video").click(function(){
-    $("#instructions").toggle();
+  $("#toggle_bookmarklet_video").click(function(){
+    $("#bookmarklet_video").toggle();
   });
-  
-  $("#instructions").click(function(){
-    $("#instructions").toggle();
-  });
-  
+    
   $(".widget .toggle_facebook_comments").live('click', function(event){
     event.preventDefault();
     

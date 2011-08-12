@@ -32,4 +32,8 @@ module ApplicationHelper
     return protocol + host + port
   end
   
+  def hidden_if(condition)
+    condition ? "display: none;" : ""
+  end
+  
 end

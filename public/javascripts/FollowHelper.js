@@ -6,7 +6,7 @@ var FollowHelper = {
 		$.post("/follows/", {_method : "DELETE", followable_type: type, followable_id: id}, function(){ callback(); });
 	},
 	toggle_follow_status : function(){
-    $("#follow").toggleClass("hide");
-    $("#stop_following").toggleClass("hide");
+    $("#follow").toggle();
+    $("#stop_following").toggle();
   }
 }
