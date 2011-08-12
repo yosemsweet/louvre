@@ -1474,17 +1474,17 @@ a:link {
 }
 
 /* line 141, ../../app/stylesheets/partials/_widget.scss */
-.text_content {
+.text_content > .body {
   background: url("/images/icons/text.png") no-repeat 10px 10px;
 }
 
 /* line 145, ../../app/stylesheets/partials/_widget.scss */
-.image_content {
+.image_content > .body {
   background: url("/images/icons/picture.png") no-repeat 10px 10px;
 }
 
 /* line 149, ../../app/stylesheets/partials/_widget.scss */
-.link_content {
+.link_content > .body {
   background: url("/images/icons/link.png") no-repeat 10px 10px;
 }
 
