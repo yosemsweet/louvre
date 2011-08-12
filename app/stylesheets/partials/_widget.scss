@@ -1,3 +1,15 @@
+.text_content {
+  background :  url('/images/icons/text.png') no-repeat 10px 10px;
+}
+.image_content {
+  background :  url('/images/icons/picture.png') no-repeat 10px 10px;
+}
+.link_content {
+  background :  url('/images/icons/link.png') no-repeat 10px 10px;
+}
+
+
+
 $icon-size: 32px;
 .widget {
   @include floating-box;
@@ -50,10 +62,23 @@ $icon-size: 32px;
   .edit{
     position:absolute;
     top: 10px;
-    right: 10px;
+    right: 20px + $icon-size;
     width: $icon-size;
     height: $icon-size;
     background :  url('/images/icons/edit.png') no-repeat 0px 0px;
+    
+    span{
+      display:none;
+    }
+  }
+  
+  .delete{
+    position:absolute;
+    top: 10px;
+    right: 10px;
+    width: $icon-size;
+    height: $icon-size;
+    background :  url('/images/icons/delete.png') no-repeat 0px 0px;
     
     span{
       display:none;
@@ -174,15 +199,24 @@ $page-feed-preview-width:220px;
 }
 
 
-.text_content {
-  background :  url('/images/icons/text.png') no-repeat 10px 10px;
+.widget.editable_widget {
+  @include box($background:$accent-color, $border:$accent-color);
+	position:relative;
+	
+	min-height: 0;
+	cursor:move;
+  
+  padding: 0 0 0 10px;
+  
+	.preview { display: none; }
+	.tags { display: none; }
+	.content {
+	  @include box;
+	  position:relative;
+	  padding:10px;
+	}
+	
+	.icon{
+  	display:none;
+	}
 }
-
-.image_content {
-  background :  url('/images/icons/picture.png') no-repeat 10px 10px;
-}
-
-.link_content {
-  background :  url('/images/icons/link.png') no-repeat 10px 10px;
-}
-

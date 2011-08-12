@@ -1,12 +1,12 @@
 %li.widget.editable_widget{:data => {:widget_id => widget.id}}
-
-  %img.handle{:src => "/images/grip.png"}
-
-  = render_widget_section("delete_link")
-  = render_widget_section("edit_link")
-
+  .title
   .content
     = render_widget_section("content", widget)
-  
+    = render_widget_section("delete_link")
+    = render_widget_section("edit_link")  
+
   .tags
     = render_widget_section("tags", widget)  
+    
+:javascript
+  $(".editable_widget").hover( function(){$(this).find('.icon').show();},function(){$(this).find('.icon').hide();});
