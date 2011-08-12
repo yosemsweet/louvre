@@ -1,6 +1,6 @@
 $(function(){
   var ANIMATE = true;
-  var MAX_SCROLLIES = 1;
+  var MAX_SCROLLIES = 7;
   
   var start_animation = function(){
     ANIMATE = true;
@@ -61,11 +61,11 @@ $(function(){
   var drag_start = header_height + 75;
   var bottom_y = window_height + 200;
   var top_y = -50;
-  var fps = 50;
+  var fps = 60;
   var animation_interval = 1000. / fps;
   var garbage_collection_interval = 1000;
   var insertion_interval = 1000;
-  var collision_detection_interval = 70;
+  var collision_detection_interval = 50;
   var bubbles = {};
   var next_bubbles_index = 0;
   var more_widgets_interval = MAX_SCROLLIES * insertion_interval;
