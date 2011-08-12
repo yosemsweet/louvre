@@ -171,6 +171,10 @@ $page-feed-preview-width:220px;
 
 	.content { display: none; }
 	.comments { display:none; }
+  
+  .comment_count { display:none; }
+  
+
 
   .excerpt {
 	   @include box;
@@ -189,25 +193,27 @@ $page-feed-preview-width:220px;
 }
 
 
-.widget.editable_widget .body {
-  @include box($background:$accent-color, $border:$accent-color);
-	position:relative;
-	
-	min-height: 0;
-	cursor:move;
-  
-  padding: 0 0 0 10px;
-  
-	.excerpt { display: none; }
+.widget.editable_widget {
+  .body {
+    @include box($background:$accent-color, $border:$accent-color);
+    position:relative;
+
+    min-height: 0;
+    cursor:move;
+
+    padding: 0 0 0 10px;
+    
+    .excerpt { display: none; }
+    .content {
+      @include box;
+      position:relative;
+      padding:10px;
+    }
+
+    .toolbox{
+      display:none;
+      background-color:transparentize($accent-grey, 0.3);
+    }
+	}
 	.tags { display: none; }
-	.content {
-	  @include box;
-	  position:relative;
-	  padding:10px;
-	}
-	
-	.toolbox{
-	  display:none;
-	  background-color:transparentize($accent-grey, 0.3);
-	}
 }

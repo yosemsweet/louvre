@@ -1503,6 +1503,10 @@ a:link {
   display: none;
 }
 /* line 175, ../../app/stylesheets/partials/_widget.scss */
+.widget.page_feed_widget .body .comment_count {
+  display: none;
+}
+/* line 179, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .body .excerpt {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1516,7 +1520,7 @@ a:link {
   word-wrap: break-word;
 }
 
-/* line 192, ../../app/stylesheets/partials/_widget.scss */
+/* line 197, ../../app/stylesheets/partials/_widget.scss */
 .widget.editable_widget .body {
   background-color: #cccccc;
   border: 1px solid #cccccc;
@@ -1525,25 +1529,25 @@ a:link {
   cursor: move;
   padding: 0 0 0 10px;
 }
-/* line 201, ../../app/stylesheets/partials/_widget.scss */
+/* line 206, ../../app/stylesheets/partials/_widget.scss */
 .widget.editable_widget .body .excerpt {
   display: none;
 }
-/* line 202, ../../app/stylesheets/partials/_widget.scss */
-.widget.editable_widget .body .tags {
-  display: none;
-}
-/* line 203, ../../app/stylesheets/partials/_widget.scss */
+/* line 207, ../../app/stylesheets/partials/_widget.scss */
 .widget.editable_widget .body .content {
   background-color: white;
   border: 1px solid #cccccc;
   position: relative;
   padding: 10px;
 }
-/* line 209, ../../app/stylesheets/partials/_widget.scss */
+/* line 213, ../../app/stylesheets/partials/_widget.scss */
 .widget.editable_widget .body .toolbox {
   display: none;
   background-color: rgba(153, 153, 153, 0.7);
+}
+/* line 218, ../../app/stylesheets/partials/_widget.scss */
+.widget.editable_widget .tags {
+  display: none;
 }
 
 /* line 3, ../../app/stylesheets/partials/_canvas.scss */
