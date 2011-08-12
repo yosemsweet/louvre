@@ -1,9 +1,4 @@
 $(document).ready( function(){
-	
-	var mixpanel_attributes = {
-	  user_id : request.user_id,
-	  page_id : request.page_id
-	}
   
 	$('#tag_ids').tokenInput('/tags', { 
 	  crossDomain: false,
@@ -71,22 +66,21 @@ $(document).ready( function(){
 	          }
 	        );
         
-	        mixpanel_attributes.comment_count =  ui.item.attr("comments");
-	        mpq.push(["track","page_add_widget_from_feed", mixpanel_attributes]);      
+	        mpq.push(["track","page_add_widget_from_feed", {page_id : request.page_id, user_id : request.user_id, comment_count : ui.item.attr("comments")}]);      
       
 	      } else {
         
 	        // Update the widget's position on the server.
 	        $.post("/widgets/" + widget_id + "/move/" + position, { _method : 'PUT' });
       
-	        mpq.push(["track","page_reorder_widgets", mixpanel_attributes]);
+	        mpq.push(["track","page_reorder_widgets", {page_id : request.page_id, user_id : request.user_id}]);
       
 	      }
       
 	    }
 	 });      
     
-	mpq.push(["track","hit_edit_page", mixpanel_attributes ]);
-	mpq.push(["track_forms",$("form#update_page"),"page_change_title", mixpanel_attributes]);
+	mpq.push(["track","hit_edit_page", {page_id : request.page_id, user_id : request.user_id}]);
+	mpq.push(["track_forms",$("form#update_page"),"page_change_title", {page_id : request.page_id, user_id : request.user_id}]);
 	
 });

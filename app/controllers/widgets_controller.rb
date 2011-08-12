@@ -37,14 +37,14 @@ class WidgetsController < ApplicationController
   # GET /widgets/:id/new
   def new
     if params[:page_id]
-      page = Page.find(params[:page_id])
-      canvas = page.canvas  
+      @page = Page.find(params[:page_id])
+      @canvas = @page.canvas  
     else
-      page = nil
-      canvas = Canvas.find(params[:canvas_id])
+      @page = nil
+      @canvas = Canvas.find(params[:canvas_id])
     end
     
-    @widget = canvas.widgets.new(:content_type => params[:content_type], :page => page)
+    @widget = @canvas.widgets.new(:content_type => params[:content_type], :page => @page) 
     
     render :layout => 'empty'
   end
@@ -52,6 +52,8 @@ class WidgetsController < ApplicationController
   # GET /widgets/:id/edit
   def edit
     @widget = Widget.find(params[:id])
+    @page = @widget.page
+    @canvas = @widget.canvas
     
     render :layout => 'empty'
   end

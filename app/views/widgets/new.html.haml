@@ -3,4 +3,11 @@
 = render 'form'
 
 
+:javascript
+  $("form").submit(function(){
+    x = {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id}
+    console.log(x)
+    mpq.push(["track","add_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id}]);
+  })
+
 

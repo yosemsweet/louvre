@@ -29,15 +29,15 @@ $(function() {
 	  }
 	
 		$widget_dialog.open("New Widget", "/widgets/new?content_type=" + content_type + "&canvas_id=" + canvas_id + page_query);
+		
 	});
 
 	$(".widget .edit").live("click", function(event){
 	  var widget_id = $(this).parents(".widget").data("widget_id");
   
 		$widget_dialog.open("Edit Widget", "/widgets/" + widget_id + "/edit")
-
-	  mixpanel_attributes.widget_id = widget_id;
-	  mpq.push(["track","canvas_edit_widget", mixpanel_attributes]);
+		
+	  mpq.push(["track","canvas_edit_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id, widget_id : widget_id}]);
   
 	  event.preventDefault();
 	});
@@ -53,8 +53,7 @@ $(function() {
     $widget.remove();
     
     // Track the event.
-    mixpanel_attributes.widget_id = widget_id;
-    mpq.push(["track","page_remove_widget", mixpanel_attributes]);
+    mpq.push(["track","page_remove_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id, widget_id : widget_id}]);
     
     event.preventDefault();
   });
@@ -62,7 +61,6 @@ $(function() {
 	enable_widget_previews = function(){
 		// Enable the toggle preview qtips.
 	  $(".widget .toggle_preview").each(function(){
-			console.log($(this));
 	    $(this).qtip({
 	      content: $(this).parents().filter(".widget").find(".content").html(),
 	      show: 'mouseover', hide: 'mouseout',
