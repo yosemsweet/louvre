@@ -3,6 +3,10 @@
 body{
 	background-color: $background-color;
 	color: $text-color;
+	
+	li.widget {
+		list-style: none;
+	}
 }
 
 #header {
