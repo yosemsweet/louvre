@@ -16,11 +16,13 @@
       = render "facebook_share"
       - if current_user
         #follow_status
-          #follow
+          #follow{:class => current_user.following?(@canvas) ? "hide" : ""}
             %button Follow
-          #unfollow
+          #stop_following{:class => current_user.following?(@canvas) ? "" : "hide"}
             %button Stop following
-            Following this canvas
+            %p
+              Following this canvas
+                        
     %p
       %b Mission:
       = @canvas.mission
@@ -77,41 +79,15 @@
       );
 
 :javascript
-  
-  var user = {
-    is_logged_in : #{!current_user.nil?},
-    is_following : #{current_user ? current_user.following?(@canvas) : false}
-  }
-  
-  if(user.is_logged_in){
-    if(user.is_following){
-      $("#follow").hide();
-    } else {
-      $("#unfollow").hide();
-    }
-  } else {
-    $("#follow_status").hide();
-  }
-  
-  var toggle_follow_status = function(){
-    $("#follow").toggle();
-    $("#unfollow").toggle();
-  }
-    
+      
   $("#follow button").click(function(){
-    toggle_follow_status();
-    $.post("/follows/", {followable_type: 'canvas', followable_id: request.canvas_id}, function(){
-      reload_hud();  
-    });
-    
+    FollowHelper.toggle_follow_status();
+    FollowHelper.follow('canvas', request.canvas_id, reload_hud);
   });
   
-  $("#unfollow button").click(function(){
-    toggle_follow_status();
-    $.post("/follows/", {_method : "DELETE", followable_type: 'canvas', followable_id: request.canvas_id}, function(){
-      reload_hud();
-    });
-    
+  $("#stop_following button").click(function(){
+    FollowHelper.toggle_follow_status();
+    FollowHelper.stop_following('canvas', request.canvas_id, reload_hud);    
   });
   
   var enable_widget_tooltips = function(){
@@ -181,29 +157,24 @@
      });  
    };
   setInterval(load_new_widgets, 15000); 
-
-  var user = #{current_user ? current_user.id : 0};
-
+  
   FB.Event.subscribe('comment.create',
       function(response) {
           widget_id = _.last(response.href.split('/')) * 1;
-          if (user !== 0){
-            $.post("/follows/", {followable_type: 'widget', followable_id: widget_id}, function(){
-              reload_hud();
-              });
+          if (request.user_id !== 0){
+            FollowHelper.follow('widget', widget_id, reload_hud);
           }
-          mpq.push(["track","comment_added", {'type':"facebook", "widget":widget_id,"user": user}]);
+          mpq.push(["track","comment_added", {type: "facebook", widget: widget_id, user_id : request.user_id} ]);
       }
   );
-
+  
   FB.Event.subscribe('comment.remove',
       function(response) {
-          mpq.push(["track","comment_removed" , {'type' : "facebook", 'widget' : widget_id, "user": user}]);
+          mpq.push(["track","comment_removed" , {type: "facebook", widget : widget_id, user_id : request.user_id} ]);
       }
   );
-
-  mpq.push(["track","hit_canvas_homepage"]);
-  window.mixpanelobject=mpq;  
+  
+  mpq.push(["track","hit_canvas_homepage"]);  
   
   $("#see_video").click(function(){
     $("#instructions").toggle();

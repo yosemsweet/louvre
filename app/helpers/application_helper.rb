@@ -1,27 +1,5 @@
 module ApplicationHelper
-  def host_uri
-    
-    protocol = request.ssl? ? "https://" : "http://"
-    host = request.host
-    port = request.port ? ":" + request.port.to_s : ""
-    
-    return protocol + host + port
-  end
-  
-  def render_form(model)
-    name = model.class.name.underscore
-    render :partial => "#{name.pluralize}/form", :locals => {name.to_sym => model}
 
-  end
-  
-  def render_widgets(widgets, display_type)
-    html = ""
-    widgets.each do |widget|
-      html << render(:partial => "widgets/displays/#{display_type}_widget", :locals => {:widget => widget})
-    end    
-    return html.html_safe
-  end
-  
   def application_javascripts
     %w(
     https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js
@@ -34,6 +12,7 @@ module ApplicationHelper
     facebook_integration
     mixpanel_integration google_analytics
     jquery.tokeninput
+    FollowHelper
     )
   end
   
@@ -43,6 +22,14 @@ module ApplicationHelper
     application
     token-input-facebook
     )
+  end
+
+  def host_uri    
+    protocol = request.ssl? ? "https://" : "http://"
+    host = request.host
+    port = request.port ? ":" + request.port.to_s : ""
+    
+    return protocol + host + port
   end
   
 end
