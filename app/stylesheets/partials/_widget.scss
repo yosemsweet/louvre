@@ -20,9 +20,6 @@ $icon-size: 32px;
 
 	@include clearfix;
 	overflow:visible;
-	img.handle {
-		float: left;
-	}
 	.preview {
 	  padding:10px;
 	  
@@ -32,7 +29,41 @@ $icon-size: 32px;
     	}
 	}
 	
-	.toggle_preview { position:absolute; right:10px; bottom: 0; width: $icon-size; height: $icon-size; background:  url('/images/icons/expand.png') no-repeat 0px 0px; display:block;}
+	.toolbox{
+	  position: absolute;
+	  top: 0;
+	  right: 0;
+	  z-index: $z-default + 1;
+	  padding: 5px 0 5px 5px;
+	  box-shadow: 1px 1px 5px $trim-color;
+	  
+	  .icon{
+	    float:right;
+	    padding-right: 5px;
+	    width: $icon-size;
+      height: $icon-size;
+      
+      span{
+        display:none;
+      }
+	  }
+	  
+	  .edit{
+      background:url('/images/icons/edit.png') no-repeat 0px 0px;
+    }
+
+    .delete{
+      background:url('/images/icons/delete.png') no-repeat 0px 0px;
+    }
+	}
+	
+	.toggle_preview { 
+	  position:absolute; 
+	  right:10px; bottom: 0; 
+	  width: $icon-size; height: $icon-size; 
+	  background:  url('/images/icons/expand.png') no-repeat 0px 0px; 
+	  display:block;
+	}
 
 	.title {
 	
@@ -56,32 +87,6 @@ $icon-size: 32px;
     
         span{ display:none; }
       }
-    }
-  }
-  
-  .edit{
-    position:absolute;
-    top: 10px;
-    right: 20px + $icon-size;
-    width: $icon-size;
-    height: $icon-size;
-    background :  url('/images/icons/edit.png') no-repeat 0px 0px;
-    
-    span{
-      display:none;
-    }
-  }
-  
-  .delete{
-    position:absolute;
-    top: 10px;
-    right: 10px;
-    width: $icon-size;
-    height: $icon-size;
-    background :  url('/images/icons/delete.png') no-repeat 0px 0px;
-    
-    span{
-      display:none;
     }
   }
 }
@@ -216,7 +221,8 @@ $page-feed-preview-width:220px;
 	  padding:10px;
 	}
 	
-	.icon{
-  	display:none;
+	.toolbox{
+	  display:none;
+	  background-color:transparentize($accent-grey, 0.3);
 	}
 }
