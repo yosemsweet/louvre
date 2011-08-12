@@ -24,6 +24,10 @@
 .span-8.last
   %h2 Feed
   
+  #toolbar-feed
+    %a.add_widget{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
+    %a.add_widget{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
+  
   %form
     .field
       %label{:for => "tag_ids"} Filter by tags:
