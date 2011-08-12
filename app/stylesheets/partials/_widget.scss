@@ -13,7 +13,7 @@ $icon-size: 32px;
 		margin-right: 10px;
 		cursor: move;
 	}
-	.preview {
+	.excerpt {
 	  padding:10px;
 	  
 	  img {
@@ -91,7 +91,7 @@ $canvas-feed-height: 200px;
 	min-height: 200px;
 
 	.content { display: none; }
-	.preview {
+	.excerpt {
 	  @include box;
   	box-shadow: inset 0 0 5px $trim-color;
 	  position:relative;
@@ -122,7 +122,7 @@ $scrolly-preview-width:172px;
 	.content { display: none; }
 	.comments { display:none; }
 
-  .preview {
+  .excerpt {
 	   @include box;
      box-shadow: inset 0 0 5px $trim-color;
      position:relative;
