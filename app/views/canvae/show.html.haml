@@ -113,7 +113,6 @@
     });
     
   });
-
   
   var enable_widget_tooltips = function(){
     // Enable the toggle preview qtips.
@@ -140,7 +139,7 @@
        $("ul#feed .widget").each(function(){
          
          var $widget = $(this);
-         var widget_url = request.root_url + "widgets/" + $widget.attr("data_widget_id");
+         var widget_url = request.root_url + "widgets/" + $widget.data("widget_id");
          
          countComments(widget_url, function(n){
            var text = "";
@@ -166,11 +165,11 @@
   }
     
   var load_new_widgets = function(){
-     // Get highest data_widget_id value on page.
+     // Get highest widget_id value on page.
      var max_widget_id = 0;
      $("#feed li.widget").each(function(){
-       if ($(this).attr("data_widget_id") * 1 > max_widget_id) {
-         max_widget_id = $(this).attr("data_widget_id");
+       if ($(this).data("widget_id") * 1 > max_widget_id) {
+         max_widget_id = $(this).data("widget_id");
        }
      });
      // Get html for any new widgets and append to the feed.

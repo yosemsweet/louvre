@@ -106,7 +106,7 @@
   $(".widget .delete").live("click", function(event){
     // Delete from the server.
     var $widget = $(this).parents(".widget");
-    var widget_id = $widget.attr("data_widget_id");
+    var widget_id = $widget.data("widget_id");
     $.post("/widgets/" + widget_id, { _method : 'DELETE' });
   
     // Remove from the DOM.
@@ -127,7 +127,7 @@
      handle: 'img.handle',
      update: function(event, ui){     
         // Get the dragged widget id.
-        var widget_id = ui.item.attr("data_widget_id");
+        var widget_id = ui.item.data("widget_id");
         // Compute the new position of this widget.
         var position = ui.item.index() + 1;
         

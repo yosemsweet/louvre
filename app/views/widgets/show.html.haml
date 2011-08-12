@@ -12,7 +12,7 @@
 
 :javascript
   var $widget = $(".widget");
-  var widget_url = request.root_url + "widgets/" + $widget.attr("data_widget_id");
+  var widget_url = request.root_url + "widgets/" + $widget.data("widget_id");
   
   countComments(widget_url, function(n){
    var text = "";

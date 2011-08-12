@@ -71,7 +71,7 @@ $(function(){
   var more_widgets_interval = MAX_SCROLLIES * insertion_interval;
   
   var getBubbleId = function(bubble){
-    return bubble.selector.attr("data_bubble_id");
+    return bubble.selector.data("bubble_id");
   }
   
   var insertNextBubble = function(){
@@ -138,7 +138,7 @@ $(function(){
         }
         
         // Save bubble id in dom.
-        selector.attr("data_bubble_id", next_bubbles_index); 
+        selector.data("bubble_id", next_bubbles_index); 
         
         selector.css('left', start_left).css('top', bottom_y + 'px');
         

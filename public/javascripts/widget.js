@@ -13,13 +13,13 @@ $(function() {
 	  } else {
 		  var page_query = '&page_id=' + request.page_id;
 	  }
-	  $("iframe", $widget_dialog).attr("src", "/widgets/new?content_type=" + $(this).attr("data_content_type") + "&canvas_id=" + request.canvas_id + page_query);
+	  $("iframe", $widget_dialog).attr("src", "/widgets/new?content_type=" + $(this).data("content_type") + "&canvas_id=" + request.canvas_id + page_query);
 	  $widget_dialog.dialog("option","title", "New Widget");
 	  $widget_dialog.dialog("open");
 	});
 
 	$(".widget .edit").live("click", function(event){
-	  var widget_id = $(this).parents(".widget").attr("data_widget_id");
+	  var widget_id = $(this).parents(".widget").data("widget_id");
 	  $("iframe", $widget_dialog).attr("src", "/widgets/" + widget_id + "/edit");
 	  $widget_dialog.dialog("option","title", "Edit Widget");
 	  $widget_dialog.dialog("open");
