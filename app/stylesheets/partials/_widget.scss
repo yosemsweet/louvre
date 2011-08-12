@@ -1,3 +1,15 @@
+.text_content > .body {
+  background :  url('/images/icons/text.png') no-repeat 10px 10px;
+}
+
+.image_content > .body {
+  background :  url('/images/icons/picture.png') no-repeat 10px 10px;
+}
+
+.link_content > .body {
+  background :  url('/images/icons/link.png') no-repeat 10px 10px;
+}
+
 $icon-size: 32px;
 .widget .body {
   @include floating-box;
@@ -8,11 +20,6 @@ $icon-size: 32px;
 
 	@include clearfix;
 	overflow:visible;
-	img.handle {
-		float: left;
-		margin-right: 10px;
-		cursor: move;
-	}
 	.excerpt {
 	  padding:10px;
 	  
@@ -22,7 +29,41 @@ $icon-size: 32px;
     	}
 	}
 	
-	.toggle_excerpt { position:absolute; right:10px; bottom: 0; width: $icon-size; height: $icon-size; background:  url('/images/icons/expand.png') no-repeat 0px 0px; display:block;}
+	.toolbox{
+	  position: absolute;
+	  top: 0;
+	  right: 0;
+	  z-index: $z-default + 1;
+	  padding: 5px 0 5px 5px;
+	  box-shadow: 1px 1px 5px $trim-color;
+	  
+	  .icon{
+	    float:right;
+	    padding-right: 5px;
+	    width: $icon-size;
+      height: $icon-size;
+      
+      span{
+        display:none;
+      }
+	  }
+	  
+	  .edit{
+      background:url('/images/icons/edit.png') no-repeat 0px 0px;
+    }
+
+    .delete{
+      background:url('/images/icons/delete.png') no-repeat 0px 0px;
+    }
+	}
+	
+	.toggle_preview { 
+	  position:absolute; 
+	  right:10px; bottom: 0; 
+	  width: $icon-size; height: $icon-size; 
+	  background:  url('/images/icons/expand.png') no-repeat 0px 0px; 
+	  display:block;
+	}
 
 	.title {
 	
@@ -48,19 +89,6 @@ $icon-size: 32px;
       }
     }
   }
-  
-  .edit{
-    position:absolute;
-    top: 10px;
-    right: 10px;
-    width: $icon-size;
-    height: $icon-size;
-    background :  url('/images/icons/edit.png') no-repeat 0px 0px;
-    
-    span{
-      display:none;
-    }
-  }
 }
 
 @mixin list_widget{
@@ -68,20 +96,6 @@ $icon-size: 32px;
 }
 
 .widget.presentation_widget .body{
-}
-
-.widget.editable_widget .body{
-	@include list_widget;
-}
-
-.widget.page_feed_widget .body {
-	@include list_widget;
-	.content { display: none; }
-	img.handle {
-		float: left;
-		margin-right: 10px;
-		cursor: move;
-	}
 }
 
 $canvas-feed-height: 200px;
@@ -138,15 +152,62 @@ $scrolly-excerpt-width:172px;
 
 }
 
-.text_content > .body {
-  background :  url('/images/icons/text.png') no-repeat 10px 10px;
+$page-feed-height:100px;
+$page-feed-width:290px;
+$page-feed-preview-width:220px;
+
+.widget.page_feed_widget .body {
+  @include floating-box;
+  @include box($background:$accent-color, $border:$accent-color);
+	overflow: visible;
+	position:relative;
+  width:$page-feed-width;
+  cursor: move;
+  
+  .title{
+    width:span(1);
+    height:100%;
+  }
+
+	.content { display: none; }
+	.comments { display:none; }
+
+  .excerpt {
+	   @include box;
+     box-shadow: inset 0 0 5px $trim-color;
+     position:relative;
+     margin-left:50px;
+
+     height: $page-feed-height;
+     width: $page-feed-preview-width;
+     
+     overflow: hidden;
+     text-overflow: ellipsis;
+     word-wrap: break-word;
+  }
+
 }
 
-.image_content > .body {
-  background :  url('/images/icons/picture.png') no-repeat 10px 10px;
-}
 
-.link_content > .body {
-  background :  url('/images/icons/link.png') no-repeat 10px 10px;
+.widget.editable_widget .body {
+  @include box($background:$accent-color, $border:$accent-color);
+	position:relative;
+	
+	min-height: 0;
+	cursor:move;
+  
+  padding: 0 0 0 10px;
+  
+	.excerpt { display: none; }
+	.tags { display: none; }
+	.content {
+	  @include box;
+	  position:relative;
+	  padding:10px;
+	}
+	
+	.toolbox{
+	  display:none;
+	  background-color:transparentize($accent-grey, 0.3);
+	}
 }
-
