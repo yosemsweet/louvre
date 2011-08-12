@@ -42,7 +42,7 @@ $box-title-default-width : 20px;
 }
 
 
-@mixin handle-bar-rght($left: 20px, $box-height: 400px){
+@mixin handle-bar-right($left: 20px, $box-height: 400px){
   @include rotation;
   position:absolute;
   cursor:pointer;

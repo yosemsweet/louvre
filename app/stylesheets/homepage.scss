@@ -43,7 +43,7 @@ $box-height: 400px;
   
   .title-box{
     @include floating-box;
-    @include title-box($height:$box-height);
+    @include title-box($width:span(1)+ 10, $height:$box-height);
     position: relative;
     z-index:$z-top + 1;
     cursor:pointer;
@@ -70,7 +70,7 @@ $box-height: 400px;
   }
 
   .handle{
-    @include handle-bar-rght($left: span(14) + $box-title-default-width + 20px , $box-height: $box-height);
+    @include handle-bar-right($left: span(14) + span(1) - 10 , $box-height: $box-height);
     z-index:$z-top;
   }
 }
