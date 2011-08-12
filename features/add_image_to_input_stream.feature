@@ -6,6 +6,7 @@ so that I can share interesting/valuable ideas with members of the community
 @omniauth_test
 @javascript
 @pending
+@wip
 Scenario: Use form to add image url to input stream
 Given there is a canvas
 And I am authenticated
