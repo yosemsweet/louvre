@@ -10,6 +10,7 @@ module ApplicationHelper
     http://texteditor.suite101.com.s3.amazonaws.com/adapters/jquery.js
     jquery-qtip-1.0.0-rc3.min
     application
+    widget
     facebook_integration
     mixpanel_integration google_analytics
     jquery.tokeninput
