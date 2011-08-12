@@ -7,15 +7,8 @@
     = csrf_meta_tag
     = yield :opengraph_meta_tags
   %body
-    :javascript
-      // Common javascript request variables
-      var request = {
-        root_url : "#{root_url}",
-        user_id : #{current_user ? current_user.id : 0},
-        canvas_id : #{@canvas ? @canvas.id : 0},
-        page_id : #{@page ? @page.id : 0}
-      };
-      
+    = render :partial => 'layouts/load_request_data'
+    
     #fb-root
       :javascript
         FBCallbacks = new Array();
@@ -63,56 +56,5 @@
     - if current_user
       #hud
         %a#hide_hud{:href => "#"} Hide
-        #hud_content
-        
-    - if current_user
-      :javascript
-        $("#hud").hide();
-        
-        var hud_width = $("#hud").outerWidth();
-        $("#hud").css("top", $("#header").outerHeight() + "px");
-        $("#hud").css("right", -1 * hud_width + "px");
-        
-        var reload_hud = function(){
-          $("#hud_content").load("#{hud_user_path(current_user)}");  
-        }
-        
-        var toggle_hud = function(){
-          
-          if(parseInt($("#hud").css("right")) < 0){
-            $("#hud").toggle();
-            $("#hud").animate({
-              right: "+=" + hud_width
-            }, 300);
-          } else {
-            $("#hud").animate({
-              right: "-=" + hud_width
-            }, 300, function(){
-              $("#hud").toggle();
-            });
-          }
-          
-          //$("#hud").toggle(300);
-        }        
-        
-        reload_hud();        
-        
-        $("#show_hud").click(function(event){
-          event.preventDefault();
-          toggle_hud();
-        });  
-        
-        $("#hide_hud").click(function(event){
-          event.preventDefault();
-          toggle_hud();
-        });
-          
-    :javascript
-      $(function() {
-              
-         $('#flash').delay(500).fadeIn('normal', function() {
-            $(this).delay(2500).fadeOut('slow');
-         });
-      });
-      
+        #hud_content      
          

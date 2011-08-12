@@ -1,4 +1,5 @@
-.comments
-  .facebook_comments
-    .fb-discussion
+%a.toggle_facebook_comments{:href => "#"} Join the discussion
+
+.facebook_comments
+  .fb-discussion
     = comments_for(widget, :href => widget_url(widget), :width => 750)

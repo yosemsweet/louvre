@@ -1,5 +1,5 @@
-%li
-  .widget.canvas_feed_widget{:data_widget_id => widget.id,:class => widget.content_type}
+%li.widget_list_item
+  .widget.canvas_feed_widget{:data => {:widget_id => widget.id} , :class => widget.content_type}
 
     .title
       .comment_count
