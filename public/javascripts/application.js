@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var reload_hud = function(){
+	reload_hud = function(){
 	  $("#hud_content").load("/users/" + request.user_id + "/hud");  
 	}
 
