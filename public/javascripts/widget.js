@@ -42,6 +42,42 @@ $(function() {
 	  event.preventDefault();
 	});
 
+	$(".widget .delete").live("click", function(event){
+    var $widget = $(this).parents(".widget");
+    var widget_id = $widget.data("widget_id");
+    
+    // Delete from the server.
+    $.post("/widgets/" + widget_id, { _method : 'DELETE' });
+    
+    // Remove from the DOM.
+    $widget.remove();
+    
+    // Track the event.
+    mixpanel_attributes.widget_id = widget_id;
+    mpq.push(["track","page_remove_widget", mixpanel_attributes]);
+    
+    event.preventDefault();
+  });
+
+	enable_widget_previews = function(){
+		// Enable the toggle preview qtips.
+	  $(".widget .toggle_preview").each(function(){
+			console.log($(this));
+	    $(this).qtip({
+	      content: $(this).parents().filter(".widget").find(".content").html(),
+	      show: 'mouseover', hide: 'mouseout',
+	      position: { corner: { target: 'bottomLeft', tooltip: 'topRight' }, adjust: { screen: true } },
+	      style: {
+	        width: 572,
+	        border: { width: 5, radius: 10 },
+	        padding: 10, 
+	        tip: true,
+	        name: 'light' 
+	      }
+	    });
+	  });
+	}
+
   close_widget_dialog = function(){
     $widget_dialog.close();
   }
