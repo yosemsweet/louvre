@@ -62,7 +62,9 @@
           = "add to #{@canvas.name}"
 
   %h2 Feed
-  = render :partial => 'shared/add_widgets'
+  #toolbar
+    %a.add_widget{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
+    %a.add_widget{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
   %ul#feed
 
 

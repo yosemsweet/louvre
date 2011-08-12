@@ -16,7 +16,8 @@
       = f.submit 'Update'
 
   #toolbar
-    = render :partial => 'shared/add_widgets'
+    %a.add_widget{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Text
+    %a.add_widget{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Image
       
   %ul#page
 
