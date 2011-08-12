@@ -13,7 +13,7 @@ $(document).ready(function(){
 	var reload_widgets = function(){
 	  $("ul#feed").load("/widgets/for_canvas/" + request.canvas_id + "/canvas_feed", function(){
 	     enable_widget_previews();     
-	     FB.XFBML.parse();
+
 	     $("ul#feed .widget").each(function(){
        
 	       var $widget = $(this);
@@ -82,11 +82,10 @@ $(document).ready(function(){
   
 	$(".widget .toggle_facebook_comments").live('click', function(event){
 	  event.preventDefault();
-  
-	  $(this).parents(".widget").find(".facebook_comments")
-	  console.log($(this).parents(".widget").find(".facebook_comments"));
-    //.toggle()
-	  //$(this).remove();    
+	
+		$facebook_comments = $(this).parents(".widget").find(".facebook_comments");
+		$facebook_comments.toggle();
+  	FB.XFBML.parse($facebook_comments.get(0));
   
 	});
 
