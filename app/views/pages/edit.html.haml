@@ -71,8 +71,7 @@
         connectToSortable: 'ul#page',
         opacity: 0.6,
         revert: 'invalid',
-        revertDuration: 200,
-        handle: 'img.handle'
+        revertDuration: 200
       });
       
       // Enable the toggle preview qtips.
@@ -124,7 +123,7 @@
      tolerance: 'pointer',
      placeholder: 'placeholder',
      forcePlaceholderSize: true,
-     handle: 'img.handle',
+     handle: '.title',
      update: function(event, ui){     
         // Get the dragged widget id.
         var widget_id = ui.item.data("widget_id");

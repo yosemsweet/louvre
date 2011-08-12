@@ -10,8 +10,6 @@ $icon-size: 32px;
 	overflow:visible;
 	img.handle {
 		float: left;
-		margin-right: 10px;
-		cursor: move;
 	}
 	.preview {
 	  padding:10px;
@@ -137,6 +135,44 @@ $scrolly-preview-width:172px;
   }
 
 }
+
+
+$page-feed-height:100px;
+$page-feed-width:290px;
+$page-feed-preview-width:220px;
+
+.widget.page_feed_widget {
+  @include floating-box;
+  @include box($background:$accent-color, $border:$accent-color);
+	overflow: visible;
+	position:relative;
+  width:$page-feed-width;
+  cursor: move;
+  
+  .title{
+    width:span(1);
+    height:100%;
+  }
+
+	.content { display: none; }
+	.comments { display:none; }
+
+  .preview {
+	   @include box;
+     box-shadow: inset 0 0 5px $trim-color;
+     position:relative;
+     margin-left:50px;
+
+     height: $page-feed-height;
+     width: $page-feed-preview-width;
+     
+     overflow: hidden;
+     text-overflow: ellipsis;
+     word-wrap: break-word;
+  }
+
+}
+
 
 .text_content {
   background :  url('/images/icons/text.png') no-repeat 10px 10px;
