@@ -1,7 +1,8 @@
 - content_for(:opengraph_meta_tags, opengraph_meta_tags_for(@canvas, :url => canvas_url(@canvas), :site_name => @canvas.name))
 - content_for :head do
   = stylesheet_link_tag 'canvas.css', :media => 'screen, projection'
-
+- content_for :javascripts do
+  = javascript_include_tag 'widget.js'  
 
 #widget_dialog
   %iframe{:src => ""}
@@ -61,9 +62,9 @@
           = "add to #{@canvas.name}"
 
   %h2 Feed
+  = render :partial => 'shared/add_widgets'
   %ul#feed
-  %a.add_widget{:data_content_type => "text_content", :href => "#"} Add Text
-  %a.add_widget{:data_content_type => "image_content", :href => "#"} Add Image 
+
 
 - if current_user
   :javascript
@@ -76,7 +77,6 @@
       );
 
 :javascript
-  var canvas_id = #{@canvas.id};
   
   var user = {
     is_logged_in : #{!current_user.nil?},
@@ -100,7 +100,7 @@
     
   $("#follow button").click(function(){
     toggle_follow_status();
-    $.post("/follows/", {followable_type: 'canvas', followable_id: canvas_id}, function(){
+    $.post("/follows/", {followable_type: 'canvas', followable_id: request.canvas_id}, function(){
       reload_hud();  
     });
     
@@ -108,35 +108,10 @@
   
   $("#unfollow button").click(function(){
     toggle_follow_status();
-    $.post("/follows/", {_method : "DELETE", followable_type: 'canvas', followable_id: canvas_id}, function(){
+    $.post("/follows/", {_method : "DELETE", followable_type: 'canvas', followable_id: request.canvas_id}, function(){
       reload_hud();
     });
     
-  });
-  
-  var $widget_dialog = $("#widget_dialog").dialog({
-    minHeight:250, 
-    minWidth:500, 
-    autoOpen:false
-  });
-      
-  $(".add_widget").click(function(event){
-    event.preventDefault();
-    $("iframe", $widget_dialog).attr("src", "/widgets/new?content_type=" + $(this).attr("data_content_type") + "&canvas_id=" + canvas_id);
-    $widget_dialog.dialog("option","title", "New Widget");
-    $widget_dialog.dialog("open");
-  });
-  
-  $(".widget .edit").live("click", function(event){
-    var widget_id = $(this).parents(".widget").attr("data_widget_id");
-    $("iframe", $widget_dialog).attr("src", "/widgets/" + widget_id + "/edit");
-    $widget_dialog.dialog("option","title", "Edit Widget");
-    $widget_dialog.dialog("open");
-    
-    mixpanel_attributes.widget_id = widget_id;
-    mpq.push(["track","canvas_edit_widget", mixpanel_attributes]);
-    
-    event.preventDefault();
   });
   
   var enable_widget_tooltips = function(){
@@ -158,13 +133,13 @@
   }
     
   var reload_widgets = function(){
-    $("ul#feed").load("/widgets/for_canvas/" + canvas_id + "/canvas_feed", function(){
+    $("ul#feed").load("/widgets/for_canvas/" + request.canvas_id + "/canvas_feed", function(){
        enable_widget_tooltips();     
        FB.XFBML.parse();
        $("ul#feed .widget").each(function(){
          
          var $widget = $(this);
-         var widget_url = request.root_url + "widgets/" + $widget.attr("data_widget_id");
+         var widget_url = request.root_url + "widgets/" + $widget.data("widget_id");
          
          countComments(widget_url, function(n){
            var text = "";
@@ -185,20 +160,20 @@
   reload_widgets();
   
   var update_after_edit = function(){
+    close_widget_dialog();
     reload_widgets();
-    $widget_dialog.dialog("close");
   }
     
   var load_new_widgets = function(){
-     // Get highest data_widget_id value on page.
+     // Get highest widget_id value on page.
      var max_widget_id = 0;
      $("#feed li.widget").each(function(){
-       if ($(this).attr("data_widget_id") * 1 > max_widget_id) {
-         max_widget_id = $(this).attr("data_widget_id");
+       if ($(this).data("widget_id") * 1 > max_widget_id) {
+         max_widget_id = $(this).data("widget_id");
        }
      });
      // Get html for any new widgets and append to the feed.
-     $.get('/widgets/for_canvas/' + canvas_id + '/canvas_feed?start=' + (1*max_widget_id + 1), function(data) {
+     $.get('/widgets/for_canvas/' + request.canvas_id + '/canvas_feed?start=' + (1*max_widget_id + 1), function(data) {
        if(data.length > 1){
          $(data).appendTo("#feed");
          enable_widget_tooltips();

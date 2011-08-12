@@ -13,7 +13,9 @@
       var request = {
         root_url : "#{root_url}",
         is_authenticated : #{!current_user.nil?},
-        user_id : #{current_user ? current_user.id : 0}
+        user_id : #{current_user ? current_user.id : 0},
+        canvas_id : #{@canvas ? @canvas.id : 0},
+        page_id : #{@page ? @page.id : 0}
       };
       
     #fb-root
