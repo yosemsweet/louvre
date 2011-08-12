@@ -1,6 +1,5 @@
 %li.widget.canvas_feed_widget{:data => {:widget_id => widget.id} , :class => widget.content_type}
   .body
-    = render_widget_section("preview", widget)
     = render_widget_section("toggle_preview_link")  
     = render_widget_section("edit_link")
     .title
@@ -11,6 +10,7 @@
     .content
       = render_widget_section("content", widget)
     .excerpt
+      = render_widget_section("preview", widget)
   .tags
     = render_widget_section("tags", widget)
   .comments
