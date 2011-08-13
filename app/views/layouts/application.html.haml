@@ -56,5 +56,10 @@
     - if current_user
       #hud
         %a#hide_hud{:href => "#"} Hide
-        #hud_content      
-         
+        #hud_content
+    
+    :javascript
+      $(".widget").live({
+        mouseenter:function(){$(this).find('.toolbox').show();},
+        mouseleave:function(){$(this).find('.toolbox').hide();}
+      });
