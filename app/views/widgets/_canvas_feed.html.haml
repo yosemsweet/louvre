@@ -1,12 +1,15 @@
 %li.widget.canvas_feed_widget{:data => {:widget_id => widget.id} , :class => widget.content_type}
   .body
-    = render_widget_section("toggle_preview_link")  
-    = render_widget_section("edit_link")
     .title
       .comment_count
         %a.toggle_facebook_comments{:href => "#"} 
           %span
             comment
+    .toolbox.top
+      = render_widget_section("edit_link")
+      
+    .toolbox.bottom  
+      = render_widget_section("toggle_preview_link")  
     .content
       = render_widget_section("content", widget)
     .excerpt

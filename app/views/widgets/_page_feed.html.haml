@@ -1,11 +1,12 @@
 %li.widget.page_feed_widget{:class => widget.content_type, :data => {:widget_id => widget.id}}
   .body
-    = render_widget_section("toggle_preview_link")
     .title
       .comment_count
         %a.toggle_facebook_comments{:href => "#"} 
           %span
             comment
+    .toolbox.bottom
+      = render_widget_section("toggle_preview_link")
     .content
       = render_widget_section("content", widget)  
     .excerpt
