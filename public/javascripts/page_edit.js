@@ -48,6 +48,9 @@ $(document).ready( function(){
 	   tolerance: 'pointer',
 	   placeholder: 'placeholder',
 	   forcePlaceholderSize: true,
+		 start: function(event, ui){
+				$(".placeholder").css("height", ui.item.css("height"));
+		 },
 	   update: function(event, ui){     
 	      // Get the dragged widget id.
 	      var widget_id = ui.item.data("widget_id");
@@ -56,7 +59,7 @@ $(document).ready( function(){
       
 	      if (ui.item.hasClass("page_feed_widget")) {
         
-	        ui.item.text("Loading...");
+	        // ui.item.children(".content").text("Loading...");
                   
 	        // Clone the widget.
 	        $.post("/widgets/" + widget_id + "/copy_to_page/" + request.page_id, { position : position }, function(data){               
