@@ -1589,91 +1589,114 @@ a:link {
   font-style: italic;
 }
 
-/* line 3, ../../app/stylesheets/application.scss */
-body {
-  background-color: white;
-  color: #333333;
+/* line 3, ../../app/stylesheets/homepage.scss */
+#intro-video {
+  border: 5px solid white;
 }
-/* line 7, ../../app/stylesheets/application.scss */
-body li.widget {
+
+/* line 7, ../../app/stylesheets/homepage.scss */
+input#canvas_name {
+  display: block;
+  width: 340px;
+  margin-top: 0px;
+  float: right;
+}
+
+/* line 15, ../../app/stylesheets/homepage.scss */
+input#submit {
+  background: #cccccc;
+  width: 150px;
+  padding: 8px;
+  margin-top: 0;
+  letter-spacing: 1px;
+  border: none;
+  color: white;
+  font-size: 14px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  text-shadow: 0 -1px 2px #999999, 0 1px 2px white;
+  box-shadow: 0 1px 2px #999999;
+  float: right;
+}
+
+/* line 32, ../../app/stylesheets/homepage.scss */
+p {
+  font-size: 14px;
+}
+
+/* line 39, ../../app/stylesheets/homepage.scss */
+#canvae {
+  position: absolute;
+  top: 100px;
+  left: 0;
+}
+/* line 44, ../../app/stylesheets/homepage.scss */
+#canvae .title-box {
+  background-color: white;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 5px #999999, inset 0 0 5px #cccccc;
+  background-color: #cccccc;
+  border: 1px solid #cccccc;
+  height: 400px;
+  width: 40px;
+  position: relative;
+  z-index: 5001;
+  cursor: pointer;
+}
+/* line 27, ../../app/stylesheets/partials/_box.scss */
+#canvae .title-box .title {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+/* line 30, ../../app/stylesheets/partials/_box.scss */
+#canvae .title-box .title h2 {
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 2.5em;
+  font-variant: small-caps;
+  color: white;
+}
+/* line 52, ../../app/stylesheets/homepage.scss */
+#canvae .contents {
+  background-color: white;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 5px #999999, inset 0 0 5px #cccccc;
+  position: absolute;
+  left: 40px;
+  top: 0;
+  width: 550px;
+  z-index: 5000;
+  min-height: 400px;
+}
+/* line 61, ../../app/stylesheets/homepage.scss */
+#canvae .contents ul {
+  margin-left: 0;
+  padding-left: 0;
   list-style: none;
 }
-
-/* line 12, ../../app/stylesheets/application.scss */
-#header {
-  background-color: #cccccc;
-  height: 80px;
-  z-index: 999999999999;
-  position: relative;
-  box-shadow: 0 1px 5px #999999;
-}
-/* line 19, ../../app/stylesheets/application.scss */
-#header #user-nav {
+/* line 68, ../../app/stylesheets/homepage.scss */
+#canvae .handle {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
   position: absolute;
-  right: 0px;
-  width: 300px;
+  cursor: pointer;
+  background-color: #999999;
   color: white;
-  margin-right: 10px;
-}
-/* line 25, ../../app/stylesheets/application.scss */
-#header #user-nav a {
-  color: white;
-}
-/* line 30, ../../app/stylesheets/application.scss */
-#header h1 {
-  color: #663399;
-  letter-spacing: -2px;
-  font-family: 'Trebuchet MS';
-  font-size: 4em;
-  background: url("/images/loorp-loop.png") no-repeat 0px 5px;
-  padding: 10px 10px 10px 55px;
-}
-/* line 35, ../../app/stylesheets/application.scss */
-#header h1 a {
-  text-decoration: none;
-  color: #663399;
-}
-/* line 39, ../../app/stylesheets/application.scss */
-#header h1 a:hover {
-  text-decoration: underline;
-}
-
-/* line 45, ../../app/stylesheets/application.scss */
-.flash {
+  width: 70px;
+  height: 10px;
+  top: 165px;
+  left: 560px;
+  -moz-border-radius-topright: 25px;
+  -moz-border-radius-topleft: 25px;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
   text-align: center;
-}
-
-/* line 50, ../../app/stylesheets/application.scss */
-.content img {
-  max-height: 200px;
-  max-width: 200px;
-}
-
-/* line 56, ../../app/stylesheets/application.scss */
-#footer {
-  padding-top: 15px;
-}
-
-/* line 60, ../../app/stylesheets/application.scss */
-.invite_user {
-  display: inline;
-}
-
-/* line 64, ../../app/stylesheets/application.scss */
-#hud {
-  position: fixed;
-  border-left: 1px solid #aaa;
-  padding: 10px;
-  margin: 0px;
-  height: 100%;
-  width: 200px;
-  background-color: #f3f3f3;
-  -moz-box-shadow: #999999 -1px -1px 5px;
-  -webkit-box-shadow: #999999 -1px -1px 5px;
-  -o-box-shadow: #999999 -1px -1px 5px;
-  box-shadow: #999999 -1px -1px 5px;
-}
-/* line 74, ../../app/stylesheets/application.scss */
-#hud #hide_hud {
-  float: right;
+  line-height: 8px;
+  z-index: 5000;
 }
