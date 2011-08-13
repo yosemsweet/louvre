@@ -1451,25 +1451,28 @@ a:link {
 }
 
 /* line 126, ../../app/stylesheets/partials/_widget.scss */
+.widget.scrolly_widget {
+  position: fixed;
+}
+/* line 128, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget .body {
   background-color: white;
   border: 1px solid #cccccc;
   box-shadow: 0 1px 5px #999999, inset 0 0 5px #cccccc;
   background-color: #cccccc;
   border: 1px solid #cccccc;
-  position: fixed;
   overflow: visible;
   width: 242px;
 }
-/* line 133, ../../app/stylesheets/partials/_widget.scss */
+/* line 134, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget .body .content {
   display: none;
 }
-/* line 134, ../../app/stylesheets/partials/_widget.scss */
+/* line 135, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget .body .comments {
   display: none;
 }
-/* line 136, ../../app/stylesheets/partials/_widget.scss */
+/* line 137, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget .body .excerpt {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1483,7 +1486,7 @@ a:link {
   word-wrap: break-word;
 }
 
-/* line 156, ../../app/stylesheets/partials/_widget.scss */
+/* line 157, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .body {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1495,24 +1498,20 @@ a:link {
   width: 290px;
   cursor: move;
 }
-/* line 164, ../../app/stylesheets/partials/_widget.scss */
+/* line 165, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .body .title {
   width: 30px;
   height: 100%;
 }
-/* line 169, ../../app/stylesheets/partials/_widget.scss */
+/* line 170, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .body .content {
   display: none;
 }
-/* line 170, ../../app/stylesheets/partials/_widget.scss */
+/* line 171, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .body .comments {
   display: none;
 }
-/* line 172, ../../app/stylesheets/partials/_widget.scss */
-.widget.page_feed_widget .body .comment_count {
-  display: none;
-}
-/* line 176, ../../app/stylesheets/partials/_widget.scss */
+/* line 173, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .body .excerpt {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1526,7 +1525,7 @@ a:link {
   word-wrap: break-word;
 }
 
-/* line 194, ../../app/stylesheets/partials/_widget.scss */
+/* line 189, ../../app/stylesheets/partials/_widget.scss */
 .widget.editable_widget .body {
   background-color: #cccccc;
   border: 1px solid #cccccc;
@@ -1535,20 +1534,25 @@ a:link {
   cursor: move;
   padding: 0 0 0 10px;
 }
-/* line 203, ../../app/stylesheets/partials/_widget.scss */
+/* line 198, ../../app/stylesheets/partials/_widget.scss */
 .widget.editable_widget .body .excerpt {
   display: none;
 }
-/* line 204, ../../app/stylesheets/partials/_widget.scss */
+/* line 199, ../../app/stylesheets/partials/_widget.scss */
+.widget.editable_widget .body .tags {
+  display: none;
+}
+/* line 200, ../../app/stylesheets/partials/_widget.scss */
 .widget.editable_widget .body .content {
   background-color: white;
   border: 1px solid #cccccc;
   position: relative;
   padding: 10px;
 }
-/* line 210, ../../app/stylesheets/partials/_widget.scss */
-.widget.editable_widget .tags {
+/* line 206, ../../app/stylesheets/partials/_widget.scss */
+.widget.editable_widget .body .toolbox {
   display: none;
+  background-color: rgba(153, 153, 153, 0.7);
 }
 
 /* line 3, ../../app/stylesheets/partials/_canvas.scss */

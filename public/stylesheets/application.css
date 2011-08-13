@@ -1451,25 +1451,28 @@ a:link {
 }
 
 /* line 126, ../../app/stylesheets/partials/_widget.scss */
+.widget.scrolly_widget {
+  position: fixed;
+}
+/* line 128, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget .body {
   background-color: white;
   border: 1px solid #cccccc;
   box-shadow: 0 1px 5px #999999, inset 0 0 5px #cccccc;
   background-color: #cccccc;
   border: 1px solid #cccccc;
-  position: fixed;
   overflow: visible;
   width: 242px;
 }
-/* line 133, ../../app/stylesheets/partials/_widget.scss */
+/* line 134, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget .body .content {
   display: none;
 }
-/* line 134, ../../app/stylesheets/partials/_widget.scss */
+/* line 135, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget .body .comments {
   display: none;
 }
-/* line 136, ../../app/stylesheets/partials/_widget.scss */
+/* line 137, ../../app/stylesheets/partials/_widget.scss */
 .widget.scrolly_widget .body .excerpt {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1483,7 +1486,7 @@ a:link {
   word-wrap: break-word;
 }
 
-/* line 156, ../../app/stylesheets/partials/_widget.scss */
+/* line 157, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .body {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1495,24 +1498,20 @@ a:link {
   width: 290px;
   cursor: move;
 }
-/* line 164, ../../app/stylesheets/partials/_widget.scss */
+/* line 165, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .body .title {
   width: 30px;
   height: 100%;
 }
-/* line 169, ../../app/stylesheets/partials/_widget.scss */
+/* line 170, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .body .content {
   display: none;
 }
-/* line 170, ../../app/stylesheets/partials/_widget.scss */
+/* line 171, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .body .comments {
   display: none;
 }
-/* line 172, ../../app/stylesheets/partials/_widget.scss */
-.widget.page_feed_widget .body .comment_count {
-  display: none;
-}
-/* line 176, ../../app/stylesheets/partials/_widget.scss */
+/* line 173, ../../app/stylesheets/partials/_widget.scss */
 .widget.page_feed_widget .body .excerpt {
   background-color: white;
   border: 1px solid #cccccc;
@@ -1526,7 +1525,7 @@ a:link {
   word-wrap: break-word;
 }
 
-/* line 194, ../../app/stylesheets/partials/_widget.scss */
+/* line 189, ../../app/stylesheets/partials/_widget.scss */
 .widget.editable_widget .body {
   background-color: #cccccc;
   border: 1px solid #cccccc;
@@ -1535,20 +1534,25 @@ a:link {
   cursor: move;
   padding: 0 0 0 10px;
 }
-/* line 203, ../../app/stylesheets/partials/_widget.scss */
+/* line 198, ../../app/stylesheets/partials/_widget.scss */
 .widget.editable_widget .body .excerpt {
   display: none;
 }
-/* line 204, ../../app/stylesheets/partials/_widget.scss */
+/* line 199, ../../app/stylesheets/partials/_widget.scss */
+.widget.editable_widget .body .tags {
+  display: none;
+}
+/* line 200, ../../app/stylesheets/partials/_widget.scss */
 .widget.editable_widget .body .content {
   background-color: white;
   border: 1px solid #cccccc;
   position: relative;
   padding: 10px;
 }
-/* line 210, ../../app/stylesheets/partials/_widget.scss */
-.widget.editable_widget .tags {
+/* line 206, ../../app/stylesheets/partials/_widget.scss */
+.widget.editable_widget .body .toolbox {
   display: none;
+  background-color: rgba(153, 153, 153, 0.7);
 }
 
 /* line 3, ../../app/stylesheets/partials/_canvas.scss */
@@ -1590,8 +1594,12 @@ body {
   background-color: white;
   color: #333333;
 }
+/* line 7, ../../app/stylesheets/application.scss */
+body li.widget {
+  list-style: none;
+}
 
-/* line 8, ../../app/stylesheets/application.scss */
+/* line 12, ../../app/stylesheets/application.scss */
 #header {
   background-color: #cccccc;
   height: 80px;
@@ -1599,7 +1607,7 @@ body {
   position: relative;
   box-shadow: 0 1px 5px #999999;
 }
-/* line 15, ../../app/stylesheets/application.scss */
+/* line 19, ../../app/stylesheets/application.scss */
 #header #user-nav {
   position: absolute;
   right: 0px;
@@ -1607,11 +1615,11 @@ body {
   color: white;
   margin-right: 10px;
 }
-/* line 21, ../../app/stylesheets/application.scss */
+/* line 25, ../../app/stylesheets/application.scss */
 #header #user-nav a {
   color: white;
 }
-/* line 26, ../../app/stylesheets/application.scss */
+/* line 30, ../../app/stylesheets/application.scss */
 #header h1 {
   color: #663399;
   letter-spacing: -2px;
@@ -1620,38 +1628,38 @@ body {
   background: url("/images/loorp-loop.png") no-repeat 0px 5px;
   padding: 10px 10px 10px 55px;
 }
-/* line 31, ../../app/stylesheets/application.scss */
+/* line 35, ../../app/stylesheets/application.scss */
 #header h1 a {
   text-decoration: none;
   color: #663399;
 }
-/* line 35, ../../app/stylesheets/application.scss */
+/* line 39, ../../app/stylesheets/application.scss */
 #header h1 a:hover {
   text-decoration: underline;
 }
 
-/* line 41, ../../app/stylesheets/application.scss */
+/* line 45, ../../app/stylesheets/application.scss */
 .flash {
   text-align: center;
 }
 
-/* line 46, ../../app/stylesheets/application.scss */
+/* line 50, ../../app/stylesheets/application.scss */
 .content img {
   max-height: 200px;
   max-width: 200px;
 }
 
-/* line 52, ../../app/stylesheets/application.scss */
+/* line 56, ../../app/stylesheets/application.scss */
 #footer {
   padding-top: 15px;
 }
 
-/* line 56, ../../app/stylesheets/application.scss */
+/* line 60, ../../app/stylesheets/application.scss */
 .invite_user {
   display: inline;
 }
 
-/* line 60, ../../app/stylesheets/application.scss */
+/* line 64, ../../app/stylesheets/application.scss */
 #hud {
   position: fixed;
   border-left: 1px solid #aaa;
@@ -1665,7 +1673,7 @@ body {
   -o-box-shadow: #999999 -1px -1px 5px;
   box-shadow: #999999 -1px -1px 5px;
 }
-/* line 70, ../../app/stylesheets/application.scss */
+/* line 74, ../../app/stylesheets/application.scss */
 #hud #hide_hud {
   float: right;
 }

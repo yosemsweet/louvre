@@ -123,30 +123,31 @@ $scrolly-height:100px;
 $scrolly-width:242px;
 $scrolly-excerpt-width:172px;
 
-.widget.scrolly_widget .body{
-  @include floating-box;
-  @include box($background:$accent-color, $border:$accent-color);
+.widget.scrolly_widget {
 	position: fixed;
-	overflow: visible;
-	width:$scrolly-width;
+	.body{
+	  @include floating-box;
+	  @include box($background:$accent-color, $border:$accent-color);
+		overflow: visible;
+		width:$scrolly-width;
 
-	.content { display: none; }
-	.comments { display:none; }
+		.content { display: none; }
+		.comments { display:none; }
 
-  .excerpt {
-	   @include box;
-     box-shadow: inset 0 0 5px $trim-color;
-     position:relative;
-     margin-left:$scrolly-width - $scrolly-excerpt-width - 20px;
+	  .excerpt {
+		   @include box;
+	     box-shadow: inset 0 0 5px $trim-color;
+	     position:relative;
+	     margin-left:$scrolly-width - $scrolly-excerpt-width - 20px;
 
-     height: $scrolly-height;
-     width: $scrolly-excerpt-width;
+	     height: $scrolly-height;
+	     width: $scrolly-excerpt-width;
      
-     overflow: hidden;
-     text-overflow: ellipsis;
-     word-wrap: break-word;
-  }
-
+	     overflow: hidden;
+	     text-overflow: ellipsis;
+	     word-wrap: break-word;
+	  }
+	}
 }
 
 $page-feed-height:100px;
@@ -168,10 +169,6 @@ $page-feed-preview-width:220px;
 
 	.content { display: none; }
 	.comments { display:none; }
-  
-  .comment_count { display:none; }
-  
-
 
   .excerpt {
 	   @include box;
@@ -189,23 +186,25 @@ $page-feed-preview-width:220px;
 
 }
 
-
-.widget.editable_widget {
-  .body {
-    @include box($background:$accent-color, $border:$accent-color);
-    position:relative;
-
-    min-height: 0;
-    cursor:move;
-
-    padding: 0 0 0 10px;
-    
-    .excerpt { display: none; }
-    .content {
-      @include box;
-      position:relative;
-      padding:10px;
-    }
-	}
+.widget.editable_widget .body {
+  @include box($background:$accent-color, $border:$accent-color);
+	position:relative;
+	
+	min-height: 0;
+	cursor:move;
+  
+  padding: 0 0 0 10px;
+  
+	.excerpt { display: none; }
 	.tags { display: none; }
+	.content {
+	  @include box;
+	  position:relative;
+	  padding:10px;
+	}
+	
+	.toolbox{
+	  display:none;
+	  background-color:transparentize($accent-grey, 0.3);
+	}
 }
