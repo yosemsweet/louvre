@@ -93,8 +93,8 @@ ActiveRecord::Schema.define(:version => 20110811173927) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "content"
-    t.integer  "parent_id"
     t.string   "alt_text"
+    t.integer  "parent_id"
   end
 
 end
