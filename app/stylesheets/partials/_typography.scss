@@ -27,9 +27,10 @@
 
 @mixin logo-font {
   letter-spacing: -2px;
+	height: 45px;
   font: {
     family: 'Trebuchet MS';
-    size: 4em;
+    // size: 4em;
   }
 }
 

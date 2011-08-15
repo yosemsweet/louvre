@@ -1298,18 +1298,18 @@ form.inline p {
 }
 
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Serif:400,700);
-/* line 37, ../../app/stylesheets/partials/_typography.scss */
+/* line 38, ../../app/stylesheets/partials/_typography.scss */
 * {
   font-family: 'Droid Sans', sans-serif;
   font-size: 1em;
 }
 
-/* line 41, ../../app/stylesheets/partials/_typography.scss */
+/* line 42, ../../app/stylesheets/partials/_typography.scss */
 a:visited {
   color: #663399;
 }
 
-/* line 42, ../../app/stylesheets/partials/_typography.scss */
+/* line 43, ../../app/stylesheets/partials/_typography.scss */
 a:link {
   color: #0066ff;
 }
@@ -1623,8 +1623,8 @@ body li.widget {
 #header h1 {
   color: #663399;
   letter-spacing: -2px;
+  height: 45px;
   font-family: 'Trebuchet MS';
-  font-size: 4em;
   background: url("/images/loorp-loop.png") no-repeat 0px 5px;
   padding: 10px 10px 10px 55px;
 }
