@@ -5,7 +5,6 @@ Feature: user hud
 
 @omniauth_test
 @javascript
-@wip  
 Scenario: Listing followed canvases
   Given there is a canvas
   And I am authenticated 
