@@ -11,49 +11,9 @@
     .toolbox.bottom  
       = render_widget_section("toggle_preview_link")  
     .content
-      = render_widget_section("content", widget)        
+      = render_widget_section("content", widget)
     .excerpt
-      .excerpt_text
-        = render_widget_section("preview", widget)
-      
-      .inline_widget_form{:style => "display:none;"}
-        = form_for widget do |f|
-          .field
-            = f.label :tag_ids, "Tags"
-            = f.text_field :tag_ids, "data-pre" => widget.tags.map(&:attributes).to_json
-          - case widget.content_type  
-          - when 'text_content'
-            .field
-              = f.text_area :content, {:id => "widget_ckeditor_#{widget.id}"}
-          - when 'image_content'
-            .field
-              = f.label 'image url'
-              = f.text_field :content
-            .field
-              = f.label 'image alt text'
-              = f.text_field :alt_text
-
-          %input{:type => "hidden", :name => "widget[content_type]", :value => "#{widget.content_type}"}
-          %input{:type => "hidden", :name => "widget[creator_id]", :value => "#{current_user.id}"}
-
-          - if widget.page
-            %input{:type => "hidden", :name => "page_id", :value => "#{widget.page.id}"}
-          - else
-            %input{:type => "hidden", :name => "canvas_id", :value => "#{widget.canvas.id}"}
-
-          .actions
-            = f.submit 'Save'
-
-        -# :javascript
-        -#   // Tokenize the tag_id field
-        -#   $(function () {  
-        -#     $('#widget_tag_ids').tokenInput('/tags', { 
-        -#       crossDomain: false,
-        -#       prePopulate: $(this).data('pre'),
-        -#       theme: 'facebook'
-        -#     });
-        -#   });
-        
+      = render_widget_section("preview", widget)
   .tags
     = render_widget_section("tags", widget)
   .comments
