@@ -272,6 +272,11 @@ describe Widget do
 	      @widget.alt_text = nil
 	      @widget.should_not be_valid
 	    end
+	
+			it "should require an image" do
+				@widget.image = nil
+				@widget.should_not be_valid
+			end
 		end
 	end
 
