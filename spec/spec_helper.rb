@@ -6,8 +6,6 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
 	require 'ruby-debug'
-
-  Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
  
   RSpec.configure do |config|
     config.mock_with :mocha
@@ -17,4 +15,6 @@ Spork.prefork do
 end
  
 Spork.each_run do
+	require 'factory_girl_rails'
+	Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 end

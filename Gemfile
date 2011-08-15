@@ -13,7 +13,7 @@ gem 'engineyard'
 gem "breadcrumbs_on_rails"
 
 group :development, :test do
-  gem "factory_girl_rails"
+  gem "factory_girl_rails", :require => false
   gem "rails3-generators"
   gem "rspec-rails"
   gem "ruby-debug19"
