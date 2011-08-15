@@ -9,3 +9,11 @@ Given I am browsing "cnn"
 And I have a canvas bookmarklet
 When I use the bookmarklet
 Then the webpage link is added to the canvas' input stream
+
+@background_user, @wip
+Scenario: Select text on page
+Given I am browsing "cnn"
+And I have selected some text on the screen
+And I have a canvas bookmarklet
+When I use the bookmarklet
+Then the text is added to the canvas' input stream as a link

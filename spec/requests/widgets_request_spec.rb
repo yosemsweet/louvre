@@ -97,8 +97,8 @@ describe "Widgets Requests" do
       before(:each) do
         canvas = Factory.create(:canvas)
         page = Factory.create(:page)
-        @w1 = Factory.create(:widget, :canvas => canvas, :page => page, :position => 1, :content => "FirstGuy")
-        @w2 = Factory.create(:widget, :canvas => canvas, :page => page, :position => 2, :content => "IAmLast")
+        @w1 = Factory.create(:text_widget, :canvas => canvas, :page => page, :position => 1, :content => "FirstGuy")
+        @w2 = Factory.create(:text_widget, :canvas => canvas, :page => page, :position => 2, :content => "IAmLast")
         get "/widgets/for_page/#{page.id}/editable"
       end
       
@@ -127,8 +127,8 @@ describe "Widgets Requests" do
       context "with no tag_ids filter" do
   
         before(:each) do
-          @w_on_page = Factory.create(:widget, :canvas => @canvas, :page => @page, :content => "Happy Feet")
-          @w_not_on_page = Factory.create(:widget, :canvas => @canvas, :page => nil, :content => "Hungry Almas")
+          @w_on_page = Factory.create(:text_widget, :canvas => @canvas, :page => @page, :content => "Happy Feet")
+          @w_not_on_page = Factory.create(:text_widget, :canvas => @canvas, :page => nil, :content => "Hungry Almas")
           get "/widgets/for_canvas/#{@canvas.id}/canvas_feed"
         end
   
@@ -150,8 +150,8 @@ describe "Widgets Requests" do
         
         before(:each) do
           @tag = Factory.create(:tag, :name => "MyTag")
-          @tagged_widget = Factory.create(:widget, :content => "Tagged", :canvas => @canvas, :page => nil)
-          @untagged_widget = Factory.create(:widget, :content => "NoneOfEm", :canvas => @canvas, :page => nil)
+          @tagged_widget = Factory.create(:text_widget, :content => "Tagged", :canvas => @canvas, :page => nil)
+          @untagged_widget = Factory.create(:text_widget, :content => "NoneOfEm", :canvas => @canvas, :page => nil)
           
           @tagged_widget.tags << @tag
           
@@ -170,7 +170,7 @@ describe "Widgets Requests" do
       
       context "with empty tag_ids filter" do
         before(:each) do
-          @widget = Factory.create(:widget, :content => "Tagged", :canvas => @canvas, :page => nil)
+          @widget = Factory.create(:text_widget, :content => "Tagged", :canvas => @canvas, :page => nil)
           get "/widgets/for_canvas/#{@canvas.id}/canvas_feed", {:tag_ids => ""}
         end
         

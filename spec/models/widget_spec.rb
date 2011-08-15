@@ -35,12 +35,6 @@ describe Widget do
 	  	widget.should respond_to(:content)
 	  end
 	
-    it "should require alt text if content type is image" do
-      widget.content_type = 'image_content'
-      widget.alt_text = nil
-      widget.should_not be_valid
-    end
-	
 		it "should be able to have a content_type" do
 			widget.should respond_to(:content_type)
 		end
@@ -253,5 +247,32 @@ describe Widget do
     
     
   end
+
+	context "widget types" do
+		describe "text widgets" do
+			before(:each) do
+				@widget = Factory.create(:text_widget)
+			end
+			
+			it "should have a content type of text_content" do
+				@widget.content_type.should == "text_content"
+			end
+		end
+		
+		describe "image widgets" do
+			before(:each) do
+				@widget = Factory.create(:image_widget)
+			end
+			
+			it "should have a content type of image_content" do
+				@widget.content_type.should == "image_content"
+			end
+			
+			it "should require alt text" do
+	      @widget.alt_text = nil
+	      @widget.should_not be_valid
+	    end
+		end
+	end
 
 end
