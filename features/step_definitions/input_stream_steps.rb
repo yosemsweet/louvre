@@ -20,16 +20,15 @@ When /^I use the bookmarklet$/ do
 end
 
 Then /^the webpage link is added to the canvas' input stream$/ do
-	Canvas.last.widgets.find_by_content(current_page).present?
+	Canvas.last.widgets.find_by_link(current_page).present?
 end
 
 Then /^the image is added to the canvas' input stream$/ do
-  Canvas.last.widgets.find_by_content("image.jpg")
+  Canvas.last.widgets.find_by_image("image.jpg")
 end
 
-Then /^the text is added to the canvas' input stream as a link$/ do
-	widget = Canvas.last.widgets.last
-	widget.content_type.should == "link_content"
-	widget.text.should include(selection)
-	widget.link.should == current_page
+Then /^the text is added to the canvas' input stream as part of a link$/ do
+	widget = Canvas.last.widgets.find(:conditions => {:content_type => "link_content", :link => current_page})
+	widget.should be_present
+	widget.text.should == selection
 end
