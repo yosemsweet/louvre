@@ -3,7 +3,7 @@ As Gill
 I want to be able to edit a page
 So that I can refine it to make it better
 
-@pending
+@wip
 Scenario: Moving Widgets
 	Given there is a canvas 
 	And this canvas has a page titled "Pants no one should wear"
@@ -14,7 +14,7 @@ Scenario: Moving Widgets
 	And I press "Save"
 	Then the page should save the changes
 
-@pending	
+@wip	
 Scenario: Edit Widget
 	Given there is a canvas 
  	And this canvas has a page titled "Pants no one should wear"
@@ -26,7 +26,7 @@ Scenario: Edit Widget
 	And I press "Save Widget"
 	Then "hello world" should appear on the page
 
-@pending	
+@wip	
 Scenario: Change Title
 	Given there is a canvas 
 	And this canvas has a page titled "Pants no one should wear"

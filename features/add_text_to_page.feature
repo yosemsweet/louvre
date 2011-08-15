@@ -1,4 +1,4 @@
-@pending
+@wip
 Feature: Add Text to Page
 
 As Gill
@@ -10,13 +10,13 @@ Background:
 	And this canvas has a page titled "Pants no one should wear"
 #	And I am on "Pants no one should wear"
 
-@pending		
+@wip		
 Scenario: WYSIWYG Editor
 #	When I follow "Edit Page"
   	Then a div with a form should appear
   	And it should contain a WYSIWYG editor
 
-@pending
+@wip
 Scenario: Save Edits
 #	When I follow "Edit Page"
 #  	And I fill in "edit_form" with "MC Hammer is awesome!"
@@ -24,7 +24,7 @@ Scenario: Save Edits
   	Then I should see a "You have successfully edited the page!" pop-up
   	And "MC Hammer is awesome!" should be on the "page"
 
-@pending
+@wip
 Scenario: Adding to a Page
   	When the "page" already has some text
   	And I follow "Edit Page"
