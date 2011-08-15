@@ -15,7 +15,7 @@ Given /^I have selected some text on the screen$/ do
 end
 
 When /^I use the bookmarklet$/ do
-  result = post "/widgets/", :canvas_id => Canvas.last.id, :widget => {:content => current_page, :creator_id => current_user.id, :content_type => 'text_content'}
+  result = post "/widgets/", :canvas_id => Canvas.last.id, :widget => {:text => current_page, :creator_id => current_user.id, :content_type => 'text_content'}
   set_input_stream_call_status(result.status)
 end
 
@@ -30,6 +30,6 @@ end
 Then /^the text is added to the canvas' input stream as a link$/ do
 	widget = Canvas.last.widgets.last
 	widget.content_type.should == "link_content"
-	widget.content.should include(selection)
-	widget.content.link.should == current_page
+	widget.text.should include(selection)
+	widget.link.should == current_page
 end
