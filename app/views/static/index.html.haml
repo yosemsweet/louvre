@@ -4,17 +4,6 @@
 - content_for :javascripts do
   = javascript_include_tag 'scrolly'
 
-.box.clearfix{:style => "width: 355px; margin: auto; margin-top: 50px; margin-bottom: 300px; position: relative; z-index: 5000"}
-  .clearfix
-    -if current_user
-      %h2 Create a New Canvas
-      %form.inline{:action => "#{new_canvas_path}"}
-        %input#canvas_name.title{:type => "text", :placeholder => "Canvas Name", :name => "canvas_name"}
-        %input#submit{:type => "submit", :value => "Loorp it!"}
-    -else
-      %h2 Get Started
-      =login_link do
-        %img{:src=>"http://plancast.com/images/facebook/login-button.png"}
 #canvae
   .title-box.toggle_canvae
     .title
@@ -25,7 +14,12 @@
     %ul
       -@recent_canvases.first(5).each do |e|
         %li= render :partial => 'canvae/brief', :object => e, :as => :canvas  
-
+    .clear
+    .create-canvas
+      %a{ :href => "#{new_canvas_path}" }
+        %span.create-link
+          Create Your Own Canvas
+          
 -if current_user
   :javascript
     $(function(){

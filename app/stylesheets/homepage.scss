@@ -56,12 +56,37 @@ $box-height: 400px;
     top:0;
     width:span(14);
     z-index:$z-top;
-    min-height:$box-height;
+    min-height:$box-height;   
     
     ul {
       margin-left: 0;
       padding-left: 0;
       list-style: none;
+    }
+    
+    .create-canvas{
+      width: span(14) - 15px;
+      padding: 5px 5px 5px 10px;
+      height: 30px;
+      background-color:$accent-color;
+      clear:both;
+      a {
+        text-decoration: none;
+      }
+      .create-link{
+        @include attention-font;
+        background: url('/images/icons/add.png') no-repeat left center;
+        margin-top: 10px;
+        padding: 0px 25px;
+      }
+    }
+    
+    #canvae-search{
+      display: block;
+    	width: 200px;
+      height: 20px;
+    	margin-top: 0px;
+    	float: left;
     }
   }
   
@@ -69,4 +94,6 @@ $box-height: 400px;
     @include handle-bar-right($left: span(14) + span(1) - 10 , $box-height: $box-height);
     z-index:$z-top;
   }
+  
+  
 }
