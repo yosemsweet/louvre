@@ -1,4 +1,4 @@
-$(document).ready( function(){
+$(document).ready(function(){
   
 	$('#tag_ids').tokenInput('/tags', { 
 	  crossDomain: false,

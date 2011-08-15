@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function(){
 
 	var $widget_dialog = $("#widget_dialog").dialog({
 	  minHeight:250, 
@@ -58,6 +58,41 @@ $(function() {
     event.preventDefault();
   });
 
+	$(".widget .toggle_facebook_comments").live('click', function(event){
+	  event.preventDefault();
+	
+		$facebook_comments = $(this).parents(".widget").find(".facebook_comments");
+		$facebook_comments.toggle();
+  	FB.XFBML.parse($facebook_comments.get(0));
+	});
+
+	FB.Event.subscribe('comment.create',
+	    function(response) {
+	        var widget_id = _.last(response.href.split('/')) * 1;
+	        if (request.user_id !== 0){
+	          FollowHelper.follow('widget', widget_id, reload_hud);
+	        }
+	        mpq.push(["track","comment_added", {type: "facebook", widget: widget_id, user_id : request.user_id} ]);
+	    }
+	);
+
+	FB.Event.subscribe('comment.remove',
+	    function(response) {
+	        mpq.push(["track","comment_removed" , {type: "facebook", widget : widget_id, user_id : request.user_id} ]);
+	    }
+	);
+	
+	update_widget_comment_counts = function(){
+		console.log("herte");
+		$(".widget").each(function(){
+    	var $widget = $(this);
+      countComments(request.root_url + "widgets/" + $widget.data("widget_id"), function(n){
+       var comments = n > 0 ? n : "" ;
+       $('.toggle_facebook_comments', $widget).text( comments );
+     });
+    });
+	}
+
 	enable_widget_previews = function(){
 		// Enable the toggle preview qtips.
 	  $(".widget .toggle_preview").each(function(){
@@ -79,5 +114,7 @@ $(function() {
   close_widget_dialog = function(){
     $widget_dialog.close();
   }
+
+
 
 });
