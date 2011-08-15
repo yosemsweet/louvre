@@ -1,7 +1,7 @@
 - content_for :stylesheets do
   = stylesheet_link_tag 'page.css', :media => 'screen, projection'
 - content_for :javascripts do
-  = javascript_include_tag 'widget.js'  
+  = javascript_include_tag 'page_edit'  
 
 #widget_dialog
   %iframe{:src => ""}
@@ -16,12 +16,17 @@
       = f.submit 'Update'
 
   #toolbar
-    = render :partial => 'shared/add_widgets'
+    %a.add_widget{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Text
+    %a.add_widget{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Image
       
   %ul#page
 
 .span-8.last
   %h2 Feed
+  
+  #toolbar-feed
+    %a.add_widget{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
+    %a.add_widget{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
   
   %form
     .field
@@ -36,123 +41,4 @@
   = link_to "Versions", versions_canvas_page_path(@page.canvas, @page)
   \|
   = link_to 'View Canvas', canvas_path(@page.canvas)
-  
-:javascript
-  
-  var mixpanel_attributes = {
-    user_id : request.user_id,
-    page_id : request.page_id
-  }
-    
-  $('#tag_ids').tokenInput('/tags', { 
-    crossDomain: false,
-    theme: 'facebook',
-    onDelete : function(){ reload_feed_widgets()},
-    onAdd : function(){ reload_feed_widgets()}
-  });
-      
-  var reload_page_widgets = function(){
-    $("ul#page").load("/widgets/for_page/" + request.page_id + "/editable/");
-  }
-  
-  var reload_feed_widgets = function(){
-    
-    // Get the tags to filter by
-    var tag_ids = $("#tag_ids").val();
-    
-    console.log(tag_ids);
-    
-    $("ul#feed").load("/widgets/for_canvas/" + request.canvas_id + "/page_feed?tag_ids=" + tag_ids, function(){
-      
-      // Make the widgets draggable.
-      $("li.widget", $(this)).draggable({
-        appendTo: "body",
-        helper: "clone",
-        connectToSortable: 'ul#page',
-        opacity: 0.6,
-        revert: 'invalid',
-        revertDuration: 200
-      });
-      
-      // Enable the toggle preview qtips.
-      $(".toggle_preview", $(this)).each(function(){
-        $(this).qtip({
-          content: $(this).parents().filter(".widget").find(".content").html(),
-          show: 'mouseover', hide: 'mouseout',
-          position: { corner: { target: 'bottomLeft', tooltip: 'topRight' } },
-          style: {
-            width: 572,
-            border: { width: 5, radius: 10 },
-            padding: 10, 
-            tip: true,
-            name: 'light' 
-          }
-        });
-      });
-          
-    });
-  }
-  
-  var update_after_edit = function(){
-    close_widget_dialog();
-    reload_page_widgets();
-    reload_feed_widgets();
-  }
-  
-  reload_page_widgets();
-  reload_feed_widgets();
-  
-  $(".widget .delete").live("click", function(event){
-    // Delete from the server.
-    var $widget = $(this).parents(".widget");
-    var widget_id = $widget.data("widget_id");
-    $.post("/widgets/" + widget_id, { _method : 'DELETE' });
-  
-    // Remove from the DOM.
-    $widget.remove();
-    
-    mixpanel_attributes.widget_id = widget_id;
-    mpq.push(["track","page_remove_widget", mixpanel_attributes]);
-    
-    event.preventDefault();
-  });
-  
-  $("ul#page").sortable({
-     axis: 'y',
-     containment: "ul#page",
-     tolerance: 'pointer',
-     placeholder: 'placeholder',
-     forcePlaceholderSize: true,
-     update: function(event, ui){     
-        // Get the dragged widget id.
-        var widget_id = ui.item.data("widget_id");
-        // Compute the new position of this widget.
-        var position = ui.item.index() + 1;
-        
-        if (ui.item.hasClass("page_feed_widget")) {
-          
-          ui.item.css('width','auto').css('padding-left','50px').text("Loading...");
-                    
-          // Clone the widget.
-          $.post("/widgets/" + widget_id + "/copy_to_page/" + request.page_id, { position : position }, function(data){               
-              reload_page_widgets();
-            }
-          );
-          
-          mixpanel_attributes.comment_count =  ui.item.attr("comments");
-          mpq.push(["track","page_add_widget_from_feed", mixpanel_attributes]);      
-        
-        } else {
-          
-          // Update the widget's position on the server.
-          $.post("/widgets/" + widget_id + "/move/" + position, { _method : 'PUT' });
-        
-          mpq.push(["track","page_reorder_widgets", mixpanel_attributes]);
-        
-        }
-        
-      }
-   });
-      
-  mpq.push(["track","hit_edit_page", mixpanel_attributes ]);
-  mpq.push(["track_forms",$("form#update_page"),"page_change_title", mixpanel_attributes]);
+

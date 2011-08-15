@@ -1,12 +1,12 @@
 $(function(){
   var ANIMATE = true;
-  var MAX_SCROLLIES = 1;
-  
-  var start_animation = function(){
+  var MAX_SCROLLIES = 7;
+ 
+  start_animation = function(){
     ANIMATE = true;
   }
   
-  var pause_animation = function(){
+  pause_animation = function(){
     ANIMATE = false;
   }
   
@@ -61,13 +61,13 @@ $(function(){
   var drag_start = header_height + 75;
   var bottom_y = window_height + 200;
   var top_y = -50;
-  var fps = 50;
+  var fps = 60;
   var animation_interval = 1000. / fps;
   var garbage_collection_interval = 1000;
   var insertion_interval = 1000;
-  var collision_detection_interval = 70;
+  var collision_detection_interval = 50;
   var bubbles = {};
-  var next_bubbles_index = 0;
+  var next_bubbles_index = 1;
   var more_widgets_interval = MAX_SCROLLIES * insertion_interval;
   
   var getBubbleId = function(bubble){
@@ -94,7 +94,7 @@ $(function(){
         var start_left = Math.floor( Math.random() * (window_width - width) );
         var start_right = start_left + width;
         var drag = 0;
-       
+				
         // Compute the right blocker.
         var blocker_right_y = -100000;
         var blocker_right = false;
@@ -109,7 +109,7 @@ $(function(){
           }
         });
         
-        // Compute the left candidates.
+        // Compute the left blocker.
         var blocker_left_y = -100000;
         var blocker_left = false;
         
@@ -122,7 +122,7 @@ $(function(){
             }
           }
         });
-        
+
         // Save the bubble data.
         bubbles[next_bubbles_index] = {
           selector : selector, 
@@ -141,7 +141,7 @@ $(function(){
         selector.data("bubble_id", next_bubbles_index); 
         
         selector.css('left', start_left).css('top', bottom_y + 'px');
-        
+
         next_bubbles_index = next_bubbles_index + 1;
         
       }
@@ -207,6 +207,7 @@ $(function(){
   var handleCollisions = function(){
     _.each(bubbles, function(b){
       var bubble_id = getBubbleId(b);
+
       // Check if this bubble has collided.
       if(b.blocker_left && bubbles[b.blocker_left] !== undefined){
         adjustVelocity(b,bubbles[b.blocker_left])

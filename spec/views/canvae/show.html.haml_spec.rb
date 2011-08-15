@@ -20,12 +20,5 @@ describe "canvae/show.html.haml" do
 			render
 			rendered.should have_selector('#feed')
 		end
-     
-     
-     it "loads widgets" do
-       render
-       rendered.should include("load(\"/widgets/for_canvas/\"")
-     end
-
 	end
 end

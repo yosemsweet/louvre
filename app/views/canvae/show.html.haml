@@ -2,7 +2,7 @@
 - content_for :stylesheets do
   = stylesheet_link_tag 'canvas.css', :media => 'screen, projection'
 - content_for :javascripts do
-  = javascript_include_tag 'widget.js'  
+  = javascript_include_tag 'canvas_show'  
 
 #widget_dialog
   %iframe{:src => ""}
@@ -62,7 +62,9 @@
           = "add to #{@canvas.name}"
 
   %h2 Feed
-  = render :partial => 'shared/add_widgets'
+  #toolbar
+    %a.add_widget{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
+    %a.add_widget{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
   %ul#feed
 
 
@@ -75,111 +77,4 @@
       })
       .attr("href", "javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.text='canvas_id=#{@canvas.id};user_id=#{current_user.id}';host_uri='#{host_uri}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='#{host_uri}/javascripts/bookmarklet_dialog.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();"
       );
-
-:javascript
-      
-  $("#follow button").click(function(){
-    FollowHelper.toggle_follow_status();
-    FollowHelper.follow('canvas', request.canvas_id, reload_hud);
-  });
-  
-  $("#stop_following button").click(function(){
-    FollowHelper.toggle_follow_status();
-    FollowHelper.stop_following('canvas', request.canvas_id, reload_hud);    
-  });
-  
-  var enable_widget_tooltips = function(){
-    // Enable the toggle preview qtips.
-    $(".toggle_preview").each(function(){
-      $(this).qtip({
-        content: $(this).parents().filter(".widget").find(".content").html(),
-        show: 'mouseover', hide: 'mouseout',
-        position: { corner: { target: 'bottomLeft', tooltip: 'topRight' }, adjust: { screen: true } },
-        style: {
-          width: 572,
-          border: { width: 5, radius: 10 },
-          padding: 10, 
-          tip: true,
-          name: 'light' 
-        }
-      });
-    });
-  }
-    
-  var reload_widgets = function(){
-    $("ul#feed").load("/widgets/for_canvas/" + request.canvas_id + "/canvas_feed", function(){
-       enable_widget_tooltips();     
-       FB.XFBML.parse();
-       $("ul#feed .widget").each(function(){
-         
-         var $widget = $(this);
-         var widget_url = request.root_url + "widgets/" + $widget.data("widget_id");
-         
-         countComments(widget_url, function(n){
-           var text = "";
-           if(n == 0){
-             text = "";
-           } else {
-             text = n;
-           }
-           $('.toggle_facebook_comments span', $widget).text( text ).show();
-           
-         });
-         
-       })
-    });
-  }  
-  reload_widgets();
-  
-  var update_after_edit = function(){
-    close_widget_dialog();
-    reload_widgets();
-  }
-    
-  var load_new_widgets = function(){
-     // Get highest widget_id value on page.
-     var max_widget_id = 0;
-     $("#feed li.widget").each(function(){
-       if ($(this).data("widget_id") * 1 > max_widget_id) {
-         max_widget_id = $(this).data("widget_id");
-       }
-     });
-     // Get html for any new widgets and append to the feed.
-     $.get('/widgets/for_canvas/' + request.canvas_id + '/canvas_feed?start=' + (1*max_widget_id + 1), function(data) {
-       if(data.length > 1){
-         $(data).appendTo("#feed");
-         enable_widget_tooltips();
-       }
-     });  
-   };
-  setInterval(load_new_widgets, 15000); 
-  
-  FB.Event.subscribe('comment.create',
-      function(response) {
-          var widget_id = _.last(response.href.split('/')) * 1;
-          if (request.user_id !== 0){
-            FollowHelper.follow('widget', widget_id, reload_hud);
-          }
-          mpq.push(["track","comment_added", {type: "facebook", widget: widget_id, user_id : request.user_id} ]);
-      }
-  );
-  
-  FB.Event.subscribe('comment.remove',
-      function(response) {
-          mpq.push(["track","comment_removed" , {type: "facebook", widget : widget_id, user_id : request.user_id} ]);
-      }
-  );
-  
-  mpq.push(["track","hit_canvas_homepage"]);  
-  
-  $("#toggle_bookmarklet_video").click(function(){
-    $("#bookmarklet_video").toggle();
-  });
-    
-  $(".widget .toggle_facebook_comments").live('click', function(event){
-    event.preventDefault();
-    console.log($(this).parents(".widget").first().parent().find(".facebook_comments"));
-    $(this).parents(".widget").first().parent().find(".facebook_comments").toggle();
-    FB.XFBML.parse();
-  });
 

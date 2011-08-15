@@ -1,17 +1,27 @@
-.text_content {
+.text_content > .body {
   background :  url('/images/icons/text.png') no-repeat 10px 10px;
 }
-.image_content {
+
+.image_content > .body {
   background :  url('/images/icons/picture.png') no-repeat 10px 10px;
 }
-.link_content {
+
+.link_content > .body {
   background :  url('/images/icons/link.png') no-repeat 10px 10px;
 }
 
+.top{
+  top: 0;
+  box-shadow: 1px 1px 5px $trim-color;
+}
 
+.bottom{
+  bottom: 0;
+  box-shadow: 1px -1px 5px $trim-color;
+}
 
 $icon-size: 32px;
-.widget {
+.widget .body {
   @include floating-box;
 	margin: 0;
 	margin-bottom: 10px;
@@ -20,7 +30,7 @@ $icon-size: 32px;
 
 	@include clearfix;
 	overflow:visible;
-	.preview {
+	.excerpt {
 	  padding:10px;
 	  
 	  img {
@@ -31,11 +41,11 @@ $icon-size: 32px;
 	
 	.toolbox{
 	  position: absolute;
-	  top: 0;
+	  display:none;
 	  right: 0;
 	  z-index: $z-default + 1;
 	  padding: 5px 0 5px 5px;
-	  box-shadow: 1px 1px 5px $trim-color;
+	  background-color:transparentize($accent-grey, 0.3);
 	  
 	  .icon{
 	    float:right;
@@ -43,30 +53,15 @@ $icon-size: 32px;
 	    width: $icon-size;
       height: $icon-size;
       
-      span{
-        display:none;
-      }
+      span{  display:none;  }
 	  }
 	  
-	  .edit{
-      background:url('/images/icons/edit.png') no-repeat 0px 0px;
-    }
-
-    .delete{
-      background:url('/images/icons/delete.png') no-repeat 0px 0px;
-    }
+    .edit{  background:  url('/images/icons/edit.png') no-repeat 0px 0px;  }
+    .delete{  background:  url('/images/icons/delete.png') no-repeat 0px 0px;  }
+    .toggle_preview{  background: url('/images/icons/expand.png') no-repeat 0px 0px;  }
 	}
 	
-	.toggle_preview { 
-	  position:absolute; 
-	  right:10px; bottom: 0; 
-	  width: $icon-size; height: $icon-size; 
-	  background:  url('/images/icons/expand.png') no-repeat 0px 0px; 
-	  display:block;
-	}
-
 	.title {
-	
 	  float:left;
 	  width:span(1);
 	  
@@ -83,7 +78,7 @@ $icon-size: 32px;
         font-size:1.33em;      
         text-align: center;
 
-        background:  url('/images/icons/comment.png') no-repeat 0px 0px;
+        background: url('/images/icons/comment.png') no-repeat 0px 0px;
     
         span{ display:none; }
       }
@@ -95,83 +90,71 @@ $icon-size: 32px;
 	list-style: none;
 }
 
-.widget.presentation_widget {
-}
-
-.widget.editable_widget {
-	@include list_widget;
-}
-
-.widget.page_feed_widget {
-	@include list_widget;
-	.content { display: none; }
-	img.handle {
-		float: left;
-		margin-right: 10px;
-		cursor: move;
-	}
+.widget.presentation_widget .body{
 }
 
 $canvas-feed-height: 200px;
 .widget.canvas_feed_widget {
-  @include box($background:$accent-color, $border:$accent-color);
-	position:relative;
-	min-height: 200px;
+  .body{
+    @include box($background:$accent-color, $border:$accent-color);
+  	position:relative;
+  	min-height: 200px;
 
-	.content { display: none; }
-	.preview {
-	  @include box;
-  	box-shadow: inset 0 0 5px $trim-color;
-	  position:relative;
+  	.content { display: none; }
+  	.excerpt {
+  	  @include box;
+    	box-shadow: inset 0 0 5px $trim-color;
+  	  position:relative;
 
-	  min-height: $canvas-feed-height;
-	  text-overflow: ellipsis;
-	  word-wrap: break-word;
+  	  min-height: $canvas-feed-height;
+  	  text-overflow: ellipsis;
+  	  word-wrap: break-word;
 
-	  margin-left: 50px;
-	  
-	  p{
-	    width: span(17) - $icon-size;
-	  }
-	} 
+  	  margin-left: 50px;
+
+  	  p{
+  	    width: span(17) - $icon-size;
+  	  }
+  	}
+  }
 }
 
 $scrolly-height:100px;
 $scrolly-width:242px;
-$scrolly-preview-width:172px;
+$scrolly-excerpt-width:172px;
 
 .widget.scrolly_widget {
-  @include floating-box;
-  @include box($background:$accent-color, $border:$accent-color);
 	position: fixed;
-	overflow: visible;
-	width:$scrolly-width;
+	.body{
+	  @include floating-box;
+	  @include box($background:$accent-color, $border:$accent-color);
+		overflow: visible;
+		width:$scrolly-width;
 
-	.content { display: none; }
-	.comments { display:none; }
+		.content { display: none; }
+		.comments { display:none; }
 
-  .preview {
-	   @include box;
-     box-shadow: inset 0 0 5px $trim-color;
-     position:relative;
-     margin-left:$scrolly-width - $scrolly-preview-width - 20px;
+	  .excerpt {
+		   @include box;
+	     box-shadow: inset 0 0 5px $trim-color;
+	     position:relative;
+	     margin-left:$scrolly-width - $scrolly-excerpt-width - 20px;
 
-     height: $scrolly-height;
-     width: $scrolly-preview-width;
+	     height: $scrolly-height;
+	     width: $scrolly-excerpt-width;
      
-     overflow: hidden;
-     text-overflow: ellipsis;
-     word-wrap: break-word;
-  }
-
+	     overflow: hidden;
+	     text-overflow: ellipsis;
+	     word-wrap: break-word;
+	  }
+	}
 }
-
 
 $page-feed-height:100px;
 $page-feed-width:290px;
 $page-feed-preview-width:220px;
 
-.widget.page_feed_widget {
+.widget.page_feed_widget .body {
   @include floating-box;
   @include box($background:$accent-color, $border:$accent-color);
 	overflow: visible;
@@ -187,7 +170,7 @@ $page-feed-preview-width:220px;
 	.content { display: none; }
 	.comments { display:none; }
 
-  .preview {
+  .excerpt {
 	   @include box;
      box-shadow: inset 0 0 5px $trim-color;
      position:relative;
@@ -203,8 +186,7 @@ $page-feed-preview-width:220px;
 
 }
 
-
-.widget.editable_widget {
+.widget.editable_widget .body {
   @include box($background:$accent-color, $border:$accent-color);
 	position:relative;
 	
@@ -213,7 +195,7 @@ $page-feed-preview-width:220px;
   
   padding: 0 0 0 10px;
   
-	.preview { display: none; }
+	.excerpt { display: none; }
 	.tags { display: none; }
 	.content {
 	  @include box;

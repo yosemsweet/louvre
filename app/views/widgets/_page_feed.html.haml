@@ -1,12 +1,15 @@
-%li.widget.page_feed_widget{:class => widget.content_type ,:data => {:widget_id => widget.id}}
-  .title
-  .content
-    = render_widget_section("content", widget)  
-
-  .preview
-    = render_widget_section("preview", widget)
-    = render_widget_section("toggle_preview_link")
-    
-    .tags
-      = render_widget_section("tags", widget)
-      
+%li.widget.page_feed_widget{:class => widget.content_type, :data => {:widget_id => widget.id}}
+  .body
+    .title
+      .comment_count
+        %a.toggle_facebook_comments{:href => "#"} 
+          %span
+            comment
+    .toolbox.bottom
+      = render_widget_section("toggle_preview_link")
+    .content
+      = render_widget_section("content", widget)  
+    .excerpt
+      = render_widget_section("preview", widget)
+  .tags
+    = render_widget_section("tags", widget)
