@@ -7,6 +7,14 @@ module KnowsBrowsingActivity
 		@current_page = page
 	end
 	
+	def selection
+		@current_page ||= ""
+	end
+	
+	def set_selection(html)
+		@selection = html
+	end
+	
 	def input_stream_call_status
 	  @input_stream_call_status ||= 404
 	end
