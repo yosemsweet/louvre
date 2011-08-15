@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+	// Widget dialog.
 	var $widget_dialog = $("#widget_dialog").dialog({
 	  minHeight:250, 
 	  minWidth:500, 
@@ -13,7 +14,8 @@ $(document).ready(function(){
 	$widget_dialog.close = function(){
 		$(this).dialog("close");
 	}
-    
+
+	// Add widget links.
 	$(".add_widget").click(function(event){
 	  event.preventDefault();
 	
@@ -32,6 +34,7 @@ $(document).ready(function(){
 		
 	});
 
+	// Edit widget links.
 	$(".widget .edit").live("click", function(event){
 	  var widget_id = $(this).parents(".widget").data("widget_id");
   
@@ -42,6 +45,7 @@ $(document).ready(function(){
 	  event.preventDefault();
 	});
 
+	// Delete widget links.
 	$(".widget .delete").live("click", function(event){
     var $widget = $(this).parents(".widget");
     var widget_id = $widget.data("widget_id");
@@ -58,6 +62,7 @@ $(document).ready(function(){
     event.preventDefault();
   });
 
+	// Widget comment toggler links.
 	$(".widget .toggle_facebook_comments").live('click', function(event){
 	  event.preventDefault();
 	
@@ -66,6 +71,7 @@ $(document).ready(function(){
   	FB.XFBML.parse($facebook_comments.get(0));
 	});
 
+	// Handle comment added events.
 	FB.Event.subscribe('comment.create',
 	    function(response) {
 	        var widget_id = _.last(response.href.split('/')) * 1;
@@ -75,15 +81,15 @@ $(document).ready(function(){
 	        mpq.push(["track","comment_added", {type: "facebook", widget: widget_id, user_id : request.user_id} ]);
 	    }
 	);
-
 	FB.Event.subscribe('comment.remove',
 	    function(response) {
 	        mpq.push(["track","comment_removed" , {type: "facebook", widget : widget_id, user_id : request.user_id} ]);
 	    }
 	);
 	
+	// PUBLIC METHODS
+	
 	update_widget_comment_counts = function(){
-		console.log("herte");
 		$(".widget").each(function(){
     	var $widget = $(this);
       countComments(request.root_url + "widgets/" + $widget.data("widget_id"), function(n){
@@ -111,10 +117,7 @@ $(document).ready(function(){
 	  });
 	}
 
-  close_widget_dialog = function(){
+	close_widget_dialog = function(){
     $widget_dialog.close();
   }
-
-
-
 });
