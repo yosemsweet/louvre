@@ -34,9 +34,9 @@ FactoryGirl.define do
 	
 	factory :text_widget, :parent => :widget do
    	content_type "text_content"
-   	content "This is the content"
+   	text "This is the content"
 		factory :long_text_widget do
-			content "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " * 100
+			text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " * 100
 		end
 	end
 	

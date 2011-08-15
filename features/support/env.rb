@@ -5,6 +5,8 @@ require 'rubygems'
 require 'cucumber/rails'
 require 'ruby-debug'
 
+require 'factory_girl_rails'
+
 Capybara.default_selector = :css
 Capybara.javascript_driver = :webkit
 

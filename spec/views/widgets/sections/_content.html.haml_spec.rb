@@ -7,15 +7,15 @@ describe "widgets/sections/_content.html.haml" do
 			@widget = FactoryGirl.build(:text_widget)
 		end
 		
-		it "should display widget contents" do
+		it "should display widget text" do
 			render :partial => "widgets/sections/content", :object => @widget, :as => :widget
-			rendered.should include(@widget.content)
+			rendered.should include(@widget.text)
 		end
 		
 		context "html in text" do
 			let(:html) {"<h2>this is html</h2>"}
 			before(:each) do
-				@widget = FactoryGirl.build(:text_widget, :content => html)
+				@widget = FactoryGirl.build(:text_widget, :text => html)
 			end
 			
 			it "should include html tags" do
@@ -24,15 +24,14 @@ describe "widgets/sections/_content.html.haml" do
 			end
 		end
 		
-		context "large amounts of content" do
+		context "large amounts of text" do
 			before(:each) do
 				@widget = FactoryGirl.build(:long_text_widget)
-				render :partial => "widgets/sections/content", :object => @widget, :as => :widget
 			end
 
-			it "should display widget contents" do
+			it "should display all the widget text" do
 				render :partial => "widgets/sections/content", :object => @widget, :as => :widget
-				rendered.should include(@widget.content)
+				rendered.strip.should == @widget.text.strip
 			end
 		end
 	end

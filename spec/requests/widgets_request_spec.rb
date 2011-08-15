@@ -13,7 +13,7 @@ describe "Widgets Requests" do
     before(:each) do
       canvas = Factory.create(:canvas)
       @page = Factory.create(:page)  
-      @widget = Factory.create(:widget, :canvas => canvas, :page_id => nil, :content => "Happy Feet")
+      @widget = Factory.create(:text_widget, :canvas => canvas, :page_id => nil, :text => "Happy Feet")
       post "/widgets/#{@widget.id}/copy_to_page/#{@page.id}", :position => 1
       @latest_widget = Widget.last
     end
@@ -24,7 +24,7 @@ describe "Widgets Requests" do
     end
     
     it "should copy the cloned widget's content" do
-      @latest_widget.content.should == @widget.content
+      @latest_widget.text.should == @widget.text
     end
       
     it "should set the new widget's page" do
@@ -77,7 +77,7 @@ describe "Widgets Requests" do
       canvas = Factory.create(:canvas)
       @widgets = []
       10.times do |i|
-        @widgets << Factory.create(:widget, :canvas => canvas, :page => nil, :content => "#{i}")
+        @widgets << Factory.create(:text_widget, :canvas => canvas, :page => nil, :text => "#{i}")
       end       
       get "/widgets"
     end
@@ -97,8 +97,8 @@ describe "Widgets Requests" do
       before(:each) do
         canvas = Factory.create(:canvas)
         page = Factory.create(:page)
-        @w1 = Factory.create(:text_widget, :canvas => canvas, :page => page, :position => 1, :content => "FirstGuy")
-        @w2 = Factory.create(:text_widget, :canvas => canvas, :page => page, :position => 2, :content => "IAmLast")
+        @w1 = Factory.create(:text_widget, :canvas => canvas, :page => page, :position => 1, :text => "FirstGuy")
+        @w2 = Factory.create(:text_widget, :canvas => canvas, :page => page, :position => 2, :text => "IAmLast")
         get "/widgets/for_page/#{page.id}/editable"
       end
       
@@ -127,8 +127,8 @@ describe "Widgets Requests" do
       context "with no tag_ids filter" do
   
         before(:each) do
-          @w_on_page = Factory.create(:text_widget, :canvas => @canvas, :page => @page, :content => "Happy Feet")
-          @w_not_on_page = Factory.create(:text_widget, :canvas => @canvas, :page => nil, :content => "Hungry Almas")
+          @w_on_page = Factory.create(:text_widget, :canvas => @canvas, :page => @page, :text => "Happy Feet")
+          @w_not_on_page = Factory.create(:text_widget, :canvas => @canvas, :page => nil, :text => "Hungry Almas")
           get "/widgets/for_canvas/#{@canvas.id}/canvas_feed"
         end
   
@@ -137,11 +137,11 @@ describe "Widgets Requests" do
         end
   
         it "renders the widgets on the canvas" do
-          response.body.should include(@w_not_on_page.content)  
+          response.body.should include(@w_not_on_page.text)  
         end
       
         it "doesn't render any widgets that are on a page" do
-          response.body.should_not include(@w_on_page.content)  
+          response.body.should_not include(@w_on_page.text)  
         end
         
       end
@@ -150,8 +150,8 @@ describe "Widgets Requests" do
         
         before(:each) do
           @tag = Factory.create(:tag, :name => "MyTag")
-          @tagged_widget = Factory.create(:text_widget, :content => "Tagged", :canvas => @canvas, :page => nil)
-          @untagged_widget = Factory.create(:text_widget, :content => "NoneOfEm", :canvas => @canvas, :page => nil)
+          @tagged_widget = Factory.create(:text_widget, :text => "Tagged", :canvas => @canvas, :page => nil)
+          @untagged_widget = Factory.create(:text_widget, :text => "NoneOfEm", :canvas => @canvas, :page => nil)
           
           @tagged_widget.tags << @tag
           
@@ -159,23 +159,23 @@ describe "Widgets Requests" do
         end
         
         it "should get tagged widgets" do
-          response.body.should include(@tagged_widget.content)
+          response.body.should include(@tagged_widget.text)
         end
         
         it "should not get untagged widgets" do
-          response.body.should_not include(@untagged_widget.content)
+          response.body.should_not include(@untagged_widget.text)
         end
         
       end
       
       context "with empty tag_ids filter" do
         before(:each) do
-          @widget = Factory.create(:text_widget, :content => "Tagged", :canvas => @canvas, :page => nil)
+          @widget = Factory.create(:text_widget, :text => "Tagged", :canvas => @canvas, :page => nil)
           get "/widgets/for_canvas/#{@canvas.id}/canvas_feed", {:tag_ids => ""}
         end
         
         it "should not filter the widgets" do
-          response.body.should include(@widget.content)
+          response.body.should include(@widget.text)
         end
         
       end
