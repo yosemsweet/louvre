@@ -42,7 +42,7 @@ $(document).ready(function(){
 	 };
 
 	update_after_edit = function(){
-	  close_widget_dialog();
+	  // close_widget_dialog();
 	  reload_widgets();
 	}
   
