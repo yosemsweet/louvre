@@ -10,5 +10,4 @@ config/database.yml
 rerun.txt
 /webrat.log
 test.sqlite3-journal
-db/migrate/*
 
