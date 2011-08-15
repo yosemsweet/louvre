@@ -51,7 +51,7 @@ $(function(){
   
   // Widget hover / click handling
   $(".widget")
-    .live('click', pause_animation)
+    .live('mouseover', pause_animation)
     .live('mouseout', start_animation);
   
   // function settings

@@ -59,7 +59,6 @@
         #hud_content
     
     :javascript
-      $(".widget").live({
-        mouseenter:function(){$(this).find('.toolbox').show();},
-        mouseleave:function(){$(this).find('.toolbox').hide();}
-      });
+      $(".widget")
+        .live('mouseover', function(){$(this).find('.toolbox').show()})
+        .live('mouseout', function(){$(this).find('.toolbox').hide()})
