@@ -30,13 +30,13 @@ $icon-size: 32px;
 
 	@include clearfix;
 	overflow:visible;
-	.excerpt {
+	.content {
 	  padding:10px;
 	  
 	  img {
 	    	max-width: 100%;
-    		max-height: 100%;
-    	}
+	    		max-height: 100%;
+	    	}
 	}
 	
 	.toolbox{
@@ -99,19 +99,21 @@ $canvas-feed-height: 200px;
     @include box($background:$accent-color, $border:$accent-color);
   	position:relative;
   	min-height: 200px;
-
-  	.content { display: none; }
-  	.excerpt {
+		.edit_content {
   	  @include box;
-    	box-shadow: inset 0 0 5px $trim-color;
+			margin-left: 50px;
+		}
+  	.content {
+  	  @include box;
+  	    	box-shadow: inset 0 0 5px $trim-color;
   	  position:relative;
-
+  	
   	  min-height: $canvas-feed-height;
   	  text-overflow: ellipsis;
   	  word-wrap: break-word;
-
+  	
   	  margin-left: 50px;
-
+  	
   	  p{
   	    width: span(17) - $icon-size;
   	  }
@@ -131,18 +133,17 @@ $scrolly-excerpt-width:172px;
 		overflow: visible;
 		width:$scrolly-width;
 
-		.content { display: none; }
 		.comments { display:none; }
 
-	  .excerpt {
-		   @include box;
+	  .content {
+	  		@include box;
 	     box-shadow: inset 0 0 5px $trim-color;
 	     position:relative;
 	     margin-left:$scrolly-width - $scrolly-excerpt-width - 20px;
-
+	  
 	     height: $scrolly-height;
 	     width: $scrolly-excerpt-width;
-     
+	       
 	     overflow: hidden;
 	     text-overflow: ellipsis;
 	     word-wrap: break-word;
@@ -167,15 +168,14 @@ $page-feed-preview-width:220px;
     height:100%;
   }
 
-	.content { display: none; }
 	.comments { display:none; }
 
-  .excerpt {
-	   @include box;
+  .content {
+  	   @include box;
      box-shadow: inset 0 0 5px $trim-color;
      position:relative;
      margin-left:50px;
-
+  
      height: $page-feed-height;
      width: $page-feed-preview-width;
      
@@ -195,7 +195,6 @@ $page-feed-preview-width:220px;
   
   padding: 0 0 0 10px;
   
-	.excerpt { display: none; }
 	.tags { display: none; }
 	.content {
 	  @include box;

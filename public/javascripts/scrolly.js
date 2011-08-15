@@ -1,6 +1,6 @@
 $(function(){
   var ANIMATE = true;
-  var MAX_SCROLLIES = 7;
+  var MAX_SCROLLIES = 10;
  
   start_animation = function(){
     ANIMATE = true;
@@ -51,7 +51,7 @@ $(function(){
   
   // Widget hover / click handling
   $(".widget")
-    .live('mouseover', pause_animation)
+    .live('click', pause_animation)
     .live('mouseout', start_animation);
   
   // function settings

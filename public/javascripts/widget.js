@@ -38,8 +38,8 @@ $(document).ready(function(){
 	$(".widget .edit").live("click", function(event){
 	  var widget_id = $(this).parents(".widget").data("widget_id");
 		var widget = $(this).parents(".widget");
-		 
-		$(".excerpt_text", widget).toggle();
+		
+		$(".content", widget).toggle();
 		$("form.edit_widget", widget).toggle();
 		
 		if ($(".token-input-list-facebook", widget).length == 0){
@@ -49,8 +49,7 @@ $(document).ready(function(){
 			  theme: 'facebook'
 			});
 		}
-		
-		
+
 		$("#widget_ckeditor_" + widget_id).ckeditor({toolbar : "Body"});
 		
 	  mpq.push(["track","canvas_edit_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id, widget_id : widget_id}]);
@@ -68,7 +67,7 @@ $(document).ready(function(){
 		widget_form_params._method = "PUT";
 		
 		$(this).hide();
-		$(".excerpt_text", widget).html("<img src='/images/loorping.gif'>").show();
+		$(".content", widget).html("<img src='/images/loorping.gif'>").show();
 		$("#widget_ckeditor_" + widget_id).ckeditor(function(){
 			this.destroy();
 		});
