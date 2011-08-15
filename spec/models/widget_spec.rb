@@ -30,16 +30,6 @@ describe Widget do
 			widget.creator = nil
       widget.should_not be_valid
     end
-
-		it "should be able to have content" do
-	  	widget.should respond_to(:content)
-	  end
-	
-    it "should require alt text if content type is image" do
-      widget.content_type = 'image_content'
-      widget.alt_text = nil
-      widget.should_not be_valid
-    end
 	
 		it "should be able to have a content_type" do
 			widget.should respond_to(:content_type)
@@ -72,8 +62,8 @@ describe Widget do
     
     describe "Updating" do
       before(:each) do
-        @updated_widget = Factory.create(:widget)
-        @updated_widget.update_attributes(:content => "New Content")
+        @updated_widget = Factory.create(:text_widget)
+        @updated_widget.update_attributes(:text => "New Content")
       end
 
       it "should create a new version" do
@@ -83,7 +73,7 @@ describe Widget do
       it "should save a changeset showing the change" do
         last_version = @updated_widget.versions.last
         last_version.should respond_to(:changeset)
-        last_version.changeset["content"].last.should == "New Content"
+        last_version.changeset["text"].last.should == "New Content"
       end
     end
 
@@ -168,8 +158,7 @@ describe Widget do
 			@cloned_widget = @original_widget.clone 
 		end
 		   
-		it "cloned widget should have the same content, canvas, creator, content_type" do
-			@cloned_widget.content.should == @original_widget.content
+		it "cloned widget should have the same canvas, creator, content_type" do
 			@cloned_widget.canvas.id.should == @original_widget.canvas.id
 			@cloned_widget.creator.id.should == @original_widget.creator.id
 			@cloned_widget.content_type.should == @original_widget.content_type
@@ -188,10 +177,26 @@ describe Widget do
       @cloned_widget.updated_at.should > @original_widget.updated_at
     end
 
-		it "cloned image widget should have alt text" do
-			@original_image_widget = Factory.build(:image_widget, :alt_text => 'image alt text')
-			@cloned_image_widget = @original_image_widget.clone
-			@cloned_image_widget.alt_text.should == @original_image_widget.alt_text
+		context "image widget" do
+			it "should have the same alt text" do
+				@original_image_widget = Factory.build(:image_widget, :alt_text => 'image alt text')
+				@cloned_image_widget = @original_image_widget.clone
+				@cloned_image_widget.alt_text.should == @original_image_widget.alt_text
+			end
+			
+			it "should have the same image" do
+				@original_image_widget = Factory.build(:image_widget, :image => 'image')
+				@cloned_image_widget = @original_image_widget.clone
+				@cloned_image_widget.image.should == @original_image_widget.image
+			end
+		end
+			
+		context "text widget" do
+			it "should have the same text" do
+				@original = Factory.build(:text_widget, :text => 'text')
+				@clone = @original.clone
+				@clone.text.should == @original.text
+			end
 		end
 		
 	end
@@ -253,5 +258,42 @@ describe Widget do
     
     
   end
+
+	context "widget types" do
+		describe "text widgets" do
+			before(:each) do
+				@widget = Factory.create(:text_widget)
+			end
+			
+			it "should have a content type of text_content" do
+				@widget.content_type.should == "text_content"
+			end
+			
+			
+			it "should have text" do
+		  	@widget.should respond_to(:text)
+		  end
+		end
+		
+		describe "image widgets" do
+			before(:each) do
+				@widget = Factory.create(:image_widget)
+			end
+			
+			it "should have a content type of image_content" do
+				@widget.content_type.should == "image_content"
+			end
+			
+			it "should require alt text" do
+	      @widget.alt_text = nil
+	      @widget.should_not be_valid
+	    end
+	
+			it "should require an image" do
+				@widget.image = nil
+				@widget.should_not be_valid
+			end
+		end
+	end
 
 end

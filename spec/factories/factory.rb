@@ -25,13 +25,26 @@ FactoryGirl.define do
     canvas
   end
 
-  factory :widget, :aliases => [:text_widget, :image_widget] do
-    content_type "text_content"
-    content "This is the content"
+  factory :widget do
     creator
     page
     canvas
-  end
+		content_type "test_content"
+	end
+	
+	factory :text_widget, :parent => :widget do
+   	content_type "text_content"
+   	text "This is the content"
+		factory :long_text_widget do
+			text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " * 100
+		end
+	end
+	
+	factory :image_widget, :parent => :widget do
+		content_type "image_content"
+		image "http://images2.wikia.nocookie.net/__cb20070207100739/uncyclopedia/images/3/3d/Mchammer.gif"
+		alt_text "MC Hammer dancing"
+	end
   
   factory :tag do
     name "TagName"

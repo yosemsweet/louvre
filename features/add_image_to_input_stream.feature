@@ -5,14 +5,9 @@ so that I can share interesting/valuable ideas with members of the community
 
 @omniauth_test
 @javascript
-@wip
-Scenario: Use form to add image url to input stream
+Scenario: Follow Add Image to show New Widget dialog
 Given there is a canvas
 And I am authenticated
 And I am on that canvas' homepage
 When I follow "Add Image"
-And I wait a second
-And I fill in "Image url" with "image.jpg"
-And I fill in "Image alt text" with "image alt text"
-And I press "Save"
-Then the image is added to the canvas' input stream
+Then I see the "New Widget" dialog

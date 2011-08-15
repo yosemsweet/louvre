@@ -21,6 +21,20 @@ Given /^this canvas has a page titled "([^"]*)"$/ do |pagetitle|
   page = Factory.create(:page, :title => pagetitle, :canvas => Canvas.last)
 end
 
+When /^(?:|I )reload the page$/ do
+  visit(current_path)
+end
+
+When /^I wait (\d+) second[s?]$/ do |n|
+	sleep n.to_i
+end
+
+
+Then /^I see the "([^"]*)" dialog$/ do |dialog|
+	page.should have_content(dialog)
+end
+
+
 Then /^(?:|I )should see the "([^"]*)" button$/ do |text|
   button_is_visible = page.has_button?(text) && page.find_button(text).visible?
   button_is_visible.should == true
@@ -31,10 +45,6 @@ Then /^(?:|I )should not see the "([^"]*)" button$/ do |text|
   button_is_visible.should == false
 end
 
-When /^(?:|I )reload the page$/ do
-  visit(current_path)
-end
-
-When /^I wait a second$/ do
-  sleep 1
+Then /^I see the page$/ do
+	puts page.html
 end
