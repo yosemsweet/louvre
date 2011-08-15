@@ -37,12 +37,16 @@ $(document).ready(function(){
 	// Edit widget links.
 	$(".widget .edit").live("click", function(event){
 	  var widget_id = $(this).parents(".widget").data("widget_id");
-  
-		$widget_dialog.open("Edit Widget", "/widgets/" + widget_id + "/edit")
+		var widget = $(this).parents(".widget");
+		 
+		$(".excerpt_text", widget).toggle();
+		$(".inline_widget_form", widget).toggle();
+		$("#widget_ckeditor_" + widget_id).ckeditor({toolbar : "Body"});
 		
 	  mpq.push(["track","canvas_edit_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id, widget_id : widget_id}]);
-  
-	  event.preventDefault();
+  	
+		event.preventDefault();
+	
 	});
 
 	// Delete widget links.
