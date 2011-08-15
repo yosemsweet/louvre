@@ -11,6 +11,7 @@ gem "acts_as_opengraph", :git => "git@github.com:yosemsweet/acts_as_opengraph.gi
 gem "paper_trail"  
 gem 'engineyard'
 gem "breadcrumbs_on_rails"
+gem "html_truncator"
 
 group :development, :test do
   gem "factory_girl_rails", :require => false

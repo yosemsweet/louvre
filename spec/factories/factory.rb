@@ -35,11 +35,14 @@ FactoryGirl.define do
 	factory :text_widget, :parent => :widget do
    	content_type "text_content"
    	content "This is the content"
+		factory :long_text_widget do
+			content "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " * 100
+		end
 	end
 	
 	factory :image_widget, :parent => :widget do
 		content_type "image_content"
-		content "http://images2.wikia.nocookie.net/__cb20070207100739/uncyclopedia/images/3/3d/Mchammer.gif"
+		image "http://images2.wikia.nocookie.net/__cb20070207100739/uncyclopedia/images/3/3d/Mchammer.gif"
 		alt_text "MC Hammer dancing"
 	end
   
