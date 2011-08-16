@@ -5,7 +5,7 @@
   - case @widget.content_type  
   - when 'text_content'
     .field
-      = f.text_area :content
+      = f.text_area :text
       :javascript
         $(function(){
           $("#widget_content").ckeditor({toolbar : "Body"});
