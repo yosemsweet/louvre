@@ -11,6 +11,10 @@ And I should see "Feed"
 And I should see "Pages"
 
 @omniauth_test
+<<<<<<< HEAD
+=======
+@wip
+>>>>>>> Trying to get bookmarklet helper working
 @javascript
 Scenario: Canvas Bookmarklet Widget
 Given there is a canvas
