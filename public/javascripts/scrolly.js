@@ -1,6 +1,6 @@
 $(function(){
   var ANIMATE = true;
-  var MAX_SCROLLIES = 10;
+  var MAX_SCROLLIES = 7;
  
   start_animation = function(){
     ANIMATE = true;
