@@ -21,7 +21,7 @@ module ApplicationHelper
   def application_stylesheets
     %w(
     http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css
-    application
+    compiled/application
     token-input-facebook
     )
   end

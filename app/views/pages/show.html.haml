@@ -1,6 +1,6 @@
 - content_for(:opengraph_meta_tags, opengraph_meta_tags_for(@page, :url => canvas_page_url(@page.canvas, @page)))
 - content_for :stylesheets do
-  = stylesheet_link_tag 'page.css', :media => 'screen, projection'
+  = stylesheet_link_tag 'compiled/page.css', :media => 'screen, projection'
 
 %h1= @page.title
 
