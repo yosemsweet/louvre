@@ -30,10 +30,9 @@ When /^I wait (\d+) second[s?]$/ do |n|
 end
 
 
-Then /^I see the "([^"]*)" dialog$/ do |dialog|
-	page.should have_content(dialog)
+Then /^Then I should see the new widget form$/ do |dialog|
+	page.should have_selector("#inline_form .widget")
 end
-
 
 Then /^(?:|I )should see the "([^"]*)" button$/ do |text|
   button_is_visible = page.has_button?(text) && page.find_button(text).visible?

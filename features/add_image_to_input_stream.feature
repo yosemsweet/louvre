@@ -10,4 +10,4 @@ Given there is a canvas
 And I am authenticated
 And I am on that canvas' homepage
 When I follow "Add Image"
-Then I see the "New Widget" dialog
+Then I should see the new widget form
