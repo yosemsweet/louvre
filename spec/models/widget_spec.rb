@@ -262,22 +262,25 @@ describe Widget do
 	context "widget types" do
 		describe "text widgets" do
 			before(:each) do
-				@widget = Factory.create(:text_widget)
+				@widget = Factory.build(:text_widget)
 			end
 			
 			it "should have a content type of text_content" do
 				@widget.content_type.should == "text_content"
 			end
 			
-			
 			it "should have text" do
 		  	@widget.should respond_to(:text)
 		  end
+			
+			it "should act as text" do
+				@widget.text?.should == true
+			end
 		end
 		
 		describe "image widgets" do
 			before(:each) do
-				@widget = Factory.create(:image_widget)
+				@widget = Factory.build(:image_widget)
 			end
 			
 			it "should have a content type of image_content" do
@@ -293,6 +296,40 @@ describe Widget do
 				@widget.image = nil
 				@widget.should_not be_valid
 			end
+			
+			it "should act as an image" do
+				@widget.image?.should == true
+			end
+			
+		end
+		
+		describe "link widgets" do
+			before(:each) do
+				@widget = Factory.build(:link_widget)
+			end
+			
+			it "should have a content type of link_content" do
+				@widget.content_type.should == "link_content"
+			end
+			
+			it "should require a link" do
+					@widget.link = nil
+					@widget.should_not be_valid
+			end
+			
+			it "should have a title" do
+				@widget.should respond_to(:title)
+			end
+			
+			it "should have a text" do
+				@widget.should respond_to(:text)
+			end
+			
+			it "should act as a link" do
+				@widget.link?.should == true
+			end
+			
+			
 		end
 	end
 

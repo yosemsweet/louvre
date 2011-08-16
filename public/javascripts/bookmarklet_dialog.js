@@ -29,8 +29,10 @@ function createBookmarkletDialog(){
 	dialog_element.innerHTML = "\
 		<h2>Add to Canvas</h2>\
 		<form action='" + host_uri + "/widgets'> \
-			<textarea name='widget[content]' rows='10' cols='36'>" + bookmarkURL + "\n" + getHighlightedText() + "</textarea> <br> \
-			<input type='hidden' name='widget[content_type]' value='text_content'/> \
+			<input type='text' name='widget[title]' value='" + document.title + "'/> \
+			<textarea name='widget[text]' rows='10' cols='36'>" + getHighlightedText() + "</textarea> <br> \
+			<input type='hidden' name='widget[content_type]' value='link_content'/> \
+			<input type='hidden' name='widget[link]' value='" + bookmarkURL + "'/> \
 			<input type='hidden' name='widget[creator_id]' value='" + user_id + "'/> \
 			<input type='hidden' name='canvas_id' value='" + canvas_id + "'/> \
 			<input type='submit' value='OK'> \
