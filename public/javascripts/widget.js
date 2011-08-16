@@ -71,18 +71,40 @@ $(document).ready(function(){
 		var widget = $(this).parents(".widget");
 		var widget_form_params = $(this).serialize();
 		
-		widget_form_params._method = "PUT";
+		// Validate the form.
+		var form_elements = $(this)[0].elements;
+		var is_valid = true;
 		
-		$(this).hide();
-		$(".content", widget).html("<img src='/images/loorping.gif'>").show();
-		$("#widget_ckeditor_" + widget_id).ckeditor(function(){
-			this.destroy();
-		});
-		$(this)[0].reset();
 		
-		$.post( $(this).attr("action"), widget_form_params, function(){
-			update_after_edit();
-		});	
+		for(var i=0; i < form_elements.length ; i++){
+			var element = form_elements[i];
+			if(element.name.trim() !== "" && element.name !== "widget[tag_ids]"){
+				// Require the field to be filled out.
+				if(element.value.trim() === ""){
+					is_valid = false;
+				}
+			}
+		}
+		
+		if(is_valid){
+			// On success
+			widget_form_params._method = "PUT";
+			$(this).hide();
+			$(".content", widget).html("<img src='/images/loorping.gif'>").show();
+			$("#widget_ckeditor_" + widget_id).ckeditor(function(){
+				this.destroy();
+			});
+			$(this)[0].reset();
+		
+			$.post( $(this).attr("action"), widget_form_params, function(){
+				update_after_edit();
+			});	
+		} else {
+			
+			$("#flash").html("<div class='error'>Form inputs are input. Please check your form and try again.</div>").show();
+			
+			setTimeout(function(){$('#flash').fadeOut('slow')}, 2000);
+		}
 
 	});
 
