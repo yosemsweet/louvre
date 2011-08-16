@@ -22,7 +22,6 @@ $(document).ready(function(){
 			 update_widget_comment_counts();
 			 reset_new_widget_forms();
 	  });
-		
 	}  
 
 	var load_new_widgets = function(){
@@ -51,5 +50,10 @@ $(document).ready(function(){
 
 	// Track the fact that the user got here.
 	mpq.push(["track","hit_canvas_homepage"]);  
+	
+	// PUBLIC METHODS
+	update_after_edit = function(){
+		reload_widgets();
+	}
 	
 });

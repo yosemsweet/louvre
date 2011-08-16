@@ -34,7 +34,6 @@ $(document).ready(function(){
 	}
 
 	update_after_edit = function(){
-	  close_widget_dialog();
 	  reload_page_widgets();
 	  reload_feed_widgets();
 	}
