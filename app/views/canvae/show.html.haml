@@ -65,6 +65,11 @@
   #toolbar
     %a.add_widget{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
     %a.add_widget{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
+    
+  %ul#inline_form
+    - @new_widgets.each do |t, widget|
+      %div{:style => "display:none;"}
+        = render :partial => "widgets/canvas_feed", :object => widget, :as => :widget  
   %ul#feed
 
 
