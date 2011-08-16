@@ -20,20 +20,5 @@ Scenario: Show recent canvae
 Scenario: Create a new canvae
   Then I should be able to create a new canvas
 
-@wip
-@omniauth_test  
-Scenario: Create a new canvae - not authenticated
-  When I follow "Create Your Own Canvas"
-  Then I log in with "Facebook"
-  Then I should be on "the New Canvas page"
-
-@wip  
-@omniauth_test
-Scenario: Create a new canvae - authenticated
-  And I am authenticated
-  When I follow "Create Your Own Canvas"
-  Then I should be on "the New Canvas page"
-
-
   
   

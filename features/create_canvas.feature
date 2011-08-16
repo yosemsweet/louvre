@@ -4,22 +4,6 @@ Feature: Create a canvas
   So that I can help Women of a Certain Age be Fashionable
  
 @omniauth_test
-Scenario: Start Create Canvas Wizard - authenticated
-Given I am "Gill"
-And I am authenticated
-And I am on "the homepage"
-When I fill in "canvas_name" with "Poo"
-And I press "Loorp it!"
-Then I should be on "the New Canvas page"
-And the "Name" should be filled with "Poo"
-
-Scenario: Can't create canvas if not authenticated
-Given I am not authenticated
-And I am on "the homepage"
-Then I should not see "Create Canvas"
-
-
-@omniauth_test
 Scenario: Create Canvas - authenticated
 Given I am "Gill"
 And I am authenticated
@@ -32,5 +16,18 @@ And I press "Save"
 Then I should be on "Fashion of a Certain Age canvas homepage"
 And I should see "Canvas created!"
 And I should be the creator of the "Fashion of a Certain Age" canvas
+
+@omniauth_test  
+Scenario: Create a new canvae - not authenticated
+  When I follow "Create Your Own Canvas"
+  Then I log in with "Facebook"
+  Then I should be on "the New Canvas page"
+
+@omniauth_test
+Scenario: Create a new canvae - authenticated
+  And I am authenticated
+  When I follow "Create Your Own Canvas"
+  Then I should be on "the New Canvas page"
+
 
 
