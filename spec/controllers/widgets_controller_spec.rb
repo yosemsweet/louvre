@@ -21,7 +21,7 @@ describe WidgetsController do
 	            :widget => {:text => widget.text, :creator_id => widget.creator.id,  :content_type => widget.content_type}, 
 	            :format => 'json', 
 	            :canvas_id => widget.canvas.id
-	          results.status.should == 200
+	          results.status.should == 201
 	        end
 	      end
 	    end
@@ -44,7 +44,7 @@ describe WidgetsController do
 								:widget => {:image => widget.image, :alt_text => widget.alt_text, :creator_id => widget.creator.id, :content_type => widget.content_type}, 
 		            :format => 'json', 
 		            :canvas_id => widget.canvas.id
-		          results.status.should == 200
+		          results.status.should == 201
 		        end
 		      end
 		    end
