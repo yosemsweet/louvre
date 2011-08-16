@@ -29,10 +29,10 @@ When /^I wait (\d+) second[s?]$/ do |n|
 	sleep n.to_i
 end
 
-
-Then /^I see the "([^"]*)" dialog$/ do |dialog|
+Then /^I see (?:the|a[n?]) "([^"]*)" dialog$/ do |dialog|
 	page.should have_content(dialog)
 end
+
 
 Then /^(?:|I )should see the "([^"]*)" button$/ do |text|
   button_is_visible = page.has_button?(text) && page.find_button(text).visible?
