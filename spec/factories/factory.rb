@@ -45,6 +45,10 @@ FactoryGirl.define do
 		image "http://images2.wikia.nocookie.net/__cb20070207100739/uncyclopedia/images/3/3d/Mchammer.gif"
 		alt_text "MC Hammer dancing"
 	end
+	
+	factory :link_widget, :parent => :widget do
+		content_type "link_content"
+	end
   
   factory :tag do
     name "TagName"

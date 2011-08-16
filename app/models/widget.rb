@@ -18,6 +18,8 @@ class Widget < ActiveRecord::Base
     
   validates_presence_of :canvas, :creator, :content_type
   validates_presence_of :alt_text, :image,  :if => :image?
+	validates_presence_of :link, :title,  :if => :link?
+
 
   def tag_ids
     @tag_ids || tags.map(&:id).join(',')
@@ -55,6 +57,14 @@ class Widget < ActiveRecord::Base
   def image?
     content_type == 'image_content'
   end
+
+	def link?
+		content_type == 'link_content'
+	end
+	
+	def text?
+		content_type == 'text_content'
+	end
 
 	def update_position(new_position)
 		

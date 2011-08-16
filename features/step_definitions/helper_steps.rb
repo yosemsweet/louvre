@@ -1,3 +1,4 @@
+
 Given /^there is a canvas$/ do
   Factory.create(:canvas)
 end
@@ -43,6 +44,10 @@ end
 Then /^(?:|I )should not see the "([^"]*)" button$/ do |text|
   button_is_visible = page.has_button?(text) && page.find_button(text).visible?  
   button_is_visible.should == false
+end
+
+Then /^(?:|the page should include|I should see) html "([^"]*)"$/ do |html|
+	should have_html(html)
 end
 
 Then /^I see the page$/ do

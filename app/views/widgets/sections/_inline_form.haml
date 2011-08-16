@@ -8,11 +8,24 @@
       = f.text_area :text, {:id => "widget_ckeditor_#{widget.id}"}
   - when 'image_content'
     .field
-      = f.label 'image url'
+      = f.label 'image'
       = f.text_field :image
     .field
       = f.label 'image alt text'
       = f.text_field :alt_text
+  - when 'link_content'
+    .field
+      = f.label 'title'
+      = f.text_field :title
+    .field
+      = f.label 'link'
+      = f.text_field :link
+    .field
+      = f.text_area :text
+      :javascript
+        $(function(){
+          $("#widget_content").ckeditor({toolbar : "Body"});
+        });
 
   %input{:type => "hidden", :name => "widget[content_type]", :value => "#{widget.content_type}"}
   %input{:type => "hidden", :name => "widget[creator_id]", :value => "#{current_user.id}"}
