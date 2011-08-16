@@ -3,7 +3,6 @@ Feature: invite others to canvas
   I want to be able to invite others to JOIN my canvas community
   So that I can grow my community
 
-@wip
 @omniauth_test
 Scenario: invite other to join my canvas via facebook send
 Given there is a canvas

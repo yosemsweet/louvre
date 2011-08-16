@@ -8,6 +8,7 @@
 # end
 
 Then /^I should see the hud$/ do
+	page.should have_selector("#hud")
   page.find("#hud").should be_visible
 end
 

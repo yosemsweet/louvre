@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
 
   def require_login
     if !current_user
-      redirect_to('/login', :notice => "Facebook sucks and logged you off.")
+      session[:return_to] = request.request_uri
+      redirect_to('/auth/facebook', :notice => "Facebook sucks and logged you off.")
     end
   end
     

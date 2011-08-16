@@ -1,5 +1,6 @@
 class CanvaeController < ApplicationController
 	
+	before_filter :require_login, :except => [:show, :index]
   before_filter :only => [:show, :edit] do
     @canvas = Canvas.find(params[:id])
     @title = @canvas.name

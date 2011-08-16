@@ -17,7 +17,7 @@ class Widget < ActiveRecord::Base
 	acts_as_followable
     
   validates_presence_of :canvas, :creator, :content_type
-  validates_presence_of :alt_text, :if => :image?
+  validates_presence_of :alt_text, :image,  :if => :image?
 
   def tag_ids
     @tag_ids || tags.map(&:id).join(',')

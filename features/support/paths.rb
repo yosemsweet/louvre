@@ -41,6 +41,10 @@ module NavigationHelpers
 		when /that widget's page/
 		  widget = Widget.last
 		  canvas_widget_path(widget.canvas, widget)
+		
+		when /that page/
+			page = Page.last
+			canvas_page_path(page.canvas, page)
 		  
 		when /the user hud page/
 		  puts("Path is #{hud_user_path(current_user)}")

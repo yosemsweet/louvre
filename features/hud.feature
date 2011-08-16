@@ -4,14 +4,13 @@ Feature: user hud
   So I can easily participate in their communities
 
 @omniauth_test
-@javascript  
+@javascript
 Scenario: Listing followed canvases
   Given there is a canvas
   And I am authenticated 
   And I am on that canvas' homepage
   When I press "Follow" 
   And I follow "Hud"
-  And I wait a second
   Then I should see the hud
   And I should see that canvas' name in the hud
   
