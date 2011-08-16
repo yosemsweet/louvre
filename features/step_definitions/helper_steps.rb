@@ -31,7 +31,7 @@ When /^I wait (\d+) second[s?]$/ do |n|
 end
 
 
-Then /^I see the "([^"]*)" dialog$/ do |dialog|
+Then /^I see (?:the|a[n?]) "([^"]*)" dialog$/ do |dialog|
 	page.should have_content(dialog)
 end
 
