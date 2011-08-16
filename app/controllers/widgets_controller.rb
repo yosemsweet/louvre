@@ -101,7 +101,7 @@ class WidgetsController < ApplicationController
     @widget = Widget.find(params[:id])
 
     if @widget.update_attributes(params[:widget])
-      render :inline => "<script type='text/javascript'>window.top.update_after_edit();</script>"
+      head :ok
     else
       head :bad_request
     end    

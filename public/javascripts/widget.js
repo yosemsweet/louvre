@@ -18,6 +18,7 @@ $(document).ready(function(){
 	// Add widget links.
 	$(".add_widget").click(function(event){
 	  event.preventDefault();
+	
 		var content_type = $(this).data("content_type");
 		var widget = $("ul#inline_form li.widget." + content_type);
 		
@@ -32,6 +33,7 @@ $(document).ready(function(){
 
 	// Edit widget links.
 	$(".widget .edit").live("click", function(event){
+		event.preventDefault();
 	  var widget_id = $(this).parents(".widget").data("widget_id");
 		if(typeof widget_id === "undefined"){
 			widget_id = 0;
@@ -40,8 +42,6 @@ $(document).ready(function(){
 		var widget = $(this).parents(".widget");
 		
 		$(".content", widget).toggle();
-		
-		console.log($(".content", widget));
 		
 		$("form.edit_widget", widget).toggle();
 		
@@ -56,13 +56,12 @@ $(document).ready(function(){
 		$("#widget_ckeditor_" + widget_id).ckeditor({toolbar : "Body"});
 		
 	  mpq.push(["track","canvas_edit_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id, widget_id : widget_id}]);
-  	
-		event.preventDefault();
 	
 	});
 	
 	// Handle widget form saves.
-	$("form.edit_widget").live("submit", function(){
+	$(".widget form.edit_widget").live("submit", function(){
+    event.preventDefault();
 		
 		var widget_id = $(this).parents(".widget").data("widget_id");
 		if(typeof widget_id === "undefined"){
@@ -86,7 +85,8 @@ $(document).ready(function(){
 		
 		$(this)[0].reset();
 		
-    event.preventDefault();
+		// Update the page.
+		update_after_edit();
 	});
 
 	// Delete widget links.
