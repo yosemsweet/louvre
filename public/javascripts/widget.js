@@ -18,28 +18,31 @@ $(document).ready(function(){
 	// Add widget links.
 	$(".add_widget").click(function(event){
 	  event.preventDefault();
-	
-		// Canvas id and content type are required.
-		var canvas_id = $(this).data("canvas_id");
 		var content_type = $(this).data("content_type");
+		var widget = $("ul#inline_form li.widget." + content_type);
 		
-		// If page id is defined, we attach the widget to that page.
-		var page_query = '';
-		var page_id = $(this).data("page_id");	
-	  if(typeof page_id !== "undefined"){
-		  var page_query = '&page_id=' + request.page_id;
-	  }
-	
-		$widget_dialog.open("New Widget", "/widgets/new?content_type=" + content_type + "&canvas_id=" + canvas_id + page_query);
+		// Fire the edit event for the widget.
+		$(".edit", widget).click();
+		// Ensure that the content is hidden to make toggling work properly.
+		$(".content", widget).hide();	
+		// Toggle the display of the widget.
+		widget.parent().toggle();
 		
 	});
 
 	// Edit widget links.
 	$(".widget .edit").live("click", function(event){
 	  var widget_id = $(this).parents(".widget").data("widget_id");
+		if(typeof widget_id === "undefined"){
+			widget_id = 0;
+		}
+		
 		var widget = $(this).parents(".widget");
 		
 		$(".content", widget).toggle();
+		
+		console.log($(".content", widget));
+		
 		$("form.edit_widget", widget).toggle();
 		
 		if ($(".token-input-list-facebook", widget).length == 0){
@@ -58,9 +61,14 @@ $(document).ready(function(){
 	
 	});
 	
+	// Handle widget form saves.
 	$("form.edit_widget").live("submit", function(){
 		
 		var widget_id = $(this).parents(".widget").data("widget_id");
+		if(typeof widget_id === "undefined"){
+			widget_id = 0;
+		}
+		
 		var widget = $(this).parents(".widget");
 		var widget_form_params = $(this).serialize();
 		
@@ -75,7 +83,9 @@ $(document).ready(function(){
 		$.post( $(this).attr("action"), widget_form_params, function(){
 			update_after_edit();
 		});
-
+		
+		$(this)[0].reset();
+		
     event.preventDefault();
 	});
 
@@ -122,6 +132,17 @@ $(document).ready(function(){
 	);
 	
 	// PUBLIC METHODS
+	
+	reset_new_widget_forms = function(){
+		var $widget = $("ul#inline_form li.widget");
+		// Fire the edit event for new form widgets.
+		$(".edit", $widget).click();
+		// Hide the new form widgets.
+		$widget.parent().hide();
+		// Ensure the content for new form widgets is hidden,
+		// so that toggling works properly.
+		$(".content", $widget).hide();	
+	}
 	
 	update_widget_comment_counts = function(){
 		$(".widget").each(function(){

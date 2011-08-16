@@ -75,14 +75,11 @@ class WidgetsController < ApplicationController
 	  end
 
     if @widget.save
-      if request.xhr?
-        head :created
-      else
-        render :inline => "<script type='text/javascript'>window.top.update_after_edit();</script>"
-      end
+      head :created
     else
       head :bad_request
-    end
+    end  
+    
   end
   
   # POST /widgets/:id/copy_to_page/:page_id

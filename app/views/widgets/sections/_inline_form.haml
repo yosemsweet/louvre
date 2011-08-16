@@ -1,11 +1,11 @@
-= form_for widget, {:html => {:style => "display:none;"}} do |f| 
+= form_for widget, {:html => {:style => "display:none;", :class => "edit_widget"}} do |f| 
   .field
     = f.label :tag_ids, "Tags"
     = f.text_field :tag_ids, {"data-pre" => widget.tags.map(&:attributes).to_json, :class => "widget_tag_ids"}
   - case widget.content_type  
   - when 'text_content'
     .field
-      = f.text_area :text, {:id => "widget_ckeditor_#{widget.id}"}
+      = f.text_area :text, {:id => "widget_ckeditor_#{widget.id || 0}"}
   - when 'image_content'
     .field
       = f.label 'image url'

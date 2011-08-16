@@ -1,3 +1,4 @@
 .facebook_comments
   .fb-discussion
-    = comments_for(widget, :href => widget_url(widget), :width => 750)
+    - if widget.id
+      = comments_for(widget, :href => widget_url(widget), :width => 750)

@@ -20,7 +20,9 @@ $(document).ready(function(){
 	  $("ul#feed").load("/widgets/for_canvas/" + request.canvas_id + "/canvas_feed", function(){
 	     enable_widget_previews();     
 			 update_widget_comment_counts();
+			 reset_new_widget_forms();
 	  });
+		
 	}  
 
 	var load_new_widgets = function(){
@@ -40,12 +42,7 @@ $(document).ready(function(){
 	     }
 	   });  
 	 };
-
-	update_after_edit = function(){
-	  // close_widget_dialog();
-	  reload_widgets();
-	}
-  
+	
 	// Look for new widgets every 15 seconds.
 	setInterval(load_new_widgets, 15000); 
 
@@ -54,5 +51,5 @@ $(document).ready(function(){
 
 	// Track the fact that the user got here.
 	mpq.push(["track","hit_canvas_homepage"]);  
-
+	
 });

@@ -11,6 +11,12 @@ class CanvaeController < ApplicationController
   end  
     
   def show
+    # Create a blank widget for each widget type.
+    @new_widgets = {
+      :text_widget => Widget.new(:content_type => "text_content", :canvas => @canvas),
+      :image_widget => Widget.new(:content_type => "image_content", :canvas => @canvas)
+    }
+    
 		add_canvas_breadcrumb(@canvas)
   end
     
