@@ -1,0 +1,26 @@
+= form_for widget, {:html => {:style => "display:none;"}} do |f| 
+  .field
+    = f.label :tag_ids, "Tags"
+    = f.text_field :tag_ids, {"data-pre" => widget.tags.map(&:attributes).to_json, :class => "widget_tag_ids"}
+  - case widget.content_type  
+  - when 'text_content'
+    .field
+      = f.text_area :content, {:id => "widget_ckeditor_#{widget.id}"}
+  - when 'image_content'
+    .field
+      = f.label 'image url'
+      = f.text_field :content
+    .field
+      = f.label 'image alt text'
+      = f.text_field :alt_text
+
+  %input{:type => "hidden", :name => "widget[content_type]", :value => "#{widget.content_type}"}
+  %input{:type => "hidden", :name => "widget[creator_id]", :value => "#{current_user.id}"}
+
+  - if widget.page
+    %input{:type => "hidden", :name => "page_id", :value => "#{widget.page.id}"}
+  - else
+    %input{:type => "hidden", :name => "canvas_id", :value => "#{widget.canvas.id}"}
+
+  .actions
+    = f.submit 'Save'
