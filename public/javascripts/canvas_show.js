@@ -35,12 +35,13 @@ $(document).ready(function(){
 	   // Get html for any new widgets and append to the feed.
 	   $.get('/widgets/for_canvas/' + request.canvas_id + '/canvas_feed?start=' + (1*max_widget_id + 1), function(data) {
 	     if(data.length > 1){
-	       $(data).appendTo("ul#feed");
+	       $(data).prependTo("ul#feed");
 	       enable_widget_previews();
 				 update_widget_comment_counts();
 	     }
 	   });  
 	 };
+	
 	
 	// Look for new widgets every 15 seconds.
 	setInterval(load_new_widgets, 15000); 

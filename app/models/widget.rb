@@ -38,7 +38,7 @@ class Widget < ActiveRecord::Base
   end
   
   def self.for_canvas(canvas_id, start)
-    canvae = Canvas.find(canvas_id).widgets.where(:page_id => nil)
+    canvae = Canvas.find(canvas_id).widgets.where(:page_id => nil).order("created_at DESC")
     if start
       canvae = canvae.where("id >= #{start}")
     end

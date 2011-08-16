@@ -78,15 +78,12 @@ $(document).ready(function(){
 		$("#widget_ckeditor_" + widget_id).ckeditor(function(){
 			this.destroy();
 		});
+		$(this)[0].reset();
 		
 		$.post( $(this).attr("action"), widget_form_params, function(){
 			update_after_edit();
-		});
-		
-		$(this)[0].reset();
-		
-		// Update the page.
-		update_after_edit();
+		});	
+
 	});
 
 	// Delete widget links.

@@ -19,6 +19,14 @@ ul#inline_form{
 	margin-top: 5px;
 	padding: 10px 10px 0 10px;
 	list-style: none;
+	
+	.widget {
+		
+		.edit{  display: none; }
+    .delete{  display: none; }
+    .toggle_preview{  display: none; }
+		.comment_count { display: none;}
+	}
 }
 
 #widget_dialog iframe {
