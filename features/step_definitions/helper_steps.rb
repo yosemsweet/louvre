@@ -33,7 +33,6 @@ Then /^I see (?:the|a[n?]) "([^"]*)" dialog$/ do |dialog|
 	page.should have_content(dialog)
 end
 
-
 Then /^(?:|I )should see the "([^"]*)" button$/ do |text|
   button_is_visible = page.has_button?(text) && page.find_button(text).visible?
   button_is_visible.should == true
