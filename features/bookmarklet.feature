@@ -3,7 +3,7 @@ As Gill Fert
 I want to add content to my canvas input stream via bookmarklets 
 so that I can share interesting information with my friends
 
-@background_user, @wip
+@background_user
 Scenario: Use bookmarklet from a web page adds to input stream
 Given I am browsing "cnn"
 And I have a canvas bookmarklet
