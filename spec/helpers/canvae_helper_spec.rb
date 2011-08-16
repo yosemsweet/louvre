@@ -13,7 +13,7 @@ describe 'CanvaeHelper' do
 		
 		it "should accept 2 parameters, a canvas and a user and return javascript" do
 			helper.should respond_to(:bookmarklet).with(2).arguments
-			helper.bookmarklet(@canvas, @user).should match("^javascript:")
+			helper.bookmarklet(@canvas, @user).should have_selector("javascript")
 		end
 
 		it "should set the canvas id to the passed in canvas' id" do

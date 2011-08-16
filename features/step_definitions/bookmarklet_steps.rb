@@ -11,11 +11,17 @@ Given /^I have selected some text on the screen$/ do
 end
 
 When /^I use the bookmarklet$/ do
-	page.execute_script("$('body').empty()")
+	pending "capybara webkit doesn't support executing scripts" #page.execute_script("#{bookmarklet(Canvas.last, User.last)}")
 end
 
 
 When /^I submit a link to the canvas$/ do
-	result = post "/widgets/", :canvas_id => Canvas.last.id, :widget => {:link => current_page, :title => "CNN", :creator_id => current_user.id, :content_type => 'link_content', :text => selection.html_safe}
+	result = post "/widgets/", :canvas_id => Canvas.last.id, :widget => {:link => current_page, :title => "CNN", :creator_id => User.last.id, :content_type => 'link_content', :text => selection.html_safe}
   set_input_stream_call_status(result.status)
+end
+
+Then /^the text is added to the canvas' input stream as part of a link$/ do
+	widget = Canvas.last.widgets.where(:content_type => "link_content", :link => current_page).last
+	widget.should be_present
+	widget.text.should == selection.html_safe
 end
