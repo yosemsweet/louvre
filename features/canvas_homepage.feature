@@ -11,6 +11,8 @@ And I should see "Feed"
 And I should see "Pages"
 
 @omniauth_test
+@wip
+@javascript
 Scenario: Canvas Bookmarklet Widget
 Given there is a canvas
 And I am authenticated
