@@ -33,11 +33,6 @@ $(document).ready(function(){
 	  });
 	}
 
-	update_after_edit = function(){
-	  reload_page_widgets();
-	  reload_feed_widgets();
-	}
-
 	reload_page_widgets();
 	reload_feed_widgets();
 
@@ -78,7 +73,14 @@ $(document).ready(function(){
 	      }
       
 	    }
-	 });      
+	 });
+	
+	$(".add_widget_mock").click(function(){
+		// We don't actually add widgets from the page edit page,
+		// but instead track the event so that we know if people
+		// want to.
+		mpq.push(["track","add_widget_from_edit_page", {page_id : request.page_id, user_id : request.user_id}]);
+	});      
     
 	mpq.push(["track","hit_edit_page", {page_id : request.page_id, user_id : request.user_id}]);
 	mpq.push(["track_forms",$("form#update_page"),"page_change_title", {page_id : request.page_id, user_id : request.user_id}]);
