@@ -1,4 +1,3 @@
-
 Given /^there is a canvas$/ do
   Factory.create(:canvas)
 end
@@ -30,10 +29,10 @@ When /^I wait (\d+) second[s?]$/ do |n|
 	sleep n.to_i
 end
 
-
-Then /^Then I should see the new widget form$/ do |dialog|
-	page.should have_selector("#inline_form .widget")
+Then /^I see (?:the|a[n?]) "([^"]*)" dialog$/ do |dialog|
+	page.should have_content(dialog)
 end
+
 
 Then /^(?:|I )should see the "([^"]*)" button$/ do |text|
   button_is_visible = page.has_button?(text) && page.find_button(text).visible?
@@ -45,10 +44,10 @@ Then /^(?:|I )should not see the "([^"]*)" button$/ do |text|
   button_is_visible.should == false
 end
 
-Then /^(?:|the page should include|I should see) html "([^"]*)"$/ do |html|
-	should have_html(html)
-end
-
 Then /^I see the page$/ do
 	puts page.html
+end
+
+Then /^(?:|the page should include|I should see) html "([^"]*)"$/ do |html|
+	should have_html(html)
 end
