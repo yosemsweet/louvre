@@ -15,3 +15,11 @@ Scenario Outline: Link widgets display as a sourced quote on page
   Examples:
   | Title           | Link                    | Text                | Quote                                                                                                                     |
   | CNN             | http://www.cnn.com      | Basic Sample Text   |<blockquote cite='http://www.cnn.com'>Basic Sample Text</blockquote><p class='source'><a href='http://www.cnn.com'><cite>CNN</cite></a></p> | 
+  
+@omniauth_test
+@javascript
+Scenario: Show Add Link from 
+Given I am authenticated
+And I am on that canvas' homepage
+When I follow "Add Link"
+Then I should see the new widget form
