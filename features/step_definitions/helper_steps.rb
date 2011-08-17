@@ -47,3 +47,7 @@ end
 Then /^I see the page$/ do
 	puts page.html
 end
+
+Then /^(?:|the page should include|I should see) html "([^"]*)"$/ do |html|
+	should have_html(html)
+end
