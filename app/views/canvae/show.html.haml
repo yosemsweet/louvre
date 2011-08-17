@@ -72,6 +72,7 @@
     %a.add_widget{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
     %a.add_widget{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
     %a.add_widget{:href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id}} Add Link
+    %a.add_widget{:href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id}} Add Question
     
   %ul#inline_form
     - @new_widgets.each do |t, widget|
