@@ -16,6 +16,7 @@ And I press "Save"
 Then I should be on "Fashion of a Certain Age canvas homepage"
 And I should see "Canvas created!"
 And I should be the creator of the "Fashion of a Certain Age" canvas
+And I should see "Edit"
 
 @omniauth_test  
 Scenario: Create a new canvae - not authenticated
