@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110816002525) do
+ActiveRecord::Schema.define(:version => 20110817233034) do
 
   create_table "canvae", :force => true do |t|
     t.string   "name"
@@ -98,6 +98,8 @@ ActiveRecord::Schema.define(:version => 20110816002525) do
     t.string   "image"
     t.string   "link"
     t.string   "title"
+    t.text     "question"
+    t.text     "answer"
   end
 
 end
