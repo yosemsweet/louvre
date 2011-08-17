@@ -135,7 +135,7 @@ class WidgetsController < ApplicationController
     canvas_id = params['to'].split('@').first
     creator_id = User.find_by_email(email).id
     
-    widget = Widget.new(:canvas_id => canvas_id, :creator_id => creator_id, :content_type => 'text', :text => params['text'])
+    widget = Widget.new(:canvas_id => canvas_id, :creator_id => creator_id, :content_type => 'text_content', :text => params['text'])
 
     if widget.save
       head :created
