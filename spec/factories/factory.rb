@@ -31,7 +31,7 @@ FactoryGirl.define do
     canvas
 		content_type "test_content"
 	end
-	
+
 	factory :text_widget, :parent => :widget do
    	content_type "text_content"
    	text "This is the content"
