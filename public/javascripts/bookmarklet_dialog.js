@@ -1,15 +1,3 @@
-function getHighlightedText(){
-	var text;
-	try {
-	  text = ((window.getSelection && window.getSelection()) || (document.getSelection && document.getSelection()) || (document.selection && document.selection.createRange && document.selection.createRange().text));
-	}
-	catch(e){ 
-		// Access denied on https sites.
-	  text = "";
-	}
-	return text.toString();
-}
-
 function appendToHead(dom_element){
 	document.getElementsByTagName("head")[0].appendChild(dom_element);
 }
@@ -22,6 +10,7 @@ function createBookmarkletDialog(){
 	
 	// Get the current url.
 	var bookmarkURL = jQuery(location).attr('href');
+	rangy.init();
 	rangy.getSelection().refresh();
 
 	// Generate the dialog markup.
@@ -55,9 +44,11 @@ function createBookmarkletDialog(){
     
 		// Submit the form.
     $.post( $form.attr("action"), $form.serialize());
-
-		removeDialog();
+		dialog_element.title = "Link added";
+		dialog_element.innerHTML = "<p><strong>Success!</strong></p><p><a id='close' href='#'>Close</a></p>";
+		$("#loorp_bookmarklet #close").click(removeDialog);
 		
+				
 		// Track submit via bookmarklet event.
 		loorp_mpq.push(["track","click_save_bookmarklet"]);
   });
@@ -99,6 +90,7 @@ function createBookmarkletDialog(){
 	
 	if (typeof rangy == 'undefined') {
 		var g = document.createElement('SCRIPT'); g.type = 'text/javascript'; g.src = host_uri + '/javascripts/rangy/rangy-core.js';
+		appendToHead(g);
 	}
 
 	// Create the bookmarklet dialog.
