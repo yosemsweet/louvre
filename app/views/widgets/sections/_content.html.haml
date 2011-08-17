@@ -8,7 +8,7 @@
 
 - when 'link_content'
   %blockquote{:cite => "#{widget.link}"}= widget.text.html_safe if widget.text
-  %p.source
-    = link_to widget.link do
+  %p
+    %a{:href => "#{widget.link}", :class => "link #{'source' if widget.text && !widget.text.empty?}"}
       %cite= widget.title
     

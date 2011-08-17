@@ -8,7 +8,9 @@ $(document).ready(function(){
 	});
     
 	var reload_page_widgets = function(){
-	  $("ul#page").load("/widgets/for_page/" + request.page_id + "/editable/");
+	  $("ul#page").load("/widgets/for_page/" + request.page_id + "/editable/", function(){
+			reset_new_widget_forms(); 
+		});
 	}
 
 	var reload_feed_widgets = function(){
@@ -29,7 +31,7 @@ $(document).ready(function(){
 	    });
     
 	    enable_widget_previews();
-        
+ 
 	  });
 	}
 
@@ -84,5 +86,11 @@ $(document).ready(function(){
     
 	mpq.push(["track","hit_edit_page", {page_id : request.page_id, user_id : request.user_id}]);
 	mpq.push(["track_forms",$("form#update_page"),"page_change_title", {page_id : request.page_id, user_id : request.user_id}]);
+	
+	// PUBLIC METHODS
+	
+	update_after_edit = function(){
+		reload_page_widgets();
+	}
 	
 });

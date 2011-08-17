@@ -6,7 +6,6 @@ Feature: canvas homepage
 Scenario: Canvas Homepage Sections
 Given there is a canvas 
 And I am on that canvas' homepage
-Then I should see "Edit"
 And I should see "Feed"
 And I should see "Pages"
 
@@ -17,3 +16,4 @@ Given there is a canvas
 And I am authenticated
 And I am on that canvas' homepage
 Then I can install the canvas bookmarklet
+

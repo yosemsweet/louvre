@@ -15,5 +15,10 @@ class Canvas < ActiveRecord::Base
 	def self.recently_updated(i)
 		Canvas.order('updated_at desc').limit(i)
 	end
+	
+  def owned_by?(owner)
+    return false unless owner.is_a? User
+    return creator == owner
+  end
 
 end

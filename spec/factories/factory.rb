@@ -31,7 +31,7 @@ FactoryGirl.define do
     canvas
 		content_type "test_content"
 	end
-	
+
 	factory :text_widget, :parent => :widget do
    	content_type "text_content"
    	text "This is the content"
@@ -48,6 +48,11 @@ FactoryGirl.define do
 	
 	factory :link_widget, :parent => :widget do
 		content_type "link_content"
+		link "http://www.loorp.com"
+		title "Loorp it"
+		factory :quoted_link_widget do
+			text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " * 5
+		end
 	end
   
   factory :tag do

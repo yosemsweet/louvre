@@ -1,4 +1,4 @@
-$(document).ready(function(){
+					$(document).ready(function(){
 
 	// Widget dialog.
 	var $widget_dialog = $("#widget_dialog").dialog({
@@ -22,6 +22,15 @@ $(document).ready(function(){
 		var content_type = $(this).data("content_type");
 		var widget = $("ul#inline_form li.widget." + content_type);
 		
+		// hide all new widgets before opening the one that was clocked on
+		$("ul#inline_form").children().not(widget.parent()).hide();
+		
+		// Contrtol the look of the tabs
+		var is_active = $(this).hasClass("active");
+		$(".add_widget").removeClass("active");
+		if(! is_active){
+			$(this).addClass("active");
+		}
 		// Fire the edit event for the widget.
 		$(".edit", widget).click();
 		// Ensure that the content is hidden to make toggling work properly.
@@ -88,6 +97,7 @@ $(document).ready(function(){
 		
 		if(is_valid){
 			// On success
+			$(".add_widget").removeClass("active");
 			widget_form_params._method = "PUT";
 			$(this).hide();
 			$(".content", widget).html("<img src='/images/loorping.gif'>").show();
@@ -149,6 +159,11 @@ $(document).ready(function(){
 	        mpq.push(["track","comment_removed" , {type: "facebook", widget : widget_id, user_id : request.user_id} ]);
 	    }
 	);
+	
+	// Show the widget toolbox when we hover over widgets.
+	$(".widget")
+    .live('mouseover', function(){$(this).find('.toolbox').show()})
+    .live('mouseout', function(){$(this).find('.toolbox').hide()})
 	
 	// PUBLIC METHODS
 	

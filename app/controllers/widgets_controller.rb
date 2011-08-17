@@ -126,5 +126,23 @@ class WidgetsController < ApplicationController
     widget.destroy
     head :ok
   end
-  
+
+  def create_via_email
+
+    # extract email address out of the from field
+    email = params['from'].match("([a-z,A-Z,0-9,.,!,#,$,%,&,',*,+,-,\/,=,?,^,_,`,{,|,},~]*)@[a-z,A-Z,0-9,.,-]*")[0]
+    
+    canvas_id = params['to'].split('@').first
+    creator_id = User.find_by_email(email).id
+    
+    widget = Widget.new(:canvas_id => canvas_id, :creator_id => creator_id, :content_type => 'text_content', :text => params['text'])
+
+    if widget.save
+      head :created
+    else
+      head :bad_request
+
+    end
+  end
+
 end
