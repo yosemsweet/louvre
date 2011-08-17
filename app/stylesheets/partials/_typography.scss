@@ -16,6 +16,14 @@
   }
 }
 
+@mixin caption-font {
+  font: {
+    family: 'Droid Serif', serif;
+    size: .9em;
+		style:italic;
+  }
+}
+
 @mixin box-label {
   font: {
     family: 'Droid Sans', sans-serif;

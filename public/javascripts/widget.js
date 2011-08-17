@@ -165,6 +165,8 @@
     .live('mouseover', function(){$(this).find('.toolbox').show()})
     .live('mouseout', function(){$(this).find('.toolbox').hide()})
 	
+	
+	
 	// PUBLIC METHODS
 	
 	reset_new_widget_forms = function(){
@@ -196,7 +198,7 @@
 	      show: 'mouseover', hide: 'mouseout',
 	      position: { corner: { target: 'bottomLeft', tooltip: 'topRight' }, adjust: { screen: true } },
 	      style: {
-	        width: 572,
+	        width: {min:200, max:900},
 	        border: { width: 5, radius: 10 },
 	        padding: 10, 
 	        tip: true,
