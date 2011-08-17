@@ -76,3 +76,17 @@ body{
 	}
 	
 }
+
+
+.tab {
+	border:1px solid #CCC;
+	padding:3px;
+	background-color:#FFF;
+	text-decoration:none;
+	&.active {
+		background-color:#333;
+		color:#FFF;	
+	}
+}
+	
+
