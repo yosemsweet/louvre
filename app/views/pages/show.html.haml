@@ -4,33 +4,35 @@
 - content_for :javascripts do
   = javascript_include_tag 'page_show.js'
 
-%h1= @page.title  
-      
-- if current_user
-  #follow_status
+.span-4.first
+  
+  %h3== "#{@page.title}"
+
+
+  - if current_user
+    #follow_status
     #follow{:style => hidden_if(current_user.following?(@page))}
       %button Follow
     #stop_following{:style => hidden_if(!current_user.following?(@page))}
       %button Stop following
       %p
         Following this page 
+
+  %ul
+    %li= link_to 'Edit', edit_canvas_page_path(@page.canvas, @page)
+    %li= link_to "Versions", versions_canvas_page_path(@page.canvas, @page)
+    %li= link_to 'Canvas', canvas_path(@page.canvas)
+
+  %div Other Pages:
+  %ul
+    - @page.canvas.pages.each do |page|
+      %li= link_to page.title, canvas_page_path(@page.canvas, page), :class => "related_page_link"
+.span-20.last
+
+  %h1= @page.title  
       
-      
-%ul#presentation_page
-  = render :partial => "widgets/presentation", :collection => @widgets, :as => :widget
-  
-= link_to 'Edit', edit_canvas_page_path(@page.canvas, @page)
-\|
-= link_to "Versions", versions_canvas_page_path(@page.canvas, @page)
-\|
-= link_to 'View Canvas', canvas_path(@page.canvas)
+  %ul#presentation_page
+    = render :partial => "widgets/presentation", :collection => @widgets, :as => :widget
 
-%h2 comments
-= comments_for(@page, :href => canvas_page_url(@page.canvas, @page) )
-
-%h3== Other pages on "#{@page.canvas.name}"
-%ul
-  - @page.canvas.pages.each do |page|
-    %li= link_to page.title, canvas_page_path(@page.canvas, page), :class => "related_page_link"
-
-
+  %h2 comments
+  = comments_for(@page, :href => canvas_page_url(@page.canvas, @page) )
