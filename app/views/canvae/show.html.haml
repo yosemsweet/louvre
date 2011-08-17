@@ -62,6 +62,11 @@
         %a#bookmarklet{:href => "#", :style => "padding:10px 400px 10px 0"} 
           = "add to #{@canvas.name}"
 
+    - if current_user
+      %p
+        Send your content to this email address:
+        = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
+        
   %h2 Feed
   #toolbar
     %a.add_widget{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text

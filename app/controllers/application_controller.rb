@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user
   
+  before_filter :initialize_mixpanel
+  
   add_breadcrumb "Home", :root_path
 
   def require_login
@@ -30,6 +32,10 @@ class ApplicationController < ActionController::Base
   
   def add_page_breadcrumb(page)
 		add_breadcrumb page.title, canvas_page_path(page.canvas, page)
+  end
+
+  def initialize_mixpanel
+    @mixpanel = Mixpanel::Tracker.new(MIXPANEL_CONFIG[:token], request.env, true)
   end
 
 end

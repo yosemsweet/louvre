@@ -130,6 +130,10 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mixpanel (0.9.0)
+      escape
+      json
+      rack
     mocha (0.9.12)
     multi_json (1.0.3)
     multi_xml (0.2.2)
@@ -273,6 +277,7 @@ DEPENDENCIES
   guard-spork
   haml-rails
   html_truncator
+  mixpanel
   mocha
   nokogiri
   omniauth (~> 0.2.6)
