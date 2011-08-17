@@ -10,8 +10,8 @@
     .edit_content
       = render_widget_section("inline_form", widget)
       
-  .tags
-    = render_widget_section("tags", widget)  
+  -# .tags
+  -#   = render_widget_section("tags", widget)  
     
 :javascript
   $(".editable_widget").hover( function(){$(this).find('.toolbox').show();},function(){$(this).find('.toolbox').hide();});

@@ -1,15 +1,3 @@
-function getHighlightedText(){
-	var text;
-	try {
-	  text = ((window.getSelection && window.getSelection()) || (document.getSelection && document.getSelection()) || (document.selection && document.selection.createRange && document.selection.createRange().text));
-	}
-	catch(e){ 
-		// Access denied on https sites.
-	  text = "";
-	}
-	return text.toString();
-}
-
 function appendToHead(dom_element){
 	document.getElementsByTagName("head")[0].appendChild(dom_element);
 }
@@ -22,15 +10,17 @@ function createBookmarkletDialog(){
 	
 	// Get the current url.
 	var bookmarkURL = jQuery(location).attr('href');
+	rangy.init();
+	rangy.getSelection().refresh();
 
 	// Generate the dialog markup.
 	var dialog_element = document.createElement('div');
 	dialog_element.id = 'loorp_bookmarklet';
+	dialog_element.title = "Add to Canvas";
 	dialog_element.innerHTML = "\
-		<h2>Add to Canvas</h2>\
 		<form action='" + host_uri + "/widgets'> \
 			<input type='text' name='widget[title]' value='" + document.title + "'/> \
-			<textarea name='widget[text]' rows='10' cols='36'>" + getHighlightedText() + "</textarea> <br> \
+			<textarea name='widget[text]' rows='10' cols='36'>" + rangy.getSelection().toHtml() + "</textarea> <br> \
 			<input type='hidden' name='widget[content_type]' value='link_content'/> \
 			<input type='hidden' name='widget[link]' value='" + bookmarkURL + "'/> \
 			<input type='hidden' name='widget[creator_id]' value='" + user_id + "'/> \
@@ -43,6 +33,8 @@ function createBookmarkletDialog(){
 	// Append the dialog markup to the current page body.
 	var page_body = document.getElementsByTagName('body')[0];
 	page_body.appendChild(dialog_element);
+	var bookmark_dialog = $( "#loorp_bookmarklet" ).dialog({minHeight:300, minWidth:500});
+	bookmark_dialog.dialog('open');
 	
 	var $form = $("#loorp_bookmarklet form");
 	
@@ -52,9 +44,11 @@ function createBookmarkletDialog(){
     
 		// Submit the form.
     $.post( $form.attr("action"), $form.serialize());
-
-		removeDialog();
+		dialog_element.title = "Link added";
+		dialog_element.innerHTML = "<p><strong>Success!</strong></p><p><a id='close' href='#'>Close</a></p>";
+		$("#loorp_bookmarklet #close").click(removeDialog);
 		
+				
 		// Track submit via bookmarklet event.
 		loorp_mpq.push(["track","click_save_bookmarklet"]);
   });
@@ -80,13 +74,25 @@ function createBookmarkletDialog(){
 	loorp_mpq.push(["track","hit_form_bookmarklet"]);
 
 	// Load bookmarklet dialog styles.
-	var c = document.createElement("link"); c.type = 'text/css'; c.rel = 'stylesheet'; c.href = host_uri + '/stylesheets/bookmarklet_dialog.css';
+	var c = document.createElement("link"); c.type = 'text/css'; c.rel = 'stylesheet'; c.href = host_uri + '/stylesheets/compiled/bookmarklet_dialog.css';
 	appendToHead(c);
 	
 	// Load jQuery.
-	var e = document.createElement('SCRIPT'); e.type = 'text/javascript'; e.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js';
-	appendToHead(e);
+	if( typeof jQuery == 'undefined'){
+		var e = document.createElement('SCRIPT'); e.type = 'text/javascript'; e.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js';
+		appendToHead(e);
+	}
 	
+	if (typeof jQuery.ui == 'undefined') {
+	  	var f = document.createElement('SCRIPT'); f.type = 'text/javascript'; f.src = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js';
+		appendToHead(f);
+	}
+	
+	if (typeof rangy == 'undefined') {
+		var g = document.createElement('SCRIPT'); g.type = 'text/javascript'; g.src = host_uri + '/javascripts/rangy/rangy-core.js';
+		appendToHead(g);
+	}
+
 	// Create the bookmarklet dialog.
 	setTimeout(createBookmarkletDialog, 500);
 })();
