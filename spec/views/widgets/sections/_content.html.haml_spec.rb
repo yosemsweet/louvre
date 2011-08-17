@@ -49,6 +49,10 @@ describe "widgets/sections/_content.html.haml" do
 		it "should use the alt text for the image" do
 			rendered.should have_selector("img[alt='#{@widget.alt_text}']")
 		end
+		
+		it "should have a caption" do
+			rendered.should have_selector(".image_caption")
+		end
   end
 
   context "link widget" do

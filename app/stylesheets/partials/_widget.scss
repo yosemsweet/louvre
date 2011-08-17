@@ -20,6 +20,19 @@
   box-shadow: 1px -1px 5px $trim-color;
 }
 
+
+.widget_image_wrapper {
+	img {
+		@include image-box;
+	}
+
+}
+
+.image_caption {
+	@include caption-font;
+	}
+
+
 $icon-size: 32px;
 .widget .body {
   @include floating-box;
@@ -32,11 +45,6 @@ $icon-size: 32px;
 	overflow:visible;
 	.content {
 	  padding:10px;
-	  
-	  img {
-	    	max-width: 100%;
-	    		max-height: 100%;
-	    	}
 	}
 	
 	.toolbox{
