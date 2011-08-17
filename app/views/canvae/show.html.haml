@@ -80,5 +80,5 @@
         // Track the bookmarklet install.
         mpq.push(['track','install_bookmark']);
       })
-      .attr("href", "#{bookmarklet(@canvas, current_user)}");
+      .attr("href", "#{raw(bookmarklet(@canvas, current_user))}");
 
