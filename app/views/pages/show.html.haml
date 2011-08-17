@@ -31,6 +31,6 @@
 %h3== Other pages on "#{@page.canvas.name}"
 %ul
   - @page.canvas.pages.each do |page|
-    %li= link_to page.title, canvas_page_path(@canvas, page), :class => "related_page_link"
+    %li= link_to page.title, canvas_page_path(@page.canvas, page), :class => "related_page_link"
 
 
