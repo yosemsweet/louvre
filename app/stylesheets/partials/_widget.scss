@@ -109,6 +109,8 @@ $canvas-feed-height: 200px;
   	  position:relative;
   	
   	  min-height: $canvas-feed-height;
+			max-height: $canvas-feed-height;
+			overflow-y: auto;
   	  text-overflow: ellipsis;
   	  word-wrap: break-word;
   	
