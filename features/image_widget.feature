@@ -1,7 +1,7 @@
-Feature: add image to input stream
+Feature: image widgets
 As Gill Fert
-I want to add an image item to the canvas' input stream
-so that I can share interesting/valuable ideas with members of the community
+I want to see image on the canvas
+so that I can share interesting/informative imagery with the community
 
 @omniauth_test
 @javascript

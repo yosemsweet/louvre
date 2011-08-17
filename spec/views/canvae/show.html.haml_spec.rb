@@ -16,10 +16,29 @@ describe "canvae/show.html.haml" do
      end
    end
 
-	context "input stream" do
-		it "displays the canvas input stream" do
+	context "input feed" do
+		it "displays the canvas input feed" do
 			render
 			rendered.should have_selector('#feed')
 		end
+
+		context "add widget links" do
+			it "has a link to add text widgets" do
+				render
+				rendered.should have_selector("a.add_widget[data-content_type='text_content']")
+			end
+			
+			it "has a link to add image widgets" do
+				render
+				rendered.should have_selector("a.add_widget[data-content_type='image_content']")
+			end
+			
+			it "has a link to add link widgets" do
+				render
+				rendered.should have_selector("a.add_widget[data-content_type='link_content']")
+			end
+			
+		end
+	
 	end
 end

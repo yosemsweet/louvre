@@ -7,7 +7,7 @@
   %img{ :src => "#{widget.image}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}"}
 
 - when 'link_content'
-  %blockquote{:cite => "#{widget.link}"}= widget.text.html_safe
+  %blockquote{:cite => "#{widget.link}"}= widget.text.html_safe if widget.text
   %p.source
     = link_to widget.link do
       %cite= widget.title
