@@ -50,4 +50,59 @@ describe "widgets/sections/_content.html.haml" do
 			rendered.should have_selector("img[alt='#{@widget.alt_text}']")
 		end
   end
+
+  context "link widget" do
+		
+		before(:each) do
+			@widget = FactoryGirl.build(:link_widget)
+		end
+		
+    it "should display the link" do
+			render :partial => "widgets/sections/content", :object => @widget, :as => :widget
+			rendered.should have_selector("a.link[href='#{@widget.link}']", :content => @widget.title)
+    end
+
+		context "without a quote" do
+			before(:each) do
+				@widget = FactoryGirl.build(:quoted_link_widget, :text => nil)
+			end
+			
+			it "should not add a source class to the link" do
+				render :partial => "widgets/sections/content", :object => @widget, :as => :widget
+				rendered.should_not have_selector("a.link.source[href='#{@widget.link}']")
+			end
+			
+			context "with an empty quote" do
+				before(:each) do
+					@widget.text = ""
+				end
+				
+				it "should not add a source class to the link" do
+					render :partial => "widgets/sections/content", :object => @widget, :as => :widget
+					rendered.should_not have_selector("a.link.source[href='#{@widget.link}']")
+				end
+				
+			end
+			
+		end
+
+		context "with a quote" do
+			before(:each) do
+				@widget = FactoryGirl.build(:quoted_link_widget)
+			end
+			
+			it "should display the quote" do
+				render :partial => "widgets/sections/content", :object => @widget, :as => :widget
+				rendered.should have_selector("blockquote", :content => @widget.text)				
+			end
+			
+			it "should add a source class to the link" do
+				render :partial => "widgets/sections/content", :object => @widget, :as => :widget
+				rendered.should have_selector("a.link.source[href='#{@widget.link}']")
+			end
+		end
+
+  end
+
+
 end
