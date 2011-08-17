@@ -150,6 +150,11 @@ $(document).ready(function(){
 	    }
 	);
 	
+	// Show the widget toolbox when we hover over widgets.
+	$(".widget")
+    .live('mouseover', function(){$(this).find('.toolbox').show()})
+    .live('mouseout', function(){$(this).find('.toolbox').hide()})
+	
 	// PUBLIC METHODS
 	
 	reset_new_widget_forms = function(){

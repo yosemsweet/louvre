@@ -87,13 +87,6 @@ $(document).ready(function(){
 	mpq.push(["track","hit_edit_page", {page_id : request.page_id, user_id : request.user_id}]);
 	mpq.push(["track_forms",$("form#update_page"),"page_change_title", {page_id : request.page_id, user_id : request.user_id}]);
 	
-	
-	$(".widget.editable_widget").live("mouseover", function(){
-		$(this).find('.toolbox').show();
-	}).live("mouseout", function(){
-		$(this).find('.toolbox').hide();
-	});
-	
 	// PUBLIC METHODS
 	
 	update_after_edit = function(){
