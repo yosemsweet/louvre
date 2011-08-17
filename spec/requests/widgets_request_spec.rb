@@ -36,6 +36,21 @@ describe "Widgets Requests" do
     end
     
   end
+ 
+  describe "POST /widgets/create_via_email/" do
+    
+    before(:each) do
+      @canvas = Factory.create(:canvas)
+    end
+    
+    it "should create a new widget" do
+      post "/widgets/create_via_email/",
+        :to => @canvas.id.to_s + '@feed.loorp.com', :from => @user.email, :text => 'This is the content of the email'
+      Widget.last.text.should == 'This is the content of the email'
+      response.status.should == 201
+    end
+    
+  end
   
     describe "PUT /widgets/[widget_id]/move/[position]" do
       

@@ -22,6 +22,7 @@ Louvre::Application.routes.draw do
 	  end
 	end
 
+  match "/widgets/create_via_email"  => "widgets#create_via_email"
   resources :widgets do
     collection do    
       get 'for_page/:page_id/:display' => "widgets#for_page"
