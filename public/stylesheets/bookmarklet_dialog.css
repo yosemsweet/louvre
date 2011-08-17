@@ -1,0 +1,46 @@
+/* line 1, ../../app/stylesheets/bookmarklet_dialog.scss */
+#loorp_bookmarklet {
+  line-height: 1.5;
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  color: #333333;
+  font-size: 12px;
+  background-color: #fafaff;
+  border: 1px solid #aaa;
+}
+/* line 9, ../../app/stylesheets/bookmarklet_dialog.scss */
+#loorp_bookmarklet h2 {
+  padding: 10px;
+  background-color: #6991dc;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 2px #173162;
+  font-size: 24px;
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+/* line 20, ../../app/stylesheets/bookmarklet_dialog.scss */
+#loorp_bookmarklet form {
+  display: block;
+  margin: 10px;
+}
+/* line 24, ../../app/stylesheets/bookmarklet_dialog.scss */
+#loorp_bookmarklet form textarea {
+  font-size: 12px;
+  width: 265px;
+  height: 100px;
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  padding: 5px;
+  border: 1px solid #bbb;
+  background: #eee;
+}
+/* line 34, ../../app/stylesheets/bookmarklet_dialog.scss */
+#loorp_bookmarklet form input[type="submit"] {
+  width: 50px;
+  font-size: 28px;
+}
+/* line 39, ../../app/stylesheets/bookmarklet_dialog.scss */
+#loorp_bookmarklet form a#cancel {
+  font-size: 14px;
+  color: #333;
+  text-decoration: underline;
+}

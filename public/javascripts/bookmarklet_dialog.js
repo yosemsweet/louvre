@@ -26,8 +26,8 @@ function createBookmarkletDialog(){
 	// Generate the dialog markup.
 	var dialog_element = document.createElement('div');
 	dialog_element.id = 'loorp_bookmarklet';
+	dialog_element.title = "Add to Canvas";
 	dialog_element.innerHTML = "\
-		<h2>Add to Canvas</h2>\
 		<form action='" + host_uri + "/widgets'> \
 			<input type='text' name='widget[title]' value='" + document.title + "'/> \
 			<textarea name='widget[text]' rows='10' cols='36'>" + getHighlightedText() + "</textarea> <br> \
@@ -43,6 +43,8 @@ function createBookmarkletDialog(){
 	// Append the dialog markup to the current page body.
 	var page_body = document.getElementsByTagName('body')[0];
 	page_body.appendChild(dialog_element);
+	var bookmark_dialog = $( "#loorp_bookmarklet" ).dialog({minHeight:300, minWidth:500});
+	bookmark_dialog.dialog('open');
 	
 	var $form = $("#loorp_bookmarklet form");
 	
@@ -84,9 +86,16 @@ function createBookmarkletDialog(){
 	appendToHead(c);
 	
 	// Load jQuery.
-	var e = document.createElement('SCRIPT'); e.type = 'text/javascript'; e.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js';
-	appendToHead(e);
+	if( typeof jQuery == 'undefined'){
+		var e = document.createElement('SCRIPT'); e.type = 'text/javascript'; e.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js';
+		appendToHead(e);
+	}
 	
+	if (typeof jQuery.ui == 'undefined') {
+	  	var f = document.createElement('SCRIPT'); f.type = 'text/javascript'; f.src = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js';
+		appendToHead(f);
+	}
+
 	// Create the bookmarklet dialog.
 	setTimeout(createBookmarkletDialog, 500);
 })();
