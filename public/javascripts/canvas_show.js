@@ -24,27 +24,26 @@ $(document).ready(function(){
 	  });
 	}  
 
-	// var load_new_widgets = function(){
-	//    // Get highest widget_id value on page.
-	//    var max_widget_id = 0;
-	//    $("ul#feed .widget").each(function(){
-	//      if ($(this).data("widget_id") * 1 > max_widget_id) {
-	//        max_widget_id = $(this).data("widget_id");
-	//      }
-	//    });
-	//    // Get html for any new widgets and append to the feed.
-	//    $.get('/widgets/for_canvas/' + request.canvas_id + '/canvas_feed?start=' + (1*max_widget_id + 1), function(data) {
-	//      if(data.length > 1){
-	//        $(data).prependTo("ul#feed");
-	//        enable_widget_previews();
-	// 			 update_widget_comment_counts();
-	//      }
-	//    });  
-	//  };
-	// 
+	var load_new_widgets = function(){
+	   // Get highest widget_id value on page.
+	   var max_widget_id = 0;
+	   $("ul#feed .widget").each(function(){
+	     if ($(this).data("widget_id") * 1 > max_widget_id) {
+	       max_widget_id = $(this).data("widget_id");
+	     }
+	   });
+	   // Get html for any new widgets and append to the feed.
+	   $.get('/widgets/for_canvas/' + request.canvas_id + '/canvas_feed?start=' + (1*max_widget_id + 1), function(data) {
+	     if(data.length > 1){
+	       $(data).prependTo("ul#feed");
+	       enable_widget_previews();
+				 update_widget_comment_counts();
+	     }
+	   });  
+	 };
 	
 	// Look for new widgets every 15 seconds.
-	//setInterval(load_new_widgets, 15000); 
+	setInterval(load_new_widgets, 15000); 
 
 	// Load the canvas feed.
 	reload_widgets();

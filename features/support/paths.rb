@@ -50,6 +50,14 @@ module NavigationHelpers
 		  puts("Path is #{hud_user_path(current_user)}")
 		  hud_user_path(current_user)
 
+  	when /the edit page for "Page1"/
+  	  page = Page.where(:title => "Page1").first
+  	  edit_canvas_page_path(page.canvas, page)
+  	
+  	when /the show page for "Page1"/
+  	  page = Page.where(:title => "Page1").first
+  	  canvas_page_path(page.canvas, page)  
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

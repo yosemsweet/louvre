@@ -16,6 +16,11 @@ class PagesController < ApplicationController
   end
 
   def edit
+    # Create a blank widget for each widget type.
+    @new_widgets = {
+      :text_widget => Widget.new(:content_type => "text_content", :page => @page),
+      :image_widget => Widget.new(:content_type => "image_content", :page => @page)
+    }
 		add_breadcrumb "Edit '#{@page.title}'", edit_canvas_page_path(@page.canvas, @page)
   end
 

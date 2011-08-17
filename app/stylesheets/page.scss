@@ -21,6 +21,21 @@ ul#feed {
 	padding: 10px 10px 0 10px;
 }
 
+ul#inline_form{
+	margin: 0;
+	margin-top: 5px;
+	padding: 0;
+	list-style: none;
+	
+	.widget {
+		
+		.edit{  display: none; }
+    .delete{  display: none; }
+    .toggle_preview{  display: none; }
+		.comment_count { display: none;}
+	}
+}
+
 input#tag_ids {
 	width: 150px;
 }
