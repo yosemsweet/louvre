@@ -10,6 +10,10 @@
   background :  url('/images/icons/link.png') no-repeat 10px 10px;
 }
 
+.question_content > .body {
+  background :  url('/images/icons/question.png') no-repeat 10px 10px;
+}
+
 .top{
   top: 0;
   box-shadow: 1px 1px 5px $trim-color;
