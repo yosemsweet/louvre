@@ -1,0 +1,31 @@
+2011-08-18 15:17:06,519 - sauce_connect:842 - INFO - / Starting \
+2011-08-18 15:17:06,519 - sauce_connect:843 - INFO - Please wait for "You may start your tests" to start your tests.
+2011-08-18 15:17:06,519 - sauce_connect:844 - INFO - sauce_connect release 25
+2011-08-18 15:17:06,520 - sauce_connect:561 - DEBUG - Checking version
+2011-08-18 15:17:07,788 - sauce_connect:858 - DEBUG - System is -7.0 hours off UTC
+2011-08-18 15:17:07,788 - sauce_connect:859 - DEBUG - options: {'latency_log': 150, 'allow_unclean_exit': False, 'ssh_port': 22, 'readyfile': None, 'tunnel_ports': ['80'], 'quiet': False, 'host': '127.0.0.1', 'rest_url': 'https://saucelabs.com/rest', 'user': 'moosefan', 'debug_ssh': False, 'domains': ['loorp.com'], 'logfile': 'sauce_connect.log', 'ports': ['3001'], 'use_ssh_config': False}
+2011-08-18 15:17:07,788 - sauce_connect:860 - DEBUG - metadata: {'Platform': 'Darwin-10.8.0-i386-64bit', 'OwnerHost': '127.0.0.1', 'OwnerPorts': ['3001'], 'DependencyVersions': {'expect': 'expect version 5.44.1.11', 'ssh': 'OpenSSH_5.2p1, OpenSSL 0.9.8r 8 Feb 2011'}, 'ScriptName': 'sauce_connect', 'ScriptRelease': 25, 'Ports': ['80'], 'PythonVersion': '2.6.1'}
+2011-08-18 15:17:07,788 - sauce_connect:863 - INFO - Forwarding: ['loorp.com']:['80'] -> 127.0.0.1:['3001']
+2011-08-18 15:17:07,789 - sauce_connect:299 - WARNING - Could not connect to 127.0.0.1:3001 ([Errno 61] Connection refused)
+2011-08-18 15:17:07,789 - sauce_connect:333 - WARNING - !! Are you sure this machine can get to your web server on host '127.0.0.1' listening on port 3001? Your tests will fail while the server is unreachable.
+2011-08-18 15:17:10,128 - sauce_connect:208 - INFO - Tunnel host is provisioned (5e0a2acfd87e015cdb7507c27d8d069f)
+2011-08-18 15:17:10,966 - sauce_connect:221 - INFO - Tunnel host is new ..
+2011-08-18 15:17:14,764 - sauce_connect:221 - INFO - Tunnel host is deploying ..
+2011-08-18 15:17:18,680 - sauce_connect:221 - INFO - Tunnel host is booting ..
+2011-08-18 15:17:38,086 - sauce_connect:225 - INFO - Tunnel host is running at maki8003.miso.saucelabs.com
+2011-08-18 15:17:38,087 - sauce_connect:408 - INFO - Starting SSH process ..
+2011-08-18 15:17:41,996 - sauce_connect:299 - WARNING - Could not connect to 127.0.0.1:3001 ([Errno 61] Connection refused)
+2011-08-18 15:17:41,996 - sauce_connect:333 - WARNING - !! Your tests will fail while your network can not get to 127.0.0.1:3001.
+2011-08-18 15:17:42,110 - sauce_connect:326 - INFO - Succesfully connected to maki8003.miso.saucelabs.com:22 in 113ms
+2011-08-18 15:17:42,110 - sauce_connect:448 - INFO - SSH is running. You may start your tests.
+2011-08-18 15:17:57,035 - sauce_connect:299 - WARNING - Could not connect to 127.0.0.1:3001 ([Errno 61] Connection refused)
+2011-08-18 15:17:57,035 - sauce_connect:333 - WARNING - !! Your tests will fail while your network can not get to 127.0.0.1:3001.
+2011-08-18 15:18:12,213 - sauce_connect:326 - INFO - Succesfully connected to 127.0.0.1:3001 in 0ms
+2011-08-18 15:18:12,407 - sauce_connect:311 - DEBUG - Connected to maki8003.miso.saucelabs.com:22 in in 194ms
+2011-08-18 15:18:19,737 - sauce_connect:545 - INFO - Received signal SIGINT
+2011-08-18 15:18:19,740 - sauce_connect:498 - DEBUG - Sent SIGHUP to PID 75710
+2011-08-18 15:18:19,740 - sauce_connect:234 - INFO - Shutting down tunnel host (please wait)
+2011-08-18 15:18:19,741 - sauce_connect:235 - DEBUG - Tunnel host ID: 5e0a2acfd87e015cdb7507c27d8d069f
+2011-08-18 15:18:19,959 - sauce_connect:545 - INFO - Received signal SIGINT
+2011-08-18 15:18:19,960 - sauce_connect:234 - INFO - Shutting down tunnel host (please wait)
+2011-08-18 15:18:19,960 - sauce_connect:235 - DEBUG - Tunnel host ID: 5e0a2acfd87e015cdb7507c27d8d069f
