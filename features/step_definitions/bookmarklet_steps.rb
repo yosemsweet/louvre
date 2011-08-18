@@ -11,7 +11,12 @@ Given /^I have selected some text on the screen$/ do
 end
 
 When /^I use the bookmarklet$/ do
-	pending "capybara webkit doesn't support executing scripts" #page.execute_script("#{bookmarklet(Canvas.last, User.last)}")
+  bookmarklet = bookmarklet(Canvas.last, User.last)
+  puts bookmarklet
+page.execute_script(bookmarklet)
+wait = Selenium::WebDriver::Wait.new(:timeout => 600)
+wait.until { page.has_selector?("#loorp_bookmarklet") }
+#Capybara.current_session.driver.browser.wait :wait_for => :condition, :javascript => 'typeof jQuery.ui != "undefined"'
 end
 
 

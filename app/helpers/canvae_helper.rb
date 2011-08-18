@@ -3,6 +3,6 @@ module CanvaeHelper
 		bookmarklet = <<-JS
 				javascript:(function(){_my_var=document.createElement('SCRIPT');_my_var.type='text/javascript';_my_var.text='canvas_id=#{canvas.id};user_id=#{user.id}';host_uri='#{host_uri}';_my_script=document.createElement('SCRIPT');_my_script.type='text/javascript';_my_script.src='#{host_uri}/javascripts/bookmarklet_dialog.js';element=document.getElementsByTagName('body')[0];element.appendChild(_my_var);element.appendChild(_my_script);})();
 			JS
-		raw(bookmarklet.strip)
+		bookmarklet.strip
 	end
 end

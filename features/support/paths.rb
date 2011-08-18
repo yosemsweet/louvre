@@ -49,6 +49,11 @@ module NavigationHelpers
 		when /the user hud page/
 		  puts("Path is #{hud_user_path(current_user)}")
 		  hud_user_path(current_user)
+		  
+		when /cnn/ 
+		  "http://localhost:3000"	  
+		  
+		  
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

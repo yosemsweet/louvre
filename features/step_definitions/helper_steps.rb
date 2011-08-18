@@ -30,6 +30,7 @@ When /^I wait (\d+) second[s?]$/ do |n|
 end
 
 Then /^I see (?:the|a[n?]) "([^"]*)" dialog$/ do |dialog|
+	puts page.html
 	page.should have_content(dialog)
 end
 

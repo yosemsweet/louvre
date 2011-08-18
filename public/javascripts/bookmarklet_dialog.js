@@ -16,7 +16,7 @@ function createBookmarkletDialog(){
 	// Generate the dialog markup.
 	var dialog_element = document.createElement('div');
 	dialog_element.id = 'loorp_bookmarklet';
-	dialog_element.title = "Add to Canvas";
+	dialog_element.title = "Add Link";
 	dialog_element.innerHTML = "\
 		<form action='" + host_uri + "/widgets'> \
 			<input type='text' name='widget[title]' value='" + document.title + "'/> \
@@ -83,14 +83,26 @@ function createBookmarkletDialog(){
 		appendToHead(e);
 	}
 	
+	while( typeof jQuery == 'undefined' ){
+		sleep(100);
+	}
+	
 	if (typeof jQuery.ui == 'undefined') {
 	  	var f = document.createElement('SCRIPT'); f.type = 'text/javascript'; f.src = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js';
 		appendToHead(f);
 	}
 	
+	while( typeof jQuery.ui == 'undefined' ){
+		sleep(100);
+	}
+	
 	if (typeof rangy == 'undefined') {
 		var g = document.createElement('SCRIPT'); g.type = 'text/javascript'; g.src = host_uri + '/javascripts/rangy/rangy-core.js';
 		appendToHead(g);
+	}
+	
+	while( typeof rangy == 'undefined' ){
+		sleep(100);
 	}
 
 	// Create the bookmarklet dialog.
