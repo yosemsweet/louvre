@@ -15,7 +15,8 @@ class CanvaeController < ApplicationController
     @new_widgets = {
       :text_widget => Widget.new(:content_type => "text_content", :canvas => @canvas),
       :image_widget => Widget.new(:content_type => "image_content", :canvas => @canvas),
-      :link_widget => Widget.new(:content_type => "link_content", :canvas => @canvas)
+      :link_widget => Widget.new(:content_type => "link_content", :canvas => @canvas),
+      :question_widget => Widget.new(:content_type => "question_content", :canvas => @canvas)
     }
     
 		add_canvas_breadcrumb(@canvas)
