@@ -7,14 +7,6 @@
   %figure.widget_image_wrapper
     %img.widget_image{ :src => "#{widget.image}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}"}
     %figcaption= widget.alt_text
-  -# %table.widget_image_wrapper 
-  -#   %tr
-  -#     %td
-  -#       
-  -#       %img.widget_image{ :src => "#{widget.image}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}"}
-  -#       -if widget.alt_text
-  -#         %br
-  -#         %span.image_caption= widget.alt_text
     
 - when 'link_content'
   %blockquote{:cite => "#{widget.link}"}= widget.text.html_safe if widget.text
