@@ -8,8 +8,8 @@ Louvre::Application.routes.draw do
   resources :comments
   resources :emails
     
-  match "/users/hud/" => "users#hud", :as => :user_hud
-  match "/users/edit/" => "users#edit", :as => :user_edit
+  match "/users/hud/" => "users#hud", :as => :hud_user
+  match "/users/edit/" => "users#edit", :as => :edit_user
   
   resources :canvae do
     resource :canvas_follow
