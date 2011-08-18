@@ -3,7 +3,6 @@ Feature: user hud
   I want to edit my account 
   So that my info is current
 
-@wip
 @omniauth_test
 @javascript
 Scenario: Accessing my account page
@@ -11,8 +10,7 @@ Scenario: Accessing my account page
   And I am on the homepage
   When I follow "Account" 
   Then I should be on my account page
-
-@wip  
+ 
 @omniauth_test
 @javascript
 Scenario: Adding an email address
