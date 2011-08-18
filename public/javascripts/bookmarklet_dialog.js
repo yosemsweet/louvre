@@ -11,8 +11,8 @@ function createBookmarkletDialog(){
 	// Get the current url.
 	var bookmarkURL = jQuery(location).attr('href');
 	rangy.init();
+	alert("2");
 	rangy.getSelection().refresh();
-
 	// Generate the dialog markup.
 	var dialog_element = document.createElement('div');
 	dialog_element.id = 'loorp_bookmarklet';
@@ -29,15 +29,13 @@ function createBookmarkletDialog(){
 			<a id='cancel' href='#'>Cancel</a> \
 		</form> \
 	";
-	
+
 	// Append the dialog markup to the current page body.
 	var page_body = document.getElementsByTagName('body')[0];
 	page_body.appendChild(dialog_element);
 	var bookmark_dialog = $( "#loorp_bookmarklet" ).dialog({minHeight:300, minWidth:500});
 	bookmark_dialog.dialog('open');
-	
 	var $form = $("#loorp_bookmarklet form");
-	
 	// On form submit, send an ajax request to our loorp to create a new text widget.
  	$form.submit(function(event) {
 		event.preventDefault(); 
@@ -54,7 +52,6 @@ function createBookmarkletDialog(){
   });
 
 	$("#loorp_bookmarklet #cancel").click(removeDialog);
-	
 }
 
 (function() {
@@ -77,36 +74,41 @@ function createBookmarkletDialog(){
 	var c = document.createElement("link"); c.type = 'text/css'; c.rel = 'stylesheet'; c.href = host_uri + '/stylesheets/compiled/bookmarklet_dialog.css';
 	appendToHead(c);
 	
+	var uiLoaded = false;
 	// Load jQuery.
 	if( typeof jQuery == 'undefined'){
 		var e = document.createElement('SCRIPT'); e.type = 'text/javascript'; e.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js';
 		appendToHead(e);
 	}
+	$.getScript('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js', function(data, textStatus){
+		var rangy_file = host_uri + '/javascripts/rangy/rangy-core.js';
+		$.getScript( rangy_file , function(data, textStatus){
+			setTimeout(createBookmarkletDialog, 500);
+		});
+	});
+
 	
-	while( typeof jQuery == 'undefined' ){
-		sleep(100);
-	}
 	
-	if (typeof jQuery.ui == 'undefined') {
-	  	var f = document.createElement('SCRIPT'); f.type = 'text/javascript'; f.src = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js';
-		appendToHead(f);
-	}
-	
-	while( typeof jQuery.ui == 'undefined' ){
-		sleep(100);
-	}
-	
-	if (typeof rangy == 'undefined') {
-		var g = document.createElement('SCRIPT'); g.type = 'text/javascript'; g.src = host_uri + '/javascripts/rangy/rangy-core.js';
-		appendToHead(g);
-	}
-	
-	while( typeof rangy == 'undefined' ){
-		sleep(100);
-	}
+	// if (typeof jQuery.ui == 'undefined') {
+	//   	var f = document.createElement('SCRIPT'); f.type = 'text/javascript'; f.src = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js';
+	// 	appendToHead(f);
+	// }
+	// 
+	// while( typeof jQuery.ui == 'undefined' ){
+	// 	sleep(100);
+	// }
+	// 
+	// if (typeof rangy == 'undefined') {
+	// 	var g = document.createElement('SCRIPT'); g.type = 'text/javascript'; g.src = host_uri + '/javascripts/rangy/rangy-core.js';
+	// 	appendToHead(g);
+	// }
+	// 
+	// while( typeof rangy == 'undefined' ){
+	// 	sleep(100);
+	// }
 
 	// Create the bookmarklet dialog.
-	setTimeout(createBookmarkletDialog, 500);
+	//setTimeout(createBookmarkletDialog, 500);
 })();
 
 
