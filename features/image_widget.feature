@@ -11,3 +11,11 @@ And I am authenticated
 And I am on that canvas' homepage
 When I follow "Add Image"
 Then I should see the new widget form
+
+@javascript
+@wip
+Scenario: Image markup should be semantic
+  Given there is a canvas
+  And that canvas has an image widget with caption "I am a caption"
+  And I am on that canvas' homepage
+  Then the page should include html "<figure><img/><figcaption>I am a caption</figcaption></figure>"

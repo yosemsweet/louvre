@@ -10,3 +10,6 @@ Then /^the image is added to the canvas' input stream$/ do
   Canvas.last.widgets.find_by_image("image.jpg")
 end
 
+Given /^that canvas has an image widget with caption "([^"]*)"$/ do |caption|
+  widget = Factory.create(:image_widget, :alt_text => caption, :canvas => Canvas.last)
+end

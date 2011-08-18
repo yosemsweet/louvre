@@ -28,9 +28,9 @@
 
 }
 
-.image_caption {
+figcaption {
 	@include caption-font;
-	}
+}
 
 
 $icon-size: 32px;

@@ -51,7 +51,7 @@ describe "widgets/sections/_content.html.haml" do
 		end
 		
 		it "should have a caption" do
-			rendered.should have_selector(".image_caption")
+			rendered.should have_selector("figcaption")
 		end
   end
 
