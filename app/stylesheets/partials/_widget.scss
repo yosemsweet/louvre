@@ -25,6 +25,13 @@
 }
 
 
+.question {
+	background: none repeat scroll 0 0 #D5EDF8;
+	border: 2px solid #92CAE4;
+	color: #205791;
+	padding: 10px;
+}
+
 .widget_image_wrapper {
 	img {
 		@include image-box;
