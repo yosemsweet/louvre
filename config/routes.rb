@@ -6,12 +6,10 @@ Louvre::Application.routes.draw do
 	  match "/logout" => "sessions#destroy", :as => :logout
 
   resources :comments
-  
-  resources :users do
-    member do
-      get 'hud'
-    end  
-  end
+  resources :emails
+    
+  match "/users/hud/" => "users#hud", :as => :user_hud
+  match "/users/edit/" => "users#edit", :as => :user_edit
   
   resources :canvae do
     resource :canvas_follow

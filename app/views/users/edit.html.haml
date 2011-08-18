@@ -1,0 +1,37 @@
+-form_for @email do |f|
+  = f.label :address
+  = f.text_field :address
+  = f.submit
+  
+Your emails are:
+
+%ul#user_emails
+  
+  
+
+
+
+:javascript
+  var load_emails = function() {
+    $("ul#user_emails").load("/emails/");
+  }
+  
+  $("form").submit(function() {
+    $.post($(this).attr("action"),
+    $(this).serialize(),
+    load_emails);
+    this.reset();
+    return false;
+  })
+  
+  load_emails();
+  
+  $(".delete").live("click", function(event) {
+    event.preventDefault();
+    if (confirm("Are you sure?")) {
+    $.post($(this).attr("href"),{
+    _method:"DELETE"},
+    load_emails);
+    
+    }
+  })
