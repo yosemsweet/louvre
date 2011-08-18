@@ -39,3 +39,5 @@ end
 group :production do
   gem 'pg'  
 end
+gem 'sauce'
+gem 'rspec-rails'

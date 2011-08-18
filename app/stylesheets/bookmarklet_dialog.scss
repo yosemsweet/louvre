@@ -1,10 +1,14 @@
+@import "partials/typography";
+
 #loorp_bookmarklet{
-	line-height: 1.5;
-	font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
-	color: #333333;
-	font-size: 12px;
+
+  line-height: 1.5;
+  color: #333333;
 	background-color: #fafaff;
 	border: 1px solid #aaa;
+	font-size: 12px;
+	
+	@include body-font;
 	
 	h2{
 		padding: 10px; 
@@ -13,8 +17,6 @@
 		margin: 0;
 		margin-bottom: 10px;
 		box-shadow: 0 1px 2px #173162;
-		font-size: 24px;
-		font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
 	}
 	
 	form {
@@ -22,18 +24,24 @@
 		margin: 10px;
 
 		textarea{
-			font-size: 12px;
-			width: 265px;
-			height: 100px;
-			font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+			width: 100%;
+			
+    	@include body-font;
+    	
 			padding: 5px;
 			border: 1px solid #bbb;
 			background: #eee;
 		}
+
+		input[type="text"]{
+      width: 100%;
+			@include body-font;
+		}
+
 		
 		input[type="submit"]{
-			width: 50px;
-			font-size: 28px;
+      width: 50px;
+			@include header-font;
 		}
 
 		a#cancel{

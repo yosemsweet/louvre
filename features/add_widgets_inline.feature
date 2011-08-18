@@ -1,7 +1,7 @@
 Feature: tab interface for new widgets
 As Gill Fert
 I want the new widget forms to be tabbed
-so that it feels good
+so that it is easy to add things
 
 @omniauth_test
 @javascript

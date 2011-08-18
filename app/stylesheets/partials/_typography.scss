@@ -52,10 +52,3 @@
   }
 }
 
-
-* {
- @include body-font; 
-}
-
-a:visited { color:$visited-link-color; }
-a:link { color:$link-color; }
