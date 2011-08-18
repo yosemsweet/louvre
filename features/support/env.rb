@@ -9,6 +9,7 @@ require 'factory_girl_rails'
 
 Capybara.default_selector = :css
 Capybara.javascript_driver = :webkit
+Capybara.default_wait_time = 5
 
  # Fail whenever there are rails errors.
  # Doesn't allow us to check error handling of our app.

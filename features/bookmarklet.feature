@@ -3,16 +3,13 @@ As Gill Fert
 I want to add content to my canvas input stream via bookmarklets 
 so that I can share interesting information with my friends
 
-
-@background_user
-@blocked
-Scenario: Use bookmarklet from a web page adds to input stream
-# Given I am browsing "cnn"
-# And I have a canvas bookmarklet
-# When I use the bookmarklet
-# Then I see an "Add Link" dialog
-# Then the webpage link is added to the canvas' input stream
-
+@selenium
+Scenario: Use bookmarklet brings up add link dialog
+Given I am on "cnn"
+And I have a canvas bookmarklet
+When I use the bookmarklet
+Then I see an "Add Link" dialog
+ 
 @background_user
 @blocked
 Scenario: Select text on page
