@@ -10,7 +10,6 @@ Background:
 
 @omniauth_test
 @javascript
-@wip
 Scenario: Follow a canvas
   Then I should see the "follow" image
   When I follow "follow"
@@ -19,7 +18,6 @@ Scenario: Follow a canvas
  
 @omniauth_test
 @javascript
-@wip
 Scenario: Stop following a canvas
   Given I follow "follow"
   Then I should see the "unfollow" image
