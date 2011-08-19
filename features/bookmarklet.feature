@@ -3,12 +3,13 @@ As Gill Fert
 I want to add content to my canvas input stream via bookmarklets 
 so that I can share interesting information with my friends
 
-@selenium
+@sauce
+@wip
 Scenario: Use bookmarklet brings up add link dialog
-Given I am on "cnn"
-And I have a canvas bookmarklet
-When I use the bookmarklet
-Then I see an "Add Link" dialog
+# Given I am on "the homepage"
+# And I have a canvas bookmarklet
+# When I use the bookmarklet
+# Then I see an "Add Link" dialog
  
 @background_user
 @blocked
