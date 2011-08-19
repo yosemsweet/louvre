@@ -1,13 +1,15 @@
 $(document).ready(function(){
 
 	// Enable canvas following buttons.
-	$("#follow button").click(function(){
+	$("#follow").click(function(event){
+		event.preventDefault();
 	  FollowHelper.toggle_follow_status();
 	  FollowHelper.follow('canvas', request.canvas_id, reload_hud);
 	});
-	$("#stop_following button").click(function(){
+	$("#unfollow").click(function(event){
+		event.preventDefault();
 	  FollowHelper.toggle_follow_status();
-	  FollowHelper.stop_following('canvas', request.canvas_id, reload_hud);    
+	  FollowHelper.unfollow('canvas', request.canvas_id, reload_hud);    
 	});
   
 	// Enable bookmarklet toggler.

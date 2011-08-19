@@ -9,7 +9,7 @@ Scenario: Listing followed canvases
   Given there is a canvas
   And I am authenticated 
   And I am on that canvas' homepage
-  When I press "Follow" 
+  When I follow "follow"
   And I follow "Hud"
   Then I should see the hud
   And I should see that canvas' name in the hud
