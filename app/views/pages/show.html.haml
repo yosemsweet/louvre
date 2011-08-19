@@ -8,16 +8,14 @@
 
   .div{:style => "padding: 10px"}
 
-    %h1= @page.title 
+    %h2.header-font{:style => "margin-bottom: 5px"}= @page.title 
   
+    %ul#presentation_page{:style => "padding-left:0px;"}
+      = render :partial => "widgets/presentation", :collection => @widgets, :as => :widget
+
     = link_to 'Edit', edit_canvas_page_path(@page.canvas, @page)
     \|
     = link_to "Versions", versions_canvas_page_path(@page.canvas, @page)
-    \|
-    = link_to 'View Canvas', canvas_path(@page.canvas)
-      
-    %ul#presentation_page{:style => "padding-left:0px; padding-top: 10px"}
-      = render :partial => "widgets/presentation", :collection => @widgets, :as => :widget
 
     %h2 comments
     = comments_for(@page, :href => canvas_page_url(@page.canvas, @page) )
