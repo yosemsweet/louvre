@@ -10,20 +10,19 @@ Background:
 
 @omniauth_test
 @javascript
+@wip
 Scenario: Follow a canvas
-  Then I should see the "Follow" button
-  When I press "Follow"
-  Then I should not see the "Follow" button
-  And I should see "Following"
-  When I reload the page
-  Then I should see "Following"
-
+  Then I should see the "follow" image
+  When I follow "follow"
+  Then I should not see the "follow" image
+  And I should be following
+ 
 @omniauth_test
 @javascript
+@wip
 Scenario: Stop following a canvas
-  Given I press "Follow"
-  And I reload the page
-  Then I should see the "Stop following" button
-  When I press "Stop following"
-  Then I should not see the "Stop following" button
-  And I should see the "Follow" button
+  Given I follow "follow"
+  Then I should see the "unfollow" image
+  When I follow "unfollow"
+  Then I should not see the "unfollow" image
+  And I should not be following 

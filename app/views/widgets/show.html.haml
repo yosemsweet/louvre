@@ -5,7 +5,7 @@
   #follow_status
     #follow{:style => hidden_if(current_user.following?(@widget))}
       %button Follow
-    #stop_following{:style => hidden_if(!current_user.following?(@widget))}
+    #unfollow{:style => hidden_if(!current_user.following?(@widget))}
       %button Stop following
       %p
         Following this widget

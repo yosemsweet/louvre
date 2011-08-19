@@ -50,3 +50,14 @@ end
 Then /^(?:|the page should include|I should see) html "([^"]*)"$/ do |html|
 	should have_html(html)
 end
+
+Then /^I should see the "([^"]*)" image$/ do |image|
+  page.should have_selector("##{image}")
+	page.find("##{image}").should be_visible
+end
+
+Then /^I should not see the "([^"]*)" image$/ do |image|
+	page.should have_selector("##{image}")
+	page.find("##{image}").should_not be_visible
+end
+
