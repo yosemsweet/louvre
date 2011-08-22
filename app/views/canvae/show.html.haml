@@ -61,9 +61,14 @@
           = "add to #{@canvas.name}"
 
     - if current_user
+      %h2
+        Add Content by Email
       %p
-        Send your content to this email address:
+        Easily add content to the feed by sending an email to this address:
         = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
+      %p
+        Note that you must register your sending email address before adding content by email. Do this on your
+        = link_to "account settings page", edit_user_path
         
   %h2 Feed
   #toolbar

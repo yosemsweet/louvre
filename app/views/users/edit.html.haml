@@ -1,11 +1,17 @@
+%h2.header-font{:style => "margin-bottom: 5px"} Account Settings
+
+%p List the email addresses that you want to send input stream content from.
+
+%p Your current email addresses are:
+
+%ul#user_emails
+
 -form_for @email do |f|
-  = f.label :address
+  = f.label :address, 'Add another email address:'
   = f.text_field :address
   = f.submit
   
-Your emails are:
 
-%ul#user_emails
   
   
 

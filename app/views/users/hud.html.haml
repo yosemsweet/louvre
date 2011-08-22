@@ -18,4 +18,10 @@
   - current_user.following_by_type('Widget').each do |widget|
     %li= link_to widget.text.truncate(30), widget_path(widget)
 
+%p
+  %b My Settings
+
+%p
+  = link_to "Account Settings", edit_user_path
+
   
