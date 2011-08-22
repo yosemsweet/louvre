@@ -1,7 +1,8 @@
 class StaticController < ApplicationController
 
 	def index
-		@recent_canvases = Canvas.recently_updated(10)
+		redirect_to "http://welcome.loorp.com/collaborate"
+		#@recent_canvases = Canvas.recently_updated(10)
 	end
 
   def login
