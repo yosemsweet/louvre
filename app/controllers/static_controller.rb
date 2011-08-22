@@ -1,8 +1,11 @@
 class StaticController < ApplicationController
 
 	def index
-		redirect_to "http://welcome.loorp.com/collaborate"
-		#@recent_canvases = Canvas.recently_updated(10)
+  if Rails.env.production?
+		  redirect_to "http://welcome.loorp.com/collaborate"
+		else
+		  @recent_canvases = Canvas.recently_updated(10)
+		end
 	end
 
   def login
