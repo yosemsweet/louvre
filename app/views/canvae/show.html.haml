@@ -52,8 +52,8 @@
       %p
         ="Drag the box below to your bookmark toolbar."
       %p
-        %a#toggle_bookmarklet_video{:href => "#"} How to install a bookmarklet?
-      #bookmarklet_video.info{:style => "display:none"}
+        %a.link-help-bookmarklet{:href => "#"} How to install a bookmarklet?
+      .toggle-link-help-bookmarklet.info{:style => "display:none"}
         %iframe{:width=>"425", :height=>"349", :src => "http://www.youtube.com/embed/QrwevUN0KdQ"}
         
       .info
@@ -66,7 +66,10 @@
       %p
         Easily add content to the feed by sending an email to this address:
         = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
+        
       %p
+        %a.link-help-email{:href => "#"} What's this?
+      .toggle-link-help-email.info{:style => "display:none"}
         Note that you must register your sending email address before adding content by email. Do this on your
         = link_to "account settings page", edit_user_path
         

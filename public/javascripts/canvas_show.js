@@ -11,10 +11,13 @@ $(document).ready(function(){
 	  FollowHelper.toggle_follow_status();
 	  FollowHelper.unfollow('canvas', request.canvas_id, reload_hud);    
 	});
-  
-	// Enable bookmarklet toggler.
-	$("#toggle_bookmarklet_video").click(function(){
-	  $("#bookmarklet_video").toggle();
+
+	// Enable help text toggler
+	$('[class^=link-help]').click(function() {
+		var $this = $(this);
+		var x = $this.attr("class");
+		$('.toggle-' + x).toggle();
+		return false;
 	});
 
 	var reload_widgets = function(){
