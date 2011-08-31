@@ -55,7 +55,7 @@ $(document).ready(function(){
       
 	      if (ui.item.hasClass("page_feed_widget")) {
         	
-					ui.item.removeClass("page_feed_widget").addClass("editable_widget");	
+					ui.item.removeClass("page_feed_widget").addClass("editable_widget").addClass("loading");	
           
 	        // Clone the widget.
 	        $.post("/widgets/" + widget_id + "/copy_to_page/" + request.page_id, { position : position }, function(data){               

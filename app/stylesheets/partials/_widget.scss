@@ -112,6 +112,7 @@ $icon-size: 32px;
 .widget.presentation_widget .body{
 }
 
+
 $canvas-feed-height: 200px;
 .widget.canvas_feed_widget {
   .body{
@@ -221,10 +222,27 @@ $page-feed-preview-width:220px;
 	  @include box;
 	  position:relative;
 	  padding:10px;
+		overflow:hidden;
 	}
 	
 	.toolbox{
 	  display:none;
 	  background-color:transparentize($accent-grey, 0.3);
+	}
+}
+
+.widget.loading{
+	.content{
+		opacity: 0.5; 
+		filter: alpha(opacity=50);	
+	}
+	.comment_count {
+		display: none;
+	}
+	.body {
+		background: url('/images/loorping.gif') no-repeat center center ;
+	}
+	.tags {
+		display: none;
 	}
 }
