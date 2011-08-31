@@ -30,6 +30,7 @@ FactoryGirl.define do
     user
   end
 
+  #TODO: Is this actually supposed to be teSt_content and not teXt_content?!!
   factory :widget do
     creator
     page
@@ -58,6 +59,12 @@ FactoryGirl.define do
 		factory :quoted_link_widget do
 			text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " * 5
 		end
+	end
+  
+  factory :question_widget, :parent => :widget do
+   	content_type "question_content"
+   	question "Am I a question?"
+   	answer "No you are stupid."
 	end
   
   factory :tag do
