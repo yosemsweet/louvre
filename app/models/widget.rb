@@ -21,12 +21,13 @@ class Widget < ActiveRecord::Base
 	validates_presence_of :link, :title,  :if => :link?
 
 
+  # Get an array of the facebook comment messages for this widget.
   def comments
     graph = Koala::Facebook::GraphAPI.new
     url = "http://localhost:3000/widgets/#{self.id}"
     
-    if fb_comments = graph.get_comments_for_urls([widget_url])
-      return fb_comments[widget_url]["data"].map {|c| c["message"]}
+    if fb_comments = graph.get_comments_for_urls([url])
+      return fb_comments[url]["data"].map {|c| c["message"]}
     else
       return []
     end
