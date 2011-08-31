@@ -21,6 +21,17 @@ class Widget < ActiveRecord::Base
 	validates_presence_of :link, :title,  :if => :link?
 
 
+  def comments
+    graph = Koala::Facebook::GraphAPI.new
+    url = "http://localhost:3000/widgets/#{self.id}"
+    
+    if fb_comments = graph.get_comments_for_urls([widget_url])
+      return fb_comments[widget_url]["data"].map {|c| c["message"]}
+    else
+      return []
+    end
+  end
+
   def tag_ids
     @tag_ids || tags.map(&:id).join(',')
   end

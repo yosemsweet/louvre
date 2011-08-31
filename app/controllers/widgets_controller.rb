@@ -91,11 +91,7 @@ class WidgetsController < ApplicationController
 		
 		# Copy comments for question widgets.
 	  if widget.content_type == 'question_content'
-	    graph = Koala::Facebook::GraphAPI.new
-	    widget_url = "http://localhost:3000/widgets/#{widget.id}"
-	    fb_comments = graph.get_comments_for_urls([widget_url])
-	    comments = fb_comments[widget_url]["data"].map {|c| c["message"]}
-      cloned_widget.answer = comments.join(";")
+      cloned_widget.answer = widget.comments.join(";")
     end
 
 		if cloned_widget.save && cloned_widget.insert_position(params[:position])
