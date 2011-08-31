@@ -91,7 +91,7 @@ class WidgetsController < ApplicationController
 		
 		# Copy comments for question widgets.
 	  if widget.content_type == 'question_content'
-      cloned_widget.answer = widget.comments.join("|")
+      cloned_widget.answer = widget.comments.to_json
     end
 
 		if cloned_widget.save && cloned_widget.insert_position(params[:position])

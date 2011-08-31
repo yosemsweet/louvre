@@ -18,4 +18,11 @@
   %div.question
     = widget.question
   %div.answer
-    = widget.answer
+    - if widget.answer
+      - ActiveSupport::JSON.decode(widget.answer).each do |comment|
+        %p
+          %strong
+            = comment["commenter"]
+            ,
+            = comment["comment_date"]
+          = comment["message"] 

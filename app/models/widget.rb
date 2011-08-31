@@ -24,9 +24,9 @@ class Widget < ActiveRecord::Base
   # Get an array of the facebook comment messages for this widget.
   def comments
     graph = Koala::Facebook::GraphAPI.new
-    
+
     if fb_comments = graph.get_comments_for_urls([permalink])
-      return fb_comments[permalink]["data"].map {|c| c["message"]}
+      return fb_comments[permalink]["data"].map {|c| {:message => c["message"], :comment_date => c["created_time"], :commenter => c["from"]["name"]} }
     else
       return []
     end

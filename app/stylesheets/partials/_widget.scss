@@ -233,8 +233,8 @@ $page-feed-preview-width:220px;
 
 .widget.loading{
 	.content{
-		opacity: 0.5; 
-		filter: alpha(opacity=50);	
+		opacity: .7; 
+		filter: alpha(opacity=70);	
 	}
 	.comment_count {
 		display: none;
