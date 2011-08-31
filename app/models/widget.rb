@@ -24,12 +24,19 @@ class Widget < ActiveRecord::Base
   # Get an array of the facebook comment messages for this widget.
   def comments
     graph = Koala::Facebook::GraphAPI.new
-    url = "http://localhost:3000/widgets/#{self.id}"
     
-    if fb_comments = graph.get_comments_for_urls([url])
-      return fb_comments[url]["data"].map {|c| c["message"]}
+    if fb_comments = graph.get_comments_for_urls([permalink])
+      return fb_comments[permalink]["data"].map {|c| c["message"]}
     else
       return []
+    end
+  end
+
+  def permalink
+    if Rails.env == :production
+      "http://www.loorp.com/widgets/#{self.id}"
+    else
+      "http://localhost:3000/widgets/#{self.id}"
     end
   end
 

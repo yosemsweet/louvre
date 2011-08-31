@@ -40,7 +40,19 @@ describe "Widgets Requests" do
     end
     
     context "question widget" do
+      before(:each) do
+        canvas = Factory.create(:canvas)      
+        @widget = Factory.create(:question_widget, :canvas => canvas, :page_id => nil)
+        Widget.any_instance.stubs(:comments).returns(["first comment", "second comment"])
+        @page = Factory.create(:page, :canvas => canvas)
+        post "/widgets/#{@widget.id}/copy_to_page/#{@page.id}", :position => 1 
+      end
       
+      it "should include the comments in the answer" do
+        answer = @page.widgets.first.answer
+        answer.should include("first comment")
+        answer.should include("second comment")
+      end
     end
   end
  
