@@ -1,6 +1,13 @@
 module KnowsCurrentUser
 	def current_user
-		@current_user ||= Factory.create(:user) 
+		if @current_user
+		  @current_user
+		else
+		  email = Factory.create(:email)
+		  @current_user = Factory.create(:user)
+		  @current_user.emails << email
+		  return @current_user
+		end 
 	end
 	
 	def set_current_user(user)

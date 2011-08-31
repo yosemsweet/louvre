@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(:version => 20110817233034) do
     t.integer  "creator_id"
   end
 
+  create_table "emails", :force => true do |t|
+    t.string   "address"
+    t.integer  "primary"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "follows", :force => true do |t|
     t.integer  "followable_id",                      :null => false
     t.string   "followable_type",                    :null => false
@@ -66,7 +74,6 @@ ActiveRecord::Schema.define(:version => 20110817233034) do
     t.string   "uid"
     t.string   "name"
     t.string   "image"
-    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

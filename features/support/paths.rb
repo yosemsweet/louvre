@@ -47,9 +47,14 @@ module NavigationHelpers
 			canvas_page_path(page.canvas, page)
 		  
 		when /the user hud page/
-		  puts("Path is #{hud_user_path(current_user)}")
-		  hud_user_path(current_user)
+		  hud_user_path
 
+		when /my account page/
+		  edit_user_path
+		  
+		when /cnn/ 
+		  "http://localhost:3000"
+		  
   	when /the edit page for "Page1"/
   	  page = Page.where(:title => "Page1").first
   	  edit_canvas_page_path(page.canvas, page)

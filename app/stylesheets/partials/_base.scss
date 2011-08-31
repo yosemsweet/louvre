@@ -41,3 +41,12 @@ $z-bottom:5;
 @import "partials/widget";
 @import "partials/canvas";
 @import "compass/utilities/general/clearfix";
+
+
+body {
+ @include body-font; 
+}
+
+a:visited { color:$visited-link-color; }
+a:link { color:$link-color; }
+

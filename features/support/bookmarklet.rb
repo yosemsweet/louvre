@@ -1,1 +1,2 @@
 World(CanvaeHelper)
+World(ApplicationHelper)

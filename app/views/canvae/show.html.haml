@@ -14,14 +14,12 @@
       %b Name:
       = @canvas.name
       = render "facebook_share"
+      
       - if current_user
-        #follow_status
-          #follow{:style => hidden_if(current_user.following?(@canvas))}
-            %button Follow
-          #stop_following{:style => hidden_if(!current_user.following?(@canvas))}
-            %button Stop following
-            %p
-              Following this canvas
+        %a#follow{:href => "#", :style => hidden_if(current_user.following?(@canvas))}
+          %img{:src => "/images/icons/follow.png"}
+        %a#unfollow{:href => "#", :style => hidden_if(!current_user.following?(@canvas))}
+          %img{:src => "/images/icons/unfollow.png"}
                         
     %p
       %b Mission:

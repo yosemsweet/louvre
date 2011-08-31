@@ -1,12 +1,14 @@
 $(function(){
 	// Enable page following buttons.
-	$("#follow button").click(function(){
+	$("#follow").click(function(event){
+		event.preventDefault();
 	  FollowHelper.toggle_follow_status();
 	  FollowHelper.follow('page', request.page_id, reload_hud);
 	});
-	$("#stop_following button").click(function(){
+	$("#unfollow").click(function(event){	
+		event.preventDefault();
 	  FollowHelper.toggle_follow_status();
-	  FollowHelper.stop_following('page', request.page_id, reload_hud);    
+	  FollowHelper.unfollow('page', request.page_id, reload_hud);    
 	});
 
 	$("a.related_page_link").click(function(){

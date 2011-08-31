@@ -144,14 +144,20 @@ class WidgetsController < ApplicationController
     canvas_id = params['to'].split('@').first
     user = User.find_by_email(email)
     
-    widget = Widget.new(:canvas_id => canvas_id, :creator_id => user.id, :content_type => 'text_content', :text => params['text'])
+    if user
+      
+      widget = Widget.new(:canvas_id => canvas_id, :creator_id => user.id, :content_type => 'text_content', :text => params['text'])
 
-    if widget.save
-      @mixpanel.track_event("Widget Created via Email", {:user_id => user.id, :name_tag => user.name, :canvas_id => canvas_id})
-      head :created
+      if widget.save
+        @mixpanel.track_event("Widget Created via Email", {:user_id => user.id, :name_tag => user.name, :canvas_id => canvas_id})
+        head :created
+      else
+        head :bad_request
+      end
     else
       head :bad_request
     end
+    
   end
 
 end

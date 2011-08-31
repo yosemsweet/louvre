@@ -1,0 +1,5 @@
+
+-@emails.each do |email|
+  %li
+    = email.address
+    %span.email_controls= link_to "x", email_path(email), :class => "delete"

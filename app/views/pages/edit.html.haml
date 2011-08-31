@@ -48,7 +48,7 @@ Page2
       %label{:for => "tag_ids"} Filter by tags:
       %input#tag_ids{:type => "text", :name => "tag_ids", :style => "background-color: #333; width:50px", :width => "50px"}
   
-  %ul#feed
+  %ul#feed{:style => "height: 800px; overflow-y: auto; padding-left:0px"}
 
 .span-24.last
   = link_to 'Show', canvas_page_path(@page.canvas, @page)

@@ -4,10 +4,9 @@ FactoryGirl.define do
 	
   factory :user, :aliases => [:creator] do
 	  provider "facebook"
-	  uid "12345"
+	  uid "0000"
 	  name "Gill Fert"
-	  image "http://www.carniola.org/theglory/images/McHammer.gif"
-	  email "gill.fert@foaca.org"
+	  image "http://www.carniola.org/theglory/images/McHammer.gif" 
   end
 
   factory :canvas do
@@ -23,6 +22,12 @@ FactoryGirl.define do
     title "My Page"
     creator
     canvas
+  end
+
+  factory :email do
+    address "gill.fert@hotmail.com"
+    primary 1
+    user
   end
 
   factory :widget do

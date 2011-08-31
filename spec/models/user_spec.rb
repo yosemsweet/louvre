@@ -50,7 +50,7 @@ describe User do
         user.uid.should == @valid_auth["uid"]  
         user.name.should == @valid_auth["user_info"]["name"]  
   			user.image.should == @valid_auth["user_info"]["image"]
-  			user.email.should == @valid_auth["user_info"]["email"]
+  			user.emails.map(&:address).include?(@valid_auth["user_info"]["email"]).should == true
       end
     end
     
@@ -75,5 +75,35 @@ describe User do
 			user.to_s.should == user.name
 		end  
 	end
+  
+  describe "#primary_email" do
+    
+    it "should return the primary email" do
+      user = Factory.create(:user)
+      email = Factory.create(:email, :user_id => nil, :primary => 1)
+      user.emails << email
+      user.primary_email.id.should == email.id 
+    end
+    
+  end
+  
+  describe "#primary_email=" do
+    
+    it "should set primary email to given email" do
+      user = Factory.create(:user)
+      email = Factory.create(:email, :user_id => user.id, :primary => nil)
+      user.primary_email=email
+      user.primary_email.id.should == email.id
+    end
+    
+    it "should unset other emails to non-primary" do
+      user = Factory.create(:user)
+      email = Factory.create(:email, :user_id => user.id, :primary => 1)
+      email2 = Factory.create(:email, :user_id => user.id, :primary => 0) 
+      user.primary_email = email2
+      email.reload.primary.should == 0
+    end
+       
+  end  
   
 end

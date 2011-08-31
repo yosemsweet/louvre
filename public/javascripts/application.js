@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	reload_hud = function(){
-	  $("#hud_content").load("/users/" + request.user_id + "/hud");  
+	  $("#hud_content").load("/users/hud");  
 	}
 
 	var toggle_hud = function(){
