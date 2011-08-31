@@ -189,6 +189,12 @@ describe Widget do
 				@cloned_image_widget = @original_image_widget.clone
 				@cloned_image_widget.image.should == @original_image_widget.image
 			end
+			
+			it "should have the right content_type" do
+			  @original_image_widget = Factory.build(:image_widget, :image => 'image')
+				@cloned_image_widget = @original_image_widget.clone
+				@cloned_image_widget.content_type.should == "image_content"
+			end
 		end
 			
 		context "text widget" do

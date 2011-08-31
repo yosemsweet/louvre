@@ -218,6 +218,26 @@ describe "Widgets Requests" do
     end
     
     
-    
+    describe "PUT /widgets/[widget_id]/remove_answer/[answer_id]" do
+      
+      before :each do
+        @answer = [
+          { :message => "This is an answer.", :commenter => "Bob Dylan", :comment_date => 15.minutes.ago },
+          { :message => "Another one.", :commenter => "James Dean", :comment_date => 7.hours.ago }
+        ].to_json
+        @widget = Factory.create(:question_widget, :answer => @answer)
+      end
+      
+      it "should work" do
+        put "/widgets/#{@widget.id}/remove_answer/0"
+        response.status.should be(200)
+      end
+      
+      it "should remove the answer" do
+        put "/widgets/#{@widget.id}/remove_answer/0"
+        @widget.reload.answers.length.should == 1
+        @widget.reload.answers.first["message"].should == "Another one."
+      end
+    end
 	
 end

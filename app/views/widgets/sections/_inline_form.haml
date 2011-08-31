@@ -25,11 +25,9 @@
         = f.text_area :text
     - when 'question_content'
       .field
-        -# = f.label 'question'
+        = f.label 'question'
+        %br
         = f.text_area :question
-      -# .field
-      -#   = f.label 'answer'
-      -#   = f.text_field :answer
          
     %input{:type => "hidden", :name => "widget[content_type]", :value => "#{widget.content_type}"}
     %input{:type => "hidden", :name => "widget[creator_id]", :value => "#{current_user.id}"}
@@ -41,3 +39,17 @@
       
     .actions
       = f.submit 'Save'
+      
+    - if widget.answer
+      .field
+        = f.label 'answer'
+        %br
+          %ul{:style => "list-style: none;"}
+            - widget.answers.each do |answer|
+              %li
+                %a.delete_answer{:href => "#", :data => {:widget_id => widget.id} } X 
+                = answer["commenter"]
+                %em==(#{time_ago_in_words(answer["comment_date"])} ago)
+                \:
+                = answer["message"]
+                

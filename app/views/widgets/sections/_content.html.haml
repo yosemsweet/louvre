@@ -17,12 +17,12 @@
 - when 'question_content'
   %div.question
     = widget.question
-  %div.answer
-    - if widget.answer
-      - ActiveSupport::JSON.decode(widget.answer).each do |comment|
+  - if widget.answer
+    %div.answer
+      - widget.answers.each do |answer|
+        %p{:style => "margin-bottom: 5px;"}
+          %strong== #{answer["commenter"]}
+          %em==(#{time_ago_in_words(answer["comment_date"])} ago)
+          \:
         %p
-          %strong
-            = comment["commenter"]
-            ,
-            = comment["comment_date"]
-          = comment["message"] 
+          = answer["message"] 

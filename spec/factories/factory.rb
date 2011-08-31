@@ -64,7 +64,7 @@ FactoryGirl.define do
   factory :question_widget, :parent => :widget do
    	content_type "question_content"
    	question "Am I a question?"
-   	answer "No you are stupid."
+   	answer [{:message => "This is an answer.", :commenter => "Bob Dylan", :comment_date => 15.minutes.ago}].to_json
 	end
   
   factory :tag do

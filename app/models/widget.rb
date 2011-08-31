@@ -32,6 +32,14 @@ class Widget < ActiveRecord::Base
     end
   end
 
+  def answers
+    if answer
+      ActiveSupport::JSON.decode(answer)
+    else
+      nil
+    end
+  end
+
   def permalink
     if Rails.env == :production
       "http://www.loorp.com/widgets/#{self.id}"

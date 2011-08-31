@@ -32,6 +32,14 @@
 	padding: 10px;
 }
 
+.answer {
+	background: none repeat scroll 0 0 #E6EFC2;
+	border: 2px solid #C6D880;
+	color: #264409;
+	padding: 10px;
+	margin-top: 10px;
+}
+
 .widget_image_wrapper {
 	img {
 		@include image-box;
