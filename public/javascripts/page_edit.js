@@ -31,7 +31,7 @@ $(document).ready(function(){
 	    });
     
 	    enable_widget_previews();
- 
+ 			update_widget_comment_counts();
 	  });
 	}
 
