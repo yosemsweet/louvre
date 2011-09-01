@@ -16,9 +16,10 @@
       
 - when 'question_content'
   %div.question
-    %strong= widget.creator.name
-    \:
-    = widget.question
+    -if widget.creator
+      %strong= widget.creator.name
+      \:
+      = widget.question
       
   - if widget.answer
     %div.answer
