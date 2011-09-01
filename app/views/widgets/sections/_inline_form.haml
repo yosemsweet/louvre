@@ -47,7 +47,8 @@
           %ul{:style => "list-style: none;"}
             - widget.answers.each do |answer|
               %li
-                %a.delete_answer{:href => "#", :data => {:widget_id => widget.id} } X 
+                %a.delete_answer{:href => "#", :data => {:widget_id => widget.id}, :style => "text-decoration: none;" }
+                  %img{:src => "/images/icons/delete.png", :width => "16px"}
                 = answer["commenter"]
                 %em==(#{time_ago_in_words(answer["comment_date"])} ago)
                 \:
