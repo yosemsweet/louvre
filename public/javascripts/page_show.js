@@ -35,6 +35,7 @@ $(function(){
 	});
 
 	$("a#versions").click(function() {
+		mpq.push(["track","click_versions"]);
 		$versions_dialog.dialog('open');
 		// prevent the default action, e.g., following a link
 		return false;
