@@ -10,6 +10,10 @@
   background :  url('/images/icons/link.png') no-repeat 10px 10px;
 }
 
+.question_content > .body {
+  background :  url('/images/icons/question.png') no-repeat 10px 10px;
+}
+
 .top{
   top: 0;
   box-shadow: 1px 1px 5px $trim-color;
@@ -19,6 +23,29 @@
   bottom: 0;
   box-shadow: 1px -1px 5px $trim-color;
 }
+
+.answer {
+	background: none repeat scroll 0 0 #E6EFC2;
+	border: 2px solid #C6D880;
+	color: #264409;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+.question {
+	background: none repeat scroll 0 0 #D5EDF8;
+	border: 2px solid #92CAE4;
+	color: #205791;
+	padding: 10px;
+}
+
+.presentation_widget {
+	.answer {
+		margin-top: 2px;
+		margin-bottom: 10px;
+	}
+}
+
 
 
 .widget_image_wrapper {
@@ -100,6 +127,7 @@ $icon-size: 32px;
 
 .widget.presentation_widget .body{
 }
+
 
 $canvas-feed-height: 200px;
 .widget.canvas_feed_widget {
@@ -210,10 +238,27 @@ $page-feed-preview-width:220px;
 	  @include box;
 	  position:relative;
 	  padding:10px;
+		overflow:hidden;
 	}
 	
 	.toolbox{
 	  display:none;
 	  background-color:transparentize($accent-grey, 0.3);
+	}
+}
+
+.widget.loading{
+	.content{
+		opacity: .7; 
+		filter: alpha(opacity=70);	
+	}
+	.comment_count {
+		display: none;
+	}
+	.body {
+		background: url('/images/loorping.gif') no-repeat center center ;
+	}
+	.tags {
+		display: none;
 	}
 }

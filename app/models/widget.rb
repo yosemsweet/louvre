@@ -21,6 +21,33 @@ class Widget < ActiveRecord::Base
 	validates_presence_of :link, :title,  :if => :link?
 
 
+  # Get an array of the facebook comment messages for this widget.
+  def comments
+    graph = Koala::Facebook::GraphAPI.new
+
+    if fb_comments = graph.get_comments_for_urls([permalink])
+      return fb_comments[permalink]["data"].map {|c| {:message => c["message"], :comment_date => c["created_time"], :commenter => c["from"]["name"]} }
+    else
+      return []
+    end
+  end
+
+  def answers
+    if answer
+      ActiveSupport::JSON.decode(answer)
+    else
+      nil
+    end
+  end
+
+  def permalink
+    if Rails.env == :production
+      "http://www.loorp.com/widgets/#{self.id}"
+    else
+      "http://localhost:3000/widgets/#{self.id}"
+    end
+  end
+
   def tag_ids
     @tag_ids || tags.map(&:id).join(',')
   end

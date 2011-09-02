@@ -30,6 +30,7 @@ Louvre::Application.routes.draw do
     member do
       post 'copy_to_page/:page_id' => "widgets#copy_to_page"
       put 'move/:position' => "widgets#move"
+      put 'remove_answer/:answer_id' => "widgets#remove_answer"
     end
   end
 	

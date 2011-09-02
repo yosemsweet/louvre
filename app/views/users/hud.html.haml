@@ -16,7 +16,7 @@
 
 %ul
   - current_user.following_by_type('Widget').each do |widget|
-    %li= link_to widget.text.truncate(30), widget_path(widget)
+    %li= link_to "Widget #{widget.id}", widget_path(widget)
 
 %p
   %b My Settings

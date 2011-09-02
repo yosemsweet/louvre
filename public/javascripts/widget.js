@@ -143,6 +143,17 @@
 		$facebook_comments.toggle();
   	FB.XFBML.parse($facebook_comments.get(0));
 	});
+	
+	$(".widget .delete_answer").live('click', function(event){
+		event.preventDefault();
+		if(confirm("Are you sure?")){
+			var widget_id = $(this).parents(".widget").data("widget_id");
+			var answer_id = $(this).parent("li").index() ;
+			$(this).parent("li").fadeOut(500, function(){$(this).remove()});
+			
+			$.post("/widgets/" + widget_id + "/remove_answer/" + answer_id, {_method: "PUT"});
+		}
+	});
 
 	// Handle comment added events.
 	FB.Event.subscribe('comment.create',

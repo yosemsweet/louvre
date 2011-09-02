@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(:version => 20110831222817) do
     t.string   "image"
     t.string   "link"
     t.string   "title"
+    t.text     "question"
+    t.text     "answer"
   end
 
 end

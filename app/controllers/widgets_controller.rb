@@ -88,6 +88,11 @@ class WidgetsController < ApplicationController
 		
 		cloned_widget = widget.clone
 		cloned_widget.page_id = params[:page_id]
+		
+		# Copy comments for question widgets.
+	  if widget.content_type == 'question_content'
+      cloned_widget.answer = widget.comments.to_json
+    end
 
 		if cloned_widget.save && cloned_widget.insert_position(params[:position])
 			render :json => cloned_widget.id
@@ -108,7 +113,7 @@ class WidgetsController < ApplicationController
       
   end
   
-  # PUT /widgets/:id/:position
+  # PUT /widgets/:id/move/:position
   def move
 		widget = Widget.find(params[:id])
 		
@@ -118,6 +123,16 @@ class WidgetsController < ApplicationController
 			head :bad_request
 		end	
 	end
+
+  # PUT /widgets/:id/remove_answer/:answer_id
+  def remove_answer
+    widget = Widget.find(params[:id])
+    new_answers = widget.answers
+    new_answers.delete_at(params[:answer_id].to_i) 
+    widget.update_attributes(:answer => new_answers.to_json)
+    
+    head :ok
+  end
 
   # DELETE /widgets/:id
   def destroy

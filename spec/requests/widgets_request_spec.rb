@@ -10,31 +10,50 @@ describe "Widgets Requests" do
   
   describe "POST /widgets/[widget_id]/copy_to_page/[page_id]" do
     
-    before(:each) do
-      canvas = Factory.create(:canvas)
-      @page = Factory.create(:page)  
-      @widget = Factory.create(:text_widget, :canvas => canvas, :page_id => nil, :text => "Happy Feet")
-      post "/widgets/#{@widget.id}/copy_to_page/#{@page.id}", :position => 1
-      @latest_widget = Widget.last
-    end
+    context "non question widget" do
     
-    it "should create a new widget" do
-      Widget.all.length.should == 2
-      @latest_widget.id.should_not == @widget.id
-    end
+      before(:each) do
+        canvas = Factory.create(:canvas)
+        @page = Factory.create(:page)  
+        @widget = Factory.create(:text_widget, :canvas => canvas, :page_id => nil, :text => "Happy Feet")
+        post "/widgets/#{@widget.id}/copy_to_page/#{@page.id}", :position => 1
+        @latest_widget = Widget.last
+      end
     
-    it "should copy the cloned widget's content" do
-      @latest_widget.text.should == @widget.text
-    end
+      it "should create a new widget" do
+        Widget.all.length.should == 2
+        @latest_widget.id.should_not == @widget.id
+      end
+    
+      it "should copy the cloned widget's content" do
+        @latest_widget.text.should == @widget.text
+      end
       
-    it "should set the new widget's page" do
-      @latest_widget.page_id.should == @page.id
+      it "should set the new widget's page" do
+        @latest_widget.page_id.should == @page.id
+      end
+    
+      it "should set the new widget's position" do
+        @latest_widget.position.should == 1
+      end
+    
     end
     
-    it "should set the new widget's position" do
-      @latest_widget.position.should == 1
+    context "question widget" do
+      before(:each) do
+        canvas = Factory.create(:canvas)      
+        @widget = Factory.create(:question_widget, :canvas => canvas, :page_id => nil)
+        Widget.any_instance.stubs(:comments).returns(["first comment", "second comment"])
+        @page = Factory.create(:page, :canvas => canvas)
+        post "/widgets/#{@widget.id}/copy_to_page/#{@page.id}", :position => 1 
+      end
+      
+      it "should include the comments in the answer" do
+        answer = @page.widgets.first.answer
+        answer.should include("first comment")
+        answer.should include("second comment")
+      end
     end
-    
   end
  
   describe "POST /widgets/create_via_email/" do
@@ -199,6 +218,26 @@ describe "Widgets Requests" do
     end
     
     
-    
+    describe "PUT /widgets/[widget_id]/remove_answer/[answer_id]" do
+      
+      before :each do
+        @answer = [
+          { :message => "This is an answer.", :commenter => "Bob Dylan", :comment_date => 15.minutes.ago },
+          { :message => "Another one.", :commenter => "James Dean", :comment_date => 7.hours.ago }
+        ].to_json
+        @widget = Factory.create(:question_widget, :answer => @answer)
+      end
+      
+      it "should work" do
+        put "/widgets/#{@widget.id}/remove_answer/0"
+        response.status.should be(200)
+      end
+      
+      it "should remove the answer" do
+        put "/widgets/#{@widget.id}/remove_answer/0"
+        @widget.reload.answers.length.should == 1
+        @widget.reload.answers.first["message"].should == "Another one."
+      end
+    end
 	
 end

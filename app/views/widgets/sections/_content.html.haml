@@ -7,18 +7,26 @@
   %figure.widget_image_wrapper
     %img.widget_image{ :src => "#{widget.image}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}"}
     %figcaption= widget.alt_text
-  -# %table.widget_image_wrapper 
-  -#   %tr
-  -#     %td
-  -#       
-  -#       %img.widget_image{ :src => "#{widget.image}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}"}
-  -#       -if widget.alt_text
-  -#         %br
-  -#         %span.image_caption= widget.alt_text
     
 - when 'link_content'
   %blockquote{:cite => "#{widget.link}"}= widget.text.html_safe if widget.text
   %p
     %a{:href => "#{widget.link}", :class => "link #{'source' if widget.text && !widget.text.empty?}"}
       %cite= widget.title
-    
+      
+- when 'question_content'
+  %div.question
+    -if widget.creator
+      %strong= widget.creator.name
+      \:
+      = widget.question
+      
+  - if widget.answer
+    %div.answer
+      - widget.answers.each do |answer|
+        %p{:style => "margin-bottom: 5px;"}
+          %strong== #{answer["commenter"]}
+          %em==(#{time_ago_in_words(answer["comment_date"])} ago)
+          \:
+        %p
+          = answer["message"] 
