@@ -13,5 +13,3 @@ And I am on that canvas' homepage
 And I follow "Hats"
 And I follow "Versions"
 Then I should see "May we contact you about this feature?"
-And I press "Yes"
-Then my feedback should be recorded
