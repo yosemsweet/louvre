@@ -1,4 +1,4 @@
-					$(document).ready(function(){
+$(document).ready(function(){
 
 	// Widget dialog.
 	var $widget_dialog = $("#widget_dialog").dialog({

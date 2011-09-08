@@ -1,0 +1,46 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag '/textboxlist/jquery.textboxlist.css'
+  
+- content_for :javascripts do
+  = javascript_include_tag '/textboxlist/jquery.textboxlist.mod.js' 
+
+%h1 HELllllllllLLO
+
+:css
+  input.textboxlist-bit-editable-input{
+    border: none;
+    margin: 0;
+    padding: 3px;
+  }
+
+%form{action: "/test"} 
+  %h2 TextboxList (standard)
+  %p Enter tags 
+  .form_tags
+    %input#form_tags_input{type: "text", name: "test", value: "", data: {current_tags: ['My First', 'My Second'].to_json }}
+
+:javascript
+  var t;
+  $(function(){
+    
+    t = new $.TextboxList('#form_tags_input',{ 
+      unique: true,
+      addKeys: [],
+      plugins: {
+        autocomplete: {
+          minLength: 2,
+          queryRemote: true,
+          remote: {
+            url: '/tags'}
+          }
+        }
+      });
+    var tag_names = $("#form_tags_input").data('current_tags');
+    _.each(tag_names, function(tag){
+      t.add(tag);
+    });
+    
+    
+  });
+
+  

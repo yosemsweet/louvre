@@ -40,4 +40,7 @@ Louvre::Application.routes.draw do
 	
 	get '/tags' => "tags#index"
 
+  # Delete Us!
+  match '/test' => 'static#test'
+  match '/testdata' => 'static#testdata'
 end
