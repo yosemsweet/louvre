@@ -3,7 +3,7 @@ class Widget < ActiveRecord::Base
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings
   
-  attr_writer :tag_ids
+  attr_writer :tag_names
   after_save :assign_tags
   
   
@@ -50,6 +50,10 @@ class Widget < ActiveRecord::Base
 
   def tag_ids
     @tag_ids || tags.map(&:id).join(',')
+  end
+  
+  def tag_names
+    @tag_names || tags.map(&:name).join(',')
   end
   
   def self.filter_by_tag_ids(tag_ids)
@@ -144,9 +148,10 @@ class Widget < ActiveRecord::Base
 	private
 	
 	def assign_tags
-	  if @tag_ids
-	    self.tags = @tag_ids.split(',').map do |tag_id|
-	      Tag.find(tag_id)
+	  if @tag_names
+	    self.tags = []
+	    @tag_names.split(',').each do |tag_name|
+	      self.tags << (Tag.where(:name => tag_name).first || Tag.create(:name => tag_name))
       end
     end
   end

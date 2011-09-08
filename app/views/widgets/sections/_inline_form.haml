@@ -1,8 +1,10 @@
 - if current_user
   = form_for widget, {:html => {:style => "display:none;", :class => "edit_widget"}} do |f| 
     .field
-      = f.label :tag_ids, "Tags"
-      = f.text_field :tag_ids, {"data-pre" => widget.tags.map(&:attributes).to_json, :class => "widget_tag_ids"}
+      = f.label :tag_names, "Tags"
+      - names = widget.tags.map{|o| o.name.strip}
+      = f.text_field :tag_names, {"data-current_tags" => names.to_json, :id => "widget_tag_names_#{widget.id || 0}"}
+      
     - case widget.content_type  
     - when 'text_content'
       .field

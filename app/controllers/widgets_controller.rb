@@ -104,7 +104,6 @@ class WidgetsController < ApplicationController
   # PUT /widgets/:id
   def update
     @widget = Widget.find(params[:id])
-
     if @widget.update_attributes(params[:widget])
       head :ok
     else

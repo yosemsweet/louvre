@@ -54,14 +54,24 @@ $(document).ready(function(){
 		
 		$("form.edit_widget", widget).toggle();
 		
-		if ($(".token-input-list-facebook", widget).length == 0){
-			$('.widget_tag_ids', widget).tokenInput('/tags', { 
-			  crossDomain: false,
-			  prePopulate: $(this).data('pre'),
-			  theme: 'facebook'
-			});
-		}
-
+		// Make the widget_tag_ids field into a tokenized field.
+		var t = new $.TextboxList("#widget_tag_names_" + widget_id, { 
+      unique: true,
+      addKeys: [],
+      plugins: {
+        autocomplete: {
+          minLength: 2,
+          queryRemote: true,
+          remote: {
+            url: '/tags'}
+          }
+        }
+      });
+    var tag_names = $("#form_tags_input").data('current_tags');
+    _.each(tag_names, function(tag){
+      t.add(tag);
+    });
+		
 		$("#widget_ckeditor_" + widget_id).ckeditor({toolbar : "Body"});
 		
 	  mpq.push(["track","canvas_edit_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id, widget_id : widget_id}]);
