@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :canvas_follows
   has_many :followed_canvae, :through => :canvas_follows
   has_many :emails
+  has_many :feedbacks
 
 	acts_as_follower
 	
