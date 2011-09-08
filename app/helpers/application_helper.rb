@@ -13,7 +13,6 @@ module ApplicationHelper
     widget
     facebook_integration
     mixpanel_integration google_analytics
-    jquery.tokeninput
     FollowHelper
     jquery.textboxlist.mod
     )
@@ -23,7 +22,6 @@ module ApplicationHelper
     %w(
     http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css
     compiled/application
-    token-input-facebook
     jquery.textboxlist
     )
   end

@@ -56,8 +56,14 @@ class Widget < ActiveRecord::Base
     @tag_names || tags.map(&:name).join(',')
   end
   
-  def self.filter_by_tag_ids(tag_ids)
-    Widget.joins(:taggings) & Tagging.where(:tag_id => tag_ids)
+  def self.filter_by_tag_names(tag_names)
+    if tag_names.empty?
+      # Return all tags.
+      scoped
+    else
+      # Get all the tags matching this name.
+      (Widget.joins(:tags) & Tag.where(:name => tag_names)).group("widgets.id")
+    end
   end
 
   def self.site_feed

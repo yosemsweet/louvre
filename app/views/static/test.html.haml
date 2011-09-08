@@ -20,10 +20,9 @@
     %input#form_tags_input{type: "text", name: "test", value: "", data: {current_tags: ['My First', 'My Second'].to_json }}
 
 :javascript
-  var t;
   $(function(){
     
-    t = new $.TextboxList('#form_tags_input',{ 
+    var t = new $.TextboxList('#form_tags_input',{ 
       unique: true,
       addKeys: [],
       plugins: {

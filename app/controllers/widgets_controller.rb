@@ -12,8 +12,8 @@ class WidgetsController < ApplicationController
     
     @widgets = Widget.for_canvas(params[:canvas_id], params[:start])
     
-    if params[:tag_ids] && !params[:tag_ids].blank?
-      @widgets = @widgets.filter_by_tag_ids(params[:tag_ids].split(','))
+    if params[:tag_names].present?
+      @widgets = @widgets.filter_by_tag_names(params[:tag_names].split(','))
     end
 
     render :partial => params[:display], :collection => @widgets, :as => :widget

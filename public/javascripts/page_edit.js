@@ -1,24 +1,20 @@
 $(document).ready(function(){
   
-	$('#tag_ids').tokenInput('/tags', { 
-	  crossDomain: false,
-	  theme: 'facebook',
-	  onDelete : function(){ reload_feed_widgets()},
-	  onAdd : function(){ reload_feed_widgets()}
-	});
-    
-	var reload_page_widgets = function(){
-	  $("ul#page").load("/widgets/for_page/" + request.page_id + "/editable/", function(){
-			reset_new_widget_forms(); 
-		});
-	}
+	// $('#tag_ids').tokenInput('/tags', { 
+	//   crossDomain: false,
+	//   theme: 'facebook',
+	//   onDelete : function(){ reload_feed_widgets()},
+	//   onAdd : function(){ reload_feed_widgets()}
+	// });
+	
 	var drag_in_progress = false;
 	var reload_feed_widgets = function(){
   	if(!drag_in_progress){
 	  	// Get the tags to filter by
-		  var tag_ids = $("#tag_ids").val();
-  
-		  $("ul#feed").load("/widgets/for_canvas/" + request.canvas_id + "/page_feed?tag_ids=" + tag_ids, function(){
+		  var tag_names = $("#tag_names").val();
+			console.log(tag_names);
+  		console.log("/widgets/for_canvas/" + request.canvas_id + "/page_feed?tag_names=" + tag_names);
+		  $("ul#feed").load("/widgets/for_canvas/" + request.canvas_id + "/page_feed?tag_names=" + tag_names, function(){
     
 		    // Make the widgets draggable.
 		    $("li.widget", $(this)).draggable({
@@ -37,10 +33,32 @@ $(document).ready(function(){
 	  });
 		}
 	}
+	
+	var t = new $.TextboxList("#tag_names", { 
+    unique: true,
+    plugins: {
+      autocomplete: {
+        minLength: 2,
+        queryRemote: true,
+        remote: {
+          url: '/tags'}
+        }
+      }
+    });
+	t.addEvent('bitBoxAdd', reload_feed_widgets );
+	t.addEvent('bitBoxRemove', reload_feed_widgets);	
+    
+	var reload_page_widgets = function(){
+	  $("ul#page").load("/widgets/for_page/" + request.page_id + "/editable/", function(){
+			reset_new_widget_forms(); 
+		});
+	}
+
+
 
 	reload_page_widgets();
 	reload_feed_widgets();
-	setInterval(reload_feed_widgets, 15000); 
+	// setInterval(reload_feed_widgets, 15000); 
 
 	$("ul#page").sortable({
 	   axis: 'y',
