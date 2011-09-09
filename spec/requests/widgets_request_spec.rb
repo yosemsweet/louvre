@@ -159,7 +159,7 @@ describe "Widgets Requests" do
         @page = Factory.create(:page)
       end
   
-      context "with no tag_ids filter" do
+      context "with no tag_names filter" do
   
         before(:each) do
           @w_on_page = Factory.create(:text_widget, :canvas => @canvas, :page => @page, :text => "Happy Feet")
@@ -181,7 +181,7 @@ describe "Widgets Requests" do
         
       end
       
-      context "with tag_ids filter" do
+      context "with tag_names filter" do
         
         before(:each) do
           @tag = Factory.create(:tag, :name => "MyTag")
@@ -190,7 +190,7 @@ describe "Widgets Requests" do
           
           @tagged_widget.tags << @tag
           
-          get "/widgets/for_canvas/#{@canvas.id}/canvas_feed", {:tag_ids => @tag.id}
+          get "/widgets/for_canvas/#{@canvas.id}/canvas_feed", {:tag_names => @tag.name}
         end
         
         it "should get tagged widgets" do
@@ -203,10 +203,10 @@ describe "Widgets Requests" do
         
       end
       
-      context "with empty tag_ids filter" do
+      context "with empty tag_names filter" do
         before(:each) do
           @widget = Factory.create(:text_widget, :text => "Tagged", :canvas => @canvas, :page => nil)
-          get "/widgets/for_canvas/#{@canvas.id}/canvas_feed", {:tag_ids => ""}
+          get "/widgets/for_canvas/#{@canvas.id}/canvas_feed", {:tag_names => ""}
         end
         
         it "should not filter the widgets" do

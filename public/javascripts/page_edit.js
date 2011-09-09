@@ -12,8 +12,6 @@ $(document).ready(function(){
   	if(!drag_in_progress){
 	  	// Get the tags to filter by
 		  var tag_names = $("#tag_names").val();
-			console.log(tag_names);
-  		console.log("/widgets/for_canvas/" + request.canvas_id + "/page_feed?tag_names=" + tag_names);
 		  $("ul#feed").load("/widgets/for_canvas/" + request.canvas_id + "/page_feed?tag_names=" + tag_names, function(){
     
 		    // Make the widgets draggable.
