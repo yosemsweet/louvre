@@ -120,7 +120,7 @@ $.TextboxList = function(element, _options){
 		decode: function(o){ return o.split(','); }
   }, _options);
 	
-	element = $(element);
+	// element = $(element);
 	
 	var self = this;
 	var init = function(){		
