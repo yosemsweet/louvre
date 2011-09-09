@@ -50,5 +50,13 @@ class User < ActiveRecord::Base
 	    nil
 	  end
 	end
+
+  def role?(canvas,role)
+    if role == :owner
+      canvas.creator == self
+    else
+      false
+    end
+  end
 	
 end

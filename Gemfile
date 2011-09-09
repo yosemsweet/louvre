@@ -14,6 +14,7 @@ gem "breadcrumbs_on_rails"
 gem "html_truncator"
 gem "mixpanel"
 gem "koala"
+gem "cancan"
 
 group :development, :test do
   gem "factory_girl_rails", :require => false

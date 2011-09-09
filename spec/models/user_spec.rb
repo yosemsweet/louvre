@@ -106,4 +106,24 @@ describe User do
        
   end  
   
+  describe "#role?" do
+    it "should exist" do
+      Factory.create(:user).should respond_to(:role?).with(2).arguments
+    end
+    
+    it "should return false if they don't have a role" do
+      Factory.create(:user).role?(nil,nil).should be_false
+    end
+    
+    context "an owner of canvas" do
+      it "should return true if asked if they are the owner" do
+        user = Factory.create(:user)
+        canvas = Factory.create(:canvas, :creator => user)
+        user.role?(canvas, :owner).should be_true
+      end
+    end
+  end
+  
 end
+
+
