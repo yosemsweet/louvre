@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :followed_canvae, :through => :canvas_follows
   has_many :emails
   has_many :feedbacks
+  has_many :canvas_user_roles
+  has_many :roles, :through => :canvas_user_roles
 
 	acts_as_follower
 	
@@ -50,12 +52,39 @@ class User < ActiveRecord::Base
 	    nil
 	  end
 	end
+	
+	def role(canvas)
+	  roles = canvas_user_roles.where(:canvas_id => canvas.id)
+	  if roles.length > 0
+	    return roles.first
+	  else
+	    return  Role.where(:name => 'visitor').first
+	  end
+	end
 
   def role?(canvas,role)
-    if role == :owner
-      canvas.creator == self
-    else
-      false
+    if not canvas
+      raise "invalid canvas"
+    end
+    if not role
+      raise "invalid role"
+    end
+    
+    roles = canvas_user_roles.where(:canvas_id => canvas.id)
+    if roles.length > 0
+      canvas_user_role = roles.first.role
+    else 
+      canvas_user_role = Role.where(:name => 'user').first
+    end
+    
+    canvas_user_role.xp >= Role.where(:name => role).first.xp
+  end
+  
+  def set_role(canvas,role_name)
+    role = Role.where(:name=>role_name).first || return
+    transaction do
+      CanvasUserRole.where(:canvas_id => canvas.id, :user_id => self.id).delete_all
+      CanvasUserRole.create!(:canvas_id => canvas.id, :user_id => self.id, :role_id => role.id)
     end
   end
 	

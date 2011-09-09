@@ -14,9 +14,18 @@
 #   )
 # end
 
-filename = 'db/tags.txt'
-file = File.open(filename, 'r')
+# filename = 'db/tags.txt'
+# file = File.open(filename, 'r')
+# 
+# file.each_line("\n") do |row|
+#   Tag.create(:name => row)
+# end
 
-file.each_line("\n") do |row|
-  Tag.create(:name => row)
-end
+Role.create([
+  {:name => "god", :xp => 1000},
+  {:name => "admin", :xp => 900},
+  {:name => "owner", :xp => 300},
+  {:name => "member", :xp => 200},
+  {:name => "user", :xp => 100},
+  {:name => "visitor", :xp => 0}
+  ])
