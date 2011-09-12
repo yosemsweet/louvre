@@ -106,19 +106,14 @@ describe User do
        
   end  
   
-  describe "#role?" do
-    before(:each) do
-      Factory.create(:role, {:name => "owner", :xp => 800})
-      Factory.create(:role, {:name => "member", :xp => 200})
-      Factory.create(:role, {:name => "user", :xp => 100})
-    end
+  describe "#canvas_role?" do
     
     it "should exist" do
-      Factory.create(:user).should respond_to(:role?).with(2).arguments
+      Factory.create(:user).should respond_to(:canvas_role?).with(2).arguments
     end
     
     it "should return false if they don't have a role" do
-      Factory.create(:user).role?(Factory.create(:canvas),:member).should be_false
+      Factory.create(:user).canvas_role?(Factory.create(:canvas),:member).should be_false
     end
     
     context "an owner of canvas" do
@@ -126,62 +121,65 @@ describe User do
       it "should return true if asked if they are the owner" do
         user = Factory.create(:user)
         canvas = Factory.create(:canvas)
-        user.set_role(canvas,:owner)
-        user.role?(canvas, :owner).should be_true
+        user.set_canvas_role(canvas,:owner)
+        user.canvas_role?(canvas, :owner).should be_true
       end
       
       it "should return true if asked if they are a member" do
         user = Factory.create(:user)
         canvas = Factory.create(:canvas)
-        user.set_role(canvas,:owner)
-        user.role?(canvas, :member).should be_true
+        user.set_canvas_role(canvas,:owner)
+        user.canvas_role?(canvas, :member).should be_true
       end
       
     end
   end
   
-  describe "#role" do
-    before(:each) do
-      Factory.create(:role, {:name => "member", :xp => 200})
-      Factory.create(:role, {:name => "visitor", :xp => 0})
-    end
+  describe "#canvas_role" do
     
     it "should exist" do
-      Factory.create(:user).should respond_to(:role).with(1).argument
+      Factory.create(:user).should respond_to(:canvas_role).with(1).argument
     end
     
-    it "should return :visitor if they don't have a role" do
-      Factory.create(:user).role(Factory.create(:canvas)).should == Role.where(:name => "visitor").first
+    it "should return :user if they don't have a role" do
+      Factory.create(:user).canvas_role(Factory.create(:canvas)).should == :user
+    end
+    
+    context "an owner of canvas" do
+      before(:each) do
+        @canvas = Factory.create(:canvas)
+        @user = Factory.create(:user)
+        @user.set_canvas_role(@canvas, :owner)
+      end
+      
+      it "should return :owner" do
+        @user.canvas_role(@canvas).should == :owner
+      end
     end
   end
   
-  describe "#set_role" do
+  describe "#set_canvas_role" do
     it "should exist" do
-      Factory.create(:user).should respond_to(:set_role).with(2).arguments
+      Factory.create(:user).should respond_to(:set_canvas_role).with(2).arguments
     end
-    
-    before(:each) do
-      Factory.create(:role, {:name => "member", :xp => 200})
-      Factory.create(:role, {:name => "admin", :xp => 900})
-    end
-    
+      
     it "should create a role for a user that does not have a role for this canvas" do
       user = Factory.create(:user)
       canvas = Factory.create(:canvas)
-      user.set_role(canvas,:member)
+      user.set_canvas_role(canvas,:member)
       canvas_role = user.canvas_user_roles.where(:canvas_id => canvas.id)
       canvas_role.length.should == 1
-      canvas_role.first.role.name.should == 'member'
+      canvas_role.first.role.should == :member
     end
 
     it "should update a role for a user that already has a role for this canvas" do
       user = Factory.create(:user)
       canvas = Factory.create(:canvas)
-      user.set_role(canvas,:admin)
-      user.set_role(canvas,:member)
+      user.set_canvas_role(canvas,:admin)
+      user.set_canvas_role(canvas,:member)
       canvas_role = user.canvas_user_roles.where(:canvas_id => canvas.id)
       canvas_role.length.should == 1
-      canvas_role.first.role.name.should == 'member'
+      canvas_role.first.role == :member
     end
 
   end

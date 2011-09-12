@@ -3,6 +3,8 @@ require 'spec_helper'
 describe "canvae/show.html.haml" do
   before(:each) do
     @canvas = Factory.create(:canvas)
+    Factory.create(:role, {:name => "owner", :xp => 800})
+    Factory.create(:role, {:name => "user", :xp => 100})
     @new_widgets = []
   end
   

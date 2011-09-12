@@ -53,39 +53,32 @@ class User < ActiveRecord::Base
 	  end
 	end
 	
-	def role(canvas)
-	  roles = canvas_user_roles.where(:canvas_id => canvas.id)
-	  if roles.length > 0
-	    return roles.first
+	def canvas_role(canvas)
+	  user_roles = canvas_user_roles.where(:canvas_id => canvas.id)
+	  if user_roles.length > 0
+	    return user_roles.first.role
 	  else
-	    return  Role.where(:name => 'visitor').first
+	    return  Role.new(:user)
 	  end
 	end
 
-  def role?(canvas,role)
+  def canvas_role?(canvas,role_sym)  
     if not canvas
       raise "invalid canvas"
     end
-    if not role
+    if not role_sym
       raise "invalid role"
     end
     
-    roles = canvas_user_roles.where(:canvas_id => canvas.id)
-    if roles.length > 0
-      canvas_user_role = roles.first.role
-    else 
-      canvas_user_role = Role.where(:name => 'user').first
-    end
-    
-    canvas_user_role.xp >= Role.where(:name => role).first.xp
+    canvas_role(canvas) >= role_sym
   end
   
-  def set_role(canvas,role_name)
-    role = Role.where(:name=>role_name).first || return
-    transaction do
-      CanvasUserRole.where(:canvas_id => canvas.id, :user_id => self.id).delete_all
-      CanvasUserRole.create!(:canvas_id => canvas.id, :user_id => self.id, :role_id => role.id)
-    end
-  end
+  # def set_canvas_role(canvas, role_name)
+  #   role = Role.where(:name=>role_name).first || return
+  #   transaction do
+  #     CanvasUserRole.where(:canvas_id => canvas.id, :user_id => self.id).delete_all
+  #     CanvasUserRole.create!(:canvas_id => canvas.id, :user_id => self.id, :role_id => role.id)
+  #   end
+  # end
 	
 end
