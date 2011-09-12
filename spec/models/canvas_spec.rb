@@ -168,4 +168,28 @@ describe Canvas do
 		end
 	
 	end
+	
+	context "after_validation callbacks" do
+		context "on create" do
+			it "should add a canvas owner role for the new creator" do
+				user = Factory.create(:user)
+				canvas = Factory.create(:canvas, :creator => user)
+				user.canvas_role?(canvas, :owner).should be_true
+			end
+		end
+
+		context "on update" do
+			it "should add a canvas owner role for the new creator and leave the old owner with an :owner role" do
+				user = Factory.create(:user)
+				canvas = Factory.create(:canvas)
+				old_owner = canvas.creator
+				user.canvas_role?(canvas, :owner).should be_false
+				canvas.creator = user
+				canvas.save
+				user.canvas_role?(canvas, :owner).should be_true
+				old_owner.canvas_role?(canvas, :owner).should be_true
+			end
+		end
+	end
+	
 end

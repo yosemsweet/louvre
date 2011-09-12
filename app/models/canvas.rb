@@ -1,4 +1,5 @@
 class Canvas < ActiveRecord::Base
+	after_save :add_owner_role
 	
 	belongs_to :creator, :class_name => "User"
 	has_many :pages
@@ -21,8 +22,18 @@ class Canvas < ActiveRecord::Base
     return creator == owner
   end
 	
+	def open?
+		open
+	end
+	
 	def closed?
 		!open?
+	end
+	
+	private
+	
+	def add_owner_role
+		self.creator.set_canvas_role(self, :owner) unless self.creator.nil?
 	end
 
 end
