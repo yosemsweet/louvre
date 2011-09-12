@@ -23,9 +23,10 @@ $(document).ready(function(){
 	var reload_widgets = function(){
 		// Reload all of the canvas feed widgets.
 	  $("ul#feed").load("/widgets/for_canvas/" + request.canvas_id + "/canvas_feed", function(){
-	     enable_widget_previews();     
-			 update_widget_comment_counts();
-			 reset_new_widget_forms();
+	    enable_widget_previews();     
+			update_widget_comment_counts();
+			reset_new_widget_forms();
+			make_textbox_list();
 	  });
 	}  
 

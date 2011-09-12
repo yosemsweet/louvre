@@ -54,24 +54,6 @@ $(document).ready(function(){
 		
 		$("form.edit_widget", widget).toggle();
 		
-		// Make the widget_tag_ids field into a tokenized field.
-		var t = new $.TextboxList("#widget_tag_names_" + widget_id, { 
-      unique: true,
-      addKeys: [],
-      plugins: {
-        autocomplete: {
-          minLength: 2,
-          queryRemote: true,
-          remote: {
-            url: '/tags'}
-          }
-        }
-      });
-    var tag_names = $("#form_tags_input").data('current_tags');
-    _.each(tag_names, function(tag){
-      t.add(tag);
-    });
-		
 		$("#widget_ckeditor_" + widget_id).ckeditor({toolbar : "Body"});
 		
 	  mpq.push(["track","canvas_edit_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id, widget_id : widget_id}]);
@@ -189,6 +171,37 @@ $(document).ready(function(){
 	
 	
 	// PUBLIC METHODS
+	
+	// Make the widget_tag_ids field into a tokenized field.
+	new_widget_forms_tokenized = 0;
+	
+	make_textbox_list = function(){
+		$('.widget_tag_ids').each(function(){
+			if (new_widget_forms_tokenized == 0 || !$(this).hasClass('new_widget_form')){
+				var t = new $.TextboxList($(this), { 
+			    unique: true,
+			    addKeys: [],
+			    plugins: {
+			      autocomplete: {
+			        minLength: 2,
+			        queryRemote: true,
+			        remote: {
+			          url: '/tags'}
+			        }
+			      }
+			    });
+
+				var tag_names = $(this).data('current_tags');
+
+			  _.each(tag_names, function(tag){
+			    t.add(tag);
+			  });
+			}
+		});
+		
+		new_widget_forms_tokenized = 1;
+		
+	}
 	
 	reset_new_widget_forms = function(){
 		var $widget = $("ul#inline_form li.widget");
