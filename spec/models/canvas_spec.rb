@@ -92,6 +92,13 @@ describe Canvas do
 				end
 			end
 			
+			context "Open" do
+				it "should default to true" do
+					canvas = Canvas.new
+					canvas.open?.should be_true
+				end
+			end
+			
 			context "Creator" do
 				it "should have a creator" do
 					canvas = Factory.build(:canvas)

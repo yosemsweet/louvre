@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20110912214747) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
-    t.boolean  "open"
+    t.boolean  "open",       :default => true
   end
 
   create_table "canvas_user_roles", :force => true do |t|
