@@ -12,6 +12,47 @@ describe Canvas do
 		it "should respond to image" do
 			canvas.should respond_to(:image)
 		end
+		
+		it "should respond to open" do
+			canvas.should respond_to(:open)
+		end
+		
+	end
+	
+	context "#open?" do
+		let(:canvas) { Factory.build(:canvas) }
+		
+		it "should exist" do
+			canvas.should respond_to(:open?)
+		end
+		
+		it "should return true if canvas.open is set to true" do
+			canvas.open = true
+			canvas.open?.should be_true
+		end
+		
+		it "should return false if canvas.open is set to false" do
+			canvas.open = true
+			canvas.open?.should be_true
+		end
+	end
+	
+	context "#closed?" do
+		let(:canvas) { Factory.build(:canvas) }
+		
+		it "should exist" do
+			canvas.should respond_to(:closed?)
+		end
+		
+		it "should return false if canvas.open is set to true" do
+			canvas.open = true
+			canvas.closed?.should be_false
+		end
+		
+		it "should return true if canvas.open is set to false" do
+			canvas.open = false
+			canvas.closed?.should be_true
+		end
 	end
 	
   context "Validations" do

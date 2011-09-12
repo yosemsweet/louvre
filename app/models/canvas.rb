@@ -20,5 +20,9 @@ class Canvas < ActiveRecord::Base
     return false unless owner.is_a? User
     return creator == owner
   end
+	
+	def closed?
+		!open?
+	end
 
 end

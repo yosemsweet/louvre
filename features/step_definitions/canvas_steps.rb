@@ -10,3 +10,25 @@ Then /^I should see any ongoing discussions for that canvas$/ do
 	page.should have_selector("#discussions")
 end
 
+
+Given /^I am creating a canvas$/ do
+  visit path_to("the New Canvas page")
+	canvas = Factory.build(:canvas)
+	fill_in("Name", :with => canvas.name)
+	fill_in("Mission", :with => canvas.mission)
+	fill_in("Image", :with => canvas.image)
+end
+
+When /^I specify the canvas should be "([^"]*)"$/ do |state|
+	if state == "open"
+		page.check("Open?")
+	else
+		page.uncheck("Open?")
+	end
+end
+
+Then /^that canvas should require membership to edit$/ do
+	Canvas.last.open?.should be_false
+end
+
+
