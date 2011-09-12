@@ -338,13 +338,13 @@ describe Widget do
 		end
 	end
 	
-	describe "#permalink" do
-	  
-	  it "should return the url for that widget" do
-      widget = Factory.build(:text_widget)
-      widget.permalink.should == "http://localhost:3000/widgets/#{widget.id}"
-    end
-	  
-  end
+  # describe "#permalink" do
+  #   
+  #   it "should return the url for that widget" do
+  #       widget = Factory.build(:text_widget)
+  #       widget.permalink.should == "http://localhost:3000/widgets/#{widget.id}"
+  #     end
+  #   
+  #   end
 
 end
