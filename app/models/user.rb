@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
   has_many :emails
   has_many :feedbacks
   has_many :canvas_user_roles
-  has_many :roles, :through => :canvas_user_roles
 
 	acts_as_follower
 	
@@ -53,32 +52,72 @@ class User < ActiveRecord::Base
 	  end
 	end
 	
+	def admin?
+	  admin || false
+  end
+	  
+	# canvas_role
+	#
+	# @params
+	#   canvas : A canvas object
+	# @returns
+	#   a role object representing this user's role for the given canvas.
+	#   if the user is an
 	def canvas_role(canvas)
-	  user_roles = canvas_user_roles.where(:canvas_id => canvas.id)
-	  if user_roles.length > 0
-	    return user_roles.first.role
-	  else
-	    return  Role.new(:user)
+	  # If they are admin, give them the admin role.
+	  if admin?
+	    role = Role.new(:admin)
+    else
+      # If they have a role, return that.
+  	  user_roles = canvas_user_roles.where(:canvas_id => canvas.id)
+  	  if user_roles.length > 0
+  	    role = Role.new(user_roles.first.role)
+  	  else
+  	    # If they are logged in, give them the user role.
+        if persisted?
+          role = Role.new(:user)
+        else
+          role = Role.new(:visitor)
+        end
+  	  end
 	  end
+	  return role
 	end
 
-  def canvas_role?(canvas,role_sym)  
+  # canvas_role?
+  #
+  # @params
+  #   canvas      : A canvas object
+  #   role_name   : The name of a role as a symbol
+  # @returns
+  #   true if this user has at least the given role for the given canvas
+  #   false otherwise
+  def canvas_role?(canvas, role_name)  
     if not canvas
       raise "invalid canvas"
     end
-    if not role_sym
+    if not role_name
       raise "invalid role"
     end
-    
-    canvas_role(canvas) >= role_sym
+      
+    canvas_role(canvas) >= role_name
+
   end
   
-  # def set_canvas_role(canvas, role_name)
-  #   role = Role.where(:name=>role_name).first || return
-  #   transaction do
-  #     CanvasUserRole.where(:canvas_id => canvas.id, :user_id => self.id).delete_all
-  #     CanvasUserRole.create!(:canvas_id => canvas.id, :user_id => self.id, :role_id => role.id)
-  #   end
-  # end
+  # set_canvas_role
+  #
+  # @params
+  #   canvas      : A canvas object
+  #   role_name   : The name of a role as a symbol
+  # @after
+  #   The user is removed from any role they previously had for the given canvas.
+  #   The user is assigned the given role for the given canvas.
+  def set_canvas_role(canvas, role_name)
+    transaction do
+      CanvasUserRole.where(:canvas_id => canvas.id, :user_id => self.id).delete_all
+      CanvasUserRole.create!(:canvas_id => canvas.id, :user_id => self.id, :role => role_name)
+    end
+  end  
+
 	
 end

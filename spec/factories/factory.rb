@@ -7,6 +7,7 @@ FactoryGirl.define do
 	  uid "0000"
 	  name "Gill Fert"
 	  image "http://www.carniola.org/theglory/images/McHammer.gif" 
+	  admin false
   end
 
   factory :canvas do

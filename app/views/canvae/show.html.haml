@@ -29,7 +29,7 @@
       %b Creator:
       = @canvas.creator
     
-    - if can? :update, @canvas
+    - if current_user = @canvas.creator
       = link_to 'Edit', edit_canvas_path(@canvas)  
     
   #pages

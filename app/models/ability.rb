@@ -7,7 +7,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
     can :read, :all
     can :manage, Canvas do |canvas|  
-      user.role?(canvas,:owner)
+      user.canvas_role?(canvas,:owner)
     end
     
         

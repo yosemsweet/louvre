@@ -137,25 +137,44 @@ describe User do
   
   describe "#canvas_role" do
     
+    before(:each) do
+      @canvas = Factory.create(:canvas)
+    end
+    
     it "should exist" do
       Factory.create(:user).should respond_to(:canvas_role).with(1).argument
     end
     
-    it "should return :user if they don't have a role" do
-      Factory.create(:user).canvas_role(Factory.create(:canvas)).should == :user
+    it "should return the visitor role if they are not logged in" do
+      User.new.canvas_role(@canvas).should == :visitor
     end
     
-    context "an owner of canvas" do
+    context "logged in user" do
+      
       before(:each) do
-        @canvas = Factory.create(:canvas)
         @user = Factory.create(:user)
-        @user.set_canvas_role(@canvas, :owner)
       end
       
-      it "should return :owner" do
-        @user.canvas_role(@canvas).should == :owner
+      context "an owner of canvas" do
+        it "should return the owner role" do
+          @user.set_canvas_role(@canvas, :owner)
+          @user.canvas_role(@canvas).should == :owner
+        end
+      end
+
+      context "an admin" do
+        it "should return the admin role" do
+          @user.admin = true
+          @user.canvas_role(@canvas).should == :admin
+        end
+      end
+      
+      it "should return the user role if they don't have a role" do
+        @user.canvas_role(@canvas).should == :user
       end
     end
+    
+
   end
   
   describe "#set_canvas_role" do
@@ -166,10 +185,10 @@ describe User do
     it "should create a role for a user that does not have a role for this canvas" do
       user = Factory.create(:user)
       canvas = Factory.create(:canvas)
-      user.set_canvas_role(canvas,:member)
+      user.set_canvas_role(canvas, :member)
       canvas_role = user.canvas_user_roles.where(:canvas_id => canvas.id)
       canvas_role.length.should == 1
-      canvas_role.first.role.should == :member
+      Role.new(canvas_role.first.role).should == :member
     end
 
     it "should update a role for a user that already has a role for this canvas" do
@@ -182,6 +201,25 @@ describe User do
       canvas_role.first.role == :member
     end
 
+  end
+  
+  describe "#admin" do
+    it "should exist" do
+      Factory.create(:user).should respond_to(:admin)
+    end
+  end
+  
+  describe "#admin?" do
+    before(:each) do
+      @user = Factory.create(:user)
+    end
+    it "should return true if the user is an admin" do
+      @user.admin = true
+      @user.admin?.should == true
+    end
+    it "should return false if the user is not an admin" do
+      @user.admin?.should == false
+    end
   end
   
 end
