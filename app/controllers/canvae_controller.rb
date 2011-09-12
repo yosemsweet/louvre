@@ -1,5 +1,4 @@
-class CanvaeController < ApplicationController
-	
+class CanvaeController < ApplicationController	
 	before_filter :require_login, :except => [:show, :index]
   before_filter :only => [:show, :edit] do
     @canvas = Canvas.find(params[:id])
@@ -7,6 +6,7 @@ class CanvaeController < ApplicationController
   end
 
   def edit
+		authorize! :edit, @canvas
 		add_breadcrumb "Edit '#{@canvas.name}'", edit_canvas_path(@canvas)
   end  
     
@@ -35,7 +35,7 @@ class CanvaeController < ApplicationController
 
   def create
     @canvas = Canvas.new(params[:canvas])
-		
+
 		@canvas.creator = current_user
 
     if @canvas.save
@@ -47,6 +47,7 @@ class CanvaeController < ApplicationController
 
   def update
     @canvas = Canvas.find(params[:id])
+		authorize! :update, @canvas
 
     if @canvas.update_attributes(params[:canvas])
       redirect_to(@canvas, :notice => 'Canvas was successfully updated.')
