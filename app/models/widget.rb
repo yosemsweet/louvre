@@ -41,7 +41,7 @@ class Widget < ActiveRecord::Base
   end
 
   def permalink
-    if Rails.env == :production
+    if Rails.env.production?
       "http://loorp.com/widgets/#{self.id}"
     else
       "http://localhost:3000/widgets/#{self.id}"
