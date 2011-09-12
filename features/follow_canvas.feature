@@ -13,6 +13,7 @@ Background:
 Scenario: Follow a canvas
   Then I should see the "follow" image
   When I follow "follow"
+  And I wait until all Ajax requests are complete
   Then I should not see the "follow" image
   And I should be following
  
@@ -22,5 +23,6 @@ Scenario: Stop following a canvas
   Given I follow "follow"
   Then I should see the "unfollow" image
   When I follow "unfollow"
+  And I wait until all Ajax requests are complete
   Then I should not see the "unfollow" image
   And I should not be following 
