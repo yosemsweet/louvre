@@ -1,31 +1,75 @@
-# User.create(
-#   :name => "Bob Dole",
-#   :provider => "facebook",
-#   :uid => 21009266,
-#   :image => "https://s3.amazonaws.com/randomfile/1.png",
-#   :email => "bob.dole@gmail.com"
-# )
-# 
-# 1.upto(10) do |i|
-#   Canvas.create(
-#     :name => "Canvas number #{i}",
-#     :mission => "The mission that is the mission for canvas #{i}",
-#     :image => "https://s3.amazonaws.com/randomfile/#{i%5 + 1}.png"
-#   )
-# end
+if Rails.env.development?
 
-# filename = 'db/tags.txt'
-# file = File.open(filename, 'r')
-# 
-# file.each_line("\n") do |row|
-#   Tag.create(:name => row)
-# end
+  Widget.delete_all
+  Page.delete_all
+  Canvas.delete_all
+  User.delete_all
 
-Role.create([
-  {:name => "god", :xp => 1000},
-  {:name => "admin", :xp => 900},
-  {:name => "owner", :xp => 300},
-  {:name => "member", :xp => 200},
-  {:name => "user", :xp => 100},
-  {:name => "visitor", :xp => 0}
-  ])
+  user = User.create(
+    :name => "Bob Dole",
+    :provider => "facebook",
+    :uid => 21009266,
+    :image => "https://s3.amazonaws.com/randomfile/1.png"
+  )
+
+  open_canvas = Canvas.create(
+    :name => "Open canvas",
+    :mission => "The mission that is the mission for canvas 1",
+    :image => "https://s3.amazonaws.com/randomfile/1.png",
+    :open => true,
+    :creator_id => user.id
+  )
+
+  closed_canvas = Canvas.create(
+    :name => "Closed canvas",
+    :mission => "The mission that is the mission for canvas 2",
+    :image => "https://s3.amazonaws.com/randomfile/2.png",
+    :open => false,
+    :creator_id => user.id
+  )
+
+  page1 = Page.create(
+    :title => "My page title",
+    :canvas_id => open_canvas.id,
+    :creator_id => user.id
+  )
+
+  page2 = Page.create(
+    :title => "Other page title",
+    :canvas_id => closed_canvas.id,
+    :creator_id => user.id
+  )
+
+  widget1 = Widget.create(
+    :text => "The text on this widget.",
+    :canvas_id => open_canvas.id,
+    :creator_id => user.id,
+    :content_type => "text_content"
+  )
+
+  widget2 = Widget.create(
+    :text => "A widget on a page.",
+    :canvas_id => open_canvas.id,
+    :creator_id => user.id,
+    :content_type => "text_content",
+    :page_id => page1.id
+  )
+
+  widget3 = Widget.create(
+    :text => "Another widget.",
+    :canvas_id => closed_canvas.id,
+    :creator_id => user.id,
+    :content_type => "text_content"
+  )
+
+  widget4 = Widget.create(
+    :text => "A widget on a page.",
+    :canvas_id => open_canvas.id,
+    :creator_id => user.id,
+    :content_type => "text_content",
+    :page_id => page2.id
+  )
+
+else
+  puts "Only seeds for development!! XD LOL HAHA"
+end

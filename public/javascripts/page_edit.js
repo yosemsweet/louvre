@@ -32,7 +32,7 @@ $(document).ready(function(){
 		}
 	}
 	
-	var t = new $.TextboxList("#tag_names", { 
+	var t = new $.TextboxList($("#tag_names"), { 
     unique: true,
     plugins: {
       autocomplete: {
