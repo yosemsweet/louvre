@@ -18,9 +18,9 @@ describe "Pages Requests" do
     end
     
     describe "GET /canvae/:canvas_id/pages/new" do    
-      it "should return 302 for a user" do
+      it "should return 403 for a user" do
         get new_canvas_page_path(@canvas)
-        response.status.should == 302
+        response.status.should == 403
       end
       it "should return 200 for a member" do
         @user.set_canvas_role(@canvas, :member)
@@ -30,9 +30,9 @@ describe "Pages Requests" do
     end
     
     describe "POST /canvae/:canvas_id/pages" do    
-      it "should return 302 for a user" do
+      it "should return 403 for a user" do
         post canvas_pages_path(@canvas)
-        response.status.should == 302
+        response.status.should == 403
       end
       it "should return 200 for a member" do
         @user.set_canvas_role(@canvas, :member)
@@ -46,10 +46,9 @@ describe "Pages Requests" do
         @page = Factory.create(:page, :canvas => @canvas)
       end
       
-      it "should not redirect to the page page for a user" do
+      it "should give a 403 for a user" do
         put canvas_page_path(@canvas, @page)
-        response.status.should == 302
-        response.header["Location"].should_not include('/pages/')
+        response.status.should == 403
       end
       
       it "should redirect to the page page for a member" do
