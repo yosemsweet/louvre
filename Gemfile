@@ -27,7 +27,8 @@ group :development, :test do
   gem 'growl'
   gem 'guard-rspec'
   gem 'guard-cucumber'
-  gem "cucumber-rails"
+	gem 'cucumber', '0.10.2'
+  gem 'cucumber-rails', '0.3.2'
   gem "rb-fsevent"
 end
 
