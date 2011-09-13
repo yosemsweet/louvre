@@ -261,7 +261,7 @@ describe "Widgets Requests" do
        end
  
        it "should not show the edit button on widget"
-   
+
      end
 
 		describe "logged in as a member" do
@@ -287,6 +287,7 @@ describe "Widgets Requests" do
        end
  
        it "should show the edit button on widget"
+
     end
 	end
 	
