@@ -239,5 +239,57 @@ describe "Widgets Requests" do
         @widget.reload.answers.first["message"].should == "Another one."
       end
     end
+    
+    context "closed canvas" do
+     describe "not logged in as a member" do
+       before :each do
+         @canvas = Factory.create(:canvas)
+         @user = Factory.create(:user)
+         get "/canvae/#{@canvas.id}"
+       end
+  
+      it "should not show bookmarklet link" do
+        response.body.should_not include("id='bookmarklet'")
+      end
+ 
+       it "should not show the email" do
+         response.body.should_not include("Easily add content to the feed by sending an email to this address:")
+       end
+ 
+       it "should not show add any add a widget link" do
+         response.body.should_not include("id='toolbar'")
+         response.body.should_not include("class='add_widget'")
+       end
+ 
+       it "should not show the edit button on widget"
+   
+     end
+ 
+     describe "logged in as a member" do
+       before :each do
+         @canvas = Factory.create(:canvas)
+         @user = Factory.create(:user)
+         @user.set_canvas_role(@canvas,:member)
+         get "/canvae/#{@canvas.id}"
+       end
+   
+       it "should show bookmarklet link" do
+         puts @user.canvas_role( @canvas )
+         puts @user.canvas_role?(@canvas,:member)
+         response.body.should include("id='bookmarklet'")
+       end
+ 
+       it "should show the email" do
+         response.body.should include("Easily add content to the feed by sending an email to this address:")
+       end
+ 
+       it "should show add all add a widget link" do
+         response.body.should include("id='toolbar'")
+         response.body.should include("class='add_widget'")
+       end
+ 
+       it "should show the edit button on widget"
+    end
+    end
 	
 end
