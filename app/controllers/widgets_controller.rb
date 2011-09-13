@@ -27,6 +27,8 @@ class WidgetsController < ApplicationController
 
   # GET /widgets/:id
   def show
+    authorize! :read, @widget
+
 		@widget = Widget.find(params[:id])
 		
 		add_canvas_breadcrumb(@widget.canvas)
@@ -43,9 +45,11 @@ class WidgetsController < ApplicationController
       @page = nil
       @canvas = Canvas.find(params[:canvas_id])
     end
-    
-    @widget = @canvas.widgets.new(:content_type => params[:content_type], :page => @page) 
-    
+
+	  authorize! :manage, @widget
+
+    @widget = @canvas.widgets.new(:content_type => params[:content_type], :page => @page)
+
     render :layout => 'empty'
   end
 
@@ -54,6 +58,8 @@ class WidgetsController < ApplicationController
     @widget = Widget.find(params[:id])
     @page = @widget.page
     @canvas = @widget.canvas
+
+	  authorize! :manage, @widget
     
     render :layout => 'empty'
   end
@@ -70,6 +76,8 @@ class WidgetsController < ApplicationController
     
     @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas))
     
+	  authorize! :manage, @widget
+		
     if page
 		  @widget.position_last_on_page
 	  end
@@ -104,6 +112,9 @@ class WidgetsController < ApplicationController
   # PUT /widgets/:id
   def update
     @widget = Widget.find(params[:id])
+
+	  authorize! :manage, @widget
+
     if @widget.update_attributes(params[:widget])
       head :ok
     else
@@ -136,6 +147,9 @@ class WidgetsController < ApplicationController
   # DELETE /widgets/:id
   def destroy
     widget = Widget.find(params[:id])
+
+	  authorize! :manage, widget
+
     widget.remove_page_position
     widget.destroy
     head :ok
