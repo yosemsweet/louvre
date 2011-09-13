@@ -36,4 +36,8 @@ class Canvas < ActiveRecord::Base
 		self.creator.set_canvas_role(self, :owner) unless self.creator.nil?
 	end
 
+  def closed?
+    false
+  end
+
 end

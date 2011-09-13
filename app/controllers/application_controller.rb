@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   
   before_filter :initialize_mixpanel
   
+  rescue_from CanCan::AccessDenied do |exception|
+    render :status => :forbidden, :text => "You don't have permissions for that action. #{exception}"
+  end
+  
   add_breadcrumb "Home", :root_path
 
   def require_login

@@ -10,18 +10,23 @@ class PagesController < ApplicationController
   end
 
   def show
+    authorize! :read, @page
+    
     @widgets = Widget.for_page(@page.id)
-
     add_page_breadcrumb(@page)
   end
 
   def edit
+    authorize! :update, @page
+    
     # Create a blank widget for each widget type.
     @new_widgets = {
       :text_widget => Widget.new(:content_type => "text_content", :page => @page),
       :image_widget => Widget.new(:content_type => "image_content", :page => @page)
     }
 		add_breadcrumb "Edit '#{@page.title}'", edit_canvas_page_path(@page.canvas, @page)
+		
+    
   end
 
   def versions
@@ -29,7 +34,10 @@ class PagesController < ApplicationController
   end
 
   def new
+    
     canvas = Canvas.find(params[:canvas_id])
+    authorize! :create, Page.new(:canvas => canvas)
+    
     @page = Page.new
     @page.canvas = canvas
 		
@@ -39,6 +47,8 @@ class PagesController < ApplicationController
   
   def create
     canvas = Canvas.find(params[:canvas_id])
+    authorize! :create, Page.new(:canvas => canvas)
+
     @page = canvas.pages.new(params[:page])
 		@page.creator = current_user
 
@@ -50,7 +60,9 @@ class PagesController < ApplicationController
   end
 
   def update
-		@page = Page.find(params[:id])
+		@page =   Page.find(params[:id])
+		authorize! :update, @page
+		
     if @page.update_attributes(params[:page])
       redirect_to(canvas_page_path(@page.canvas, @page), :notice => 'Page was successfully updated.')
     else
@@ -60,6 +72,8 @@ class PagesController < ApplicationController
 
   def destroy
     @page = Page.find(params[:id])
+    authorize! :destroy, @page
+    
     @page.destroy
     redirect_to(canvas_path(@page.canvas))
   end
