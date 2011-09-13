@@ -19,7 +19,7 @@ gem "cancan"
 group :development, :test do
   gem "factory_girl_rails", :require => false
   gem "rails3-generators"
-  gem "rspec-rails"
+  gem "rspec-rails", '~>2.6'
   gem "ruby-debug19"
   gem 'spork', '>=0.9.0.rc7'
   gem 'guard'
@@ -27,8 +27,10 @@ group :development, :test do
   gem 'growl'
   gem 'guard-rspec'
   gem 'guard-cucumber'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', '~>1.0'
+  gem 'cucumber', '~>1.0'
   gem "rb-fsevent"
+  gem 'sauce'
 end
 
 group :test do
@@ -41,5 +43,3 @@ end
 group :production do
   gem 'pg'  
 end
-gem 'sauce'
-gem 'rspec-rails'

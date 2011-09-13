@@ -63,14 +63,16 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
-    cucumber (1.0.2)
+    cucumber (1.0.5)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.2)
-      gherkin (~> 2.4.5)
+      gherkin (~> 2.4.18)
       json (>= 1.4.6)
-      term-ansicolor (>= 1.0.5)
-    cucumber-rails (0.3.2)
-      cucumber (>= 0.8.0)
+      term-ansicolor (>= 1.0.6)
+    cucumber-rails (1.0.2)
+      capybara (>= 1.0.0)
+      cucumber (~> 1.0.0)
+      nokogiri (>= 1.4.6)
     database_cleaner (0.6.7)
     diff-lcs (1.1.3)
     engineyard (1.3.20)
@@ -283,7 +285,8 @@ DEPENDENCIES
   capybara
   capybara-webkit!
   compass
-  cucumber-rails
+  cucumber (~> 1.0)
+  cucumber-rails (~> 1.0)
   database_cleaner
   engineyard
   factory_girl_rails
@@ -304,7 +307,7 @@ DEPENDENCIES
   rails (= 3.0.9)
   rails3-generators
   rb-fsevent
-  rspec-rails
+  rspec-rails (~> 2.6)
   ruby-debug19
   sauce
   spork (>= 0.9.0.rc7)
