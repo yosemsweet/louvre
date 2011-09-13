@@ -66,7 +66,7 @@ describe CanvaeController do
 		
 	end
 	
-	describe "Post update" do
+	describe "Put update" do
 	
 		context "logged in" do
 		
@@ -121,11 +121,10 @@ describe CanvaeController do
 				end
 				
 				describe "with valid params" do    
-					
-	     	 it "returns a 403 code" do
+					it "returns a 403 code" do
 		        results = put :update, 
 							:id => canvas.id,
-		          :canvas => {
+		          	:canvas => {
 									:name => canvas.name, 
 									:mission => canvas.mission, 
 									:image => canvas.image,
@@ -141,21 +140,91 @@ describe CanvaeController do
 		
 		context "logged out" do
 		  before (:each) do
-				@user = Factory.build(:user)
+				@user = Factory.create(:user)
 		    controller.stubs(:current_user).returns(nil)
 		   end
 			
 		 	describe "with valid params" do
-	      let(:canvas) { Factory.build(:canvas) }
+	      let(:canvas) { Factory.create(:canvas) }
      
 	      it "redirects to login page" do
-					results = post :create, 
+					results = put :update, 
+						:id => canvas.id,
 						:canvas => {
 							:name => canvas.name, 
 							:mission => canvas.mission, 
 							:image => canvas.image,
 							:open => canvas.open
 						}
+
+	        response.location.should include("auth/")
+	      end
+	    end
+		end
+		
+	end
+	
+	describe "DELETE delete" do
+	
+		context "logged in" do
+		
+			let(:canvas) { Factory.create(:canvas) }
+			
+			context "with permissions" do
+				before(:each) do
+					@user = Factory.create(:user)
+			    controller.stubs(:current_user).returns(@user)
+					@user.set_canvas_role(canvas, :owner)
+				end
+				
+			 	describe "with valid params" do
+		      
+		      it "deletes the canvas" do
+						results = delete :destroy, :id => canvas.id
+						
+						assigns(:canvas).should be_destroyed
+		      end
+     
+		      it "redirects to homepage" do
+		        results = delete :destroy, :id => canvas.id
+							
+		        response.location.should ==(root_url)
+		      end
+		    end
+		
+		
+			end
+			
+			context "without permissions" do
+				before(:each) do
+					@user = Factory.create(:user)
+			    controller.stubs(:current_user).returns(@user)
+					@user.set_canvas_role(canvas, :member)
+				end
+				
+				describe "with valid params" do    
+					
+	     	 it "returns a 403 code" do
+		        results = delete :destroy, :id => canvas.id
+						
+						results.status.should == 403
+		      end
+	    	end
+			end
+		
+		end
+		
+		context "logged out" do
+		  before (:each) do
+				@user = Factory.create(:user)
+		    controller.stubs(:current_user).returns(nil)
+		   end
+			
+		 	describe "with valid params" do
+	      let(:canvas) { Factory.create(:canvas) }
+     
+	      it "redirects to login page" do
+					results = delete :destroy, :id => canvas.id
 
 	        response.location.should include("auth/")
 	      end
