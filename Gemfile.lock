@@ -283,8 +283,7 @@ DEPENDENCIES
   capybara
   capybara-webkit!
   compass
-  cucumber (= 1.0.2)
-  cucumber-rails (= 0.3.2)
+  cucumber-rails
   database_cleaner
   engineyard
   factory_girl_rails
