@@ -128,6 +128,9 @@ $icon-size: 32px;
 .widget.presentation_widget .body{
 }
 
+.edit_content {
+	background-color: #fff;
+}
 
 $canvas-feed-height: 200px;
 .widget.canvas_feed_widget {
@@ -138,6 +141,7 @@ $canvas-feed-height: 200px;
 		.edit_content {
   	  @include box;
 			margin-left: 50px;
+			background-color: #fff;
 		}
   	.content {
   	  @include box;

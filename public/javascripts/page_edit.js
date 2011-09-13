@@ -49,6 +49,7 @@ $(document).ready(function(){
 	var reload_page_widgets = function(){
 	  $("ul#page").load("/widgets/for_page/" + request.page_id + "/editable/", function(){
 			reset_new_widget_forms(); 
+			make_textbox_list();
 		});
 	}
 
