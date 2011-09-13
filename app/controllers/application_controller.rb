@@ -42,8 +42,4 @@ class ApplicationController < ActionController::Base
     @mixpanel = Mixpanel::Tracker.new(MIXPANEL_CONFIG[:token], request.env, true)
   end
 
-  rescue_from CanCan::AccessDenied do |exception|
-    render :status => :forbidden, :text => "You don't have permissions for that action. #{exception}"
-  end
-
 end
