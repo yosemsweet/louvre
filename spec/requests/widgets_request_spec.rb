@@ -97,6 +97,10 @@ describe "Widgets Requests" do
       before(:each) do
         canvas = Factory.create(:canvas)
         widget = Factory.create(:widget, :canvas => canvas, :position => 1)
+
+		    # Stub the current_user method so it appears like a user is logged in.
+		    WidgetsController.any_instance.stubs(:current_user).returns(@user)
+				@user.set_canvas_role(canvas,:member)	
         delete "/widgets/#{widget.id}"
       end
       

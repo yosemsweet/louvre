@@ -50,7 +50,7 @@
 
 .span-20.last
   #inputs
-    - if can?(:update, @canvas)
+    - if can?(:create, Widget.new(:canvas => @canvas))
       %h2.bookmarklet
         Install Bookmarklet
 
@@ -65,7 +65,7 @@
         %a#bookmarklet{:href => "#", :style => "padding:10px 400px 10px 0"} 
           = "add to #{@canvas.name}"
 
-    - if can?(:update, @canvas)
+    - if can?(:create, Widget.new(:canvas => @canvas))
       %h2
         Add Content by Email
       %p
@@ -79,7 +79,7 @@
         = link_to "account settings page", edit_user_path
         
   %h2 Feed
-  - if can?(:update, @canvas)
+  - if can?(:create, Widget.new(:canvas => @canvas))
     #toolbar
       %a.add_widget{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
       %a.add_widget{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
