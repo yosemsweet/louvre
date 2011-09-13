@@ -244,7 +244,6 @@ describe "Widgets Requests" do
      describe "not logged in as a member" do
        before :each do
          @canvas = Factory.create(:canvas)
-         @user = Factory.create(:user)
          get "/canvae/#{@canvas.id}"
        end
   
@@ -265,17 +264,16 @@ describe "Widgets Requests" do
    
      end
  
-     describe "logged in as a member" do
-       before :each do
-         @canvas = Factory.create(:canvas)
-         @user = Factory.create(:user)
-         @user.set_canvas_role(@canvas,:member)
-         get "/canvae/#{@canvas.id}"
+		describe "logged in as a member" do
+    	before :each do
+				@canvas = Factory.create(:canvas)
+				@user.set_canvas_role(@canvas,:member)
+				# Stub the current_user method so it appears like a user is logged in.
+				CanvaeController.any_instance.stubs(:current_user).returns(@user)
+				get "/canvae/#{@canvas.id}"
        end
    
        it "should show bookmarklet link" do
-         puts @user.canvas_role( @canvas )
-         puts @user.canvas_role?(@canvas,:member)
          response.body.should include("id='bookmarklet'")
        end
  
@@ -290,6 +288,6 @@ describe "Widgets Requests" do
  
        it "should show the edit button on widget"
     end
-    end
+	end
 	
 end
