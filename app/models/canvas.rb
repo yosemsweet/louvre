@@ -21,4 +21,8 @@ class Canvas < ActiveRecord::Base
     return creator == owner
   end
 
+  def closed?
+    false
+  end
+
 end

@@ -5,12 +5,22 @@ class Ability
     # Define abilities for the passed in user here. For example:
     
     user ||= User.new # guest user (not logged in)
-    can :read, :all
-    can :manage, Canvas do |canvas|  
-      user.canvas_role?(canvas,:owner)
+    can :read, :all  
+    
+    can :manage, Page do |page| 
+       canvas = page.canvas
+      # Only members can manage pages of closed canvases.
+      if canvas.closed?
+        user.canvas_role?(canvas, :member)
+      # Any logged in users can manage pages of open canvases.
+      else
+        user.canvas_role?(canvas, :user)
+      end
     end
     
-        
+    can :manage, Canvas do |canvas|  
+      user.canvas_role?(canvas,:owner)
+    end    
     
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are

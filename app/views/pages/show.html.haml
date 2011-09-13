@@ -13,7 +13,8 @@
     %ul#presentation_page{:style => "padding-left:0px;"}
       = render :partial => "widgets/presentation", :collection => @widgets, :as => :widget
 
-    = link_to 'Edit', edit_canvas_page_path(@page.canvas, @page)
+    - if can? :edit, @page
+      = link_to 'Edit', edit_canvas_page_path(@page.canvas, @page)
     
     - if current_user
       \|
@@ -24,6 +25,11 @@
   
 
 .span-8.last
+  
+  - if cannot? :edit, @page
+    %p 
+      %a{href: "#"} Join 
+      this community to edit pages.
 
   - if current_user
     %a#follow{:href => "#", :style => hidden_if(current_user.following?(@page))}

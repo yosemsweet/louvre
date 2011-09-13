@@ -3,6 +3,15 @@ class ApplicationController < ActionController::Base
   
   before_filter :initialize_mixpanel
   
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = exception.message
+    if params[:canvas_id]
+      redirect_to canvas_path(params[:canvas_id])
+    else
+      redirect_to root_url  
+    end
+  end
+  
   add_breadcrumb "Home", :root_path
 
   def require_login
