@@ -4,7 +4,7 @@ I want to add content to my canvas input stream via bookmarklets
 so that I can share interesting information with my friends
 
 @sauce
-@wip
+@blocked
 Scenario: Use bookmarklet brings up add link dialog
 # Given I am on "the homepage"
 # And I have a canvas bookmarklet

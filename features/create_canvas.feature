@@ -33,7 +33,6 @@ Scenario: Create a new canvae - authenticated
   Then I should be on "the New Canvas page"
   
 @omniauth_test
-@wip
 Scenario: Make canvas closed
   Given I am creating a canvas
   When I specify the canvas should be "closed"
