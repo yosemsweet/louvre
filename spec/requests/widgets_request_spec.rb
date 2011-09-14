@@ -4,109 +4,190 @@ describe "Widgets Requests" do
   
   before(:each) do
     @user = Factory.create(:user)
-    # Stub the current_user method so it appears like a user is logged in.
     WidgetsController.any_instance.stubs(:current_user).returns(@user)
   end
   
   describe "POST /widgets/[widget_id]/copy_to_page/[page_id]" do
     
     context "non question widget" do
+	
+			context "user is a member" do
+	      before(:each) do
+	        canvas = Factory.create(:canvas)
+	        @page = Factory.create(:page)  
+	        @widget = Factory.create(:text_widget, :canvas => canvas, :page_id => nil, :text => "Happy Feet")
+					@user.set_canvas_role(canvas,:member)
+	        post "/widgets/#{@widget.id}/copy_to_page/#{@page.id}", :position => 1
+	        @latest_widget = Widget.last
+	      end
     
-      before(:each) do
-        canvas = Factory.create(:canvas)
-        @page = Factory.create(:page)  
-        @widget = Factory.create(:text_widget, :canvas => canvas, :page_id => nil, :text => "Happy Feet")
-        post "/widgets/#{@widget.id}/copy_to_page/#{@page.id}", :position => 1
-        @latest_widget = Widget.last
-      end
+	      it "should create a new widget" do
+	        Widget.all.length.should == 2
+	        @latest_widget.id.should_not == @widget.id
+	      end
     
-      it "should create a new widget" do
-        Widget.all.length.should == 2
-        @latest_widget.id.should_not == @widget.id
-      end
-    
-      it "should copy the cloned widget's content" do
-        @latest_widget.text.should == @widget.text
-      end
+	      it "should copy the cloned widget's content" do
+	        @latest_widget.text.should == @widget.text
+	      end
       
-      it "should set the new widget's page" do
-        @latest_widget.page_id.should == @page.id
-      end
+	      it "should set the new widget's page" do
+	        @latest_widget.page_id.should == @page.id
+	      end
     
-      it "should set the new widget's position" do
-        @latest_widget.position.should == 1
-      end
-    
-    end
+	      it "should set the new widget's position" do
+	        @latest_widget.position.should == 1
+	      end
+	    end
+
+			context "user is not a member" do
+	      before(:each) do
+	        canvas = Factory.create(:canvas)
+	        @page = Factory.create(:page)  
+	        @widget = Factory.create(:text_widget, :canvas => canvas, :page_id => nil, :text => "Happy Feet")
+	        post "/widgets/#{@widget.id}/copy_to_page/#{@page.id}", :position => 1
+	        @latest_widget = Widget.last
+	      end
+	
+	      it "should return 403" do
+	        response.status.should == 403
+	      end
+			end
+
+		end
     
     context "question widget" do
-      before(:each) do
-        canvas = Factory.create(:canvas)      
-        @widget = Factory.create(:question_widget, :canvas => canvas, :page_id => nil)
-        Widget.any_instance.stubs(:comments).returns(["first comment", "second comment"])
-        @page = Factory.create(:page, :canvas => canvas)
-        post "/widgets/#{@widget.id}/copy_to_page/#{@page.id}", :position => 1 
-      end
+	
+			context "user is a member" do
+	      before(:each) do
+	        canvas = Factory.create(:canvas)      
+	        @widget = Factory.create(:question_widget, :canvas => canvas, :page_id => nil)
+	        Widget.any_instance.stubs(:comments).returns(["first comment", "second comment"])
+	        @page = Factory.create(:page, :canvas => canvas)
+					@user.set_canvas_role(canvas,:member)
+	        post "/widgets/#{@widget.id}/copy_to_page/#{@page.id}", :position => 1 
+	      end
       
-      it "should include the comments in the answer" do
-        answer = @page.widgets.first.answer
-        answer.should include("first comment")
-        answer.should include("second comment")
-      end
+	      it "should include the comments in the answer" do
+	        answer = @page.widgets.first.answer
+	        answer.should include("first comment")
+	        answer.should include("second comment")
+	      end
+			end
+
+			context "user is not a member" do
+	      before(:each) do
+	        canvas = Factory.create(:canvas)      
+	        @widget = Factory.create(:question_widget, :canvas => canvas, :page_id => nil)
+	        Widget.any_instance.stubs(:comments).returns(["first comment", "second comment"])
+	        @page = Factory.create(:page, :canvas => canvas)
+	        post "/widgets/#{@widget.id}/copy_to_page/#{@page.id}", :position => 1
+	      end
+
+	      it "should return 403" do
+	        response.status.should == 403
+	      end
+			end
+			
     end
   end
  
   describe "POST /widgets/create_via_email/" do
     
-    before(:each) do
-      @canvas = Factory.create(:canvas)
-      email = Factory.create(:email, :user_id => @user.id)
-    end
+		context "user is a member" do
+	    before(:each) do
+	      @canvas = Factory.create(:canvas)
+	      email = Factory.create(:email, :user_id => @user.id)
+				@user.set_canvas_role(@canvas,:member)
+		    post "/widgets/create_via_email/",
+		        :to => @canvas.id.to_s + '@feed.loorp.com', :from => @user.emails.first.address, :text => 'This is the content of the email'
+	    end
     
-    it "should create a new widget" do
-      post "/widgets/create_via_email/",
-        :to => @canvas.id.to_s + '@feed.loorp.com', :from => @user.emails.first.address, :text => 'This is the content of the email'
-      Widget.last.text.should == 'This is the content of the email'
-      response.status.should == 201
-    end
+	    it "should create a new widget" do
+	      Widget.last.text.should == 'This is the content of the email'
+	      response.status.should == 201
+	    end
+		end
     
+		context "user is not a member" do
+      before(:each) do
+	      @canvas = Factory.create(:canvas)
+	      email = Factory.create(:email, :user_id => @user.id)
+		    post "/widgets/create_via_email/",
+		        :to => @canvas.id.to_s + '@feed.loorp.com', :from => @user.emails.first.address, :text => 'This is the content of the email'
+      end
+
+      it "should not succeed" do
+        response.status.should_not == 201
+      end
+		end
+
   end
   
     describe "PUT /widgets/[widget_id]/move/[position]" do
       
-      before(:each) do
-        canvas = Factory.create(:canvas)
-        p = Factory.create(:page)  
-        @w1 = Factory.create(:widget, :canvas => canvas, :page_id => p.id, :position => 1)
-        @w2 = Factory.create(:widget, :canvas => canvas, :page_id => p.id, :position => 2)
-        put "/widgets/#{@w2.id}/move/1"
-      end
+			context "user is a member" do
+	      before(:each) do
+	        canvas = Factory.create(:canvas)
+	        p = Factory.create(:page)  
+	        @w1 = Factory.create(:widget, :canvas => canvas, :page_id => p.id, :position => 1)
+	        @w2 = Factory.create(:widget, :canvas => canvas, :page_id => p.id, :position => 2)
+					@user.set_canvas_role(canvas,:member)
+	        put "/widgets/#{@w2.id}/move/1"
+	      end
       
-      it "should update the widget's position" do
-        @w2.reload.position.should == 1
-      end
+	      it "should update the widget's position" do
+	        @w2.reload.position.should == 1
+	      end
       
-      it "should update the position of other widgets on the page appropriately" do
-        @w1.reload.position.should == 2
+	      it "should update the position of other widgets on the page appropriately" do
+	        @w1.reload.position.should == 2
+	      end
       end
-      
+
+			context "user is not a member" do
+	      before(:each) do
+	        canvas = Factory.create(:canvas)
+	        p = Factory.create(:page)  
+	        @w1 = Factory.create(:widget, :canvas => canvas, :page_id => p.id, :position => 1)
+	        @w2 = Factory.create(:widget, :canvas => canvas, :page_id => p.id, :position => 2)
+	        put "/widgets/#{@w2.id}/move/1"
+	      end
+
+	      it "should return 403" do
+	        response.status.should == 403
+	      end
+			end
+
     end
     
     describe "DELETE /widgets/[widget_id]" do
-      
-      before(:each) do
-        canvas = Factory.create(:canvas)
-        widget = Factory.create(:widget, :canvas => canvas, :position => 1)
+	
+			context "user is member" do
+				before(:each) do
+	        canvas = Factory.create(:canvas)
+	        widget = Factory.create(:widget, :canvas => canvas, :position => 1)
+			    WidgetsController.any_instance.stubs(:current_user).returns(@user)
+					@user.set_canvas_role(canvas,:member)	
+	        delete "/widgets/#{widget.id}"
+	      end
 
-		    # Stub the current_user method so it appears like a user is logged in.
-		    WidgetsController.any_instance.stubs(:current_user).returns(@user)
-				@user.set_canvas_role(canvas,:member)	
-        delete "/widgets/#{widget.id}"
-      end
-      
-      it "should delete the widget" do
-        Widget.all.length.should == 0
-      end
+	      it "should delete the widget" do
+	        Widget.all.length.should == 0
+	      end
+			end
+			
+      context "user is not member" do
+				before(:each) do
+	        canvas = Factory.create(:canvas)
+	        widget = Factory.create(:widget, :canvas => canvas, :position => 1)
+			    WidgetsController.any_instance.stubs(:current_user).returns(@user)
+	        delete "/widgets/#{widget.id}"
+	      end
+
+	      it "should return 403" do
+	        response.status.should == 403
+	      end
+			end
       
     end
   
@@ -191,9 +272,7 @@ describe "Widgets Requests" do
           @tag = Factory.create(:tag, :name => "MyTag")
           @tagged_widget = Factory.create(:text_widget, :text => "Tagged", :canvas => @canvas, :page => nil)
           @untagged_widget = Factory.create(:text_widget, :text => "NoneOfEm", :canvas => @canvas, :page => nil)
-          
           @tagged_widget.tags << @tag
-          
           get "/widgets/for_canvas/#{@canvas.id}/canvas_feed", {:tag_names => @tag.name}
         end
         
@@ -223,25 +302,44 @@ describe "Widgets Requests" do
     
     
     describe "PUT /widgets/[widget_id]/remove_answer/[answer_id]" do
+	
+			context "user is a member" do
+				before :each do
+	        @answer = [
+	          { :message => "This is an answer.", :commenter => "Bob Dylan", :comment_date => 15.minutes.ago },
+	          { :message => "Another one.", :commenter => "James Dean", :comment_date => 7.hours.ago }
+	        ].to_json
+	        @widget = Factory.create(:question_widget, :answer => @answer)
+					@user.set_canvas_role(@widget.canvas,:member)
+	      end
+
+	      it "should work" do
+	        put "/widgets/#{@widget.id}/remove_answer/0"
+	        response.status.should be(200)
+	      end
+
+	      it "should remove the answer" do
+	        put "/widgets/#{@widget.id}/remove_answer/0"
+	        @widget.reload.answers.length.should == 1
+	        @widget.reload.answers.first["message"].should == "Another one."
+	      end
+			end
+		
+			context "user is not a member" do
+				before :each do
+	        @answer = [
+	          { :message => "This is an answer.", :commenter => "Bob Dylan", :comment_date => 15.minutes.ago },
+	          { :message => "Another one.", :commenter => "James Dean", :comment_date => 7.hours.ago }
+	        ].to_json
+	        @widget = Factory.create(:question_widget, :answer => @answer)
+			  end
+
+	      it "should not work" do
+	        put "/widgets/#{@widget.id}/remove_answer/0"
+	        response.status.should be(403)
+	      end
+			end
       
-      before :each do
-        @answer = [
-          { :message => "This is an answer.", :commenter => "Bob Dylan", :comment_date => 15.minutes.ago },
-          { :message => "Another one.", :commenter => "James Dean", :comment_date => 7.hours.ago }
-        ].to_json
-        @widget = Factory.create(:question_widget, :answer => @answer)
-      end
-      
-      it "should work" do
-        put "/widgets/#{@widget.id}/remove_answer/0"
-        response.status.should be(200)
-      end
-      
-      it "should remove the answer" do
-        put "/widgets/#{@widget.id}/remove_answer/0"
-        @widget.reload.answers.length.should == 1
-        @widget.reload.answers.first["message"].should == "Another one."
-      end
     end
     
     context "closed canvas" do
@@ -272,7 +370,6 @@ describe "Widgets Requests" do
     	before :each do
 				@canvas = Factory.create(:canvas)
 				@user.set_canvas_role(@canvas,:member)
-				# Stub the current_user method so it appears like a user is logged in.
 				CanvaeController.any_instance.stubs(:current_user).returns(@user)
 				get "/canvae/#{@canvas.id}"
        end
