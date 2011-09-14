@@ -1,4 +1,4 @@
 %ul#ban-list
   - @canvas.banned.each do |banned|
-    %li{:data => {:user => banned.user.id}}
+    %li.user{:data => {:user => banned.user.id}}
       = banned.user

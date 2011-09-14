@@ -232,4 +232,219 @@ describe CanvaeController do
 		end
 		
 	end
+	
+	describe "GET banned" do
+	
+		context "logged in" do
+		
+			let(:canvas) { Factory.create(:canvas) }
+			
+			context "with permissions" do
+				before(:each) do
+					@user = Factory.create(:user)
+			    controller.stubs(:current_user).returns(@user)
+					@user.set_canvas_role(canvas, :owner)
+				end
+				
+			 	describe "with valid params" do
+		      
+		      it "returns the canvas" do
+						results = get :banned,
+							:id => canvas.id
+							
+		        assigns(:canvas) == canvas
+		      end
+     
+		      it "returns a 200" do
+		        results = get :banned, 
+							:id => canvas.id
+							
+		        response.status.should == 200
+		      end
+		    end
+		
+		
+			end
+			
+			context "without permissions" do
+				before(:each) do
+					@user = Factory.create(:user)
+			    controller.stubs(:current_user).returns(@user)
+					@user.set_canvas_role(canvas, :member)
+				end
+				
+				describe "with valid params" do    
+					it "returns a 403 code" do
+		        results = get :banned, 
+							:id => canvas.id
+							
+						results.status.should == 403
+		      end
+	    	end
+			end
+		
+		end
+		
+		context "logged out" do
+		  before (:each) do
+				@user = Factory.create(:user)
+		    controller.stubs(:current_user).returns(nil)
+		   end
+			
+		 	describe "with valid params" do
+	      let(:canvas) { Factory.create(:canvas) }
+     
+	      it "redirects to login page" do
+					results = get :banned, 
+						:id => canvas.id
+
+	        response.location.should include("auth/")
+	      end
+	    end
+		end
+		
+	end
+	describe "GET banned" do
+	
+		context "logged in" do
+		
+			let(:canvas) { Factory.create(:canvas) }
+			
+			context "with permissions" do
+				before(:each) do
+					@user = Factory.create(:user)
+			    controller.stubs(:current_user).returns(@user)
+					@user.set_canvas_role(canvas, :owner)
+				end
+				
+			 	describe "with valid params" do
+		      
+		      it "returns the canvas" do
+						results = get :banned,
+							:id => canvas.id
+							
+		        assigns(:canvas) == canvas
+		      end
+     
+		      it "returns a 200" do
+		        results = get :banned, 
+							:id => canvas.id
+							
+		        response.status.should == 200
+		      end
+		    end
+		
+		
+			end
+			
+			context "without permissions" do
+				before(:each) do
+					@user = Factory.create(:user)
+			    controller.stubs(:current_user).returns(@user)
+					@user.set_canvas_role(canvas, :member)
+				end
+				
+				describe "with valid params" do    
+					it "returns a 403 code" do
+		        results = get :banned, 
+							:id => canvas.id
+							
+						results.status.should == 403
+		      end
+	    	end
+			end
+		
+		end
+		
+		context "logged out" do
+		  before (:each) do
+				@user = Factory.create(:user)
+		    controller.stubs(:current_user).returns(nil)
+		   end
+			
+		 	describe "with valid params" do
+	      let(:canvas) { Factory.create(:canvas) }
+     
+	      it "redirects to login page" do
+					results = get :banned, 
+						:id => canvas.id
+
+	        response.location.should include("auth/")
+	      end
+	    end
+		end
+		
+	end
+	
+	describe "GET members" do
+	
+		context "logged in" do
+		
+			let(:canvas) { Factory.create(:canvas) }
+			
+			context "with permissions" do
+				before(:each) do
+					@user = Factory.create(:user)
+			    controller.stubs(:current_user).returns(@user)
+					@user.set_canvas_role(canvas, :owner)
+				end
+				
+			 	describe "with valid params" do
+		      
+		      it "returns the canvas" do
+						results = get :members,
+							:id => canvas.id
+							
+		        assigns(:canvas) == canvas
+		      end
+     
+		      it "returns a 200" do
+		        results = get :members, 
+							:id => canvas.id
+							
+		        response.status.should == 200
+		      end
+		    end
+		
+		
+			end
+			
+			context "without permissions" do
+				before(:each) do
+					@user = Factory.create(:user)
+			    controller.stubs(:current_user).returns(@user)
+					@user.set_canvas_role(canvas, :member)
+				end
+				
+				describe "with valid params" do    
+					it "returns a 403 code" do
+		        results = get :members, 
+							:id => canvas.id
+							
+						results.status.should == 403
+		      end
+	    	end
+			end
+		
+		end
+		
+		context "logged out" do
+		  before (:each) do
+				@user = Factory.create(:user)
+		    controller.stubs(:current_user).returns(nil)
+		   end
+			
+		 	describe "with valid params" do
+	      let(:canvas) { Factory.create(:canvas) }
+     
+	      it "redirects to login page" do
+					results = get :members, 
+						:id => canvas.id
+
+	        response.location.should include("auth/")
+	      end
+	    end
+		end
+		
+	end
 end

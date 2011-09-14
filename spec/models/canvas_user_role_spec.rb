@@ -52,6 +52,20 @@ describe CanvasUserRole do
 				end
 			end
 		end
+
+		context "members" do
+			it "should exist" do
+				CanvasUserRole.should respond_to(:members)
+			end
+			
+			it "should return canvas_user_roles with the :members role" do
+				CanvasUserRole.members.should include(member_role)
+			end
+			
+			it "should not return any roles other than :banned" do
+				CanvasUserRole.members.where("role <> :role", :role => :member).should be_empty
+			end
+		end
 		
 	end
 	

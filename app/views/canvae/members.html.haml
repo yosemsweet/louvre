@@ -1,0 +1,5 @@
+%ul#member-list
+  - @canvas.members.each do |member|
+    %li.user{:data => {:user => member.user.id}}
+      = member.user
+      = link_to "ban", "#"

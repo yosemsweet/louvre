@@ -64,6 +64,11 @@ class CanvaeController < ApplicationController
     redirect_to(root_url)
   end
 
+ 	def members
+		@canvas = Canvas.find(params[:id])
+		authorize! :update, @canvas
+  end
+
  	def banned
 		@canvas = Canvas.find(params[:id])
 		authorize! :update, @canvas

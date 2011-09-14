@@ -15,6 +15,7 @@ Louvre::Application.routes.draw do
   resources :canvae do
 		member do 
 			get 'banned' => "canvae#banned"
+			get 'members' => "canvae#members"
 		end
     resource :canvas_follow
 		resources :pages do

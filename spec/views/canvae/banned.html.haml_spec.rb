@@ -21,6 +21,14 @@ describe "canvae/banned.html.haml" do
 				render
 				rendered.should have_selector('#ban-list')
 			end
+			
+			it "contains all banned users each identified with data-user and a user class" do
+				Factory.create(:user, :name=>"test member").set_canvas_role(@canvas, :banned)
+				render
+				@canvas.banned.each do |banned|
+					rendered.should have_selector("#ban-list .user[data-user='#{banned.user.id}']")
+				end
+			end
 		end
 	end
 end

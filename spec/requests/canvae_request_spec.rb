@@ -38,6 +38,24 @@ describe "Canvae Requests" do
 						
 					end
 				end
+				
+				describe "GET /canvae/:canvas_id/members" do
+					it "should return 200" do
+						get members_canvas_path(@canvas)
+						response.status.should == 200
+					end
+				
+					it "should list all members" do
+						Factory.create(:user).set_canvas_role(@canvas, :member)
+						get members_canvas_path(@canvas)
+						@canvas.members.should_not be_empty
+						
+						@canvas.members.each do |user_role|
+							response.body.should have_selector("#member-list .user[data-user='#{user_role.user.id}']")
+						end
+						
+					end
+				end
 			end
 			
 			context "without canvas owner role" do

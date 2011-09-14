@@ -190,6 +190,18 @@ describe Canvas do
 			end			
 		end
 		
+		context "#members" do
+			it "should exist" do
+				canvas.should respond_to(:members)
+			end
+			
+			it "should return all users with a member role" do
+				CanvasUserRole.members.where(:canvas_id => canvas.id).each do |canvas_user_role|
+					canvas.members.should include(canvas_user_role)
+				end
+			end
+		end
+		
 		context "#banned" do
 			it "should exist" do
 				canvas.should respond_to(:banned)

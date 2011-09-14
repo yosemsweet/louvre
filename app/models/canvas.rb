@@ -34,6 +34,10 @@ class Canvas < ActiveRecord::Base
 	def user_roles
 		canvas_user_roles.not_banned
 	end
+
+	def members
+		canvas_user_roles.members
+	end
 	
 	def banned
 		canvas_user_roles.banned
