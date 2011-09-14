@@ -12,13 +12,9 @@ Scenario: Homepage logo
 Scenario: Homepage title
     Then the page title should be "Loorp!"
     
-    
 Scenario: Show recent canvae
     Then I should see recent canvases
 
-
-Scenario: Create a new canvae
-  Then I should be able to create a new canvas
 
   
   

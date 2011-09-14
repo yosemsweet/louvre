@@ -9,3 +9,4 @@ end
 Then /^I should see recent canvases$/ do
   page.should have_css('#canvae')
 end
+
