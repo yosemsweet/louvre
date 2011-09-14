@@ -63,4 +63,12 @@ class CanvaeController < ApplicationController
     @canvas.destroy
     redirect_to(root_url)
   end
+  
+  def applicants
+    @canvas = Canvas.find(params[:id])
+		authorize! :read, CanvasApplicant.new(:canvas_id => @canvas.id)
+    @canvas_applicants = @canvas.canvas_applicants
+    @applicants = @canvas.applicants
+  end
+  
 end

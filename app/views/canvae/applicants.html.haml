@@ -1,0 +1,23 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag 'compiled/canvas.css', :media => 'screen, projection'
+
+%h1 Applicants
+
+%ul
+  - @canvas_applicants.each do |ca|
+    %li.applicant
+      .applicant_tools
+        %a.approve{:href=>"#"} Approve
+        %a.remove{:href=>"#"} Remove
+        %a.ban{:href=>"#"} Ban
+      .applicant_name= ca.applicant.name
+      .applicant_note= ca.note
+  
+:javascript
+  $(function(){
+    $(".approve").click(function(event){
+      event.preventDefault();
+      $(this).parents(".applicant").fadeOut();
+      
+    })
+  })

@@ -19,6 +19,9 @@ Louvre::Application.routes.draw do
         get 'versions'
 	    end
 	  end
+	  member do
+	    get 'applicants'
+    end
 	end
 
   match "/widgets/create_via_email"  => "widgets#create_via_email"

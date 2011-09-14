@@ -22,6 +22,10 @@ class Ability
       user.canvas_role?(canvas,:owner)
     end    
     
+    can :manage, CanvasApplicant do |canvas_applicant|  
+      user.canvas_role?(canvas_applicant.canvas,:owner)
+    end
+    
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
     # :read, :create, :update and :destroy.
