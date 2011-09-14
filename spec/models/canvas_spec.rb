@@ -16,6 +16,7 @@ describe Canvas do
 		it "should respond to open" do
 			canvas.should respond_to(:open)
 		end
+
 		
 	end
 	

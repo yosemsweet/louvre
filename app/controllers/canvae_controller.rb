@@ -73,4 +73,30 @@ class CanvaeController < ApplicationController
 		@canvas = Canvas.find(params[:id])
 		authorize! :update, @canvas
   end
+  
+  def applicants
+    @canvas = Canvas.find(params[:id])
+		authorize! :manage, CanvasApplicant.new(:canvas_id => @canvas.id)
+
+    @canvas_applicants = @canvas.canvas_applicants
+    @applicants = @canvas.applicants
+  end
+  
+  def members_create
+    @canvas = Canvas.find(params[:id])
+    authorize! :update, @canvas
+    @user = User.find(params[:user_id])
+    @canvas.canvas_applicants.where(:user_id => @user.id).delete_all
+    @user.set_canvas_role(@canvas, :member)
+    head :ok
+  end
+  
+  def applicants_delete
+    @canvas = Canvas.find(params[:id])
+    authorize! :update, @canvas
+    @user = User.find(params[:user_id])
+    @canvas.canvas_applicants.where(:user_id => @user.id).delete_all
+    head :ok
+  end
+
 end

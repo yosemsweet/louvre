@@ -30,6 +30,9 @@
     
     - if can?(:update, @canvas)
       = link_to 'Edit', edit_canvas_path(@canvas)  
+    %br
+    - if can?(:read, CanvasApplicant.new(:canvas_id => @canvas.id))
+      = link_to 'Applicants', applicants_canvas_path(@canvas)
     
   #pages
     %h2

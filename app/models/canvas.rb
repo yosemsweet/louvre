@@ -6,7 +6,9 @@ class Canvas < ActiveRecord::Base
   has_many :widgets
   has_many :canvas_follows
 	has_many :canvas_user_roles
-	
+  has_many :canvas_applicants
+  has_many :applicants, :through => :canvas_applicants
+
 	validates :name, :presence => true, :uniqueness => true
 	validates :mission, :presence => true
 	validates :creator, :presence => true

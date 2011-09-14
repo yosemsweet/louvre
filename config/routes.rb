@@ -23,7 +23,14 @@ Louvre::Application.routes.draw do
         get 'versions'
 	    end
 	  end
+	  member do
+	    get 'applicants'
+	    #delete 'applicants/:user_id' => "canvae#applicants_delete"
+	    post 'members' => "canvae#members_create"
+    end
+    
 	end
+  delete "/canvae/:id/applicants/:user_id" => "canvae#applicants_delete", :as => :applicants_delete
 
   match "/widgets/create_via_email"  => "widgets#create_via_email"
   resources :widgets do

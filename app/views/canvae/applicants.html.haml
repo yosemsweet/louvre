@@ -1,0 +1,34 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag 'compiled/canvas.css', :media => 'screen, projection'
+
+%h1 Applicants
+
+%ul
+  - @canvas_applicants.each do |ca|
+    %li.applicant
+      .applicant_tools
+        %a.approve{:href => "#", :data => {:user_id => ca.user_id} } Approve
+        %a.remove{:href => "#", :data => {:user_id => ca.user_id} } Disapprove
+      .applicant_name= ca.applicant.name
+      .applicant_note= ca.note
+  
+:javascript
+  $(function(){
+    $(".approve").click(function(event){
+      event.preventDefault();
+      var user_id = $(this).data('user_id');
+      
+      $(this).parents(".applicant").fadeOut();
+      $.post('/canvae/' + request.canvas_id + '/members', {user_id: user_id});
+    });
+    
+    $(".remove").click(function(event){
+      event.preventDefault();
+      var user_id = $(this).data('user_id');
+      
+      $(this).parents(".applicant").fadeOut();
+      $.post('/canvae/' + request.canvas_id + '/applicants/' + user_id, {_method: "DELETE"});
+      
+    });
+    
+  })
