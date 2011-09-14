@@ -13,6 +13,9 @@ Louvre::Application.routes.draw do
   match "/users/edit/" => "users#edit", :as => :edit_user
   
   resources :canvae do
+		member do 
+			get 'banned' => "canvae#banned"
+		end
     resource :canvas_follow
 		resources :pages do
 		  member do

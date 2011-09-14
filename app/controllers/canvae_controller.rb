@@ -63,4 +63,9 @@ class CanvaeController < ApplicationController
     @canvas.destroy
     redirect_to(root_url)
   end
+
+ 	def banned
+		@canvas = Canvas.find(params[:id])
+		authorize! :update, @canvas
+  end
 end

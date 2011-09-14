@@ -169,6 +169,40 @@ describe Canvas do
 	
 	end
 	
+	context "community management" do
+		let(:canvas) { Factory.create(:canvas) }
+		
+		before(:each) do
+			Factory.create(:user).set_canvas_role(canvas, :owner)
+			Factory.create(:user).set_canvas_role(canvas, :member)
+			Factory.create(:user).set_canvas_role(canvas, :banned)
+		end
+		
+		context "#user_roles" do
+			it "should exist" do
+				canvas.should respond_to(:user_roles)
+			end
+			
+			it "should include all users who have an explicit role on this canvas that aren't banned" do
+				CanvasUserRole.not_banned.where(:canvas_id => canvas.id).each do |canvas_user_role|
+					canvas.user_roles.should include(canvas_user_role)
+				end
+			end			
+		end
+		
+		context "#banned" do
+			it "should exist" do
+				canvas.should respond_to(:banned)
+			end
+			
+			it "should return all banned users" do
+				CanvasUserRole.banned.where(:canvas_id => canvas.id).each do |canvas_user_role|
+					canvas.banned.should include(canvas_user_role)
+				end
+			end
+		end
+	end
+	
 	context "after_validation callbacks" do
 		context "on create" do
 			it "should add a canvas owner role for the new creator" do

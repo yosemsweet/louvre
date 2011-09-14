@@ -37,6 +37,11 @@ module NavigationHelpers
 		when /that canvas' homepage/
 		  canvas = Canvas.last
 		  canvas_path(canvas)
+		
+		when /that canvas' ban management page/
+			canvas = Canvas.last
+			banned_canvas_path(canvas)
+			
 
 		when /that widget's page/
 		  widget = Widget.last

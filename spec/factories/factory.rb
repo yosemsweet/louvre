@@ -71,5 +71,11 @@ FactoryGirl.define do
   factory :tag do
     name "TagName"
   end
+
+	factory :canvas_user_role do
+		user
+		canvas
+		role :member 
+	end
   
 end

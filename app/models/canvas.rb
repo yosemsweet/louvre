@@ -5,7 +5,8 @@ class Canvas < ActiveRecord::Base
 	has_many :pages
   has_many :widgets
   has_many :canvas_follows
-  
+	has_many :canvas_user_roles
+	
 	validates :name, :presence => true, :uniqueness => true
 	validates :mission, :presence => true
 	validates :creator, :presence => true
@@ -28,6 +29,14 @@ class Canvas < ActiveRecord::Base
 	
 	def closed?
 		!open?
+	end
+	
+	def user_roles
+		canvas_user_roles.not_banned
+	end
+	
+	def banned
+		canvas_user_roles.banned
 	end
 	
 	private
