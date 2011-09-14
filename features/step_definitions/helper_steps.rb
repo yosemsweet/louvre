@@ -73,6 +73,3 @@ Then /take a snapshot(| and show me the page)/ do |show_me|
   Then %{show me the page} if show_me.present?
 end
 
-Given /^I am a member of that canvas$/ do
-	current_user.set_canvas_role(Canvas.last, :member)
-end
