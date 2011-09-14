@@ -29,7 +29,7 @@ class Ability
     end
 		
     can :manage, Canvas do |canvas|  
-      user.canvas_role?(canvas,:member)
+      user.canvas_role?(canvas,:owner)
     end    
 		
     # The first argument to `can` is the action you are giving the user permission to do.
