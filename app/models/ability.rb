@@ -8,14 +8,15 @@ class Ability
     can :read, :all  
     
     can :manage, Page do |page| 
-       canvas = page.canvas
-      # Only members can manage pages of closed canvases.
-      if canvas.closed?
-        user.canvas_role?(canvas, :member)
-      # Any logged in users can manage pages of open canvases.
-      else
-        user.canvas_role?(canvas, :user)
-      end
+      user.canvas_role?(page.canvas, :member)
+      #  canvas = page.canvas
+      # # Only members can manage pages of closed canvases.
+      # if canvas.closed?
+      #   user.canvas_role?(canvas, :member)
+      # # Any logged in users can manage pages of open canvases.
+      # else
+      #   user.canvas_role?(canvas, :user)
+      # end
     end
     
     can :manage, Canvas do |canvas|  

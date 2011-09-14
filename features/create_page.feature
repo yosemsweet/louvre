@@ -7,6 +7,7 @@ Background:
 Given I am "Gill"
 And I am authenticated
 And there is a canvas
+And I am a member of that canvas
 
 @omniauth_test
 Scenario: Start Create Page - authenticated
