@@ -17,6 +17,8 @@ describe WidgetsController do
 	        end
         
 	        it "returns a success code" do
+						widget.creator.set_canvas_role(widget.canvas,:member)
+				    WidgetsController.any_instance.stubs(:current_user).returns(widget.creator)
 	          results = post :create, 
 	            :widget => {:text => widget.text, :creator_id => widget.creator.id,  :content_type => widget.content_type}, 
 	            :format => 'json', 
@@ -40,6 +42,8 @@ describe WidgetsController do
 		        end
 
 		        it "returns a success code" do
+							widget.creator.set_canvas_role(widget.canvas,:member)
+					    WidgetsController.any_instance.stubs(:current_user).returns(widget.creator)
 		          results = post :create, 
 								:widget => {:image => widget.image, :alt_text => widget.alt_text, :creator_id => widget.creator.id, :content_type => widget.content_type}, 
 		            :format => 'json', 
@@ -63,6 +67,8 @@ describe WidgetsController do
 		      end
      
 		      it "returns an error code" do
+						widget.creator.set_canvas_role(widget.canvas,:member)
+				    WidgetsController.any_instance.stubs(:current_user).returns(widget.creator)
 		        results = post :create, 
 		          :widget => {:creator_id => widget.creator.id,  :content_type => widget.content_type}, 
 		          :format => 'json', 
