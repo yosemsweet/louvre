@@ -9,7 +9,6 @@ class WidgetsController < ApplicationController
   
   # GET /widgets/for_canvas/:canvas_id/:display
   def for_canvas
-    
     @widgets = Widget.for_canvas(params[:canvas_id], params[:start])
     
     if params[:tag_names].present?
@@ -94,6 +93,8 @@ class WidgetsController < ApplicationController
   def copy_to_page
 		widget = Widget.find(params[:id])
 		
+		authorize! :manage, widget
+		
 		cloned_widget = widget.clone
 		cloned_widget.page_id = params[:page_id]
 		
@@ -127,6 +128,8 @@ class WidgetsController < ApplicationController
   def move
 		widget = Widget.find(params[:id])
 		
+		authorize! :manage, widget
+		
 		if widget.update_position(params[:position])
 			head :ok
 		else
@@ -137,6 +140,9 @@ class WidgetsController < ApplicationController
   # PUT /widgets/:id/remove_answer/:answer_id
   def remove_answer
     widget = Widget.find(params[:id])
+
+		authorize! :manage, widget
+		
     new_answers = widget.answers
     new_answers.delete_at(params[:answer_id].to_i) 
     widget.update_attributes(:answer => new_answers.to_json)
@@ -162,10 +168,13 @@ class WidgetsController < ApplicationController
     
     canvas_id = params['to'].split('@').first
     user = User.find_by_email(email)
-    
-    if user
+    widget = Widget.new(:canvas_id => canvas_id)
+
+    if user && can?(:manage, widget)
       
       widget = Widget.new(:canvas_id => canvas_id, :creator_id => user.id, :content_type => 'text_content', :text => params['text'])
+
+			authorize! :manage, widget
 
       if widget.save
         @mixpanel.track_event("Widget Created via Email", {:user_id => user.id, :name_tag => user.name, :canvas_id => canvas_id})

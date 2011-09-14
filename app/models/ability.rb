@@ -19,12 +19,7 @@ class Ability
     end
 		
     can :manage, Widget do |widget| 
-       canvas = widget.canvas
-      if canvas.closed?
-        user.canvas_role?(canvas, :member)
-      else
-        user.canvas_role?(canvas, :user)
-      end
+      user.canvas_role?(widget.canvas, :member)
     end
 		
     can :manage, Canvas do |canvas|  
