@@ -19,10 +19,20 @@ Given /^I have banned "([^"]*)"$/ do |user|
 	User.where(:name => user).first.set_canvas_role(Canvas.last, :banned)
 end
 
-Then /^I should see a ban link for "([^"]*)"$/ do |name|
+When /^I follow the (.*) link for "([^"]*)"$/ do |action, name|
 	user = User.where(:name => name).first
-	within("#member-list .user[data-user='#{user.id}']") do		
-		should have_link("ban")
+	within(".user[data-user_id='#{user.id}']") do
+		click_link(action)
 	end
 end
 
+Then /^I should see a ban link for "([^"]*)"$/ do |name|
+	user = User.where(:name => name).first
+	
+	page.should have_selector("li.user[data-user_id='#{user.id}'] a.ban")
+end
+
+Then /^"([^"]*)" should be banned$/ do |name|
+  user = User.where(:name => name).first
+	user.canvas_role(Canvas.last).should == :banned
+end

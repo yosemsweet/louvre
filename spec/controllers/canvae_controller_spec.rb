@@ -304,7 +304,8 @@ describe CanvaeController do
 		end
 		
 	end
-	describe "GET banned" do
+	
+	describe "POST banned_create" do
 	
 		context "logged in" do
 		
@@ -315,23 +316,48 @@ describe CanvaeController do
 					@user = Factory.create(:user)
 			    controller.stubs(:current_user).returns(@user)
 					@user.set_canvas_role(canvas, :owner)
+					@member = Factory.create(:user, :name => "member")
+					@member.set_canvas_role(canvas, :member)
 				end
 				
 			 	describe "with valid params" do
 		      
-		      it "returns the canvas" do
-						results = get :banned,
-							:id => canvas.id
+		      it "give member a banned role for canvas" do
+						results = post :banned_create,
+							:id => canvas.id,
+							:user_id => @member.id
 							
-		        assigns(:canvas) == canvas
+						@member.canvas_role(canvas).should == :banned
 		      end
      
 		      it "returns a 200" do
-		        results = get :banned, 
-							:id => canvas.id
+		        results = post :banned, 
+							:id => canvas.id,
+							:user_id => @member.id
 							
 		        response.status.should == 200
 		      end
+		    end
+		
+				describe "with invalid params" do
+
+		      it "should return a bad request if user doesn't exist" do
+						results = post :banned_create,
+							:id => canvas.id,
+							:user_id => User.last.id + 1
+
+							response.status.should == 400
+		      end
+		
+		      it "should return a forbidden if user is canvas owner" do
+						results = post :banned_create,
+							:id => canvas.id,
+							:user_id => @user.id
+
+							response.status.should == 403
+		      end
+
+		      
 		    end
 		
 		

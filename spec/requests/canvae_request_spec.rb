@@ -39,6 +39,19 @@ describe "Canvae Requests" do
 					end
 				end
 				
+				describe "POST /canvae/:canvas_id/banned/" do
+					before(:each) do
+						@owner = Factory.create(:user).set_canvas_role(@canvas, :owner).user					
+						@member = Factory.create(:user).set_canvas_role(@canvas, :member).user
+						@banned = Factory.create(:user).set_canvas_role(@canvas, :banned).user
+					end
+					
+					it "should should add banned roler to user for canvas" do
+						post banned_canvas_path(@canvas), :user_id => @member.id
+						@member.canvas_role(@canvas).should == :banned
+					end
+				end
+				
 				describe "GET /canvae/:canvas_id/members" do
 					it "should return 200" do
 						get members_canvas_path(@canvas)
@@ -51,7 +64,7 @@ describe "Canvae Requests" do
 						@canvas.members.should_not be_empty
 						
 						@canvas.members.each do |user_role|
-							response.body.should have_selector("#member-list .user[data-user='#{user_role.user.id}']")
+							response.body.should have_selector("#member-list .user[data-user_id='#{user_role.user.id}']")
 						end
 						
 					end

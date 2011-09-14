@@ -12,6 +12,14 @@ describe Role do
         end
       end
     end
+
+	  context "compared with a role" do
+      context "that is the same as this role" do
+        it "should return true" do
+          (left == Role.new(:user)).should be_true
+        end
+      end
+    end
   end
   
   describe "#<=>" do
@@ -20,6 +28,7 @@ describe Role do
         # Make these the actual object.
         @role = Role.new("visitor")
         @roles_to_compare = [
+					:banned,
           :visitor,
           :user,
           :member,
