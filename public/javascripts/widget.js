@@ -79,14 +79,13 @@ $(document).ready(function(){
 		
 		for(var i=0; i < form_elements.length ; i++){
 			var element = form_elements[i];
-			if(element.name.trim() !== "" && element.name !== "widget[tag_ids]"){
+			if(element.name.trim() !== "" && element.name !== "widget[tag_names]"){
 				// Require the field to be filled out.
 				if(element.value.trim() === ""){
 					is_valid = false;
 				}
 			}
 		}
-		
 		if(is_valid){
 			// On success
 			$(".add_widget").removeClass("active");
@@ -102,8 +101,7 @@ $(document).ready(function(){
 				update_after_edit();
 			});	
 		} else {
-			
-			$("#flash").html("<div class='error'>Form inputs are input. Please check your form and try again.</div>").show();
+			$("#flash").html("<div class='error'>Form inputs are invalid. Please check your form and try again.</div>").show();
 			
 			setTimeout(function(){$('#flash').fadeOut('slow')}, 2000);
 		}
