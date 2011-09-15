@@ -34,9 +34,8 @@
     - if can?(:manage, CanvasApplicant.new(:canvas_id => @canvas.id))
       = link_to 'Applicants', applicants_canvas_path(@canvas)
     
-  / - if current_user
-  - if can? :apply, @canvas
-        
+  - if can?(:apply, @canvas)
+    
     - if @canvas.closed?
       %a#apply{:href => "#"} Apply
     
