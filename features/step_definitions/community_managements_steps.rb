@@ -6,13 +6,17 @@ Given /^"([^"]*)" is a user$/ do |user|
 	Factory.create(:user, :name => user) unless User.exists?(:name => user)
 end
 
-Given /^"?(I|[^"]*)"? (?:am|is) a member of that canvas$/ do |user|
+Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an|) (.*) (?:of|to|for) that canvas$/ do |user, role|
 	if user == "I"
 		member = current_user
 	else
 		member = User.where(:name => user).first
 	end
-	member.set_canvas_role(Canvas.last, :member)
+	if role == "applicant"
+		Canvas.last.canvas_applicants.create(:user_id => member.id)
+	else
+		member.set_canvas_role(Canvas.last, role.to_sym)
+	end
 end
 
 Given /^I have banned "([^"]*)"$/ do |user|
@@ -22,7 +26,7 @@ end
 When /^I follow the (.*) link for "([^"]*)"$/ do |action, name|
 	user = User.where(:name => name).first
 	within(".user[data-user_id='#{user.id}']") do
-		click_link(action)
+		find(".#{action}").click()
 	end
 end
 

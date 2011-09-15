@@ -77,9 +77,6 @@ class CanvaeController < ApplicationController
   def applicants
     @canvas = Canvas.find(params[:id])
 		authorize! :manage, CanvasApplicant.new(:canvas_id => @canvas.id)
-
-    @canvas_applicants = @canvas.canvas_applicants
-    @applicants = @canvas.applicants
   end
   
   def members_create

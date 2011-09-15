@@ -18,6 +18,9 @@ Louvre::Application.routes.draw do
 			post 'banned' => "canvae#banned_create"
 			delete 'banned' => "canvae#banned_destroy"
 			get 'members' => "canvae#members"
+			post 'members' => "canvae#members_create"
+			get 'applicants'
+	    #delete 'applicants/:user_id' => "canvae#applicants_delete"
 		end
     resource :canvas_follow
 		resources :pages do
@@ -25,12 +28,6 @@ Louvre::Application.routes.draw do
         get 'versions'
 	    end
 	  end
-	  member do
-	    get 'applicants'
-	    #delete 'applicants/:user_id' => "canvae#applicants_delete"
-	    post 'members' => "canvae#members_create"
-    end
-    
 	end
   delete "/canvae/:id/applicants/:user_id" => "canvae#applicants_delete", :as => :applicants_delete
 
