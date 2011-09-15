@@ -6,7 +6,48 @@ describe "Canvae Requests" do
     @user = Factory.create(:user)  
     @canvas = Factory.create(:canvas) 
   end
+
+  context "logged in user joining an open canvas" do
+    before(:each) do
+		  CanvaeController.any_instance.stubs(:current_user).returns(@user)
+		  Canvas.any_instance.stubs(:open?).returns true
+		end
+    describe "POST /canvae/:canvas_id/members" do
+      it "should allow user to join canvas" do
+        post "/canvae/#{@canvas.id}/members"
+        @user.canvas_role(@canvas).should == :member
+        response.status.should == 200
+      end
+    end
+  end
   
+  context "logged out user joining an open canvas" do
+    before(:each) do
+		  CanvaeController.any_instance.stubs(:current_user).returns(nil)
+		  Canvas.any_instance.stubs(:open?).returns true
+		end
+    describe "POST /canvae/:canvas_id/members" do
+      it "should redirect to login" do
+        post "/canvae/#{@canvas.id}/members"
+        response.location.should include("auth/")
+        response.status.should == 302
+      end
+    end
+  end
+
+  context "trying to join a closed canvas" do
+    before(:each) do
+		  CanvaeController.any_instance.stubs(:current_user).returns(@user)	
+		  Canvas.any_instance.stubs(:open?).returns false
+		end
+    describe "POST /canvae/:canvas_id/members" do
+      it "should return forbidden" do
+        post "/canvae/#{@canvas.id}/members"
+        @user.canvas_role(@canvas).should_not == :member
+        response.status.should == 403
+      end
+    end
+  end
   
 	context "community management requests" do
 		context "logged in" do

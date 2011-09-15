@@ -28,6 +28,13 @@ Louvre::Application.routes.draw do
         get 'versions'
 	    end
 	  end
+
+	  member do
+	    get 'applicants'
+	    post 'applicants' => 'canvae#applicants_create'
+	    post 'members' => "canvae#members_create"
+    end
+    
 	end
   delete "/canvae/:id/applicants/:user_id" => "canvae#applicants_delete", :as => :applicants_delete
 

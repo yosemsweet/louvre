@@ -18,7 +18,6 @@ class CanvaeController < ApplicationController
       :link_widget => Widget.new(:content_type => "link_content", :canvas => @canvas),
       :question_widget => Widget.new(:content_type => "question_content", :canvas => @canvas)
     }
-    
 		add_canvas_breadcrumb(@canvas)
   end
     
@@ -79,10 +78,17 @@ class CanvaeController < ApplicationController
 		authorize! :manage, CanvasApplicant.new(:canvas_id => @canvas.id)
   end
   
+  def applicants_create
+    @canvas = Canvas.find(params[:id])
+    @canvas.canvas_applicants.where(:user_id => current_user.id).delete_all
+    CanvasApplicant.create(:canvas_id => @canvas.id, :user_id => current_user.id, :note => params[:note])
+    head :ok
+  end
+  
   def members_create
     @canvas = Canvas.find(params[:id])
-    authorize! :update, @canvas
-    @user = User.find(params[:user_id])
+    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
+    authorize! :create, CanvasUserRole.new(:canvas_id => @canvas.id, :user_id => @user.id)
     @canvas.canvas_applicants.where(:user_id => @user.id).delete_all
     @user.set_canvas_role(@canvas, :member)
     head :ok

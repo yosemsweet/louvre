@@ -31,8 +31,24 @@
     - if can?(:update, @canvas)
       = link_to 'Edit', edit_canvas_path(@canvas)  
     %br
-    - if can?(:read, CanvasApplicant.new(:canvas_id => @canvas.id))
+    - if can?(:manage, CanvasApplicant.new(:canvas_id => @canvas.id))
       = link_to 'Applicants', applicants_canvas_path(@canvas)
+    
+  / - if current_user
+  - if can? :apply, @canvas
+        
+    - if @canvas.closed?
+      %a#apply{:href => "#"} Apply
+    
+      #apply-form
+        %form#applicant_form
+          %div Please let us know why you would like to join this community
+          %textarea#note{:value => current_user.id, :name => "note", :style => "height:125px"}
+
+    - else
+      %a#join{:href => "#"} Join
+
+  
     
   #pages
     %h2
