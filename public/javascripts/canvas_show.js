@@ -1,5 +1,22 @@
 $(document).ready(function(){
-
+	
+	$("#apply-form").dialog({
+		autoOpen:false,
+		modal:true
+	
+	});
+	
+	$("#apply").click(function(event){
+		event.preventDefault();
+		$("#apply-form").dialog("open");
+		console.log('i applied');
+	});
+	
+	$("#join").click(function(event){
+		event.preventDefault();
+		console.log('i joined');
+	});
+	
 	// Enable canvas following buttons.
 	$("#follow").click(function(event){
 		event.preventDefault();

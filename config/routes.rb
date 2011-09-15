@@ -25,7 +25,7 @@ Louvre::Application.routes.draw do
 	  end
 	  member do
 	    get 'applicants'
-	    #delete 'applicants/:user_id' => "canvae#applicants_delete"
+	    post 'applicants' => 'canvae#applicants_create'
 	    post 'members' => "canvae#members_create"
     end
     

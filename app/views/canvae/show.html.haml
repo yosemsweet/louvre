@@ -31,8 +31,19 @@
     - if can?(:update, @canvas)
       = link_to 'Edit', edit_canvas_path(@canvas)  
     %br
-    - if can?(:read, CanvasApplicant.new(:canvas_id => @canvas.id))
+    - if can?(:manage, CanvasApplicant.new(:canvas_id => @canvas.id))
       = link_to 'Applicants', applicants_canvas_path(@canvas)
+      
+  - if @canvas.closed?
+    %a#apply{:href => "#"} Apply
+    
+    #apply-form
+      hello
+    
+  - else
+    %a#join{:href => "#"} Join
+    
+  
     
   #pages
     %h2
