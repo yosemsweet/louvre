@@ -1,0 +1,21 @@
+%ul#member-list
+  - @canvas.members.each do |member|
+    %li.member.user{:data => {:user_id => member.user.id}}
+      .name
+        = member.user
+      .tools
+        %a.ban{:data => {:user_id => member.user_id}, :href=>"#"} ban
+      
+      
+:javascript
+  $(function(){
+    $("a.ban").click(function(event){
+      event.preventDefault();
+      var user_id = $(this).data('user_id');
+      console.log(user_id)
+
+      $(this).parents(".user").fadeOut();
+      $.post('/canvae/' + request.canvas_id + '/banned', {user_id: user_id});
+    });
+
+  })

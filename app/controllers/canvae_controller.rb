@@ -18,7 +18,6 @@ class CanvaeController < ApplicationController
       :link_widget => Widget.new(:content_type => "link_content", :canvas => @canvas),
       :question_widget => Widget.new(:content_type => "question_content", :canvas => @canvas)
     }
-    
 		add_canvas_breadcrumb(@canvas)
   end
     
@@ -63,4 +62,78 @@ class CanvaeController < ApplicationController
     @canvas.destroy
     redirect_to(root_url)
   end
+
+ 	def members
+		@canvas = Canvas.find(params[:id])
+		authorize! :update, @canvas
+  end
+
+ 	def banned
+		@canvas = Canvas.find(params[:id])
+		authorize! :update, @canvas
+  end
+  
+  def applicants
+    @canvas = Canvas.find(params[:id])
+		authorize! :manage, CanvasApplicant.new(:canvas_id => @canvas.id)
+  end
+  
+  def applicants_create
+    @canvas = Canvas.find(params[:id])
+    @canvas.canvas_applicants.where(:user_id => current_user.id).delete_all
+    CanvasApplicant.create(:canvas_id => @canvas.id, :user_id => current_user.id, :note => params[:note])
+    head :ok
+  end
+  
+  def members_create
+    @canvas = Canvas.find(params[:id])
+    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
+    authorize! :create, CanvasUserRole.new(:canvas_id => @canvas.id, :user_id => @user.id)
+    @canvas.canvas_applicants.where(:user_id => @user.id).delete_all
+    @user.set_canvas_role(@canvas, :member)
+    head :ok
+  end
+
+ 	def banned_create		
+		@canvas = Canvas.find(params[:id])
+		authorize! :update, @canvas
+	 	begin
+			user = User.find(params[:user_id])
+			if current_user.canvas_role(@canvas) > user.canvas_role(@canvas)
+				user.set_canvas_role(@canvas, :banned)
+				user.save!
+				head :ok
+			else
+				head :forbidden
+			end
+		rescue
+			head :bad_request
+		end
+  end
+
+	def banned_destroy
+		@canvas = Canvas.find(params[:id])
+		authorize! :update, @canvas
+		begin
+			user = User.find(params[:user_id])
+			if current_user.canvas_role(@canvas) > user.canvas_role(@canvas)
+				@canvas.banned.where(:user_id => user.id).destroy_all
+				user.save!
+				head :ok
+			else
+				head :forbidden
+			end
+		rescue
+			head :bad_request
+		end
+	end
+
+  def applicants_delete
+    @canvas = Canvas.find(params[:id])
+    authorize! :update, @canvas
+    @user = User.find(params[:user_id])
+    @canvas.canvas_applicants.where(:user_id => @user.id).delete_all
+    head :ok
+  end
+
 end

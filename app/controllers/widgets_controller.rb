@@ -9,7 +9,6 @@ class WidgetsController < ApplicationController
   
   # GET /widgets/for_canvas/:canvas_id/:display
   def for_canvas
-    
     @widgets = Widget.for_canvas(params[:canvas_id], params[:start])
     
     if params[:tag_names].present?
@@ -27,6 +26,8 @@ class WidgetsController < ApplicationController
 
   # GET /widgets/:id
   def show
+    authorize! :read, @widget
+
 		@widget = Widget.find(params[:id])
 		
 		add_canvas_breadcrumb(@widget.canvas)
@@ -43,9 +44,11 @@ class WidgetsController < ApplicationController
       @page = nil
       @canvas = Canvas.find(params[:canvas_id])
     end
-    
-    @widget = @canvas.widgets.new(:content_type => params[:content_type], :page => @page) 
-    
+
+	  authorize! :manage, @widget
+
+    @widget = @canvas.widgets.new(:content_type => params[:content_type], :page => @page)
+
     render :layout => 'empty'
   end
 
@@ -54,6 +57,8 @@ class WidgetsController < ApplicationController
     @widget = Widget.find(params[:id])
     @page = @widget.page
     @canvas = @widget.canvas
+
+	  authorize! :manage, @widget
     
     render :layout => 'empty'
   end
@@ -70,6 +75,8 @@ class WidgetsController < ApplicationController
     
     @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas))
     
+	  authorize! :manage, @widget
+		
     if page
 		  @widget.position_last_on_page
 	  end
@@ -85,6 +92,8 @@ class WidgetsController < ApplicationController
   # POST /widgets/:id/copy_to_page/:page_id
   def copy_to_page
 		widget = Widget.find(params[:id])
+		
+		authorize! :manage, widget
 		
 		cloned_widget = widget.clone
 		cloned_widget.page_id = params[:page_id]
@@ -104,6 +113,9 @@ class WidgetsController < ApplicationController
   # PUT /widgets/:id
   def update
     @widget = Widget.find(params[:id])
+
+	  authorize! :manage, @widget
+
     if @widget.update_attributes(params[:widget])
       head :ok
     else
@@ -116,6 +128,8 @@ class WidgetsController < ApplicationController
   def move
 		widget = Widget.find(params[:id])
 		
+		authorize! :manage, widget
+		
 		if widget.update_position(params[:position])
 			head :ok
 		else
@@ -126,6 +140,9 @@ class WidgetsController < ApplicationController
   # PUT /widgets/:id/remove_answer/:answer_id
   def remove_answer
     widget = Widget.find(params[:id])
+
+		authorize! :manage, widget
+		
     new_answers = widget.answers
     new_answers.delete_at(params[:answer_id].to_i) 
     widget.update_attributes(:answer => new_answers.to_json)
@@ -136,6 +153,9 @@ class WidgetsController < ApplicationController
   # DELETE /widgets/:id
   def destroy
     widget = Widget.find(params[:id])
+
+	  authorize! :manage, widget
+
     widget.remove_page_position
     widget.destroy
     head :ok
@@ -148,10 +168,13 @@ class WidgetsController < ApplicationController
     
     canvas_id = params['to'].split('@').first
     user = User.find_by_email(email)
-    
-    if user
+    widget = Widget.new(:canvas_id => canvas_id)
+
+    if user && can?(:manage, widget)
       
       widget = Widget.new(:canvas_id => canvas_id, :creator_id => user.id, :content_type => 'text_content', :text => params['text'])
+
+			authorize! :manage, widget
 
       if widget.save
         @mixpanel.track_event("Widget Created via Email", {:user_id => user.id, :name_tag => user.name, :canvas_id => canvas_id})

@@ -11,7 +11,12 @@ class Role
   end
   
   def <=>(other_role_name)  
-    power <=> Role.new(other_role_name).power
+		if other_role_name.respond_to?(:power)
+			right = other_role_name
+		else
+			right = Role.new(other_role_name)
+		end
+    power <=> right.power
   end
   
 

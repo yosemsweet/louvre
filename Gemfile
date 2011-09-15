@@ -30,7 +30,6 @@ group :development, :test do
   gem 'cucumber-rails', '~>1.0'
   gem 'cucumber', '~>1.0'
   gem "rb-fsevent"
-  gem 'sauce'
 end
 
 group :test do

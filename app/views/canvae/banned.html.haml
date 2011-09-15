@@ -1,0 +1,21 @@
+%ul#ban-list
+  - @canvas.banned.each do |banned|
+    %li.user{:data => {:user_id => banned.user.id}}
+      .name
+        = banned.user
+      .tools
+        %a.unban{:data => {:user_id => banned.user_id}, :href=>"#"} unban
+      
+      
+:javascript
+  $(function(){
+    $("a.unban").click(function(event){
+      event.preventDefault();
+      var user_id = $(this).data('user_id');
+      console.log(user_id)
+
+      $(this).parents(".user").fadeOut();
+      $.post('/canvae/' + request.canvas_id + '/banned', {user_id: user_id, _method: "DELETE"});
+    });
+
+  })

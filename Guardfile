@@ -51,7 +51,7 @@ end
   end
 end
 
-guard 'rspec', :all_on_start => false, :cli => "--color -f nested --drb" do
+guard 'rspec', :all_on_start => false, :all_after_pass => false, :cli => "--color -f nested --drb" do
   watch(%r{^spec/.+_spec\.rb})
   watch(%r{^spec/factories/(.+)\.rb})                { "spec"}
   watch(%r{^app/(.+)\.rb})                           { |m| "spec/#{m[1]}_spec.rb" }

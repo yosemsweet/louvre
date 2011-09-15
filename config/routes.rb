@@ -13,13 +13,30 @@ Louvre::Application.routes.draw do
   match "/users/edit/" => "users#edit", :as => :edit_user
   
   resources :canvae do
+		member do 
+			get 'banned' => "canvae#banned"
+			post 'banned' => "canvae#banned_create"
+			delete 'banned' => "canvae#banned_destroy"
+			get 'members' => "canvae#members"
+			post 'members' => "canvae#members_create"
+			get 'applicants'
+	    #delete 'applicants/:user_id' => "canvae#applicants_delete"
+		end
     resource :canvas_follow
 		resources :pages do
 		  member do
         get 'versions'
 	    end
 	  end
+
+	  member do
+	    get 'applicants'
+	    post 'applicants' => 'canvae#applicants_create'
+	    post 'members' => "canvae#members_create"
+    end
+    
 	end
+  delete "/canvae/:id/applicants/:user_id" => "canvae#applicants_delete", :as => :applicants_delete
 
   match "/widgets/create_via_email"  => "widgets#create_via_email"
   resources :widgets do

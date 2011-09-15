@@ -1,4 +1,4 @@
-Feature: canvas homepage
+Feature: follow canvas
   As a member of loorp
   I want to see canvae that I'm interested in
   So I can easily participate in their communities

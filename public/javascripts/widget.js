@@ -162,7 +162,7 @@ $(document).ready(function(){
 	);
 	
 	// Show the widget toolbox when we hover over widgets.
-	$(".widget")
+	$(".widget_editable")
     .live('mouseover', function(){$(this).find('.toolbox').show()})
     .live('mouseout', function(){$(this).find('.toolbox').hide()})
 	

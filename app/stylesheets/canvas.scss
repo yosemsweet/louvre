@@ -50,3 +50,21 @@ ul#feed .widget_image_wrapper img{
 	max-height:140px;
 }
 
+.applicant_tools {
+	float:right;
+}
+
+.applicant {
+	padding:10px;
+	list-style:none;
+	border-radius:5px
+}
+
+.applicant:hover {
+	background-color:#E6F1FF;
+}
+
+.applicant_name {
+	font-weight:bold;
+}
+
