@@ -1,0 +1,33 @@
+!!!
+%html
+  %head
+    %title= @title || "Loorp! v0"
+    = yield :stylesheets
+    = csrf_meta_tag
+    = yield :head
+    = yield :opengraph_meta_tags
+  %body  
+    = fb_javascript_include_tag
+    #header-toolbar
+      .content
+        #left
+          %ul
+            %li
+              Community
+            %li
+              Friends
+          
+        #right
+          %ul
+            %li.member
+              .message-count
+                10
+              R2 D2
+              
+            %li
+              .setting
+                %img{:src=>'/images/gear.png'}
+      = yield :header
+    
+    #content
+      = yield

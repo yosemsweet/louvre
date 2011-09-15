@@ -2,6 +2,8 @@ Louvre::Application.routes.draw do
 
   root :to => "static#index"
   
+  match "design" => "static#redesign"
+  
   match "/auth/:provider/callback" => "sessions#create"  
 	  match "/logout" => "sessions#destroy", :as => :logout
 
