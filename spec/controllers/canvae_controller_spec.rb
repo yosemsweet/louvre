@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe CanvaeController do
-  
+
+	it { should require_authorization_for(:get, :members, {:id => Factory.create(:canvas).id} , :owner) }
+
 	describe "Post create" do
 	
 		context "logged in" do
@@ -434,7 +436,7 @@ describe CanvaeController do
 							:id => canvas.id,
 							:user_id => @banned.id
 							
-		        response.status.should == 200
+		        results.status.should == 200
 		      end
 		    end
 		
@@ -445,7 +447,7 @@ describe CanvaeController do
 							:id => canvas.id,
 							:user_id => User.last.id + 1
 
-							response.status.should == 400
+						results.status.should == 400
 		      end
 		
 		      it "should return a forbidden if user is canvas owner" do
@@ -453,7 +455,7 @@ describe CanvaeController do
 							:id => canvas.id,
 							:user_id => @user.id
 
-							response.status.should == 403
+						results.status.should == 403
 		      end
 
 		      
@@ -496,7 +498,7 @@ describe CanvaeController do
 						:id => canvas.id,
 						:user_id => @user.id
 
-	        response.location.should include("auth/")
+	        results.location.should include("auth/")
 	      end
 	    end
 		end
@@ -515,7 +517,7 @@ describe CanvaeController do
 			    controller.stubs(:current_user).returns(@user)
 					@user.set_canvas_role(canvas, :owner)
 				end
-				
+
 			 	describe "with valid params" do
 		      
 		      it "returns the canvas" do
@@ -529,7 +531,7 @@ describe CanvaeController do
 		        results = get :members, 
 							:id => canvas.id
 							
-		        response.status.should == 200
+		        results.status.should == 200
 		      end
 		    end
 		
