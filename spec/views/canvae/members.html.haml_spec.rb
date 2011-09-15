@@ -33,9 +33,7 @@ describe "canvae/members.html.haml" do
 			it "has a ban link associated with each member" do
 				render
 				@canvas.members.each do |member|
-					rendered.should have_selector("#member-list .user[data-user_id='#{member.user.id}']") do |m|
-						m.should have_link("a.ban")
-					end
+					rendered.should have_selector("a.ban[data-user_id='#{member.user.id}']")
 				end
 			end
 		end

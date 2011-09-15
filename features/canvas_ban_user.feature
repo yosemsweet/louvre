@@ -13,6 +13,12 @@ Scenario: View banned members
   Given I have banned "Gill Fert"
   And I am on that canvas' ban management page
   Then I should see "Gill Fert" within the banned list
+  
+@omniauth_test
+Scenario: Unban link shown on canvas ban page
+  Given I have banned "Gill Fert"
+  When I am on that canvas' ban management page
+  Then I should see an unban link for "Gill Fert"
 
 @omniauth_test
 Scenario: Ban link shown on canvas member page
@@ -28,3 +34,13 @@ Scenario: Ban a user
   When I follow the ban link for "Gill Fert"
   And I wait until all Ajax requests are complete
   Then "Gill Fert" should be banned
+  
+@javascript
+@omniauth_test
+Scenario: Unban a user
+  Given I have banned "Gill Fert"
+  And I am on that canvas' ban management page
+  When I follow the unban link for "Gill Fert"
+  And I wait until all Ajax requests are complete
+  Then "Gill Fert" should not be banned
+  

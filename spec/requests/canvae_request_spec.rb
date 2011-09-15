@@ -33,7 +33,7 @@ describe "Canvae Requests" do
 						@canvas.banned.should_not be_empty
 						
 						@canvas.banned.each do |user_role|
-							response.body.should have_selector("#ban-list *[data-user='#{user_role.user.id}']")
+							response.body.should have_selector("#ban-list .user[data-user_id='#{user_role.user.id}']")
 						end
 						
 					end
@@ -46,9 +46,22 @@ describe "Canvae Requests" do
 						@banned = Factory.create(:user).set_canvas_role(@canvas, :banned).user
 					end
 					
-					it "should should add banned roler to user for canvas" do
+					it "should should add banned role to user for canvas" do
 						post banned_canvas_path(@canvas), :user_id => @member.id
 						@member.canvas_role(@canvas).should == :banned
+					end
+				end
+				
+				describe "DELETE /canvae/:canvas_id/banned/" do
+					before(:each) do
+						@owner = Factory.create(:user).set_canvas_role(@canvas, :owner).user					
+						@member = Factory.create(:user).set_canvas_role(@canvas, :member).user
+						@banned = Factory.create(:user).set_canvas_role(@canvas, :banned).user
+					end
+					
+					it "should should user's role for canvas from :banned to :user" do
+						delete banned_canvas_path(@canvas), :user_id => @banned.id
+						@banned.canvas_role(@canvas).should == :user
 					end
 				end
 				
@@ -69,6 +82,9 @@ describe "Canvae Requests" do
 						
 					end
 				end
+				
+				
+				
 			end
 			
 			context "without canvas owner role" do

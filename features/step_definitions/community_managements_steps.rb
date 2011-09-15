@@ -26,13 +26,18 @@ When /^I follow the (.*) link for "([^"]*)"$/ do |action, name|
 	end
 end
 
-Then /^I should see a ban link for "([^"]*)"$/ do |name|
+Then /^I should see (?:a|an) (.*) link for "([^"]*)"$/ do |action, name|
 	user = User.where(:name => name).first
 	
-	page.should have_selector("li.user[data-user_id='#{user.id}'] a.ban")
+	page.should have_selector(".user[data-user_id='#{user.id}'] a.#{action}[data-user_id='#{user.id}']")
 end
 
-Then /^"([^"]*)" should be banned$/ do |name|
+Then /^"([^"]*)" should ?(|not) be banned$/ do |name, type|
   user = User.where(:name => name).first
-	user.canvas_role(Canvas.last).should == :banned
+
+	if type == "not"
+		user.canvas_role(Canvas.last).should_not == :banned
+	else
+		user.canvas_role(Canvas.last).should == :banned
+	end
 end

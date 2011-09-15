@@ -331,7 +331,7 @@ describe CanvaeController do
 		      end
      
 		      it "returns a 200" do
-		        results = post :banned, 
+		        results = post :banned_create, 
 							:id => canvas.id,
 							:user_id => @member.id
 							
@@ -372,8 +372,9 @@ describe CanvaeController do
 				
 				describe "with valid params" do    
 					it "returns a 403 code" do
-		        results = get :banned, 
-							:id => canvas.id
+		        results = post :banned_create, 
+							:id => canvas.id,
+							:user_id => @user.id
 							
 						results.status.should == 403
 		      end
@@ -392,8 +393,108 @@ describe CanvaeController do
 	      let(:canvas) { Factory.create(:canvas) }
      
 	      it "redirects to login page" do
-					results = get :banned, 
-						:id => canvas.id
+					results = post :banned_create, 
+						:id => canvas.id,
+						:user_id => @user.id
+
+	        response.location.should include("auth/")
+	      end
+	    end
+		end
+		
+	end
+	
+	describe "DELETE banned_destroy" do
+	
+		context "logged in" do
+		
+			let(:canvas) { Factory.create(:canvas) }
+			
+			context "with permissions" do
+				before(:each) do
+					@user = Factory.create(:user)
+			    controller.stubs(:current_user).returns(@user)
+					@user.set_canvas_role(canvas, :owner)
+					@banned = Factory.create(:user, :name => "banned")
+					@banned.set_canvas_role(canvas, :banned)
+				end
+				
+			 	describe "with valid params" do
+		      
+		      it "give removes the banned role for canvas" do
+						results = delete :banned_destroy,
+							:id => canvas.id,
+							:user_id => @banned.id
+							
+						@banned.canvas_role(canvas).should_not == :banned
+		      end
+     
+		      it "returns a 200" do
+		        results = delete :banned_destroy, 
+							:id => canvas.id,
+							:user_id => @banned.id
+							
+		        response.status.should == 200
+		      end
+		    end
+		
+				describe "with invalid params" do
+
+		      it "should return a bad request if user doesn't exist" do
+						results = delete :banned_destroy,
+							:id => canvas.id,
+							:user_id => User.last.id + 1
+
+							response.status.should == 400
+		      end
+		
+		      it "should return a forbidden if user is canvas owner" do
+						results = delete :banned_destroy,
+							:id => canvas.id,
+							:user_id => @user.id
+
+							response.status.should == 403
+		      end
+
+		      
+		    end
+		
+		
+			end
+			
+			context "without permissions" do
+				before(:each) do
+					@user = Factory.create(:user)
+			    controller.stubs(:current_user).returns(@user)
+					@user.set_canvas_role(canvas, :member)
+				end
+				
+				describe "with valid params" do    
+					it "returns a 403 code" do
+		        results = delete :banned_destroy, 
+							:id => canvas.id,
+							:user_id => @user.id
+							
+						results.status.should == 403
+		      end
+	    	end
+			end
+		
+		end
+		
+		context "logged out" do
+		  before (:each) do
+				@user = Factory.create(:user)
+		    controller.stubs(:current_user).returns(nil)
+		   end
+			
+		 	describe "with valid params" do
+	      let(:canvas) { Factory.create(:canvas) }
+     
+	      it "redirects to login page" do
+					results = delete :banned_destroy, 
+						:id => canvas.id,
+						:user_id => @user.id
 
 	        response.location.should include("auth/")
 	      end

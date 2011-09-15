@@ -103,11 +103,28 @@ class CanvaeController < ApplicationController
 			else
 				head :forbidden
 			end
-		rescue => e
+		rescue
 			head :bad_request
 		end
   end
-  
+
+	def banned_destroy
+		@canvas = Canvas.find(params[:id])
+		authorize! :update, @canvas
+		begin
+			user = User.find(params[:user_id])
+			if current_user.canvas_role(@canvas) > user.canvas_role(@canvas)
+				@canvas.banned.where(:user_id => user.id).destroy_all
+				user.save!
+				head :ok
+			else
+				head :forbidden
+			end
+		rescue
+			head :bad_request
+		end
+	end
+
   def applicants_delete
     @canvas = Canvas.find(params[:id])
     authorize! :update, @canvas
