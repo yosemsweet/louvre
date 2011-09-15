@@ -27,9 +27,17 @@ class Ability
       user.canvas_role?(widget.canvas, :member)
     end
 		
-    can :manage, Canvas do |canvas|  
+    can :create, Canvas do |canvas|  
       user.canvas_role?(canvas,:owner)
     end    
+
+    can :update, Canvas do |canvas|  
+      user.canvas_role?(canvas,:owner)
+    end    
+    
+    can :delete, Canvas do |canvas|  
+      user.canvas_role?(canvas,:owner)
+    end
     
     can :manage, CanvasApplicant do |canvas_applicant|  
       user.canvas_role?(canvas_applicant.canvas,:owner)
