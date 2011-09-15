@@ -26,25 +26,6 @@ describe "Canvas Requests" do
   
   describe "POST /canvae/:canvas_id/members" do
     
-    context "for an open canvas" do
-      
-      before(:each) do
-        Canvas.any_instance.stubs(:open?).returns true
-        @applicant = Factory.create(:user)
-        CanvasApplicant.create(:canvas_id => @canvas.id, :user_id => @applicant.id)
-      end
-      
-      it "should set the given user as a canvas member and remove them as an applicant for this canvas" do
-        @user.set_canvas_role(@canvas, :owner)
-        @canvas.applicants.exists?(:id => @applicant.id).should == true
-        post members_canvas_path(@canvas, :user_id => @applicant.id)
-        response.status.should == 200
-        @applicant.canvas_role?(@canvas, :member).should == true
-        @canvas.applicants.exists?(:id => @applicant.id).should == false
-      end
-
-    end
-
     context "for a closed canvas" do
       before(:each) do
         Canvas.any_instance.stubs(:open?).returns false
