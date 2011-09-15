@@ -32,8 +32,11 @@
       = link_to 'Edit', edit_canvas_path(@canvas)  
     %br
     - if can?(:manage, CanvasApplicant.new(:canvas_id => @canvas.id))
-      = link_to 'Applicants', applicants_canvas_path(@canvas)
-    
+      = link_to 'Applicants', applicants_canvas_path(@canvas), :id => 'applicants_link'
+    %br
+    - if can? :update, @canvas
+      = link_to 'Members', members_canvas_path(@canvas), :id => 'members_link'    
+      
   / - if current_user
   - if can? :apply, @canvas
         
