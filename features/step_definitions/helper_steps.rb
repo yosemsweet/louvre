@@ -73,3 +73,18 @@ Then /take a snapshot(| and show me the page)/ do |show_me|
   Then %{show me the page} if show_me.present?
 end
 
+Then /^vomit the page$/ do
+  puts page.html
+end
+
+Then /^test$/ do
+  puts page.html
+  with_scope "the feed" do
+    # page.find("")
+    # puts page.find(".edit").text
+  end
+end
+
+Then /^the "([^"]*)" should contain "([^"]*)"$/ do |scope, content|
+  page.find(scope).should have_content(content)
+end
