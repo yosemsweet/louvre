@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CanvaeController do
-
+  
 	describe "Post create" do
 	
 		context "logged in" do

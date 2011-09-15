@@ -7,6 +7,18 @@ class Ability
     user ||= User.new # guest user (not logged in)
     can :read, :all  
     
+    can :apply, Canvas do |canvas|
+      user.persisted? && !user.canvas_role?(canvas,:member) && user.canvas_role(canvas) != :banned
+    end
+    
+    can :create, CanvasUserRole do |canvas_user_role|
+      if canvas_user_role.canvas.closed?
+        user.canvas_role?(canvas_user_role.canvas, :owner)
+      else
+        user.id == canvas_user_role.user.id
+      end
+    end
+    
     can :manage, Page do |page| 
       user.canvas_role?(page.canvas, :member)
     end
@@ -22,6 +34,6 @@ class Ability
     can :manage, CanvasApplicant do |canvas_applicant|  
       user.canvas_role?(canvas_applicant.canvas,:owner)
     end
-
+    
   end
 end
