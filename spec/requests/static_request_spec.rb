@@ -13,9 +13,9 @@ describe "Static Requests" do
       response.status.should be(200)
     end
 
-    it "lists the most recent canvases on the page" do
-      response.body.should include(@canvas.name)  
-    end
+    # it "lists the most recent canvases on the page" do
+    #   response.body.should include(@canvas.name)  
+    # end
 
   end
   

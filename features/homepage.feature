@@ -6,15 +6,18 @@ Feature: homepage
 Background:
     Given I am on the homepage
 
-Scenario: Homepage logo
-    Then I should see the logo
+# Scenario: Homepage logo
+#     Then I should see the logo
     
 Scenario: Homepage title
     Then the page title should be "Loorp!"
     
-Scenario: Show recent canvae
-    Then I should see recent canvases
+# Scenario: Show recent canvae
+#     Then I should see recent canvases
 
+Scenario: Homepage has a call to action
+    Then I should see "Try It For Free!"
+  
 
   
   
