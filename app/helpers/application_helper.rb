@@ -18,6 +18,14 @@ module ApplicationHelper
     )
   end
   
+  def basic_javascripts
+    %w(
+    https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js
+    http://connect.facebook.net/en_US/all.js
+    mixpanel_integration google_analytics
+    )
+  end
+  
   def application_stylesheets
     %w(
     http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css

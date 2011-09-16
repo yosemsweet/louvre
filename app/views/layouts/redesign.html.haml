@@ -3,11 +3,10 @@
   %head
     %title= @title || "Loorp! v0"
     = yield :stylesheets
+    = javascript_include_tag basic_javascripts
     = csrf_meta_tag
     = yield :head
-    = yield :opengraph_meta_tags
-  %body  
-    = fb_javascript_include_tag
+  %body
     #header-toolbar
       -# .content
       -#   #left

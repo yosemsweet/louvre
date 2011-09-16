@@ -1,7 +1,7 @@
 - content_for :stylesheets do
   = stylesheet_link_tag 'fonts', :media => 'screen, projection'
   = stylesheet_link_tag 'compiled/redesign', :media => 'screen, projection'
-  
+
 
 #content
   #header
@@ -12,8 +12,9 @@
         Start saving time with Loorp
       .title#tag-line
         Try it for yourself. Help your community collect, <br>organize & publish with just a few clicks.
-      #action.try-button
+      %a#action.try-button{ :href => "http://loorp.wufoo.eu/forms/loorps-beta-program" }
         Try It For Free!
+        
   #explanation
     %ul
       %li
@@ -42,7 +43,7 @@
             Community
           .text
             Underlying everything at Loorp is your community. Loorp provides you collaborative tool–set allowing you to work with your friends, colleagues and peers to make a difference.
-        .learn-more
+        %a.learn-more{ :href => "/coming_soon" }
           %img{:src =>'/images/more.png'}
           Learn more
           
@@ -52,7 +53,7 @@
           Ideas
         .text
           The Community's Ideas are the building blocks of Loorp. Each idea can be shaped, discussed, and promoted. The best of the ideas can be used to quickly publish pages.
-        .learn-more
+        %a.learn-more{ :href => "/coming_soon" }
           %img{:src =>'/images/more.png'}
           Learn more
           
@@ -62,7 +63,7 @@
           Feed
         .text
           Loorp's Feed system provides fast and easy tools to collect new ideas and information and share them with the community, from anywhere, at anytime.
-        .learn-more
+        %a.learn-more{ :href => "/coming_soon" }
           %img{:src =>'/images/more.png'}
           Learn more
         
@@ -72,7 +73,7 @@
           Publishing
         .text
           Loorp uses a simple drag and drop page creation system making it easy to combine widgets to build whatever you need.
-        .learn-more
+        %a.learn-more{ :href => "/coming_soon" }
           %img{:src =>'/images/more.png'}
           Learn more
   #workflow
@@ -80,18 +81,26 @@
   #footer
     #footer-content
       .left
-        %ul.footer-link
-          %li
-            Privacy
-          %li
-            |  Term of Service
-          %li
-            |  Contact
+        -# %ul.footer-link
+        -#           %li
+        -#             Privacy
+        -#           %li
+        -#             |  Term of Service
+        -#           %li
+        -#             |  Contact
             
         #copyright
           Loorp &#169;2011 All Rights Reserved
-      %ul.right.media
-        %li.facebook
-        %li.twitter
-        %li.rss
+      -# %ul.right.media
+      -#         %li.facebook
+      -#         %li.twitter
+      -#         %li.rss
+
+:javascript
+  $(function(){
+    
+    $(".learn-more").click(function(){
+      mpq.push(["track","clicked_learn_more"]);
+    });
+  })
         
