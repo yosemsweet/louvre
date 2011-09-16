@@ -1,2 +1,22 @@
-- @events.each do |e|
-  %div= e.description
+:css
+  * {
+    padding:0px;
+    margin:0px;
+    }
+  #event_list a {
+    text-decoration:none;
+    color:black;}
+  .event_item {
+    border-bottom:1px solid #AAA;
+    padding:8px;
+    background-color: #ECF0F9;
+    }
+  .event_time_ago {
+    font-size:11px;
+  }
+#event_list  
+  - @events.each do |e|
+    %a{:href => e.url}
+      .event_item
+        %div.event_description= e.description
+        %div.event_time_ago== #{time_ago_in_words(e.created_at)} ago

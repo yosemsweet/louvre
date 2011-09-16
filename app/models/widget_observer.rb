@@ -5,7 +5,8 @@ class WidgetObserver < ActiveRecord::Observer
   end
   
   def after_update(widget)
-  	event = Event.create(:canvas_id => widget.canvas_id, :user_id => widget.creator_id, :loggable_id => widget.id, :loggable_type => 'Widget', :description => 'Updated a Widget')
+    if widget.position.nil? || widget.position_changed?
+  	    event = Event.create(:canvas_id => widget.canvas_id, :user_id => widget.creator_id, :loggable_id => widget.id, :loggable_type => 'Widget', :description => 'Updated a Widget')
+	  end
   end
-
 end

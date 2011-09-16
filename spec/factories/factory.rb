@@ -30,6 +30,12 @@ FactoryGirl.define do
     primary 1
     user
   end
+  
+  factory :canvas_widget do
+    creator
+    canvas
+		content_type "test_content"
+	end
 
   #TODO: Is this actually supposed to be teSt_content and not teXt_content?!!
   factory :widget do
