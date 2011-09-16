@@ -1,21 +1,13 @@
-%ul#ban-list
+- content_for :stylesheets do
+  = stylesheet_link_tag 'compiled/community_management.css', :media => 'screen, projection'
+- content_for :javascripts do
+  = javascript_include_tag 'community_management.js', :media => 'screen, projection'
+
+%h1 Banned Members
+
+%ul#ban-list.member-list
   - @canvas.banned.each do |banned|
-    %li.user{:data => {:user_id => banned.user.id}}
-      .name
-        = banned.user
+    %li.member-item{:data => {:user_id => banned.user.id}}
       .tools
-        %a.unban{:data => {:user_id => banned.user_id}, :href=>"#"} unban
-      
-      
-:javascript
-  $(function(){
-    $("a.unban").click(function(event){
-      event.preventDefault();
-      var user_id = $(this).data('user_id');
-      console.log(user_id)
-
-      $(this).parents(".user").fadeOut();
-      $.post('/canvae/' + request.canvas_id + '/banned', {user_id: user_id, _method: "DELETE"});
-    });
-
-  })
+        %a.unban{:href => "#"} Unban
+      .name= banned.user

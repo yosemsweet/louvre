@@ -12,6 +12,28 @@ if Rails.env.development?
     :image => "https://s3.amazonaws.com/randomfile/1.png"
   )
 
+  user2 = User.create(
+    :name => "Socra Tease",
+    :provider => "facebook",
+    :uid => 21009243,
+    :image => "https://s3.amazonaws.com/randomfile/1.png"
+  )
+
+  user3 = User.create(
+    :name => "Tom Cruise",
+    :provider => "facebook",
+    :uid => 21009213,
+    :image => "https://s3.amazonaws.com/randomfile/1.png"
+  )
+
+  user4 = User.create(
+    :name => "Justin Bieber",
+    :provider => "facebook",
+    :uid => 21009213,
+    :image => "https://s3.amazonaws.com/randomfile/1.png"
+  )
+
+
   open_canvas = Canvas.create(
     :name => "Open canvas",
     :mission => "The mission that is the mission for canvas 1",
@@ -28,6 +50,14 @@ if Rails.env.development?
     :creator_id => user.id
   )
 
+  user2.set_canvas_role(open_canvas, :banned)
+  user2.set_canvas_role(closed_canvas, :member)
+  user3.set_canvas_role(open_canvas, :member)
+  user3.set_canvas_role(closed_canvas, :banned)
+  
+  CanvasApplicant.create(:canvas_id => open_canvas.id, :user_id => user4.id, :note => "I like!")
+  CanvasApplicant.create(:canvas_id => closed_canvas.id, :user_id => user4.id, :note => "I can has membership?")
+  
   page1 = Page.create(
     :title => "My page title",
     :canvas_id => open_canvas.id,
