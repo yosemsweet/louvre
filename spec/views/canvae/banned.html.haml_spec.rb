@@ -31,14 +31,14 @@ describe "canvae/banned.html.haml" do
 				it "contains all banned users each identified with data-user_id and a user class" do
 					render
 					@canvas.banned.each do |banned|
-						rendered.should have_selector("#ban-list .user[data-user_id='#{banned.user.id}']")
+						rendered.should have_selector("#ban-list .member-item[data-user_id='#{banned.user.id}']")
 					end
 				end
 			
 				it "has an unban link for each user identified with data" do
 					render
 					@canvas.banned.each do |banned|
-						rendered.should have_selector("a.unban[data-user_id='#{banned.user.id}']")
+						rendered.should have_selector("a.unban")
 					end
 				end
 			end

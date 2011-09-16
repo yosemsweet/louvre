@@ -33,7 +33,6 @@ if Rails.env.development?
     :image => "https://s3.amazonaws.com/randomfile/1.png"
   )
 
-
   open_canvas = Canvas.create(
     :name => "Open canvas",
     :mission => "The mission that is the mission for canvas 1",

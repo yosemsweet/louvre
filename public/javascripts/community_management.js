@@ -21,11 +21,12 @@ $(function(){
     var memberItem = $(this).parents(".member-item");
     
     var user_id = memberItem.data('user_id');
-    
-    memberItem.fadeOut();
-    
+
+		    
+    memberItem.fadeOut(); 
     // Run the appropriate action based on the class.
-    eval("memberActions." + this.className + "();");
+    eval("memberActions." + this.className + "(user_id);");
+
   });
   
 });

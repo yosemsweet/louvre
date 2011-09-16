@@ -31,14 +31,14 @@ describe "canvae/applicants.html.haml" do
 				it "contains all applicants each identified with data-user_id and a user class" do
 					render
 					@canvas.applicants.each do |applicant|
-						rendered.should have_selector("#applicant-list .user[data-user_id='#{applicant.id}']")
+						rendered.should have_selector("#applicant-list .member-item[data-user_id='#{applicant.id}']")
 					end
 				end
 			
 				it "has a ban link associated with each applicant" do
 					render
 					@canvas.applicants.each do |applicant|
-						rendered.should have_selector("a.ban[data-user_id='#{applicant.id}']")
+						rendered.should have_selector("a.ban")
 					end
 				end
 			end

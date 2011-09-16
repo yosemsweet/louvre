@@ -26,14 +26,14 @@ describe "canvae/members.html.haml" do
 				Factory.create(:user, :name=>"test member").set_canvas_role(@canvas, :member)
 				render
 				@canvas.members.each do |member|
-					rendered.should have_selector("#member-list .user[data-user_id='#{member.user.id}']")
+					rendered.should have_selector("#member-list .member-item[data-user_id='#{member.user.id}']")
 				end
 			end
 			
 			it "has a ban link associated with each member" do
 				render
 				@canvas.members.each do |member|
-					rendered.should have_selector("a.ban[data-user_id='#{member.user.id}']")
+					rendered.should have_selector("a.ban")
 				end
 			end
 		end

@@ -92,7 +92,7 @@ describe "Canvae Requests" do
 						@canvas.banned.should_not be_empty
 						
 						@canvas.banned.each do |user_role|
-							response.body.should have_selector("#ban-list .user[data-user_id='#{user_role.user.id}']")
+							response.body.should have_selector("#ban-list .member-item[data-user_id='#{user_role.user.id}']")
 						end
 						
 					end
@@ -141,7 +141,7 @@ describe "Canvae Requests" do
 						get members_canvas_path(@canvas)
 						@canvas.members.should_not be_empty
 						@canvas.members.each do |user_role|
-						response.body.should have_selector("#member-list .user[data-user_id='#{user_role.user.id}']")
+						response.body.should have_selector("#member-list .member-item[data-user_id='#{user_role.user.id}']")
 						end
 						
 					end
