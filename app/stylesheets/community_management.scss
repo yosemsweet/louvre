@@ -1,0 +1,14 @@
+.member-item {
+	padding:10px;
+	list-style:none;
+	border-radius:5px;
+	&:hover {
+		background-color:#E6F1FF;
+	}
+	.name {
+		font-weight:bold;
+	}
+	.tools {
+		float:right;
+	}
+}

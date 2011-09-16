@@ -1,21 +1,15 @@
-%ul#member-list
+- content_for :stylesheets do
+  = stylesheet_link_tag 'compiled/community_management.css', :media => 'screen, projection'
+- content_for :javascripts do
+  = javascript_include_tag 'community_management.js', :media => 'screen, projection'  
+
+%h1 Members
+
+%ul#member-list.member-list
   - @canvas.members.each do |member|
-    %li.member.user{:data => {:user_id => member.user.id}}
-      .name
-        = member.user
+    %li.member-item{:data => {:user_id => member.user.id}}
       .tools
-        %a.ban{:data => {:user_id => member.user_id}, :href=>"#"} ban
-      
-      
-:javascript
-  $(function(){
-    $("a.ban").click(function(event){
-      event.preventDefault();
-      var user_id = $(this).data('user_id');
-      console.log(user_id)
+        %a.ban{:href => "#"} Ban
+      .name= member.user
 
-      $(this).parents(".user").fadeOut();
-      $.post('/canvae/' + request.canvas_id + '/banned', {user_id: user_id});
-    });
-
-  })
+      

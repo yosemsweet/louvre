@@ -25,7 +25,7 @@ end
 
 When /^I follow the (.*) link for "([^"]*)"$/ do |action, name|
 	user = User.where(:name => name).first
-	within(".user[data-user_id='#{user.id}']") do
+	within(".member-item[data-user_id='#{user.id}']") do
 		find(".#{action}").click()
 	end
 end
@@ -33,7 +33,7 @@ end
 Then /^I should see (?:a|an) (.*) link for "([^"]*)"$/ do |action, name|
 	user = User.where(:name => name).first
 	
-	page.should have_selector(".user[data-user_id='#{user.id}'] a.#{action}[data-user_id='#{user.id}']")
+	page.should have_selector(".member-item[data-user_id='#{user.id}'] a.#{action}")
 end
 
 Then /^"([^"]*)" should ?(|not) be banned$/ do |name, type|

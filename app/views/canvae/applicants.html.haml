@@ -1,43 +1,16 @@
 - content_for :stylesheets do
-  = stylesheet_link_tag 'compiled/canvas.css', :media => 'screen, projection'
+  = stylesheet_link_tag 'compiled/community_management.css', :media => 'screen, projection'
+- content_for :javascripts do
+  = javascript_include_tag 'community_management.js', :media => 'screen, projection'
 
 %h1 Applicants
 
-%ul#applicant-list
+%ul#applicant-list.member-list
   - @canvas.canvas_applicants.each do |ca|
-    %li.applicant.user{:data => {:user_id => ca.user_id} }
+    %li.member-item{:data => {:user_id => ca.user_id} }
       .tools
-        %a.approve{:href => "#", :data => {:user_id => ca.user_id} } Approve
-        %a.remove{:href => "#", :data => {:user_id => ca.user_id} } Disapprove
-        %a.ban{:href => "#", :data => {:user_id => ca.user_id} } Ban
+        %a.approve{:href => "#"} Approve
+        %a.disapprove{:href => "#"} Disapprove
+        %a.ban{:href => "#"} Ban
       .name= ca.applicant.name
       .note= ca.note
-  
-:javascript
-  $(function(){
-    $("a.approve").click(function(event){
-      event.preventDefault();
-      var user_id = $(this).data('user_id');
-      
-      $(this).parents(".user").fadeOut();
-      $.post('/canvae/' + request.canvas_id + '/members', {user_id: user_id});
-    });
-    
-    $("a.remove").click(function(event){
-      event.preventDefault();
-      var user_id = $(this).data('user_id');
-      
-      $(this).parents(".user").fadeOut();
-      $.post('/canvae/' + request.canvas_id + '/applicants/' + user_id, {_method: "DELETE"});
-    });
-    
-    $("a.ban").click(function(event){
-      event.preventDefault();
-      var user_id = $(this).data('user_id');
-      console.log(user_id)
-
-      $(this).parents(".user").fadeOut();
-      $.post('/canvae/' + request.canvas_id + '/banned', {user_id: user_id});
-    });
-    
-  })
