@@ -2,7 +2,7 @@ class Widget < ActiveRecord::Base
   
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings
-	has_many :events, :as => loggable
+	has_many :events, :as => :loggable
   
   attr_writer :tag_names
   after_save :assign_tags
