@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe CanvaeController do
 
+	it { should_not require_authorization_for(:get, :show, {:id => Factory.create(:canvas).id} , :visitor) }
 	it { should require_authorization_for(:get, :members, {:id => Factory.create(:canvas).id} , :owner) }
+	it { should require_authorization_for(:get, :banned, {:id => Factory.create(:canvas).id} , :owner) }
+	it { should require_authorization_for(:get, :applicants, {:id => Factory.create(:canvas).id} , :owner) }
 
 	describe "Post create" do
 	
