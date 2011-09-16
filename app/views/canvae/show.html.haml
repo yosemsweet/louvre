@@ -31,10 +31,12 @@
     - if can?(:update, @canvas)
       = link_to 'Edit', edit_canvas_path(@canvas)
     %br
-      = link_to 'Members', members_canvas_path(@canvas) 
+      = link_to 'Members', members_canvas_path(@canvas)
+      %span.item_count== (#{@canvas.members.length})
     %br
     - if can?(:manage, CanvasApplicant.new(:canvas_id => @canvas.id))
       = link_to 'Applicants', applicants_canvas_path(@canvas)
+      %span.item_count== (#{@canvas.applicants.length})
       
   - if can?(:apply, @canvas)
   
