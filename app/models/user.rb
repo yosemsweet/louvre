@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :emails
   has_many :feedbacks
   has_many :canvas_user_roles
+	
+	has_many :events, :as => :loggable
 
 	acts_as_follower
 	
