@@ -10,6 +10,9 @@ module HtmlSelectorsHelpers
 
     when "the page"
       "html > body"
+    
+    when "the feed"
+      "#feed"
 
 		when "the banned list"
 			"#ban-list"
