@@ -3,13 +3,13 @@ Feature: user hud
   I want to edit my account 
   So that my info is current
 
-@omniauth_test
-@javascript
-Scenario: Accessing my account page
-  Given I am authenticated 
-  And I am on the homepage
-  When I follow "Account" 
-  Then I should be on my account page
+# @omniauth_test
+# @javascript
+# Scenario: Accessing my account page
+#   Given I am authenticated 
+#   And I am on the homepage
+#   When I follow "Account" 
+#   Then I should be on my account page
  
 @omniauth_test
 @javascript
