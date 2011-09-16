@@ -16,6 +16,10 @@ gem "mixpanel"
 gem "koala"
 gem "cancan"
 
+group :development do
+  gem 'rails-footnotes', '>= 3.7.5.rc4'
+end
+
 group :development, :test do
   gem "factory_girl_rails", :require => false
   gem "rails3-generators"
@@ -40,5 +44,6 @@ group :test do
 end
 
 group :production do
+  gem 'newrelic_rpm'
   gem 'pg'  
 end

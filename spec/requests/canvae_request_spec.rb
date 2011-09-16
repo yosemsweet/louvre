@@ -8,48 +8,64 @@ describe "Canvae Requests" do
   end
 
   context "logged in user joining an open canvas" do
+    
     before(:each) do
 		  CanvaeController.any_instance.stubs(:current_user).returns(@user)
 		  Canvas.any_instance.stubs(:open?).returns true
 		end
+		
     describe "POST /canvae/:canvas_id/members" do
+      
       it "should allow user to join canvas" do
         post "/canvae/#{@canvas.id}/members"
         @user.canvas_role(@canvas).should == :member
         response.status.should == 200
       end
+      
     end
+    
   end
   
   context "logged out user joining an open canvas" do
+    
     before(:each) do
 		  CanvaeController.any_instance.stubs(:current_user).returns(nil)
 		  Canvas.any_instance.stubs(:open?).returns true
 		end
+		
     describe "POST /canvae/:canvas_id/members" do
+      
       it "should redirect to login" do
         post "/canvae/#{@canvas.id}/members"
         response.location.should include("auth/")
         response.status.should == 302
       end
+      
     end
+    
   end
 
   context "trying to join a closed canvas" do
+   
     before(:each) do
 		  CanvaeController.any_instance.stubs(:current_user).returns(@user)	
 		  Canvas.any_instance.stubs(:open?).returns false
 		end
+   
     describe "POST /canvae/:canvas_id/members" do
+     
       it "should return forbidden" do
         post "/canvae/#{@canvas.id}/members"
         @user.canvas_role(@canvas).should_not == :member
-        response.status.should == 403
+        response.status.should == 403   
       end
+   
     end
+    
   end
   
 	context "community management requests" do
+		
 		context "logged in" do
 
 			before(:each) do
@@ -58,11 +74,13 @@ describe "Canvae Requests" do
 			end
 
 			context "with canvas owner role" do
+			
 				before(:each) do
 					@user.set_canvas_role(@canvas, :owner)
 				end
 			
 				describe "GET /canvae/:canvas_id/banned" do
+				
 					it "should return 200" do
 						get banned_canvas_path(@canvas)
 						response.status.should == 200
@@ -78,9 +96,11 @@ describe "Canvae Requests" do
 						end
 						
 					end
+					
 				end
 				
 				describe "POST /canvae/:canvas_id/banned/" do
+					
 					before(:each) do
 						@owner = Factory.create(:user).set_canvas_role(@canvas, :owner).user					
 						@member = Factory.create(:user).set_canvas_role(@canvas, :member).user
@@ -91,9 +111,11 @@ describe "Canvae Requests" do
 						post banned_canvas_path(@canvas), :user_id => @member.id
 						@member.canvas_role(@canvas).should == :banned
 					end
+					
 				end
 				
 				describe "DELETE /canvae/:canvas_id/banned/" do
+				
 					before(:each) do
 						@owner = Factory.create(:user).set_canvas_role(@canvas, :owner).user					
 						@member = Factory.create(:user).set_canvas_role(@canvas, :member).user
@@ -104,9 +126,11 @@ describe "Canvae Requests" do
 						delete banned_canvas_path(@canvas), :user_id => @banned.id
 						@banned.canvas_role(@canvas).should == :user
 					end
+					
 				end
 				
 				describe "GET /canvae/:canvas_id/members" do
+					
 					it "should return 200" do
 						get members_canvas_path(@canvas)
 						response.status.should == 200
@@ -116,47 +140,100 @@ describe "Canvae Requests" do
 						Factory.create(:user).set_canvas_role(@canvas, :member)
 						get members_canvas_path(@canvas)
 						@canvas.members.should_not be_empty
-						
 						@canvas.members.each do |user_role|
-							response.body.should have_selector("#member-list .user[data-user_id='#{user_role.user.id}']")
+						response.body.should have_selector("#member-list .user[data-user_id='#{user_role.user.id}']")
 						end
 						
 					end
+					
 				end
 				
-				
-				
+				describe "GET /canvae/:canvas_id/applicants" do
+
+          it "should work for owners" do
+            get applicants_canvas_path(@canvas)
+            response.status.should == 200
+          end
+
+        end
+        
+        describe "DELETE /canvae/:canvas_id/applicants/:user_id" do
+          
+          it "should remove the applicant from the applicant list if you are an owner" do
+            @user.set_canvas_role(@canvas, :owner)
+            Canvas.any_instance.stubs(:open?).returns false
+            @applicant = Factory.create(:user)
+            CanvasApplicant.create(:canvas_id => @canvas.id, :user_id => @applicant.id)
+            @canvas.applicants.exists?(:id => @applicant.id).should == true
+            delete applicants_delete_path(@canvas, @applicant)
+            response.status.should == 200
+            @canvas.applicants.exists?(:id => @applicant.id).should == false
+          end
+
+        end
+			
 			end
 			
 			context "without canvas owner role" do
+				
 				before(:each) do
 					@user.set_canvas_role(@canvas, :member)
 				end
 			
 				describe "GET /canvae/:canvas_id/banned" do
+				
 					it "should return 403" do
 						get banned_canvas_path(@canvas)
 						response.status.should == 403
 					end
+					
 				end
+				
+				describe "GET /canvae/:canvas_id/applicants" do
+  			
+  				it "should not work for non owners" do
+            get applicants_canvas_path(@canvas)
+            response.status.should == 403
+          end
+          
+			  end
+			  
+			  describe "DELETE /canvae/:canvas_id/applicants/:user_id" do
+			    
+  			  it "should fail if you are not an owner" do
+            Canvas.any_instance.stubs(:open?).returns false
+            @applicant = Factory.create(:user)
+            CanvasApplicant.create(:canvas_id => @canvas.id, :user_id => @applicant.id)
+            @canvas.applicants.exists?(:id => @applicant.id).should == true
+            delete applicants_delete_path(@canvas, @applicant)
+            response.status.should == 403
+          end
+          
+        end
+			  
 			end
 			
 			context "logged out" do
+			  
 				before(:each) do
 			  	# Stub the current_user method so it appears like a user is logged in.
 				  CanvaeController.any_instance.stubs(:current_user).returns(nil)	
 				end
 				
 				describe "GET /canvae/:canvas_id/banned" do
+				  
 					it "should redirect to login" do
 						get banned_canvas_path(@canvas)
 						response.status.should == 302
 						response.location.should include('auth')
 					end
+					
 				end
+				
 			end
 			
 		end
+		
 	end
 	
 end
