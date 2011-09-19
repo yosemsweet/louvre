@@ -1,6 +1,10 @@
 class EventsController < ApplicationController
-	
-	def new
-	end
-	
+  def index
+    @events = Event.all
+    render :layout => false
+  end
+  
+  def count
+    render :json => Event.count()
+  end
 end
