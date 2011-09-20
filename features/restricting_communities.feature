@@ -12,6 +12,15 @@ And I am on that canvas' homepage
 Then I should not see "Create Page"
 
 @omniauth_test
+Scenario: Trying to access management links as a non member
+Given I am "Gill"
+And I am authenticated
+And there is a canvas
+And I am on that canvas' homepage
+Then I should not see "Members"
+And I should not see "Applicants"
+
+@omniauth_test
 Scenario: Trying to edit a page as a non member
 Given I am "Gill"
 And I am authenticated
