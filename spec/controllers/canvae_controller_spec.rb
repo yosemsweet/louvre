@@ -141,7 +141,7 @@ describe CanvaeController do
 		end
 	end
 	
-	describe "DELETE delete" do
+	describe "DELETE destroy" do
 	
 		it "should require authentication" do
 			should_require_authentication do
@@ -151,12 +151,10 @@ describe CanvaeController do
 		end
 		
 		it "should require authorization to :delete" do
-			
 			canvas = Factory.create(:canvas)
 			#don't actually destroy the canvas, we just want to ensure we call destory on it.
 			canvas.stubs(:destroy).returns(canvas)
 			Canvas.stubs(:find).returns(canvas)
-			
 			should_require_authorization_to(:action => :delete, :object => canvas) do
 				delete :destroy, :id => canvas.id
 			end

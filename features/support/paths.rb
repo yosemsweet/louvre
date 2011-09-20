@@ -75,6 +75,9 @@ module NavigationHelpers
   	  page = Page.where(:title => "Page1").first
   	  canvas_page_path(page.canvas, page)  
 
+		when /the users page/
+			users_path
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

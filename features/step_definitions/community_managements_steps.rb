@@ -2,9 +2,27 @@ Given /^that canvas is closed$/ do
   Canvas.any_instance.stubs(:closed?).returns(true)
 end
 
-Given /^"([^"]*)" is a user$/ do |user|
-	Factory.create(:user, :name => user) unless User.exists?(:name => user)
+Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an) (user|admin)$/ do |user, role|
+	if user == "I"
+		member = current_user
+	else
+		member = User.find_by_name(user) || Factory.create(:user, :name => user)
+	end
+	
+	puts #{member.name}: persisted? #{member.persisted?}
+	
+	if role == "admin"
+		member.admin = true
+		member.save!
+	end
 end
+
+Given /^the following users exist:$/ do |users|
+  users.hashes.each do |hash|
+		Factory.create(:user, hash)
+	end
+end
+
 
 Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an|) (.*) (?:of|to|for) that canvas$/ do |user, role|
 	if user == "I"
@@ -20,7 +38,8 @@ Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an|) (.*) (?:of|to|for) that canvas$/ do |u
 end
 
 Given /^I have banned "([^"]*)"$/ do |user|
-	User.where(:name => user).first.set_canvas_role(Canvas.last, :banned)
+	member = User.find_by_name(user) || Factory.create(:user, :name => user)
+	member.set_canvas_role(Canvas.last, :banned)
 end
 
 When /^I follow the (.*) link for "([^"]*)"$/ do |action, name|

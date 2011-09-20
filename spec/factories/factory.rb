@@ -4,8 +4,12 @@ FactoryGirl.define do
 	
   factory :user, :aliases => [:creator] do
 	  provider "facebook"
-	  uid "0000"
-	  name "Gill Fert"
+    sequence :uid do |n|
+      "00#{n}"
+    end
+    sequence :name do |n|
+      "User #{n}"
+    end
 	  image "http://www.carniola.org/theglory/images/McHammer.gif" 
 	  admin false
   end

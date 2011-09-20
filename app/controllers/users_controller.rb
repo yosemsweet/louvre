@@ -1,6 +1,12 @@
 class UsersController < ApplicationController
-  before_filter :require_login, :only => [:edit, :hud]
+  before_filter :require_login
   
+	def index
+		puts current_user
+		@users = User.all
+		authorize! :make_admin, User
+	end
+
   def hud
     render :layout => false
   end

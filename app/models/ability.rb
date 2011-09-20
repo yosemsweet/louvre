@@ -42,6 +42,7 @@ class Ability
     can :manage, CanvasApplicant do |canvas_applicant|  
       user.canvas_role?(canvas_applicant.canvas,:owner)
     end
-    
+
+		can :make_admin, User	if user.admin == true
   end
 end

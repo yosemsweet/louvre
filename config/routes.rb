@@ -11,6 +11,7 @@ Louvre::Application.routes.draw do
   resources :emails
   resources :feedbacks
     
+	match "/users" => "users#index"
   match "/users/hud/" => "users#hud", :as => :hud_user
   match "/users/edit/" => "users#edit", :as => :edit_user
   
