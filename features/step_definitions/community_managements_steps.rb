@@ -8,9 +8,6 @@ Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an) (user|admin)$/ do |user, role|
 	else
 		member = User.find_by_name(user) || Factory.create(:user, :name => user)
 	end
-	
-	puts #{member.name}: persisted? #{member.persisted?}
-	
 	if role == "admin"
 		member.admin = true
 		member.save!
