@@ -25,7 +25,7 @@ group :development, :test do
   gem "rails3-generators"
   gem "rspec-rails", '~>2.6'
   gem "ruby-debug19"
-  gem 'spork', '>=0.9.0.rc7'
+  gem 'spork', '>=0.9.0'
   gem 'guard'
   gem 'guard-spork'
   gem 'growl'
