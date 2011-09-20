@@ -14,20 +14,20 @@ Event.create! do |e|
   e.canvas = canvas
   e.user = user
   e.loggable = canvas
-  e.description = "This is the description!"
+  e.description = "This is anopther thing that happened"
 end
 
 Event.create! do |e|
   e.canvas = canvas
   e.user = user
   e.loggable = widget
-  e.description = "This is the description!"
+  e.description = "This is the third event that I am entering"
 end
 
 Event.create! do |e|
   e.canvas = canvas
   e.user = user
   e.loggable = widget
-  e.description = "This is the description!"
+  e.description = "Events are good for the soul"
 end
   

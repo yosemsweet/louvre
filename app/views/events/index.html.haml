@@ -24,6 +24,6 @@
 #event_list  
   - @events.each do |e|
     %a{:href => e.url}
-      %div{:class => e.created_at >= current_user.notifications_viewed_at ? "event_item new_event" : "event_item"}
+      %div{:class => e.created_at >= @notifications_viewed_at ? "event_item new_event" : "event_item"}
         %div.event_description= e.description
         %div.event_time_ago== #{time_ago_in_words(e.created_at)} ago

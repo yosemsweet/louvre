@@ -1,5 +1,42 @@
 $(document).ready(function(){
 
+	var reload_event_count = function(){
+		$.get('/event_count', function(data) {
+			$('#event_count').html(data);
+			if (data == 0){
+				$('#event_count').addClass("no_new_events")
+			}else{
+				$('#event_count').addClass("new_events")
+			}
+		});
+	}
+
+	setInterval(function() {
+			reload_event_count()
+	}, 15000);
+	reload_event_count()
+
+	$('#event_list_container').hide();
+	$('#event_count').click(function(){
+		$('#event_count').html("0");
+		$('#event_count').removeClass("new_events");
+		$('#event_count').addClass("no_new_events");
+		if($('#event_list_container').html() == '')
+			$('#event_list_container').addClass("loading_events_container");
+		$('#event_list_container').fadeToggle(function(){
+			$.get('/events', function(data) {
+				$('#event_list_container').removeClass("loading_events_container");
+				$('#event_list_container').html(data);
+			});
+		});
+	})
+
+
+	$("body").mouseup(function(){ 
+  	if($('#event_list_container').is(":visible"))
+			$('#event_list_container').fadeToggle();
+	});
+
 	reload_hud = function(){
 	  $("#hud_content").load("/users/hud");  
 	}

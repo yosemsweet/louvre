@@ -9,6 +9,36 @@ body{
 	}
 }
 
+#event_count{
+	cursor:pointer;
+	border-radius: 4px;
+	font-size:13px;
+	min-width:18px;
+	height:18px;
+	padding:1px;
+	margin:5px 5px 0px 0px;
+	text-align:center;
+	float:left;
+}
+
+.loading_events_container{
+	background:url('/images/loading-events-container.gif') no-repeat center center;
+	background-color: #ECF0F9;
+	width:400px;
+	height:40px;
+}
+.no_new_events{
+	background-color:#666666;
+}
+.new_events{
+	background-color:#FF0000;
+}
+
+#event_list_container{
+	position:absolute;
+	width:400px;
+}
+
 #header {
 	background-color: $accent-color;
 	height: 80px;
@@ -19,7 +49,7 @@ body{
 	#user-nav { 
 		position: absolute;
 		right: 0px;
-		width: 300px;		
+		width: 400px;		
 		color: $white;
 		margin-right: 10px;
 		a {
