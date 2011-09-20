@@ -1,8 +1,17 @@
 $(document).ready(function(){
 
 	var reload_event_count = function(){
+		if($('#event_count').html() == '')
+			$('#event_count').html('<img src="/images/mini-spinner.gif">');
 		$.get('/event_count', function(data) {
 			$('#event_count').html(data);
+	
+			if (data == 1){
+				$('#event_count').attr('title',data + ' new notification');
+			}else{
+				$('#event_count').attr('title',data + ' new notifications');
+			}
+			
 			if (data == 0){
 				$('#event_count').addClass("no_new_events")
 			}else{
@@ -10,11 +19,12 @@ $(document).ready(function(){
 			}
 		});
 	}
-
+	reload_event_count()
+	
 	setInterval(function() {
 			reload_event_count()
 	}, 15000);
-	reload_event_count()
+
 
 	$('#event_list_container').hide();
 	$('#event_count').click(function(){
