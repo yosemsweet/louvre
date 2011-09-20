@@ -20,13 +20,12 @@
         }
         FBCallbacks = this.callbacks;
 
-    #header
+    #header-toolbar
       .container
         #user-nav
           - if current_user
             == Logged in as #{current_user.name}
-            %div#event_count.no_new_events
-              %img{:src => "/images/mini-spinner.gif"}
+            %div#event_count.no_new_events{:title => "notifications"}
             #event_list_container
             |
             = link_to "Home", root_url
