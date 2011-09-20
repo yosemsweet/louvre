@@ -8,6 +8,7 @@ class Canvas < ActiveRecord::Base
 	has_many :canvas_user_roles
   has_many :canvas_applicants
   has_many :applicants, :through => :canvas_applicants
+	has_many :events, :as => :loggable
 
 	validates :name, :presence => true, :uniqueness => true
 	validates :mission, :presence => true
