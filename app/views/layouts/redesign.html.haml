@@ -2,12 +2,35 @@
 %html
   %head
     %title= @title || "Loorp! v0"
+    = render :partial => "layouts/stylesheets"        
+    = render :partial => "layouts/javascripts"
     = yield :stylesheets
     = javascript_include_tag basic_javascripts
     = csrf_meta_tag
     = yield :head
   %body
     #header-toolbar
+      .container
+        #user-nav
+          - if current_user
+            == Logged in as #{current_user.name}
+            %div#event_count.no_new_events{:title => "notifications"}
+            #event_list_container
+            :javascript
+              $(function(){
+                reload_event_count()
+                setInterval(function() {
+              			reload_event_count()
+              	}, 30000);
+              })
+            |
+            = link_to "Home", root_url
+            |
+            = link_to "Hud", hud_user_path, :id => "show_hud"
+            |
+            = link_to "Log out", logout_path
+          - else
+            = login_link :text => "Log in with Facebook"
       -# .content
       -#   #left
       -#     %ul

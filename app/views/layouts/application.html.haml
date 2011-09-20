@@ -27,6 +27,14 @@
             == Logged in as #{current_user.name}
             %div#event_count.no_new_events{:title => "notifications"}
             #event_list_container
+            :javascript
+              $(function(){
+                reload_event_count()
+                setInterval(function() {
+              			reload_event_count()
+              	}, 30000);
+              })
+        	  
             |
             = link_to "Home", root_url
             |
@@ -42,7 +50,7 @@
             loorp
           
     #body
-      
+
       .container
       
         #breadcrumbs{:style => "border-bottom: 1px dotted; padding: 0 0 5px 5px"}
