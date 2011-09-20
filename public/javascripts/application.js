@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var reload_event_count = function(){
+	reload_event_count = function(){
 		if($('#event_count').html() == '')
 			$('#event_count').html('<img src="/images/mini-spinner.gif">');
 		$.get('/event_count', function(data) {
@@ -18,12 +18,10 @@ $(document).ready(function(){
 				$('#event_count').addClass("new_events")
 			}
 		});
+		setInterval(function() {
+				reload_event_count()
+		}, 15000);
 	}
-	reload_event_count()
-	
-	setInterval(function() {
-			reload_event_count()
-	}, 15000);
 
 
 	$('#event_list_container').hide();
@@ -83,9 +81,9 @@ $(document).ready(function(){
 	$("#hud").css("top", $("#header").outerHeight() + "px");
 	$("#hud").css("right", -1 * hud_width + "px");
 	
-	if(request.user_id !== 0){
-		reload_hud();        	
-	}
+	// if(request.user_id !== 0){
+	// 	reload_hud();        	
+	// }
 
 	$('#flash').delay(500).fadeIn('normal', function() {
      $(this).delay(2500).fadeOut('slow');
