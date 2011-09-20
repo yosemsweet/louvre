@@ -19,6 +19,9 @@
             :javascript
               $(function(){
                 reload_event_count()
+                setInterval(function() {
+              			reload_event_count()
+              	}, 15000);
               })
             |
             = link_to "Home", root_url

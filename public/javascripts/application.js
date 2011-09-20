@@ -18,9 +18,6 @@ $(document).ready(function(){
 				$('#event_count').addClass("new_events")
 			}
 		});
-		setInterval(function() {
-				reload_event_count()
-		}, 15000);
 	}
 
 
