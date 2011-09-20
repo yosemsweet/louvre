@@ -1,4 +1,7 @@
 class EventsController < ApplicationController
+  
+  before_filter :require_login
+  
   def index
     @events = Event.where(:canvas_id => current_user.canvas_ids).order(:created_at).reverse_order.limit(5)
     u = current_user

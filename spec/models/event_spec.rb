@@ -1,5 +1,12 @@
 require 'spec_helper'
 
 describe Event do
-  pending "add some examples to (or delete) #{__FILE__}"
+	context "attributes" do
+
+		it "should respond to url" do
+			event = Factory.build(:event)
+			event.should respond_to(:url)
+		end
+
+	end
 end

@@ -19,6 +19,14 @@ FactoryGirl.define do
 		creator
   end
 
+  factory :event do
+    canvas_id 1
+    loggable_id 1
+    loggable_type "Page"
+    user_id 1
+    description "Tbhis is a event description"
+  end
+  
   factory :page do
     title "My Page"
     creator
