@@ -46,6 +46,16 @@ ActiveRecord::Schema.define(:version => 20110916231404) do
     t.datetime "updated_at"
   end
 
+  create_table "events", :force => true do |t|
+    t.integer  "canvas_id"
+    t.integer  "loggable_id"
+    t.string   "loggable_type"
+    t.integer  "user_id"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "feedbacks", :force => true do |t|
     t.integer  "user_id"
     t.string   "interested_in"
@@ -100,7 +110,8 @@ ActiveRecord::Schema.define(:version => 20110916231404) do
     t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",      :default => false
+    t.boolean  "admin",                   :default => false
+    t.datetime "notifications_viewed_at"
   end
 
   create_table "versions", :force => true do |t|
