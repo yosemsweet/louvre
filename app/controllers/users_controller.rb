@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_filter :require_login
   
 	def index
-		puts current_user
 		@users = User.all
 		authorize! :make_admin, User
 	end
