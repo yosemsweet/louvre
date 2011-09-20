@@ -20,7 +20,6 @@ $(document).ready(function(){
 		});
 	}
 
-
 	$('#event_list_container').hide();
 	$('#event_count').click(function(){
 		$('#event_count').html("0");
