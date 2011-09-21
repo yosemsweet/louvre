@@ -1,9 +1,15 @@
 - content_for :stylesheets do
   = stylesheet_link_tag 'compiled/community_management.css', :media => 'screen, projection'
-  
+- content_for :javascripts do
+  = javascript_include_tag 'community_management.js', :media => 'screen, projection'
 %h1 Listing Users
 
-%ul#user-list
+%ul#user-list.member-list
   - @users.each do |u|
-    %li[u]{:class => u.admin? ? "admin" : ""}
-      = u.name
+    %li.member-item{:data => {:user_id => u.id}, :class => u.admin? ? "admin" : ""}
+      .tools
+        - if u.admin?
+          %a.user{:href => "#"} Make basic user
+        - else
+          %a.admin{:href => "#"} Make admin
+      .name= u.name

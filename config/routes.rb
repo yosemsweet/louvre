@@ -5,15 +5,18 @@ Louvre::Application.routes.draw do
   match "coming_soon" => "static#coming_soon"
   
   match "/auth/:provider/callback" => "sessions#create"  
-	  match "/logout" => "sessions#destroy", :as => :logout
+	match "/logout" => "sessions#destroy", :as => :logout
 
   resources :comments
   resources :emails
   resources :feedbacks
     
-	match "/users" => "users#index"
-  match "/users/hud/" => "users#hud", :as => :hud_user
-  match "/users/edit/" => "users#edit", :as => :edit_user
+	scope :path => "/users", :controller => :users do
+  	get "/" => "users#index", :as => :users
+		put "/:id" => "users#update"
+		get "/hud" => "users#hud", :as => :hud_user
+  	get "/edit" => "users#edit", :as => :edit_user
+	end
   
   resources :canvae do
 		member do 

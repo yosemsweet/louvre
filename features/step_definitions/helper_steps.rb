@@ -4,15 +4,8 @@ When /^(?:I )wait until all Ajax requests are complete$/ do
   end
 end
 
-
 Given /^there is a canvas$/ do
   Factory.create(:canvas)
-end
-
-Then /^the page title should be "([^"]*)"$/ do |title|
-  within("title") do 
-    page.should have_content(title)
-  end
 end
 
 Given /^I am "([^"]*)"$/ do |name|
@@ -28,12 +21,26 @@ Given /^this canvas has a page titled "([^"]*)"$/ do |pagetitle|
   page = Factory.create(:page, :title => pagetitle, :canvas => Canvas.last)
 end
 
+When /^I click "([^"]*)" for "([^"]*)"$/ do |link, user|
+  page.find(:xpath, "//*[contains(child::text(), user)]") do |scope|
+		page.should have_link(link)
+		puts page.html
+		When I click link
+	end
+end
+
 When /^(?:|I )reload the page$/ do
   visit(current_path)
 end
 
 When /^I wait (\d+) second[s?]$/ do |n|
 	sleep n.to_i
+end
+
+Then /^the page title should be "([^"]*)"$/ do |title|
+  within("title") do 
+    page.should have_content(title)
+  end
 end
 
 Then /^I see (?:the|a[n?]) "([^"]*)" dialog$/ do |dialog|

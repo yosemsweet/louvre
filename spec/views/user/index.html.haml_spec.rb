@@ -31,12 +31,13 @@ describe "users/index.html.haml" do
 					@users = User.all
 			  end
 				
-				it "contains all users each identified with user_id" do
+				it "contains all users each identified with data-user_id and a user class" do
 					render
 					@users.each do |u|
-						rendered.should have_selector("#user-list #user_#{u.id}")
+						rendered.should have_selector("#user-list .member-item[data-user_id='#{u.id}']")
 					end
 				end
+
 				
 				context "with admins" do
 					before(:each) do
@@ -47,7 +48,7 @@ describe "users/index.html.haml" do
 					it "should add an admin class to each admin" do
 						render
 						@users.each do |u|
-							rendered.should have_selector("#user-list #user_#{u.id}.admin") if u.admin?
+							rendered.should have_selector("#user-list .member-item.admin[data-user_id='#{u.id}']") if u.admin?
 						end
 					end
 				end

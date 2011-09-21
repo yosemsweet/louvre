@@ -12,7 +12,13 @@ $(function(){
 		},
     disapprove: function(user_id){
       $.post('/canvae/' + request.canvas_id + '/applicants/' + user_id, {_method: "DELETE"});
-    }
+    },
+	admin: function(user_id){
+		$.post('/users/' + user_id, {user: {admin: true}, _method: "PUT"});
+	},
+	user: function(user_id){
+		$.post('/users/' + user_id, {user: {admin: false}, _method: "PUT"});
+	}
   }
   
   $(".member-item .tools a").click(function(event){

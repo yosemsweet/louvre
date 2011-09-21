@@ -68,3 +68,13 @@ Then /^"([^"]*)" should ?(|not) be banned$/ do |name, type|
 		user.canvas_role(Canvas.last).should == :banned
 	end
 end
+
+Then /^"([^"]*)" should ?(|not) be an admin$/ do |name, type|
+  user = User.find_by_name(name)
+
+	if type == "not"
+		user.should_not be_admin
+	else
+		user.should be_admin
+	end
+end
