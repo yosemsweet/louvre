@@ -7,6 +7,39 @@ describe "Widgets Requests" do
     WidgetsController.any_instance.stubs(:current_user).returns(@user)
   end
   
+  describe "PUT /widgets/[widget_id]" do
+    
+   before(:each) do
+      @canvas = Factory.create(:canvas)
+      @page = Factory.create(:page)  
+      @widget = Factory.create(:text_widget, :canvas => @canvas, :page_id => nil, :text => "Happy Feet")
+    end
+      
+    context "as canvas member" do
+			before(:each) do
+			  @user.set_canvas_role(@canvas,:member)
+			end
+			
+			it "should update widget parameters" do
+        put "/widgets/#{@widget.id}", 
+					:widget => {
+						:text => "Foo"
+					}
+        @widget.reload.text.should == "Foo"
+      end
+      
+      context "with tags" do
+        it "should set the tag list to the passed in tags" do
+          tags = ["test tag", "other test tag", "test me"]
+          put "/widgets/#{@widget.id}",
+            :widget => {:tag_names => tags }
+        
+          tags.each { |t| @widget.tag_names.should include(t) }
+        end
+      end
+    end
+  end
+  
   describe "POST /widgets/[widget_id]/copy_to_page/[page_id]" do
     
     context "non question widget" do
