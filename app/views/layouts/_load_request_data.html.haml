@@ -3,6 +3,6 @@
   var request = {
     root_url : "#{root_url}",
     user_id : #{current_user ? current_user.id : 0},
-    canvas_id : #{@canvas ? @canvas.id : 0},
-    page_id : #{@page ? @page.id : 0}
+    canvas_id : #{@canvas.present? ? @canvas.id : 0},
+    page_id : #{@page && @page.persisted? ? @page.id : 0}
   };
