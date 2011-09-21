@@ -1,5 +1,5 @@
 - class_string = widget.content_type
-- if can?( :manage , widget )
+- if can? :manage , widget
   - class_string = widget.content_type + " widget_editable"
   
 %li.widget.canvas_feed_widget{:data => {:widget_id => widget.id} , :class => class_string }

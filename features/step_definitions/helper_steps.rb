@@ -24,9 +24,12 @@ end
 When /^I click "([^"]*)" for "([^"]*)"$/ do |link, user|
   page.find(:xpath, "//*[contains(child::text(), user)]") do |scope|
 		page.should have_link(link)
-		puts page.html
 		When I click link
 	end
+end
+
+When /^I mouse over "([^"]*)"$/ do |selector|
+	page.find("#{selector_for(selector)}").trigger('mouseover')
 end
 
 When /^(?:|I )reload the page$/ do
@@ -50,6 +53,11 @@ end
 Then /^(?:|I )should see the "([^"]*)" button$/ do |text|
   button_is_visible = page.has_button?(text) && page.find_button(text).visible?
   button_is_visible.should == true
+end
+
+Then /^"([^"]*)" should be visible$/ do |selector|
+	page.should have_selector(selector_for(selector))
+	page.find(selector_for(selector)).should be_visible
 end
 
 Then /^(?:|I )should not see the "([^"]*)" button$/ do |text|

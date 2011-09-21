@@ -16,6 +16,13 @@ module HtmlSelectorsHelpers
 
 		when /the (.+) list/
 			"##{$1}-list"
+			
+		when "that widget"
+			".widget[data-widget_id='#{Widget.last.id}']"
+			
+		when /that (.+)'s (.+) link/
+			klass = $1.classify.constantize
+			".#{klass.to_s.downcase}[data-#{klass.to_s.downcase}_id='#{klass.last.id}'] .#{$2}"
 		
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

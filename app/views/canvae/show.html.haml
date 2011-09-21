@@ -4,9 +4,6 @@
 - content_for :javascripts do
   = javascript_include_tag 'canvas_show'  
 
-#widget_dialog
-  %iframe{:src => ""}
-
 .span-4.first
   #overview
     = image_tag @canvas.image if @canvas.image.present?

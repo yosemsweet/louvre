@@ -2,7 +2,7 @@ Given /^that canvas has a question widget$/ do
   Factory.create(:link_widget, :canvas => Canvas.last)
 end
 
-Given /^that canvas has an text widget$/ do
+Given /^that canvas has a link widget$/ do
   Canvas.last.widgets.create(Factory.create(:link_widget, :page => nil))	
 end
 
