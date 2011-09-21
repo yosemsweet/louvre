@@ -6,7 +6,7 @@
 
 %ul#user-list.member-list
   - @users.each do |u|
-    %li.member-item{:data => {:user_id => u.id}, :class => u.admin? ? "admin" : ""}
+    %li.member-item.item{:data => {:user_id => u.id}, :class => u.admin? ? "admin" : ""}
       .tools
         - if u.admin?
           %a.user{:href => "#"} Make basic user

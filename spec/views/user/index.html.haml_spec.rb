@@ -34,7 +34,7 @@ describe "users/index.html.haml" do
 				it "contains all users each identified with data-user_id and a user class" do
 					render
 					@users.each do |u|
-						rendered.should have_selector("#user-list .member-item[data-user_id='#{u.id}']")
+						rendered.should have_selector("#user-list .item[data-user_id='#{u.id}']")
 					end
 				end
 
@@ -48,7 +48,7 @@ describe "users/index.html.haml" do
 					it "should add an admin class to each admin" do
 						render
 						@users.each do |u|
-							rendered.should have_selector("#user-list .member-item.admin[data-user_id='#{u.id}']") if u.admin?
+							rendered.should have_selector("#user-list .item.admin[data-user_id='#{u.id}']") if u.admin?
 						end
 					end
 				end

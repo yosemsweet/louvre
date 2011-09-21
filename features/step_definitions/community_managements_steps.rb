@@ -55,7 +55,7 @@ end
 Then /I will see an admin indicator for each admin$/ do
 	admins = User.where(:admin => true)
 	admins.each do |a|
-		page.should have_selector("#user_#{a.id}.admin")
+		page.should have_selector(".member-item.admin[data-user_id='#{a.id}']")
 	end
 end
 

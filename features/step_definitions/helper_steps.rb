@@ -79,7 +79,7 @@ end
 Then /^I should see all (.+) in (.+)$/ do |model,scope|
 	with_scope(scope) do
 		model.classify.constantize.all.each do |m|
-			page.should have_selector("##{model.classify.underscore}_#{m.id}")
+			page.should have_selector(".item[data-#{model.classify.underscore}_id='#{m.id}']")
 		end
 	end
 end
