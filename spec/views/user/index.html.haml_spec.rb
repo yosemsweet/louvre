@@ -37,6 +37,20 @@ describe "users/index.html.haml" do
 						rendered.should have_selector("#user-list #user_#{u.id}")
 					end
 				end
+				
+				context "with admins" do
+					before(:each) do
+						Factory.create(:user, :admin => true)
+						@users = User.all
+					end
+					
+					it "should add an admin class to each admin" do
+						render
+						@users.each do |u|
+							rendered.should have_selector("#user-list #user_#{u.id}.admin") if u.admin?
+						end
+					end
+				end
 			end
 		end
 	end

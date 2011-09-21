@@ -52,6 +52,13 @@ Then /^I should see (?:a|an) (.*) link for "([^"]*)"$/ do |action, name|
 	page.should have_selector(".member-item[data-user_id='#{user.id}'] a.#{action}")
 end
 
+Then /I will see an admin indicator for each admin$/ do
+	admins = User.where(:admin => true)
+	admins.each do |a|
+		page.should have_selector("#user_#{a.id}.admin")
+	end
+end
+
 Then /^"([^"]*)" should ?(|not) be banned$/ do |name, type|
   user = User.where(:name => name).first
 

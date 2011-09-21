@@ -1,7 +1,9 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag 'compiled/community_management.css', :media => 'screen, projection'
+  
 %h1 Listing Users
 
-/ %h1 Users
 %ul#user-list
   - @users.each do |u|
-    %li[u]
-      Foo
+    %li[u]{:class => u.admin? ? "admin" : ""}
+      = u.name
