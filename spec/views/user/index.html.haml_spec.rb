@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe "users/index.html.haml" do
 	before(:each) do
 		@users = User.all
