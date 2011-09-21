@@ -31,7 +31,7 @@ describe "users/index.html.haml" do
 					@users = User.all
 			  end
 				
-				it "contains all users each identified with data-user_id and a user class" do
+				it "contains all users each identified with data-user_id and an item class" do
 					render
 					@users.each do |u|
 						rendered.should have_selector("#user-list .item[data-user_id='#{u.id}']")
