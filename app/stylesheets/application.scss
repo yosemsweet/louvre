@@ -9,38 +9,121 @@ body{
 	}
 }
 
-#header {
-	background-color: $accent-color;
-	height: 80px;
-	z-index: 999999999999;
-	position: relative;
-	box-shadow: 0 1px 5px $trim-color;
+#event_count{
+	cursor:pointer;
+	border-radius: 4px;
+	font-size:13px;
+	min-width:18px;
+	height:17px;
+	padding:1px;
+	margin:0px 5px 0px 0px;
+	text-align:center;
+	float:left;
+}
 
-	#user-nav { 
-		position: absolute;
-		right: 0px;
-		width: 300px;		
+.loading_events_container{
+	background:url('/images/loading-events-container.gif') no-repeat center center;
+	background-color: #ECF0F9;
+	width:300px;
+	height:40px;
+}
+.no_new_events{
+	background-color:#666666;
+}
+.new_events{
+	background-color:#FF0000;
+}
+
+#event_list_container{
+	position:absolute;
+	width:300px;
+}
+
+#header-toolbar{
+  width: 100%;
+  background: url('/images/blue-background.png') repeat;
+  height:36px;
+  color: #fff;
+  font: {
+    family: "Arial";
+    size: 12px;
+  }
+	h1{ 
+		color: $white;
+		@include logo-font;
+	}
+  
+#user-nav { 
+		float:right;
 		color: $white;
 		margin-right: 10px;
+		margin-top:8px;
 		a {
 			color: $white;
+			text-decoration:none;
 		}
 	}
-	
-	h1{ 
-		color: $loorp;
-		@include logo-font;
-		background: url('/images/loorp-loop.png') no-repeat 0px 5px;
-		padding: 10px 10px 10px 55px;
-		a {
-			text-decoration: none;
-			color: $loorp;
-		}
-		a:hover {
-			text-decoration: underline;
-		}
-	}
+  .content{
+    margin:auto;
+    width:960px;
+    
+		
+
+    #left{
+      float:left;
+    }
+    
+    #right{     
+      float:right;
+      .user{
+        background:none;
+      }
+      
+      li.member{
+        background: url('/images/r2d2.png') no-repeat left center;
+        padding-left: 36px;
+      }
+      
+      .message-count{
+        float:right;
+        line-height:20px;
+        
+        height:20px;
+        margin: 8px 0 8px 10px;
+        padding: 0 5px;
+        
+        background-color:#f9492c;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        
+        text-align: center;
+      }
+      .setting{
+        height: 20px;
+        margin-top: 5px;
+      }
+    }
+    
+    ul{
+      margin:0px;
+      float:left;
+      -webkit-padding-start: 0px;
+    }
+    
+    li{
+      display: inline;
+      list-style-type: none;
+      height:36px;
+      line-height: 36px;
+      padding-right: 15px;
+      margin-right: 20px;
+      float:left;
+      background: url('/images/arrow.png') no-repeat right center;
+    }
+  }
 }
+
 
 .flash {
 	text-align: center;

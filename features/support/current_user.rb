@@ -6,8 +6,10 @@ module KnowsCurrentUser
 		  email = Factory.create(:email)
 		  @current_user = Factory.create(:user)
 		  @current_user.emails << email
-		  return @current_user
-		end 
+		  @current_user
+		end
+		puts @current_user
+		@current_user
 	end
 	
 	def set_current_user(user)

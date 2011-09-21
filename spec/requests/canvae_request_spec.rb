@@ -92,7 +92,7 @@ describe "Canvae Requests" do
 						@canvas.banned.should_not be_empty
 						
 						@canvas.banned.each do |user_role|
-							response.body.should have_selector("#ban-list .member-item[data-user_id='#{user_role.user.id}']")
+							response.body.should have_selector("#banned-list .member-item[data-user_id='#{user_role.user.id}']")
 						end
 						
 					end

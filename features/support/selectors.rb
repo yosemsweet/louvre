@@ -14,9 +14,9 @@ module HtmlSelectorsHelpers
     when "the feed"
       "#feed"
 
-		when "the banned list"
-			"#ban-list"
-
+		when /the (.+) list/
+			"##{$1}-list"
+		
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

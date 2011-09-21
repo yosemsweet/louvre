@@ -2,16 +2,16 @@ class Widget < ActiveRecord::Base
   
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings
+	has_many :events, :as => :loggable
   
   attr_writer :tag_names
   after_save :assign_tags
-  
   
   belongs_to :page
   belongs_to :canvas
 	belongs_to :creator, :class_name => "User"
 	belongs_to :parent, :class_name => "Widget"
-	
+		
   has_paper_trail :meta => { :page_id => Proc.new{ |widget| widget.page ? widget.page.id : nil }}
   acts_as_opengraph :values => { :type => "cause" }
 	acts_as_followable

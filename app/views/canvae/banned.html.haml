@@ -5,7 +5,7 @@
 
 %h1 Banned Members
 
-%ul#ban-list.member-list
+%ul#banned-list.member-list
   - @canvas.banned.each do |banned|
     %li.member-item{:data => {:user_id => banned.user.id}}
       .tools

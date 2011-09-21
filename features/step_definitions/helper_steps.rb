@@ -63,6 +63,20 @@ Then /^I should see the "([^"]*)" image$/ do |image|
 	page.find("##{image}").should be_visible
 end
 
+Then /^I should see "([^"]*)" in (.+)$/ do |content,scope|
+	with_scope(scope) do
+		page.should have_content(content)
+	end
+end
+
+Then /^I should see all (.+) in (.+)$/ do |model,scope|
+	with_scope(scope) do
+		model.classify.constantize.all.each do |m|
+			page.should have_selector("##{model.classify.underscore}_#{m.id}")
+		end
+	end
+end
+
 Then /^I should not see the "([^"]*)" image$/ do |image|
 	page.should have_selector("##{image}")
 	page.find("##{image}").should_not be_visible

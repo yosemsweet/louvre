@@ -4,8 +4,12 @@ FactoryGirl.define do
 	
   factory :user, :aliases => [:creator] do
 	  provider "facebook"
-	  uid "0000"
-	  name "Gill Fert"
+    sequence :uid do |n|
+      "00#{n}"
+    end
+    sequence :name do |n|
+      "User #{n}"
+    end
 	  image "http://www.carniola.org/theglory/images/McHammer.gif" 
 	  admin false
   end
@@ -19,6 +23,14 @@ FactoryGirl.define do
 		creator
   end
 
+  factory :event do
+    canvas_id 1
+    loggable_id 1
+    loggable_type "Page"
+    user_id 1
+    description "Tbhis is a event description"
+  end
+  
   factory :page do
     title "My Page"
     creator
@@ -30,6 +42,12 @@ FactoryGirl.define do
     primary 1
     user
   end
+  
+  factory :canvas_widget do
+    creator
+    canvas
+		content_type "test_content"
+	end
 
   #TODO: Is this actually supposed to be teSt_content and not teXt_content?!!
   factory :widget do

@@ -2,12 +2,40 @@ require 'spec_helper'
 
 describe CanvaeController do
 
-	it { should_not require_authorization_for(:get, :show, {:id => Factory.create(:canvas).id} , :visitor) }
-	it { should require_authorization_for(:get, :members, {:id => Factory.create(:canvas).id} , :owner) }
-	it { should require_authorization_for(:get, :banned, {:id => Factory.create(:canvas).id} , :owner) }
-	it { should require_authorization_for(:get, :applicants, {:id => Factory.create(:canvas).id} , :owner) }
+	describe "GET index" do
+		it "should not require authentication" do
+			should_not_require_authentication do
+				 get :index
+			end
+		end
+	end
 
-	describe "Post create" do
+	describe "POST create" do
+		it "should require authentication" do
+			should_require_authentication do
+				canvas = Factory.build(:canvas)
+				post :create, 
+					:canvas => {
+						:name => canvas.name, 
+						:mission => canvas.mission, 
+						:image => canvas.image,
+						:open => canvas.open
+					}
+			end
+		end
+		
+		it "should not require authorization to :create" do 
+			canvas = Factory.build(:canvas)
+			should_not_require_authorization_to(:action => :create, :object => canvas, :not_authorized_status => 302) do
+				post :create, 
+					:canvas => {
+						:name => canvas.name, 
+						:mission => canvas.mission, 
+						:image => canvas.image,
+						:open => canvas.open
+					}
+			end
+		end
 	
 		context "logged in" do
 		  before (:each) do
@@ -40,31 +68,7 @@ describe CanvaeController do
 								:image => canvas.image,
 								:open => canvas.open
 							}
-							
-	        response.location.should include("canvae/#{assigns(:canvas).id}")
-	      end
-	    end
-		end
-		
-		context "logged out" do
-		  before (:each) do
-				@user = Factory.build(:user)
-		    controller.stubs(:current_user).returns(nil)
-		   end
-			
-		 	describe "with valid params" do
-	      let(:canvas) { Factory.build(:canvas) }
-     
-	      it "redirects to login page" do
-					results = post :create, 
-						:canvas => {
-							:name => canvas.name, 
-							:mission => canvas.mission, 
-							:image => canvas.image,
-							:open => canvas.open
-						}
-
-	        response.location.should include("auth/")
+					response.should return_status(302).with_location("canvae/#{assigns(:canvas).id}")
 	      end
 	    end
 		end
@@ -73,245 +77,165 @@ describe CanvaeController do
 	
 	describe "Put update" do
 	
-		context "logged in" do
-		
-			let(:canvas) { Factory.create(:canvas) }
-			
-			context "with permissions" do
-				before(:each) do
-					@user = Factory.create(:user)
-			    controller.stubs(:current_user).returns(@user)
-					@user.set_canvas_role(canvas, :owner)
-				end
-				
-			 	describe "with valid params" do
-		      
-		      it "updates the canvas" do
-						results = put :update,
-							:id => canvas.id, 
-							:canvas => {
-								:name => canvas.name + "foo", 
-								:mission => canvas.mission, 
-								:image => canvas.image,
-								:open => canvas.open
-							}
-
-		        assigns(:canvas).name.should == canvas.name  + "foo"
-						assigns(:canvas).creator.should == canvas.creator
-						assigns(:canvas).mission.should == canvas.mission
-		      end
-     
-		      it "redirects to canvas page" do
-		        results = put :update, 
-							:id => canvas.id,
-		          :canvas => {
-									:name => canvas.name, 
-									:mission => canvas.mission, 
-									:image => canvas.image,
-									:open => canvas.open
-								}
-							
-		        response.location.should include("canvae/#{assigns(:canvas).id}")
-		      end
-		    end
-		
-		
+		it "should require authentication" do
+			should_require_authentication do
+				canvas = Factory.build(:canvas)
+				post :create, 
+					:canvas => {
+						:name => canvas.name, 
+						:mission => canvas.mission, 
+						:image => canvas.image,
+						:open => canvas.open
+					}
 			end
-			
-			context "without permissions" do
-				before(:each) do
-					@user = Factory.create(:user)
-			    controller.stubs(:current_user).returns(@user)
-					@user.set_canvas_role(canvas, :member)
-				end
-				
-				describe "with valid params" do    
-					it "returns a 403 code" do
-		        results = put :update, 
-							:id => canvas.id,
-		          	:canvas => {
-									:name => canvas.name, 
-									:mission => canvas.mission, 
-									:image => canvas.image,
-									:open => canvas.open
-								}
-						
-						results.status.should == 403
-		      end
-	    	end
-			end
-		
 		end
 		
-		context "logged out" do
-		  before (:each) do
+		it "should require authorization to :update" do 
+			canvas = Factory.create(:canvas)
+			should_require_authorization_to(:action => :update, :object => canvas) do
+				put :update, :id => canvas.id, :canvas => {:name => "test"}
+			end
+		end
+	
+		context "logged in with permissions" do
+			
+			let(:canvas) { Factory.create(:canvas) }
+			
+			before(:each) do
 				@user = Factory.create(:user)
-		    controller.stubs(:current_user).returns(nil)
-		   end
+		    controller.stubs(:current_user).returns(@user)
+				@user.set_canvas_role(canvas, :owner)
+			end
 			
 		 	describe "with valid params" do
-	      let(:canvas) { Factory.create(:canvas) }
-     
-	      it "redirects to login page" do
-					results = put :update, 
-						:id => canvas.id,
+	      
+	      it "updates the canvas" do
+					results = put :update,
+						:id => canvas.id, 
 						:canvas => {
-							:name => canvas.name, 
+							:name => canvas.name + "foo", 
 							:mission => canvas.mission, 
 							:image => canvas.image,
 							:open => canvas.open
 						}
 
-	        response.location.should include("auth/")
+	        assigns(:canvas).name.should == canvas.name  + "foo"
+					assigns(:canvas).creator.should == canvas.creator
+					assigns(:canvas).mission.should == canvas.mission
+	      end
+    
+	      it "redirects to canvas page" do
+	        results = put :update, 
+						:id => canvas.id,
+	          :canvas => {
+								:name => canvas.name, 
+								:mission => canvas.mission, 
+								:image => canvas.image,
+								:open => canvas.open
+							}
+						
+	        response.location.should include("canvae/#{assigns(:canvas).id}")
 	      end
 	    end
+
 		end
-		
 	end
 	
-	describe "DELETE delete" do
+	describe "DELETE destroy" do
 	
-		context "logged in" do
-		
-			let(:canvas) { Factory.create(:canvas) }
-			
-			context "with permissions" do
-				before(:each) do
-					@user = Factory.create(:user)
-			    controller.stubs(:current_user).returns(@user)
-					@user.set_canvas_role(canvas, :owner)
-				end
-				
-			 	describe "with valid params" do
-		      
-		      it "deletes the canvas" do
-						results = delete :destroy, :id => canvas.id
-						
-						assigns(:canvas).should be_destroyed
-		      end
-     
-		      it "redirects to homepage" do
-		        results = delete :destroy, :id => canvas.id
-							
-		        response.location.should ==(root_url)
-		      end
-		    end
-		
-		
+		it "should require authentication" do
+			should_require_authentication do
+				canvas = Factory.create(:canvas)
+				delete :destroy, :id => canvas.id
 			end
-			
-			context "without permissions" do
-				before(:each) do
-					@user = Factory.create(:user)
-			    controller.stubs(:current_user).returns(@user)
-					@user.set_canvas_role(canvas, :member)
-				end
-				
-				describe "with valid params" do    
-					
-	     	 it "returns a 403 code" do
-		        results = delete :destroy, :id => canvas.id
-						
-						results.status.should == 403
-		      end
-	    	end
-			end
-		
 		end
 		
-		context "logged out" do
-		  before (:each) do
+		it "should require authorization to :delete" do
+			canvas = Factory.create(:canvas)
+			#don't actually destroy the canvas, we just want to ensure we call destory on it.
+			canvas.stubs(:destroy).returns(canvas)
+			Canvas.stubs(:find).returns(canvas)
+			should_require_authorization_to(:action => :delete, :object => canvas) do
+				delete :destroy, :id => canvas.id
+			end
+		end
+	
+		context "logged in with permissions" do
+			let(:canvas) { Factory.create(:canvas) }
+			
+			before(:each) do
 				@user = Factory.create(:user)
-		    controller.stubs(:current_user).returns(nil)
-		   end
+		    controller.stubs(:current_user).returns(@user)
+				@user.set_canvas_role(canvas, :owner)
+			end
 			
 		 	describe "with valid params" do
-	      let(:canvas) { Factory.create(:canvas) }
-     
-	      it "redirects to login page" do
+      	it "deletes the canvas" do
 					results = delete :destroy, :id => canvas.id
-
-	        response.location.should include("auth/")
+					assigns(:canvas).should be_destroyed
+	      end
+    
+	      it "redirects to homepage" do
+	        results = delete :destroy, :id => canvas.id
+	        response.location.should ==(root_url)
 	      end
 	    end
 		end
-		
 	end
 	
 	describe "GET banned" do
-	
-		context "logged in" do
-		
-			let(:canvas) { Factory.create(:canvas) }
-			
-			context "with permissions" do
-				before(:each) do
-					@user = Factory.create(:user)
-			    controller.stubs(:current_user).returns(@user)
-					@user.set_canvas_role(canvas, :owner)
-				end
-				
-			 	describe "with valid params" do
-		      
-		      it "returns the canvas" do
-						results = get :banned,
-							:id => canvas.id
-							
-		        assigns(:canvas) == canvas
-		      end
-     
-		      it "returns a 200" do
-		        results = get :banned, 
-							:id => canvas.id
-							
-		        response.status.should == 200
-		      end
-		    end
-		
-		
+		it "should require authentication" do
+			should_require_authentication do
+				canvas = Factory.create(:canvas)
+				get :banned, :id => canvas.id
 			end
-			
-			context "without permissions" do
-				before(:each) do
-					@user = Factory.create(:user)
-			    controller.stubs(:current_user).returns(@user)
-					@user.set_canvas_role(canvas, :member)
-				end
-				
-				describe "with valid params" do    
-					it "returns a 403 code" do
-		        results = get :banned, 
-							:id => canvas.id
-							
-						results.status.should == 403
-		      end
-	    	end
-			end
-		
 		end
 		
-		context "logged out" do
-		  before (:each) do
+		it "should require authorization to :update" do 
+			canvas = Factory.create(:canvas)
+			should_require_authorization_to(:action => :update, :object => canvas) do
+				get :banned, :id => canvas.id
+			end
+		end
+		
+		context "logged in with permissions" do
+			let(:canvas) { Factory.create(:canvas) }
+		
+			before(:each) do
 				@user = Factory.create(:user)
-		    controller.stubs(:current_user).returns(nil)
-		   end
-			
+		    controller.stubs(:current_user).returns(@user)
+				@user.set_canvas_role(canvas, :owner)
+			end
+		
 		 	describe "with valid params" do
-	      let(:canvas) { Factory.create(:canvas) }
-     
-	      it "redirects to login page" do
-					results = get :banned, 
+      
+	      it "returns the canvas" do
+					results = get :banned,
 						:id => canvas.id
-
-	        response.location.should include("auth/")
+					
+	        assigns(:canvas) == canvas
+	      end
+   
+	      it "returns a 200" do
+	        results = get :banned, 
+						:id => canvas.id
+					
+	        response.status.should == 200
 	      end
 	    end
 		end
-		
 	end
 	
 	describe "POST banned_create" do
-	
+		it "should require authentication" do
+			should_require_authentication do
+				canvas = Factory.create(:canvas)
+				post :banned_create,
+					:id => canvas.id,
+					:user_id => Factory.create(:user)
+			end
+		end
+		
 		context "logged in" do
 		
 			let(:canvas) { Factory.create(:canvas) }
@@ -331,7 +255,6 @@ describe CanvaeController do
 						results = post :banned_create,
 							:id => canvas.id,
 							:user_id => @member.id
-							
 						@member.canvas_role(canvas).should == :banned
 		      end
      
@@ -339,7 +262,6 @@ describe CanvaeController do
 		        results = post :banned_create, 
 							:id => canvas.id,
 							:user_id => @member.id
-							
 		        response.status.should == 200
 		      end
 		    end
@@ -350,7 +272,6 @@ describe CanvaeController do
 						results = post :banned_create,
 							:id => canvas.id,
 							:user_id => User.last.id + 1
-
 							response.status.should == 400
 		      end
 		
@@ -358,14 +279,9 @@ describe CanvaeController do
 						results = post :banned_create,
 							:id => canvas.id,
 							:user_id => @user.id
-
 							response.status.should == 403
 		      end
-
-		      
 		    end
-		
-		
 			end
 			
 			context "without permissions" do
@@ -380,203 +296,113 @@ describe CanvaeController do
 		        results = post :banned_create, 
 							:id => canvas.id,
 							:user_id => @user.id
-							
 						results.status.should == 403
 		      end
 	    	end
 			end
-		
 		end
-		
-		context "logged out" do
-		  before (:each) do
-				@user = Factory.create(:user)
-		    controller.stubs(:current_user).returns(nil)
-		   end
-			
-		 	describe "with valid params" do
-	      let(:canvas) { Factory.create(:canvas) }
-     
-	      it "redirects to login page" do
-					results = post :banned_create, 
-						:id => canvas.id,
-						:user_id => @user.id
-
-	        response.location.should include("auth/")
-	      end
-	    end
-		end
-		
 	end
 	
 	describe "DELETE banned_destroy" do
-	
-		context "logged in" do
-		
-			let(:canvas) { Factory.create(:canvas) }
-			
-			context "with permissions" do
-				before(:each) do
-					@user = Factory.create(:user)
-			    controller.stubs(:current_user).returns(@user)
-					@user.set_canvas_role(canvas, :owner)
-					@banned = Factory.create(:user, :name => "banned")
-					@banned.set_canvas_role(canvas, :banned)
-				end
-				
-			 	describe "with valid params" do
-		      
-		      it "give removes the banned role for canvas" do
-						results = delete :banned_destroy,
-							:id => canvas.id,
-							:user_id => @banned.id
-							
-						@banned.canvas_role(canvas).should_not == :banned
-		      end
-     
-		      it "returns a 200" do
-		        results = delete :banned_destroy, 
-							:id => canvas.id,
-							:user_id => @banned.id
-							
-		        results.status.should == 200
-		      end
-		    end
-		
-				describe "with invalid params" do
+		before(:each) do
+			@canvas = Factory.create(:canvas)
+		end
 
-		      it "should return a bad request if user doesn't exist" do
-						results = delete :banned_destroy,
-							:id => canvas.id,
-							:user_id => User.last.id + 1
-
-						results.status.should == 400
-		      end
-		
-		      it "should return a forbidden if user is canvas owner" do
-						results = delete :banned_destroy,
-							:id => canvas.id,
-							:user_id => @user.id
-
-						results.status.should == 403
-		      end
-
-		      
-		    end
-		
-		
+		it "should require authentication" do
+			should_require_authentication do
+				banned = Factory.create(:user, :name => "banned")
+				banned.set_canvas_role(@canvas, :banned)
+				delete :banned_destroy, 
+					:id => @canvas.id,
+					:user_id => banned.id
 			end
-			
-			context "without permissions" do
-				before(:each) do
-					@user = Factory.create(:user)
-			    controller.stubs(:current_user).returns(@user)
-					@user.set_canvas_role(canvas, :member)
-				end
-				
-				describe "with valid params" do    
-					it "returns a 403 code" do
-		        results = delete :banned_destroy, 
-							:id => canvas.id,
-							:user_id => @user.id
-							
-						results.status.should == 403
-		      end
-	    	end
-			end
-		
 		end
 		
-		context "logged out" do
-		  before (:each) do
+		it "should require authorization to :update" do
+			should_require_authorization_to(:action => :update, :object => @canvas) do
+				banned = Factory.create(:user, :name => "banned")
+				banned.set_canvas_role(@canvas, :banned)
+				delete :banned_destroy, 
+					:id => @canvas.id,
+					:user_id => banned.id
+			end
+		end
+	
+			context "logged in with permissions" do
+			let(:canvas) { Factory.create(:canvas) }
+			
+			before(:each) do
 				@user = Factory.create(:user)
-		    controller.stubs(:current_user).returns(nil)
-		   end
+		    controller.stubs(:current_user).returns(@user)
+				@user.set_canvas_role(canvas, :owner)
+				@banned = Factory.create(:user, :name => "banned")
+				@banned.set_canvas_role(canvas, :banned)
+			end
 			
 		 	describe "with valid params" do
-	      let(:canvas) { Factory.create(:canvas) }
-     
-	      it "redirects to login page" do
-					results = delete :banned_destroy, 
+	      
+	      it "give removes the banned role for canvas" do
+					results = delete :banned_destroy,
 						:id => canvas.id,
-						:user_id => @user.id
-
-	        results.location.should include("auth/")
+						:user_id => @banned.id
+					@banned.canvas_role(canvas).should_not == :banned
+	      end
+    
+	      it "returns a 200" do
+	        results = delete :banned_destroy, 
+						:id => canvas.id,
+						:user_id => @banned.id
+	        results.status.should == 200
+	      end
+	    end
+	
+			describe "with invalid params" do
+	      it "should return a bad request if user doesn't exist" do
+					results = delete :banned_destroy,
+						:id => canvas.id,
+						:user_id => User.last.id + 1
+					results.status.should == 400
 	      end
 	    end
 		end
-		
 	end
 	
 	describe "GET members" do
-	
-		context "logged in" do
-		
-			let(:canvas) { Factory.create(:canvas) }
-			
-			context "with permissions" do
-				before(:each) do
-					@user = Factory.create(:user)
-			    controller.stubs(:current_user).returns(@user)
-					@user.set_canvas_role(canvas, :owner)
-				end
-
-			 	describe "with valid params" do
-		      
-		      it "returns the canvas" do
-						results = get :members,
-							:id => canvas.id
-							
-		        assigns(:canvas) == canvas
-		      end
-     
-		      it "returns a 200" do
-		        results = get :members, 
-							:id => canvas.id
-							
-		        results.status.should == 200
-		      end
-		    end
-		
-		
+		it "should require authentication" do
+			should_require_authentication do
+				canvas = Factory.create(:canvas)
+				get :banned, :id => canvas.id
 			end
-			
-			context "without permissions" do
-				before(:each) do
-					@user = Factory.create(:user)
-			    controller.stubs(:current_user).returns(@user)
-					@user.set_canvas_role(canvas, :member)
-				end
-				
-				describe "with valid params" do    
-					it "returns a 403 code" do
-		        results = get :members, 
-							:id => canvas.id
-							
-						results.status.should == 403
-		      end
-	    	end
-			end
-		
 		end
-		
-		context "logged out" do
-		  before (:each) do
-				@user = Factory.create(:user)
-		    controller.stubs(:current_user).returns(nil)
-		   end
-			
-		 	describe "with valid params" do
-	      let(:canvas) { Factory.create(:canvas) }
-     
-	      it "redirects to login page" do
-					results = get :members, 
-						:id => canvas.id
 
-	        response.location.should include("auth/")
+		it "should require authorization to :update" do 
+			canvas = Factory.create(:canvas)
+			should_require_authorization_to(:action => :update, :object => canvas) do
+				get :banned, :id => canvas.id
+			end
+		end
+		context "logged in with permissions" do
+			let(:canvas) { Factory.create(:canvas) }
+
+			before(:each) do
+				@user = Factory.create(:user)
+		    controller.stubs(:current_user).returns(@user)
+				@user.set_canvas_role(canvas, :owner)
+			end
+
+		 	describe "with valid params" do
+	      it "returns the canvas" do
+					results = get :members,
+						:id => canvas.id
+	        assigns(:canvas) == canvas
+	      end
+    
+	      it "returns a 200" do
+	        results = get :members, 
+						:id => canvas.id
+	        results.status.should == 200
 	      end
 	    end
 		end
-		
 	end
 end

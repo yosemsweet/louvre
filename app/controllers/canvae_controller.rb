@@ -58,7 +58,6 @@ class CanvaeController < ApplicationController
   def destroy
     @canvas = Canvas.find(params[:id])
 		authorize! :delete, @canvas
-		
     @canvas.destroy
     redirect_to(root_url)
   end
@@ -116,13 +115,9 @@ class CanvaeController < ApplicationController
 		authorize! :update, @canvas
 		begin
 			user = User.find(params[:user_id])
-			if current_user.canvas_role(@canvas) > user.canvas_role(@canvas)
-				@canvas.banned.where(:user_id => user.id).destroy_all
-				user.save!
-				head :ok
-			else
-				head :forbidden
-			end
+			@canvas.banned.where(:user_id => user.id).destroy_all
+			user.save!
+			head :ok
 		rescue
 			head :bad_request
 		end

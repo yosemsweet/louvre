@@ -16,22 +16,22 @@ describe "canvae/banned.html.haml" do
 	    end
 	  end
 
-		context "#ban-list" do
+		context "#banned-list" do
 			it "exists" do
 				render
-				rendered.should have_selector('#ban-list')
+				rendered.should have_selector('#banned-list')
 			end
 			
 			context "with banned members" do
 				before(:each) do
-					Factory.create(:user, :name =>"test member 1").set_canvas_role(@canvas, :banned)
-					Factory.create(:user, :name=>"test member 2").set_canvas_role(@canvas, :banned)
+					Factory.create(:user).set_canvas_role(@canvas, :banned)
+					Factory.create(:user).set_canvas_role(@canvas, :banned)
 				end
 				
 				it "contains all banned users each identified with data-user_id and a user class" do
 					render
 					@canvas.banned.each do |banned|
-						rendered.should have_selector("#ban-list .member-item[data-user_id='#{banned.user.id}']")
+						rendered.should have_selector("#banned-list .member-item[data-user_id='#{banned.user.id}']")
 					end
 				end
 			
