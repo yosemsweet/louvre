@@ -31,7 +31,7 @@ end
 
 
 Given /^I update the widget's text with "([^"]*)"$/ do |text|
-  within(".widget[data-widget_id='1']") do
+  within(".widget[data-widget_id='#{Widget.last.id}']") do
     find(".edit").click()
     fill_in('widget_text', :with=>text)
     click_button("Save")
