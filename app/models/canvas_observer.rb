@@ -5,7 +5,7 @@ class CanvasObserver < ActiveRecord::Observer
   end
   
   def after_update(canvas)
-  		event = Event.create(:canvas_id => canvas.id, :user_id => @current_user, :loggable_id => canvas.id, :loggable_type => 'Canvas', :description => 'Updated a Canvas')
+  	event = Event.create(:canvas_id => canvas.id, :user_id => @current_user, :loggable_id => canvas.id, :loggable_type => 'Canvas', :description => 'Updated a Canvas')
   end
 
 end

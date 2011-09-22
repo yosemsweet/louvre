@@ -75,7 +75,9 @@ class WidgetsController < ApplicationController
     
     @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas))
     
-	  authorize! :manage, @widget
+		if current_user
+			authorize! :manage, @widget
+		end
 		
     if page
 		  @widget.position_last_on_page
@@ -170,11 +172,12 @@ class WidgetsController < ApplicationController
     user = User.find_by_email(email)
     widget = Widget.new(:canvas_id => canvas_id)
 
-    if user && can?(:manage, widget)
+    if user
+	 # && can?(:manage, widget)
       
       widget = Widget.new(:canvas_id => canvas_id, :creator_id => user.id, :content_type => 'text_content', :text => params['text'])
 
-			authorize! :manage, widget
+			# authorize! :manage, widget
 
       if widget.save
         @mixpanel.track_event("Widget Created via Email", {:user_id => user.id, :name_tag => user.name, :canvas_id => canvas_id})
