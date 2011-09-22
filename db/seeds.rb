@@ -11,7 +11,8 @@ if Rails.env.development?
     :provider => "facebook",
     :uid => 21009266,
     :image => "https://s3.amazonaws.com/randomfile/1.png",
-    :last_action => Time.now
+    :last_action => Time.now,
+    :can_email => 1
   )
 
   user2 = User.create(
@@ -19,7 +20,8 @@ if Rails.env.development?
     :provider => "facebook",
     :uid => 21009243,
     :image => "https://s3.amazonaws.com/randomfile/1.png",
-    :last_action => Time.now
+    :last_action => Time.now,
+    :can_email => 1
   )
 
   user3 = User.create(
@@ -27,7 +29,8 @@ if Rails.env.development?
     :provider => "facebook",
     :uid => 21009213,
     :image => "https://s3.amazonaws.com/randomfile/1.png",
-    :last_action => Time.now
+    :last_action => Time.now,
+    :can_email => 1
   )
 
   user4 = User.create(
@@ -35,7 +38,8 @@ if Rails.env.development?
     :provider => "facebook",
     :uid => 21009213,
     :image => "https://s3.amazonaws.com/randomfile/1.png",
-    :last_action => Time.now
+    :last_action => Time.now,
+    :can_email => 1
   )
 
   email = Email.create(

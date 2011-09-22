@@ -4,8 +4,8 @@ class EventObserver < ActiveRecord::Observer
     c = event.canvas
 		c.user_roles.each do |cu|
 		  u = cu.user
-		  unless u.emails.empty? || u.last_action > 1.hour.ago || u.can_email == 0
-        UserMailer.notifications_email(u,event).deliver
+      if !u.emails.empty? && u.last_action < 1.hour.ago && u.can_email
+	      UserMailer.notifications_email(u,event).deliver
 		    u.can_email = 0
 		    u.save
 		  end
