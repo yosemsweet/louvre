@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   
   before_filter :initialize_mixpanel
+  before_filter :update_last_action
+
   
   rescue_from CanCan::AccessDenied do |exception|
     render :status => :forbidden, :text => "You don't have permissions for that action. #{exception}"
@@ -16,7 +18,8 @@ class ApplicationController < ActionController::Base
     end
   end
     
-  private  
+  private
+  
   def current_user  
 	
 		if session[:user_id] && User.exists?(session[:user_id])
@@ -28,6 +31,14 @@ class ApplicationController < ActionController::Base
 		
 		return @current_user
 		
+  end
+
+  def update_last_action
+    if current_user
+      current_user.last_action = DateTime.now
+      current_user.can_email = 1
+      current_user.save
+    end
   end
   
   def add_canvas_breadcrumb(canvas)

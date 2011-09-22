@@ -1,20 +1,5 @@
 $(document).ready(function(){
 
-	// Widget dialog.
-	var $widget_dialog = $("#widget_dialog").dialog({
-	  minHeight:250, 
-	  minWidth:500, 
-	  autoOpen:false
-	});
-	$widget_dialog.open = function(title, src){
-		$("iframe", $(this)).attr("src", src);
-		$(this).dialog("option","title", title);
-		$(this).dialog("open");
-	}
-	$widget_dialog.close = function(){
-		$(this).dialog("close");
-	}
-
 	// Add widget links.
 	$(".add_widget").click(function(event){
 	  event.preventDefault();
@@ -239,8 +224,4 @@ $(document).ready(function(){
 	    });
 	  });
 	}
-
-	close_widget_dialog = function(){
-    $widget_dialog.close();
-  }
 });

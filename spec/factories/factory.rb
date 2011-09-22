@@ -24,11 +24,11 @@ FactoryGirl.define do
   end
 
   factory :event do
-    canvas_id 1
+    canvas
+    user
     loggable_id 1
     loggable_type "Page"
-    user_id 1
-    description "Tbhis is a event description"
+    description "This is an event description"
   end
   
   factory :page do

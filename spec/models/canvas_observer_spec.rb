@@ -5,7 +5,7 @@ describe CanvasObserver do
   context "canvas observer" do
 	
 		before :each do
-			@canvas = Factory.build(:canvas)
+			@canvas = Factory.create(:canvas)
 			@canvasObs = CanvasObserver.instance
 		end
 		

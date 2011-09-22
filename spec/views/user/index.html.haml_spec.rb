@@ -31,10 +31,25 @@ describe "users/index.html.haml" do
 					@users = User.all
 			  end
 				
-				it "contains all users each identified with user_id" do
+				it "contains all users each identified with data-user_id and an item class" do
 					render
 					@users.each do |u|
-						rendered.should have_selector("#user-list #user_#{u.id}")
+						rendered.should have_selector("#user-list .item[data-user_id='#{u.id}']")
+					end
+				end
+
+				
+				context "with admins" do
+					before(:each) do
+						Factory.create(:user, :admin => true)
+						@users = User.all
+					end
+					
+					it "should add an admin class to each admin" do
+						render
+						@users.each do |u|
+							rendered.should have_selector("#user-list .item.admin[data-user_id='#{u.id}']") if u.admin?
+						end
 					end
 				end
 			end

@@ -22,7 +22,47 @@ describe Ability do
 	    @ability = Ability.new(@user)
       @ability.should be_able_to(:update, Factory.build(:page, :canvas => @canvas))
     end
-  
+  end
+
+  context "for a widget" do
+    before(:each) do
+      @canvas = Factory.create(:canvas)
+    end
+    
+		context "in the feed" do
+			before(:each) do
+				@widget = Factory.build(:widget, :canvas => @canvas)	
+			end
+			
+	    it "should not allow users to update" do
+		    @ability = Ability.new(@user)
+	      @ability.should_not be_able_to(:update, @widget)
+	    end
+    
+	    it "should allow members to update" do
+	      @user.set_canvas_role(@canvas, :member)
+		    @ability = Ability.new(@user)
+	      @ability.should be_able_to(:update, @widget)
+	    end
+		end
+		
+		context "on a page" do
+			before(:each) do
+				@page = Factory.create(:page, :canvas => @canvas)
+				@widget = Factory.build(:widget, :canvas => @canvas, :page => @page)	
+			end
+			
+			it "should not allow users to update" do
+		    @ability = Ability.new(@user)
+	      @ability.should_not be_able_to(:update, @widget)
+	    end
+    
+	    it "should allow members to update" do
+	      @user.set_canvas_role(@canvas, :member)
+		    @ability = Ability.new(@user)
+	      @ability.should be_able_to(:update, @widget)
+	    end
+		end
   end
 
   context "for users" do    

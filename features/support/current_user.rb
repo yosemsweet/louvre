@@ -8,7 +8,6 @@ module KnowsCurrentUser
 		  @current_user.emails << email
 		  @current_user
 		end
-		puts @current_user
 		@current_user
 	end
 	

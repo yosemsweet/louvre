@@ -8,9 +8,6 @@ Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an) (user|admin)$/ do |user, role|
 	else
 		member = User.find_by_name(user) || Factory.create(:user, :name => user)
 	end
-	
-	puts #{member.name}: persisted? #{member.persisted?}
-	
 	if role == "admin"
 		member.admin = true
 		member.save!
@@ -55,6 +52,13 @@ Then /^I should see (?:a|an) (.*) link for "([^"]*)"$/ do |action, name|
 	page.should have_selector(".member-item[data-user_id='#{user.id}'] a.#{action}")
 end
 
+Then /I will see an admin indicator for each admin$/ do
+	admins = User.where(:admin => true)
+	admins.each do |a|
+		page.should have_selector(".member-item.admin[data-user_id='#{a.id}']")
+	end
+end
+
 Then /^"([^"]*)" should ?(|not) be banned$/ do |name, type|
   user = User.where(:name => name).first
 
@@ -62,5 +66,15 @@ Then /^"([^"]*)" should ?(|not) be banned$/ do |name, type|
 		user.canvas_role(Canvas.last).should_not == :banned
 	else
 		user.canvas_role(Canvas.last).should == :banned
+	end
+end
+
+Then /^"([^"]*)" should ?(|not) be an admin$/ do |name, type|
+  user = User.find_by_name(name)
+
+	if type == "not"
+		user.should_not be_admin
+	else
+		user.should be_admin
 	end
 end

@@ -375,6 +375,9 @@ $.TextboxListBit = function(type, value, textboxlist, _options){
 	}, _options);
 	
 	this.type = type;
+  if(value != null ){
+    value[0] = "";
+    }
 	this.value = value;
 	
 	var self = this;
