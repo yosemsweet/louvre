@@ -10,7 +10,7 @@ $(document).ready(function(){
 		// hide all new widgets before opening the one that was clocked on
 		$("ul#inline_form").children().not(widget.parent()).hide();
 		
-		// Contrtol the look of the tabs
+		// Control the look of the tabs
 		var is_active = $(this).hasClass("active");
 		$(".add_widget").removeClass("active");
 		if(! is_active){
@@ -47,8 +47,7 @@ $(document).ready(function(){
 	
 	// Handle widget form saves.
 	$(".widget form.edit_widget").live("submit", function(){
-    event.preventDefault();
-		
+
 		var widget_id = $(this).parents(".widget").data("widget_id");
 		if(typeof widget_id === "undefined"){
 			widget_id = 0;
@@ -60,7 +59,6 @@ $(document).ready(function(){
 		// Validate the form.
 		var form_elements = $(this)[0].elements;
 		var is_valid = true;
-		
 		
 		for(var i=0; i < form_elements.length ; i++){
 			var element = form_elements[i];
@@ -90,6 +88,9 @@ $(document).ready(function(){
 			
 			setTimeout(function(){$('#flash').fadeOut('slow')}, 2000);
 		}
+		
+		return(false);
+    event.preventDefault();
 
 	});
 
