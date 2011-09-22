@@ -34,9 +34,11 @@ class ApplicationController < ActionController::Base
   end
 
   def update_last_action
-    current_user.last_action = DateTime.now
-    current_user.can_email = 1
-    current_user.save
+    if current_user
+      current_user.last_action = DateTime.now
+      current_user.can_email = 1
+      current_user.save
+    end
   end
   
   def add_canvas_breadcrumb(canvas)
