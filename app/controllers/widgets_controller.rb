@@ -172,7 +172,7 @@ class WidgetsController < ApplicationController
     user = User.find_by_email(email)
     widget = Widget.new(:canvas_id => canvas_id)
 
-    if user
+    if user && user.canvas_role?(widget.canvas,:member)
 	 # && can?(:manage, widget)
       
       widget = Widget.new(:canvas_id => canvas_id, :creator_id => user.id, :content_type => 'text_content', :text => params['text'])
