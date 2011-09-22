@@ -26,6 +26,7 @@ body{
 	background-color: #ECF0F9;
 	width:300px;
 	height:40px;
+	z-index:999999999;
 }
 .no_new_events{
 	background-color:#666666;
@@ -37,6 +38,7 @@ body{
 #event_list_container{
 	position:absolute;
 	width:300px;
+	z-index:999999999;
 }
 
 #header-toolbar{
