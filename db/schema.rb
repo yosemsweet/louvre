@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110916231404) do
+ActiveRecord::Schema.define(:version => 20110921181011) do
 
   create_table "canvae", :force => true do |t|
     t.string   "name"
@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(:version => 20110916231404) do
     t.datetime "updated_at"
     t.boolean  "admin",                   :default => false
     t.datetime "notifications_viewed_at"
+    t.boolean  "can_email"
+    t.datetime "last_action"
   end
 
   create_table "versions", :force => true do |t|

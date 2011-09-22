@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def indefinite_articlerize(params_word)
+    %w(a e i o u).include?(params_word[0].downcase) ? "an #{params_word}" : "a #{params_word}"
+  end
+
   def application_javascripts
     %w(
     https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js

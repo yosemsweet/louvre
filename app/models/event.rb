@@ -9,7 +9,11 @@ class Event < ActiveRecord::Base
 	def url
 	  case loggable.class.name
     when "Widget"
-      widget_path(loggable)
+      if loggable.page.nil?
+        canvas_path(loggable.canvas)
+      else
+        canvas_page_path(loggable.canvas, loggable.page)
+      end
     when "Page"
       canvas_page_path(loggable.canvas, loggable)
     when "Canvas"
