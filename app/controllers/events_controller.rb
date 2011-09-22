@@ -7,6 +7,9 @@ class EventsController < ApplicationController
     @events = Event.where("canvas_id IN (?)",the_canvas_ids).order(:created_at).reverse_order.limit(5)
     u = current_user
     @notifications_viewed_at = u.notifications_viewed_at
+    if @notifications_viewed_at.nil?
+      @notifications_viewed_at = Time.now
+    end
     u.notifications_viewed_at = Time.now
     u.save
     render :layout => false

@@ -4,7 +4,6 @@ describe "Pages Requests" do
   
   before(:each) do
     @user = Factory.create(:user)
-    @User.notifications_viewed_at = Time.now
     @canvas = Factory.create(:canvas)
   end
 
