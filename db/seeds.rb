@@ -4,33 +4,58 @@ if Rails.env.development?
   Page.delete_all
   Canvas.delete_all
   User.delete_all
+  Email.delete_all
 
   user = User.create(
     :name => "Bob Dole",
     :provider => "facebook",
     :uid => 21009266,
-    :image => "https://s3.amazonaws.com/randomfile/1.png"
+    :image => "https://s3.amazonaws.com/randomfile/1.png",
+    :last_action => Time.now
   )
 
   user2 = User.create(
     :name => "Socra Tease",
     :provider => "facebook",
     :uid => 21009243,
-    :image => "https://s3.amazonaws.com/randomfile/1.png"
+    :image => "https://s3.amazonaws.com/randomfile/1.png",
+    :last_action => Time.now
   )
 
   user3 = User.create(
     :name => "Tom Cruise",
     :provider => "facebook",
     :uid => 21009213,
-    :image => "https://s3.amazonaws.com/randomfile/1.png"
+    :image => "https://s3.amazonaws.com/randomfile/1.png",
+    :last_action => Time.now
   )
 
   user4 = User.create(
     :name => "Justin Bieber",
     :provider => "facebook",
     :uid => 21009213,
-    :image => "https://s3.amazonaws.com/randomfile/1.png"
+    :image => "https://s3.amazonaws.com/randomfile/1.png",
+    :last_action => Time.now
+  )
+
+  email = Email.create(
+	:user => user,
+	:address => "bob.dole@loorp.com"
+  )
+
+  email2 = Email.create(
+	:user => user2,
+	:address => "socra.tease@loorp.com"
+  )
+
+  email3 = Email.create(
+	:user => user3,
+	:address => "tom.cruise@loorp.com"
+  )
+
+  email4 = Email.create(
+	:user => user4,
+	:address => "justin.bieber@loorp.com"
   )
 
   open_canvas = Canvas.create(
