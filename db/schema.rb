@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110921181011) do
+ActiveRecord::Schema.define(:version => 20110923183842) do
 
   create_table "canvae", :force => true do |t|
     t.string   "name"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(:version => 20110921181011) do
     t.string   "title"
     t.text     "question"
     t.text     "answer"
+    t.integer  "editor_id"
   end
 
 end

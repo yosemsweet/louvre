@@ -16,6 +16,7 @@ class Widget < ActiveRecord::Base
 	belongs_to :parent, :class_name => "Widget"
 		
   has_paper_trail :meta => { :page_id => Proc.new{ |widget| widget.page ? widget.page.id : nil }}
+
   acts_as_opengraph :values => { :type => "cause" }
 	acts_as_followable
     
