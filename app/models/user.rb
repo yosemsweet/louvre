@@ -22,6 +22,9 @@ class User < ActiveRecord::Base
   			user.image = auth["user_info"]["image"]
   			email = Email.create(:address => auth["user_info"]["email"], :primary => 1)
   			user.emails << email
+  			user.last_action = Time.now
+  			user.notifications_viewed_at = Time.now
+  			user.can_email = true
 			end
     end  
   end
