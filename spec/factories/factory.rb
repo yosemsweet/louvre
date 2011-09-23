@@ -12,6 +12,7 @@ FactoryGirl.define do
     end
 	  image "http://www.carniola.org/theglory/images/McHammer.gif" 
 	  admin false
+	  last_action Time.now
   end
 
   factory :canvas do
