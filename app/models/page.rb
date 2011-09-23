@@ -2,12 +2,11 @@ class Page < ActiveRecord::Base
 
   belongs_to :canvas
   belongs_to :creator, :class_name => "User"
+  belongs_to :editor, :class_name => "User"
 	has_many :widgets
 	has_many :events, :as => :loggable
 	
-  validates_presence_of :title
-  validates_presence_of :creator
-  validates_presence_of :canvas
+  validates_presence_of :title, :creator, :editor, :canvas
 
   has_paper_trail
   acts_as_opengraph :values => { :type => "cause" }

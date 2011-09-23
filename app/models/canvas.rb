@@ -2,6 +2,7 @@ class Canvas < ActiveRecord::Base
 	after_save :add_owner_role
 	
 	belongs_to :creator, :class_name => "User"
+	belongs_to :editor, :class_name => "User"
 	has_many :pages
   has_many :widgets
   has_many :canvas_follows
@@ -10,9 +11,8 @@ class Canvas < ActiveRecord::Base
   has_many :applicants, :through => :canvas_applicants
 	has_many :events, :as => :loggable
 
-	validates :name, :presence => true, :uniqueness => true
-	validates :mission, :presence => true
-	validates :creator, :presence => true
+  validates_presence_of :name, :mission, :creator, :editor
+  validates_uniqueness_of :name
 
   acts_as_opengraph :values => { :type => "cause" }	
 	acts_as_followable
