@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
 	
-  factory :user, :aliases => [:creator] do
+  factory :user, :aliases => [:creator, :editor] do
 	  provider "facebook"
     sequence :uid do |n|
       "00#{n}"
@@ -46,12 +46,14 @@ FactoryGirl.define do
   
   factory :canvas_widget do
     creator
+		editor
     canvas
 		content_type "test_content"
 	end
 
   factory :widget do
     creator
+		editor
     page
     canvas
 		content_type "test_content"
