@@ -35,11 +35,11 @@ $(document).ready(function(){
 		});
 	})
 
-
 	$("body").mouseup(function(){ 
   	if($('#event_list_container').is(":visible"))
 			$('#event_list_container').fadeToggle();
 	});
+
 
 	reload_hud = function(){
 	  $("#hud_content").load("/users/hud");  

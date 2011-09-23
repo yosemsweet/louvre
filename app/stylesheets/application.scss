@@ -9,6 +9,15 @@ body{
 	}
 }
 
+h1#logo a {
+	color:#FFFFFF;
+	text-decoration:none;
+}
+
+#toolbar, #toolbar-feed {
+	font-size:13px;
+}
+
 #event_count{
 	cursor:pointer;
 	border-radius: 4px;

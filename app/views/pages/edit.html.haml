@@ -15,6 +15,8 @@
   #toolbar
     %a.add_widget.tab{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Text
     %a.add_widget.tab{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Image
+    %a.add_widget.tab{:href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Link
+    %a.add_widget.tab{:href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Question
 
 
   %ul#inline_form
@@ -33,9 +35,12 @@
 .span-8.last
   %h2 Feed
   
-  #toolbar-feed
-    %a.add_widget_mock.tab{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
-    %a.add_widget_mock.tab{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
+  / #toolbar-feed
+  /   %a.add_widget_mock.tab{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
+  /   %a.add_widget_mock.tab{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
+  /   %a.add_widget_mock.tab{:href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id}} Add Link
+  /   %a.add_widget_mock.tab{:href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id}} Add Question
+    
   
   %form
     .field

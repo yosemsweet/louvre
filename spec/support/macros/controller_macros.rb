@@ -78,7 +78,8 @@ module ControllerMacros
 	private
 	
 	def log_in
-		controller.stubs(:current_user).returns(User.new)
+	  user = Factory.build(:user)
+		controller.stubs(:current_user).returns(user)
 	end
 	
 	def log_out
