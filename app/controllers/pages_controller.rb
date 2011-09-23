@@ -24,6 +24,8 @@ class PagesController < ApplicationController
       :text_widget => Widget.new(:content_type => "text_content", :page => @page),
       :image_widget => Widget.new(:content_type => "image_content", :page => @page)
     }
+
+		debugger
 		add_breadcrumb "Edit '#{@page.title}'", edit_canvas_page_path(@page.canvas, @page)
 		
     

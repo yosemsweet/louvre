@@ -3,15 +3,16 @@ Given /^there is a canvas$/ do
 end
 
 Given /^I am the owner of a canvas$/ do
-  Factory.create(:canvas, :creator => that(User))
-	set_that Canvas.last
-	set_that User.last
+	set_that that(User)
+  set_that Factory.create(:canvas, :creator => that(User))
 end
 
-Given /^(?:this|that) canvas has a page titled "([^"]*)"$/ do |pagetitle|
-  page = (that Canvas).create(Factory.create(:page, :title => pagetitle).attributes)
+Given /^(?:this|that) canvas has a page (?:titled|called) "([^"]*)"$/ do |pagetitle|
+	page_prototype = Factory.create(:page, :title => pagetitle).attributes.except(
+		"created_at", "updated_at", "page_id", "canvas_id", "id")
+  page = (that Canvas).pages.create(page_prototype)
+	set_that page
 end
-
 
 Given /^I am creating a canvas$/ do
   visit path_to("the New Canvas page")
@@ -19,6 +20,7 @@ Given /^I am creating a canvas$/ do
 	fill_in("Name", :with => canvas.name)
 	fill_in("Mission", :with => canvas.mission)
 	fill_in("Image", :with => canvas.image)
+	set_that canvas
 end
 
 Given /^that canvas is closed$/ do

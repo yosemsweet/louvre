@@ -20,7 +20,7 @@ Then "that widget's edit link" should be visible
 @javascript
 Scenario: See edit link on mouseover on page
 Given there is a canvas
-And that canvas has a page called "Page 1"
+And that canvas has a page titled "Page 1"
 And that page has a link widget
 And I am authenticated
 And I am a member of that canvas
