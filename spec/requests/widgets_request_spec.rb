@@ -5,6 +5,53 @@ describe "Widgets Requests" do
   before(:each) do
     @user = Factory.create(:user)
     WidgetsController.any_instance.stubs(:current_user).returns(@user)
+  end  
+  
+  describe "POST /widgets" do
+    
+    before(:each) do
+      WidgetsController.any_instance.stubs(:current_user).returns(nil)
+      
+      @canvas = Factory.create(:canvas)
+      @widget_count = Widget.all.length
+      
+
+      post "/widgets", :canvas_id => @canvas.id, 
+            :widget =>  { 
+              :creator_id => @user.id,
+              :content_type => "link_content",
+              :text => "testtext",
+              :page_id => nil, 
+              :link => "http://www.test.com",
+              :title => "testtitle" 
+            } 
+      @latest_widget = Widget.last 
+    end
+    
+    it "should create a new widget" do
+      Widget.all.length.should == @widget_count + 1
+    end
+    
+    it "should have the widget with the correct canvas" do
+      puts Widget.last.text
+      
+       @latest_widget = Widget.last
+       
+       puts @latest_widget.text
+       puts @canvas.id
+       
+      @latest_widget.canvas.id.should  == @canvas.id
+    end
+
+    it "should have the inserted text" do
+      @latest_widget = Widget.last
+      @latest_widget.text.should == 'testtext'
+    end
+
+    it "should have set link to http://www.test.com" do
+      @latest_widget.link.should == "http://www.test.com"
+    end
+
   end
   
   describe "PUT /widgets/[widget_id]" do

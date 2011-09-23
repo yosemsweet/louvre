@@ -74,10 +74,10 @@ class WidgetsController < ApplicationController
     end
     
     @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas))
-    
-		if current_user
-			authorize! :manage, @widget
-		end
+
+    if current_user
+      authorize! :manage, @widget
+    end
 		
     if page
 		  @widget.position_last_on_page
