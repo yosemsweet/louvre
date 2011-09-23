@@ -49,7 +49,6 @@ FactoryGirl.define do
 		content_type "test_content"
 	end
 
-  #TODO: Is this actually supposed to be teSt_content and not teXt_content?!!
   factory :widget do
     creator
     page

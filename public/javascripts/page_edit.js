@@ -1,11 +1,4 @@
 $(document).ready(function(){
-  
-	// $('#tag_ids').tokenInput('/tags', { 
-	//   crossDomain: false,
-	//   theme: 'facebook',
-	//   onDelete : function(){ reload_feed_widgets()},
-	//   onAdd : function(){ reload_feed_widgets()}
-	// });
 	
 	var drag_in_progress = false;
 	var reload_feed_widgets = function(){
@@ -53,11 +46,8 @@ $(document).ready(function(){
 		});
 	}
 
-
-
 	reload_page_widgets();
 	reload_feed_widgets();
-	// setInterval(reload_feed_widgets, 15000); 
 
 	$("ul#page").sortable({
 	   axis: 'y',
@@ -88,7 +78,7 @@ $(document).ready(function(){
       
 	      } else {
         
-	        // Update the widget's position on the server.
+					// Update the widget's position on the server.
 	        $.post("/widgets/" + widget_id + "/move/" + position, { _method : 'PUT' });
       
 	        mpq.push(["track","page_reorder_widgets", {page_id : request.page_id, user_id : request.user_id}]);
