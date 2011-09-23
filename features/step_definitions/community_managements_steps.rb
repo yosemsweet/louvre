@@ -25,7 +25,7 @@ Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an|) (.*) (?:of|to|for) that canvas$/ do |u
 	if role == "applicant"
 		(that Canvas).canvas_applicants.create(:user_id => member.id)
 	else
-		member.set_canvas_role(Canvas.last, role.to_sym)
+		member.set_canvas_role((that Canvas), role.to_sym)
 	end
 end
 

@@ -46,9 +46,6 @@ Then /^I should see any ongoing discussions for that canvas$/ do
 	page.should have_selector("#discussions")
 end
 
-
-
-
 Then /^that canvas should require membership to edit$/ do
 	(that Canvas).open?.should be_false
 end

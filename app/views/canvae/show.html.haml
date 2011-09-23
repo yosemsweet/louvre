@@ -108,6 +108,7 @@
       %div{:style => "display:none;"}
         = render :partial => "widgets/canvas_feed", :object => widget, :as => :widget  
   %ul#feed
+    = render :collection => @canvas.widgets, :partial => "widgets/canvas_feed", :as => :widget
 
 
 - if current_user

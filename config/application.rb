@@ -22,10 +22,7 @@ module Louvre
     end
 
 		#Activate observers
-		#config.active_record.observers = :canvas_observer
-		config.active_record.observers = :canvas_observer, :page_observer, :widget_observer, :event_observer
-		#config.active_record.observers = :widget_observer
-		#config.active_record.observers = :event_observer
+		config.active_record.observers = :canvas_observer, :page_observer, :widget_observer, :event_observer unless File.basename($0) == 'rake'
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

@@ -1,4 +1,5 @@
 Given /^that (.+) has a (.+) widget$/ do |model, type|
+	debugger
 	model = "canvae" if model == "canvas"
 	klass = model.singularize.camelize.constantize
 	widget_type = (type + "_widget").underscore.to_sym
