@@ -6,7 +6,7 @@ gem 'sqlite3'
 gem 'nokogiri'
 gem "haml-rails"
 gem "compass"
-gem 'omniauth', "~> 0.2.6"
+gem 'omniauth', "~> 0.3"
 gem "acts_as_opengraph", :git => "git@github.com:yosemsweet/acts_as_opengraph.git"
 gem "paper_trail"  
 gem 'engineyard'
@@ -26,7 +26,7 @@ group :development, :test do
   gem "rails3-generators"
   gem "rspec-rails", '~>2.6'
   gem "ruby-debug19"
-  gem 'spork', '>=0.9.0.rc8'
+  gem 'spork', '>=0.9.0.rc9'
   gem 'guard'
   gem 'guard-spork'
   gem 'growl'
