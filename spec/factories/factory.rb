@@ -22,6 +22,7 @@ FactoryGirl.define do
 	  mission "Better clothing for women of a certain age!"
 	  image "http://www.carniola.org/theglory/images/McHammer.gif"
 		creator
+		editor
   end
 
   factory :event do
@@ -35,6 +36,7 @@ FactoryGirl.define do
   factory :page do
     title "My Page"
     creator
+    editor
     canvas
   end
 
