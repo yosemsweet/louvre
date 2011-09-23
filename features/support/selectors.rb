@@ -17,6 +17,13 @@ module HtmlSelectorsHelpers
 		when /the (.+) list/
 			"##{$1}-list"
 			
+		when /the new (.+) widget form/
+      "#inline_form .widget.#{$1}_content"
+      
+      
+  	when /the new widget form/
+      "#inline_form .widget"
+			
 		when "that widget"
 			".widget[data-widget_id='#{(that Widget).id}']"
 			

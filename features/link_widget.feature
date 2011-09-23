@@ -24,4 +24,4 @@ Given I am authenticated
 And I am a member of that canvas
 And I am on that canvas' homepage
 When I follow "Add Link"
-Then I should see the new widget form
+Then "the new link widget form" should be visible

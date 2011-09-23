@@ -12,7 +12,6 @@ And I am authenticated
 And I am a member of that canvas
 And I am on that canvas' homepage
 And I wait until all Ajax requests are complete
-Then vomit the page
 When I mouse over "that widget"
 Then "that widget's edit link" should be visible
 
@@ -20,12 +19,11 @@ Then "that widget's edit link" should be visible
 @javascript
 Scenario: See edit link on mouseover on page
 Given there is a canvas
-And that canvas has a page called "Page 1"
+And that canvas has a page titled "Page 1"
 And that page has a link widget
 And I am authenticated
 And I am a member of that canvas
 And I am on the edit page for "Page 1"
-Then inspect that page
 When I mouse over "that widget"
 Then "that widget's edit link" should be visible
 
@@ -37,8 +35,6 @@ And that canvas has a link widget
 And I am authenticated
 And I am a member of that canvas
 And I am on that canvas' homepage
-Then inspect that canvas
 And I update the widget's text with "hello"
 And I wait until all Ajax requests are complete
-Then inspect that widget
 Then I should see "hello"

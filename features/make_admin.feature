@@ -13,6 +13,7 @@ Background:
   |Darth Sidious  | true    |
   And I am on the users page
 
+
 @omniauth_test
 Scenario: See global list of users
   Then I should see all users in the user list
@@ -28,6 +29,7 @@ When I follow the admin link for "Gill Fert"
 And I wait until all Ajax requests are complete
 Then "Gill Fert" should be an admin
 
+@wip
 @omniauth_test
 @javascript
 Scenario: Make an admin a user

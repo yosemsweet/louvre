@@ -57,11 +57,6 @@ Then /^(?:|I )should see the "([^"]*)" button$/ do |text|
   button_is_visible.should == true
 end
 
-Then /^"([^"]*)" should be visible$/ do |selector|
-	page.should have_selector(selector_for(selector))
-	page.find(selector_for(selector)).should be_visible
-end
-
 Then /^(?:|I )should not see the "([^"]*)" button$/ do |text|
   button_is_visible = page.has_button?(text) && page.find_button(text).visible?  
   button_is_visible.should == false
@@ -94,6 +89,8 @@ Then /^I should see all (.+) in (.+)$/ do |model,scope|
 	end
 end
 
+# eval page.find(".item[data-user_id
+
 Then /^I should not see the "([^"]*)" image$/ do |image|
 	page.should have_selector("##{image}")
 	page.find("##{image}").should_not be_visible
@@ -111,6 +108,16 @@ end
 Then /^inspect that (.+)$/ do |model|
 	model = "canvae" if model == "canvas"
 	puts (that model.classify.constantize).to_yaml
+end
+
+Then /^"([^"]*)" should ?(|not) be visible$/ do |selector, type|
+  selector = selector_for(selector)
+  if type == "not"
+    page.find(selector).should_not be_visible
+  else
+  	page.should have_selector(selector)
+    page.find(selector).should be_visible
+  end
 end
 
 Then /^the "([^"]*)" should contain "([^"]*)"$/ do |scope, content|

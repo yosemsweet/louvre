@@ -6,7 +6,9 @@ Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an) (user|admin)$/ do |user, role|
 	end
 	if role == "admin"
 		member.admin = true
+		member.save
 	end
+	
 end
 
 Given /^the following users exist:$/ do |users|
@@ -25,7 +27,7 @@ Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an|) (.*) (?:of|to|for) that canvas$/ do |u
 	if role == "applicant"
 		(that Canvas).canvas_applicants.create(:user_id => member.id)
 	else
-		member.set_canvas_role(Canvas.last, role.to_sym)
+		member.set_canvas_role((that Canvas), role.to_sym)
 	end
 end
 
@@ -76,9 +78,13 @@ Then /^"?(I|[^"]*)"? should ?(|not) be ?(?:a|an|)? (.+) (?:of|by|for) that canva
 	end
 end
 
-Then /^"([^"]*)" should ?(|not) be an admin$/ do |name, type|
-  user = User.find_by_name(name)
-
+Then /^"?(I|[^"]*)"? should ?(|not) be an admin$/ do |name, type|
+  if name == "I"
+    user = current_user
+  else
+    user = User.find_by_name(name)
+  end
+    
 	if type == "not"
 		user.should_not be_admin
 	else

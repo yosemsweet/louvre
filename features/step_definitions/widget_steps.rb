@@ -14,7 +14,7 @@ Given /^that widget has a tag "([^"]*)"$/ do |tag|
 end
 
 # Given /^I fill "([^"]*)" and select the first tag$/ do |tag_name|
-#   within(".widget[data-widget_id='1']") do
+#   within(".widget[data-widget_id='#{(that Widget).id}']") do
 #     find(".textboxlist").click()
 #     fill_in('fillin', :with=>tag_name)
 #     within(".textboxlist-autocomplete-results") do
@@ -25,13 +25,14 @@ end
 #   end
 #   
 #   When "I wait until all Ajax requests are complete"
-#   puts Widget.last.to_yaml
+#   puts (that Widget).to_yaml
 #   # find("#widget_submit").click()
 # end
 
 
 Given /^I update the widget's text with "([^"]*)"$/ do |text|
-  within(".widget[data-widget_id='#{Widget.last.id}']") do
+	page.should have_selector(".widget[data-widget_id='#{(that Widget).id}']")
+  within(".widget[data-widget_id='#{(that Widget).id}']") do
     find(".edit").click()
     fill_in('widget_text', :with=>text)
     click_button("Save")

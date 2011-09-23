@@ -158,7 +158,6 @@ class WidgetsController < ApplicationController
 
 	  authorize! :manage, widget
 
-    widget.remove_page_position
     widget.destroy
     head :ok
   end

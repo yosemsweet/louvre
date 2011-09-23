@@ -149,4 +149,16 @@ describe Page do
 		end
 	end
 	
+	context "#widgets" do
+		let(:page) { FactoryGirl.create(:page) }
+		
+		context "#new" do
+			it "should create a widget attached to this page and this page's canvas" do
+				widget = page.widgets.new
+				widget.page.should == page
+				widget.canvas.should == page.canvas
+			end
+		end
+	end
+	
 end

@@ -14,3 +14,8 @@ Then I should be a member of that canvas
 Scenario: Given I am not a member of that canvas
 Given there is a canvas
 Then I should not be a member of that canvas
+
+@background_user
+Scenario: Given I am not a member of that canvas
+Given I am an admin
+Then I should be an admin
