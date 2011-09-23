@@ -35,27 +35,27 @@ module NavigationHelpers
 			canvas_path(canvas)
 			
 		when /that canvas' homepage/
-		  canvas = Canvas.last
+		  canvas = that Canvas
 		  canvas_path(canvas)
 		
 		when /that canvas' ban management page/
-			canvas = Canvas.last
+			canvas = that Canvas
 			banned_canvas_path(canvas)
 			
 		when /that canvas' member management page/
-			canvas = Canvas.last
+			canvas = that Canvas
 			members_canvas_path(canvas)
 			
 		when /that canvas' applicant management page/
-			canvas = Canvas.last
+			canvas = that Canvas
 			applicants_canvas_path(canvas)
 
 		when /that widget's page/
-		  widget = Widget.last
+		  widget = that Widget
 		  canvas_widget_path(widget.canvas, widget)
 		
 		when /that page/
-			page = Page.last
+			page = that Page
 			canvas_page_path(page.canvas, page)
 		  
 		when /the user hud page/
@@ -67,12 +67,12 @@ module NavigationHelpers
 		when /cnn/ 
 		  "http://localhost:3000"
 		  
-  	when /the edit page for "Page1"/
-  	  page = Page.where(:title => "Page1").first
+  	when /the edit page for "([^"]*)"/
+  	  page = Page.where(:title => "#{$1}").first
   	  edit_canvas_page_path(page.canvas, page)
   	
-  	when /the show page for "Page1"/
-  	  page = Page.where(:title => "Page1").first
+  	when /the show page for "([^"]*)"/
+  	  page = Page.where(:title => "#{$1}").first
   	  canvas_page_path(page.canvas, page)  
 
 		when /the users page/

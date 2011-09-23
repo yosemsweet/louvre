@@ -35,7 +35,7 @@ And I should see "Edit"
 @omniauth_test
 Scenario: Make canvas closed
   Given I am creating a canvas
-  When I specify the canvas should be "closed"
+  When I specify that canvas should be "closed"
   And I press "Save"
   Then that canvas should require membership to edit
 

@@ -1,7 +1,7 @@
+- content_for :javascripts do
+  = javascript_include_tag 'page_edit'
 - content_for :stylesheets do
   = stylesheet_link_tag 'compiled/page.css', :media => 'screen, projection'
-- content_for :javascripts do
-  = javascript_include_tag 'page_edit'  
 
 .span-16
   %h1 Page
@@ -48,6 +48,7 @@
       %input#tag_names{:type => "text", :name => "tag_names", :style => "background-color: #333; width:50px", :width => "50px"}
   
   %ul#feed{:style => "height: 800px; overflow-y: auto; padding-left:0px"}
+    = render :collection => @page.canvas.widgets, :partial => "widgets/page_feed", :as => :widget
 
 .span-24.last
   = link_to 'Show', canvas_page_path(@page.canvas, @page)
