@@ -24,16 +24,12 @@ $(document).ready(function(){
 		hide:"puff"
 	});
 	
-	
-	
 	$("#apply").click(function(event){
 		event.preventDefault();
 		$("#apply-form").dialog("open");
 		console.log('i applied');
 	});
-	
-	
-	
+
 	$("#join").click(function(event){
 		event.preventDefault();
 		$("#join").remove();    
