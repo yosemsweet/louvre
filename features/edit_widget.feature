@@ -38,3 +38,17 @@ And I am on that canvas' homepage
 And I update the widget's text with "hello"
 And I wait until all Ajax requests are complete
 Then I should see "hello"
+
+@wip
+@omniauth_test
+@javascript
+Scenario: Updating the link widget text on a page
+Given there is a canvas
+And that canvas has a page titled "Page 1"
+And that page has a link widget
+And I am authenticated
+And I am a member of that canvas
+And I am on the edit page for "Page 1"
+And I update the widget's text with "hello"
+And I wait until all Ajax requests are complete
+Then I should see "hello"

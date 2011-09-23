@@ -122,8 +122,8 @@ class WidgetsController < ApplicationController
       head :ok
     else
       head :bad_request
-    end    
-      
+    end   
+  
   end
   
   # PUT /widgets/:id/move/:position
