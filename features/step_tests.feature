@@ -10,9 +10,7 @@ Given there is a canvas
 And I am a member of that canvas
 Then I should be a member of that canvas
 
-@wip
 @background_user
 Scenario: Given I am not a member of that canvas
 Given there is a canvas
-And I am not a member of that canvas
 Then I should not be a member of that canvas
