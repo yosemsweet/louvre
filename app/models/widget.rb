@@ -6,6 +6,9 @@ class Widget < ActiveRecord::Base
   
   attr_writer :tag_names
   after_save :assign_tags
+	before_validation :set_page_position, :if => :page
+	after_initialize :set_canvas, :if => Proc.new{|widget| widget.page.present? && widget.canvas.nil?} 
+	after_destroy :decrement_after, :if => :page
   
   belongs_to :page
   belongs_to :canvas
@@ -141,6 +144,12 @@ class Widget < ActiveRecord::Base
 			self.position = self.page.widgets.length + 1
 		end
 	end
+
+	def clone
+	  Widget.new(self.attributes.update :updated_at => nil, :created_at => nil, :position => nil, :parent => self)
+	end
+	 
+	private
 	
 	def remove_page_position
 	  if self.page
@@ -148,12 +157,6 @@ class Widget < ActiveRecord::Base
 	    update_attributes(:position => nil)
     end
   end
-	
-	def clone
-	  Widget.new(self.attributes.update :updated_at => nil, :created_at => nil, :position => nil, :parent => self)
-	end
-	 
-	private
 	
 	def assign_tags
 	  if @tag_names
@@ -163,6 +166,15 @@ class Widget < ActiveRecord::Base
       end
     end
   end
+
+	def set_canvas
+		self.canvas ||= self.page.canvas
+	end
+
+	def set_page_position
+		self.canvas ||= self.page.canvas
+		self.position_last_on_page unless self.position.present?
+	end
 	
 	def decrement_before
 	  # Decrement all earlier placements on this page.

@@ -18,7 +18,6 @@ module HtmlSelectorsHelpers
 			"##{$1}-list"
 			
 		when "that widget"
-			debugger
 			".widget[data-widget_id='#{(that Widget).id}']"
 			
 		when /that (.+)'s (.+) link/
