@@ -15,6 +15,7 @@ gem "html_truncator"
 gem "mixpanel"
 gem "koala"
 gem "cancan"
+gem "pg"
 
 group :development do
   gem 'rails-footnotes', '>= 3.7.5.rc4'
@@ -44,6 +45,5 @@ group :test do
 end
 
 group :production do
-  gem 'newrelic_rpm'
-  gem 'pg'  
+  gem 'newrelic_rpm'  
 end
