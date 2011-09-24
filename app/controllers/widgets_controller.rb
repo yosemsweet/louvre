@@ -73,11 +73,11 @@ class WidgetsController < ApplicationController
       canvas = Canvas.find(params[:canvas_id])
     end
     
-    @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas))
-
-    if current_user
-      authorize! :manage, @widget
-    end
+    @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas, :creator => current_user, :editor => current_user))
+    
+		if current_user
+			authorize! :manage, @widget
+		end
 		
     if page
 		  @widget.position_last_on_page
@@ -98,6 +98,7 @@ class WidgetsController < ApplicationController
 		authorize! :manage, widget
 		
 		cloned_widget = widget.clone
+		cloned_widget.editor = current_user
 		cloned_widget.page_id = params[:page_id]
 		
 		# Copy comments for question widgets.
@@ -114,11 +115,13 @@ class WidgetsController < ApplicationController
 
   # PUT /widgets/:id
   def update
+		# logger.debug 'rafe has a message0'
     @widget = Widget.find(params[:id])
-
+		
+		# logger.debug 'rafe has a message1'
 	  authorize! :manage, @widget
-
-    if @widget.update_attributes(params[:widget])
+		# logger.debug 'rafe has a message2'
+    if @widget.update_attributes(params[:widget].merge(:editor_id => current_user.id))
       head :ok
     else
       head :bad_request
@@ -147,7 +150,7 @@ class WidgetsController < ApplicationController
 		
     new_answers = widget.answers
     new_answers.delete_at(params[:answer_id].to_i) 
-    widget.update_attributes(:answer => new_answers.to_json)
+    widget.update_attributes(:answer => new_answers.to_json, :editor => current_user)
     
     head :ok
   end
@@ -174,7 +177,7 @@ class WidgetsController < ApplicationController
     if user && user.canvas_role?(widget.canvas,:member)
 	 # && can?(:manage, widget)
       
-      widget = Widget.new(:canvas_id => canvas_id, :creator_id => user.id, :content_type => 'text_content', :text => params['text'])
+      widget = Widget.new(:canvas_id => canvas_id, :creator_id => user.id, :editor_id => user.id, :content_type => 'text_content', :text => params['text'])
 
 			# authorize! :manage, widget
 

@@ -117,6 +117,11 @@ describe "Widgets Requests" do
 	      it "should set the new widget's position" do
 	        @latest_widget.position.should == 1
 	      end
+	
+				it "should set the new widget's editor" do
+					@latest_widget.editor.should == @user
+				end
+	
 	    end
 
 			context "user is not a member" do
@@ -222,6 +227,9 @@ describe "Widgets Requests" do
 	      it "should update the position of other widgets on the page appropriately" do
 	        @w1.reload.position.should == 2
 	      end
+	
+				it "should update the editor of the page" 
+	
       end
 
 			context "user is not a member" do
@@ -380,7 +388,6 @@ describe "Widgets Requests" do
       
     end
     
-    
     describe "PUT /widgets/[widget_id]/remove_answer/[answer_id]" do
 	
 			context "user is a member" do
@@ -389,20 +396,37 @@ describe "Widgets Requests" do
 	          { :message => "This is an answer.", :commenter => "Bob Dylan", :comment_date => 15.minutes.ago },
 	          { :message => "Another one.", :commenter => "James Dean", :comment_date => 7.hours.ago }
 	        ].to_json
-	        @widget = Factory.create(:question_widget, :answer => @answer)
-					@user.set_canvas_role(@widget.canvas,:member)
+					@creator = Factory.create(:user)
+					@canvas = Factory.create(:canvas)
+					@creator.set_canvas_role(@canvas,:member)
+					@user.set_canvas_role(@canvas,:member)
+	        @widget = Factory.create(:question_widget, :canvas => @canvas, :answer => @answer, :creator => @creator, :editor => @creator)
+	
+	        put "/widgets/#{@widget.id}/remove_answer/0"
 	      end
 
 	      it "should work" do
-	        put "/widgets/#{@widget.id}/remove_answer/0"
 	        response.status.should be(200)
 	      end
 
 	      it "should remove the answer" do
-	        put "/widgets/#{@widget.id}/remove_answer/0"
 	        @widget.reload.answers.length.should == 1
 	        @widget.reload.answers.first["message"].should == "Another one."
 	      end
+	
+				it "should update the editor of the widget" do
+					@widget.reload.editor.should == @user
+				end
+				
+				it "should update the editor of the widget" do
+					@widget.reload.editor.should == @user
+				end
+				
+				it "should not update the creator of the widget" do
+					@widget.reload.creator.should_not == @user
+				end
+				
+	
 			end
 		
 			context "user is not a member" do
