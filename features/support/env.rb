@@ -40,11 +40,6 @@ Spork.each_run do
   # You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.
   # See the DatabaseCleaner documentation for details. Example:
   #
-	Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
-	  DatabaseCleaner.strategy = :truncation, {:except => %w[widgets]}
-	end
+	DatabaseCleaner.strategy = :truncation
 
-	Before('~@no-txn', '~@selenium', '~@culerity', '~@celerity', '~@javascript') do
-	  DatabaseCleaner.strategy = :transaction
-	end
 end
