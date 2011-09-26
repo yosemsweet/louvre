@@ -65,13 +65,16 @@ class PagesController < ApplicationController
   end
 
   def update
+		logger.debug 'message0'
 		@page = Page.find(params[:id])
-
+		logger.debug 'message1'
 		authorize! :update, @page
-
-    if @page.update_attributes(params[:page])
+		logger.debug 'message2'
+    if @page.update_attributes(params[:page].merge(:editor_id => current_user.id))
+	logger.debug 'message3'
       redirect_to(canvas_page_path(@page.canvas, @page), :notice => 'Page was successfully updated.')
     else
+	logger.debug 'message4'
       render :action => "edit"
     end
   end
