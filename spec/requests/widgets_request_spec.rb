@@ -213,9 +213,9 @@ describe "Widgets Requests" do
 			context "user is a member" do
 	      before(:each) do
 	        canvas = Factory.create(:canvas)
-	        p = Factory.create(:page)  
-	        @w1 = Factory.create(:widget, :canvas => canvas, :page_id => p.id, :position => 1)
-	        @w2 = Factory.create(:widget, :canvas => canvas, :page_id => p.id, :position => 2)
+	        @p = Factory.create(:page)  
+	        @w1 = Factory.create(:widget, :canvas => canvas, :page_id => @p.id, :position => 1)
+	        @w2 = Factory.create(:widget, :canvas => canvas, :page_id => @p.id, :position => 2)
 					@user.set_canvas_role(canvas,:member)
 	        put "/widgets/#{@w2.id}/move/1"
 	      end
@@ -228,7 +228,9 @@ describe "Widgets Requests" do
 	        @w1.reload.position.should == 2
 	      end
 	
-				it "should update the editor of the page" 
+				it "should update the editor of the page" do
+					@p.reload.editor.should == @user
+				end
 	
       end
 

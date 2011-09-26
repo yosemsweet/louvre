@@ -47,12 +47,6 @@ describe "Pages Requests" do
       response.status.should == 403
     end
     
-    it "should redirect to the page page for a member" do
-      @user.set_canvas_role(@canvas, :member)
-      put canvas_page_path(@canvas, @page)
-      response.status.should == 302
-      response.header["Location"].should include('/pages/')
-    end
   end      
   
 end
