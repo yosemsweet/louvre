@@ -51,6 +51,15 @@ end
   end
 end
 
+guard 'spork', :wait => 45, :cucumber => false, :rspec_env => { 'RAILS_ENV' => 'test' } do
+  watch('config/application.rb')
+  watch('config/environment.rb')
+  watch(%r{^config/environments/.+\.rb$})
+  watch(%r{^config/initializers/.+\.rb$})
+  watch('spec/spec_helper.rb')
+	watch('spec/support/**/*.rb')
+end
+
 guard 'rspec', :all_on_start => false, :all_after_pass => false, :cli => "--color -f nested --drb" do
   watch(%r{^spec/.+_spec\.rb})
   watch(%r{^spec/factories/(.+)\.rb})                { "spec"}
@@ -88,10 +97,4 @@ guard('routes') { watch('config/routes.rb') }
 ::Guard::UI.info "\e[34mThe Vangaurd marches forth with the following troops:\n \e[32m#{extensions.join("\n ")}"
 ::Guard::UI.info "\e[33mRunning without cucumber. If you need this, install guard-cucumber." if @nocukes
 
-guard 'spork', :wait => 45, :cucumber => false, :rspec_env => { 'RAILS_ENV' => 'test' } do
-  watch('config/application.rb')
-  watch('config/environment.rb')
-  watch(%r{^config/environments/.+\.rb$})
-  watch(%r{^config/initializers/.+\.rb$})
-  watch('spec/spec_helper.rb')
-end
+
