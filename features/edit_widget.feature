@@ -39,7 +39,6 @@ And I update the widget's text with "hello"
 And I wait until all Ajax requests are complete
 Then I should see "hello"
 
-@wip
 @omniauth_test
 @javascript
 Scenario: Updating the link widget text on a page

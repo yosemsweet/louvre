@@ -29,7 +29,6 @@ When I follow the admin link for "Gill Fert"
 And I wait until all Ajax requests are complete
 Then "Gill Fert" should be an admin
 
-@wip
 @omniauth_test
 @javascript
 Scenario: Make an admin a user
