@@ -1,11 +1,17 @@
+Given /^that (.+) has a (.+) widget$/ do |model, type|
+	model = "canvae" if model == "canvas"
+	klass = model.singularize.camelize.constantize
+	widget_type = (type + "_widget").underscore.to_sym
+	widget_prototype = Factory.create(widget_type).attributes.except(
+		"created_at", "updated_at", "page_id", "canvas_id", "id")
+
+  set_that (that klass).widgets.create(widget_prototype)
+end
+
 When /^(?:I )wait until all Ajax requests are complete$/ do
   wait_until do
     page.evaluate_script('$.active') == 0
   end
-end
-
-Given /^there is a canvas$/ do
-  Factory.create(:canvas)
 end
 
 Given /^I am "([^"]*)"$/ do |name|
@@ -15,10 +21,6 @@ end
 Given /^I am logged in$/ do
   @user = Factory.create(:user)
   set_current_user(@user)
-end
-
-Given /^this canvas has a page titled "([^"]*)"$/ do |pagetitle|
-  page = Factory.create(:page, :title => pagetitle, :canvas => Canvas.last)
 end
 
 When /^I click "([^"]*)" for "([^"]*)"$/ do |link, user|
@@ -55,11 +57,6 @@ Then /^(?:|I )should see the "([^"]*)" button$/ do |text|
   button_is_visible.should == true
 end
 
-Then /^"([^"]*)" should be visible$/ do |selector|
-	page.should have_selector(selector_for(selector))
-	page.find(selector_for(selector)).should be_visible
-end
-
 Then /^(?:|I )should not see the "([^"]*)" button$/ do |text|
   button_is_visible = page.has_button?(text) && page.find_button(text).visible?  
   button_is_visible.should == false
@@ -92,6 +89,8 @@ Then /^I should see all (.+) in (.+)$/ do |model,scope|
 	end
 end
 
+# eval page.find(".item[data-user_id
+
 Then /^I should not see the "([^"]*)" image$/ do |image|
 	page.should have_selector("##{image}")
 	page.find("##{image}").should_not be_visible
@@ -106,11 +105,18 @@ Then /^vomit the page$/ do
   puts page.html
 end
 
-Then /^test$/ do
-  puts page.html
-  with_scope "the feed" do
-    # page.find("")
-    # puts page.find(".edit").text
+Then /^inspect that (.+)$/ do |model|
+	model = "canvae" if model == "canvas"
+	puts (that model.classify.constantize).to_yaml
+end
+
+Then /^"([^"]*)" should ?(|not) be visible$/ do |selector, type|
+  selector = selector_for(selector)
+  if type == "not"
+    page.find(selector).should_not be_visible
+  else
+  	page.should have_selector(selector)
+    page.find(selector).should be_visible
   end
 end
 

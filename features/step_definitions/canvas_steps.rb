@@ -1,5 +1,38 @@
+Given /^there is a canvas$/ do
+  set_that Factory.create(:canvas)
+end
+
 Given /^I am the owner of a canvas$/ do
-  Factory.create(:canvas, :creator => User.last)
+	set_that that(User)
+  set_that Factory.create(:canvas, :creator => that(User))
+end
+
+Given /^(?:this|that) canvas has a page (?:titled|called) "([^"]*)"$/ do |pagetitle|
+	page_prototype = Factory.build(:page, :title => pagetitle).attributes.except(
+		"created_at", "updated_at", "page_id", "canvas_id", "id")
+  page = (that Canvas).pages.create(page_prototype)
+	set_that page
+end
+
+Given /^I am creating a canvas$/ do
+  visit path_to("the New Canvas page")
+	canvas = Factory.build(:canvas)
+	fill_in("Name", :with => canvas.name)
+	fill_in("Mission", :with => canvas.mission)
+	fill_in("Image", :with => canvas.image)
+end
+
+Given /^that canvas is closed$/ do
+  (that Canvas).open = false
+end
+
+
+When /^I specify that canvas should be "([^"]*)"$/ do |state|
+	if state == "open"
+		page.check("Open?")
+	else
+		page.uncheck("Open?")
+	end
 end
 
 Then /^I should be the creator of the "([^"]*)" canvas$/ do |canvas_name|
@@ -14,25 +47,8 @@ Then /^I should see any ongoing discussions for that canvas$/ do
 	page.should have_selector("#discussions")
 end
 
-
-Given /^I am creating a canvas$/ do
-  visit path_to("the New Canvas page")
-	canvas = Factory.build(:canvas)
-	fill_in("Name", :with => canvas.name)
-	fill_in("Mission", :with => canvas.mission)
-	fill_in("Image", :with => canvas.image)
-end
-
-When /^I specify the canvas should be "([^"]*)"$/ do |state|
-	if state == "open"
-		page.check("Open?")
-	else
-		page.uncheck("Open?")
-	end
-end
-
 Then /^that canvas should require membership to edit$/ do
-	Canvas.last.open?.should be_false
+	(that Canvas).open?.should be_false
 end
 
 

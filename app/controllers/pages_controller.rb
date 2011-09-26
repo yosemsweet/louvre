@@ -26,9 +26,8 @@ class PagesController < ApplicationController
       :link_widget => Widget.new(:content_type => "link_content", :canvas => @canvas),
       :question_widget => Widget.new(:content_type => "question_content", :canvas => @canvas)
     }
-		add_breadcrumb "Edit '#{@page.title}'", edit_canvas_page_path(@page.canvas, @page)
-		
-    
+
+		add_breadcrumb "Edit '#{@page.title}'", edit_canvas_page_path(@page.canvas, @page)    
   end
 
   def versions

@@ -39,7 +39,7 @@ Scenario: Ban a member from member management
   And I am on that canvas' member management page
   When I follow the ban link for "Gill Fert"
   And I wait until all Ajax requests are complete
-  Then "Gill Fert" should be banned
+  Then "Gill Fert" should be banned for that canvas
 
 @javascript
 @omniauth_test
@@ -48,7 +48,7 @@ Scenario: Ban an applicant from applicant management
   And I am on that canvas' applicant management page
   When I follow the ban link for "Gill Fert"
   And I wait until all Ajax requests are complete
-  Then "Gill Fert" should be banned
+  Then "Gill Fert" should be banned for that canvas
   
 @javascript
 @omniauth_test
@@ -57,5 +57,5 @@ Scenario: Unban a user
   And I am on that canvas' ban management page
   When I follow the unban link for "Gill Fert"
   And I wait until all Ajax requests are complete
-  Then "Gill Fert" should not be banned
+  Then "Gill Fert" should not be banned for that canvas
   

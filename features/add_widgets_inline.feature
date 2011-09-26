@@ -11,7 +11,7 @@ And I am authenticated
 And I am a member of that canvas
 And I am on that canvas' homepage
 When I follow "Add Text"
-Then I should see the new text widget form
+Then "the new text widget form" should be visible
 When I follow "Add Image"
-Then I should see the new image widget form
-And I should not see the new text widget form
+Then "the new image widget form" should be visible
+And "the new text widget form" should not be visible

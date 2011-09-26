@@ -13,6 +13,7 @@ Background:
   |Darth Sidious  | true    |
   And I am on the users page
 
+
 @omniauth_test
 Scenario: See global list of users
   Then I should see all users in the user list

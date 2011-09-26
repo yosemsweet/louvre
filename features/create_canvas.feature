@@ -31,11 +31,12 @@ And I should see "Edit"
 #   And I am authenticated
 #   When I follow "Create Your Own Canvas"
 #   Then I should be on "the New Canvas page"
-  
+
 @omniauth_test
 Scenario: Make canvas closed
   Given I am creating a canvas
-  When I specify the canvas should be "closed"
+  When I specify that canvas should be "closed"
+  Then vomit the page
   And I press "Save"
   Then that canvas should require membership to edit
 

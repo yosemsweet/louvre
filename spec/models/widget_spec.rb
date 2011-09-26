@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Widget do
   
   context "validations" do
-  	let(:widget ) { Factory.build(:widget) }
+  	let(:widget ) { Factory.build(:widget, :page => nil) }
 
     it "should be valid with valid attributes" do
       widget.should be_valid
@@ -78,6 +78,41 @@ describe Widget do
     end
 
   end
+
+	describe "#destroy" do
+		let(:widget ) { Factory.build(:widget, :page => nil) }
+		
+		it "should destroy the model" do
+			widget.destroy
+			widget.should be_destroyed
+		end
+		
+		context "with widget on page" do
+			let(:widget ) { Factory.build(:widget) }
+			it "should call #decrement_after" do
+				widget.expects(:decrement_after).once
+				widget.destroy
+			end
+		end
+		
+		context "with multiple widgets" do
+			before(:each) do
+		    page = Factory.create(:page)
+		    @widget_a = Factory.create(:widget, :position => 1, :page => page)
+				@widget_b = Factory.create(:widget, :position => 2, :page => page)
+				@widget_c = Factory.create(:widget, :position => 3, :page => page)
+		    @widget_b.destroy
+			end
+
+		  it "should adjust the widgets after its position up one" do
+		    @widget_c.reload.position.should == 2
+	    end
+
+		  it "should not adjust the widgets before its position" do
+		    @widget_a.reload.position.should == 1	  
+	    end
+		end
+	end
   
 	describe "#update_position" do
 		
@@ -126,30 +161,6 @@ describe Widget do
 		end
 		
 	end
-	
-	describe "#remove_page_position" do
-	  
-	  before(:each) do
-	    page = Factory.create(:page)
-	    @widget_a = Factory.create(:widget, :position => 1, :page => page)
-			@widget_b = Factory.create(:widget, :position => 2, :page => page)
-			@widget_c = Factory.create(:widget, :position => 3, :page => page)
-	    @widget_b.remove_page_position
-		end
-
-    it "should set the widget's position to nil" do
-	    @widget_b.reload.position.should == nil
-    end
-	    
-	  it "should adjust the widgets after its position up one" do
-	    @widget_c.reload.position.should == 2
-    end
-	  
-	  it "should not adjust the widgets before its position" do
-	    @widget_a.reload.position.should == 1	  
-    end
-
-  end
 
 	describe "#clone" do
 		

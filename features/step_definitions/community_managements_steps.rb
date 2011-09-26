@@ -1,7 +1,3 @@
-Given /^that canvas is closed$/ do
-  Canvas.any_instance.stubs(:closed?).returns(true)
-end
-
 Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an) (user|admin)$/ do |user, role|
 	if user == "I"
 		member = current_user
@@ -10,8 +6,9 @@ Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an) (user|admin)$/ do |user, role|
 	end
 	if role == "admin"
 		member.admin = true
-		member.save!
+		member.save
 	end
+	
 end
 
 Given /^the following users exist:$/ do |users|
@@ -28,9 +25,9 @@ Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an|) (.*) (?:of|to|for) that canvas$/ do |u
 		member = User.where(:name => user).first
 	end
 	if role == "applicant"
-		Canvas.last.canvas_applicants.create(:user_id => member.id)
+		(that Canvas).canvas_applicants.create(:user_id => member.id)
 	else
-		member.set_canvas_role(Canvas.last, role.to_sym)
+		member.set_canvas_role((that Canvas), role.to_sym)
 	end
 end
 
@@ -59,19 +56,35 @@ Then /I will see an admin indicator for each admin$/ do
 	end
 end
 
-Then /^"([^"]*)" should ?(|not) be banned$/ do |name, type|
-  user = User.where(:name => name).first
-
-	if type == "not"
-		user.canvas_role(Canvas.last).should_not == :banned
+Then /^"?(I|[^"]*)"? should ?(|not) be ?(?:a|an|)? (.+) (?:of|by|for) that canvas$/ do |name, type, role|
+	if name == "I"
+		user = current_user
 	else
-		user.canvas_role(Canvas.last).should == :banned
+		user = User.find_by_name(name)
+	end
+	
+	if type == "not"
+		if role == "applicant"
+			(that Canvas).canvas_applicants.should_not include(user)
+		else
+			user.canvas_role(that Canvas).should_not == role.to_sym
+		end
+	else
+		if role == "applicant"
+			(that Canvas).canvas_applicants.should include(user)
+		else
+			user.canvas_role(that Canvas).should == role.to_sym
+		end
 	end
 end
 
-Then /^"([^"]*)" should ?(|not) be an admin$/ do |name, type|
-  user = User.find_by_name(name)
-
+Then /^"?(I|[^"]*)"? should ?(|not) be an admin$/ do |name, type|
+  if name == "I"
+    user = current_user
+  else
+    user = User.find_by_name(name)
+  end
+    
 	if type == "not"
 		user.should_not be_admin
 	else

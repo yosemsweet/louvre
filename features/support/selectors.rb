@@ -17,12 +17,20 @@ module HtmlSelectorsHelpers
 		when /the (.+) list/
 			"##{$1}-list"
 			
+		when /the new (.+) widget form/
+      "#inline_form .widget.#{$1}_content"
+      
+      
+  	when /the new widget form/
+      "#inline_form .widget"
+			
 		when "that widget"
-			".widget[data-widget_id='#{Widget.last.id}']"
+			".widget[data-widget_id='#{(that Widget).id}']"
 			
 		when /that (.+)'s (.+) link/
 			klass = $1.classify.constantize
-			".#{klass.to_s.downcase}[data-#{klass.to_s.downcase}_id='#{klass.last.id}'] .#{$2}"
+			object = that klass
+			".#{klass.to_s.downcase}[data-#{klass.to_s.downcase}_id='#{object.id}'] .#{$2}"
 		
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

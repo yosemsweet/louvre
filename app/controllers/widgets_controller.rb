@@ -74,10 +74,10 @@ class WidgetsController < ApplicationController
     end
     
     @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas))
-    
-		if current_user
-			authorize! :manage, @widget
-		end
+
+    if current_user
+      authorize! :manage, @widget
+    end
 		
     if page
 		  @widget.position_last_on_page
@@ -122,8 +122,8 @@ class WidgetsController < ApplicationController
       head :ok
     else
       head :bad_request
-    end    
-      
+    end   
+  
   end
   
   # PUT /widgets/:id/move/:position
@@ -158,7 +158,6 @@ class WidgetsController < ApplicationController
 
 	  authorize! :manage, widget
 
-    widget.remove_page_position
     widget.destroy
     head :ok
   end
