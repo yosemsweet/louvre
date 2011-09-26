@@ -412,7 +412,7 @@ describe CanvaeController do
 		describe "updating a canvas created by someone else" do
 			before :each do
 				@creator = Factory.create(:user)
-				@canvas = Factory.create(:canvas, :creator_id => @creator, :editor_id => @creator)
+				@canvas = Factory.create(:canvas, :creator => @creator, :editor => @creator)
 				
 		    @user = Factory.create(:user)
 				@user.set_canvas_role(@canvas,:owner)
