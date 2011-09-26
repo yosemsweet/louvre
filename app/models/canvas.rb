@@ -48,8 +48,8 @@ class Canvas < ActiveRecord::Base
 	
 	private
 	
-	def add_owner_role
-		self.creator.set_canvas_role(self, :owner) unless self.creator.nil?
-	end
+		def add_owner_role
+			self.creator.set_canvas_role(self, :owner) unless self.creator.nil?
+		end
 
 end

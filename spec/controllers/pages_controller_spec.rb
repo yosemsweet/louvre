@@ -127,6 +127,7 @@ describe PagesController do
 			@user.set_canvas_role(@page.canvas,:member)
 	    end
 	
+			# currently there is a problem with the redirect on a failing page update; need investigation
 	    # describe "failure" do
 	    # 
 	    #   before(:each) do
