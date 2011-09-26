@@ -48,20 +48,18 @@ class PagesController < ApplicationController
   end
   
   def create
-		logger.debug 'rafe has a message0'
     canvas = Canvas.find(params[:canvas_id])
-logger.debug 'rafe has a message1'
+
     authorize! :create, Page.new(:canvas => canvas)
-logger.debug 'rafe has a message2'
+
     @page = canvas.pages.new(params[:page])
-logger.debug 'rafe has a message3'
+
 		@page.creator = current_user
-logger.debug 'rafe has a message4'
+		@page.editor = current_user
+
     if @page.save
-	logger.debug 'rafe has a message5'
       redirect_to(edit_canvas_page_path(@page.canvas, @page), :notice => 'Page created!')
     else
-	logger.debug 'rafe has a message6'
       render :action => "new"
     end
   end
