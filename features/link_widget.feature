@@ -1,7 +1,7 @@
 Feature: Link Widgets
  As Gill
  I want to see interesting links within my canvas
- So I can find out what else is going on online with regards to my mission
+ So I can find out what else is going on online with regards to my goal
 
 Background:
   Given there is a canvas

@@ -21,11 +21,6 @@ describe "canvae/new.html.haml" do
 			rendered.should have_selector('form #canvas_name')
 		end
 		
-		it "should ask for canvas mission" do
-			render
-			rendered.should have_selector('form #canvas_mission')
-		end
-		
 		it "should ask for an image to associate with the canvas" do
 			render
 			rendered.should have_selector('form #canvas_image')

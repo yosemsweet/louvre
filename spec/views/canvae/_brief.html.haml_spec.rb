@@ -34,10 +34,6 @@ describe "canvae/_brief.html.haml" do
 		rendered.should have_selector("a[href='#{canvas_path(@canvas)}']")
 	end
 
-	it "should display the canvas' mission inside an element with class mission" do
-		rendered.should have_selector(".mission", :content => @canvas.mission)
-	end
-
 	context "image present" do
 
 		it "should show the canvas' image" do

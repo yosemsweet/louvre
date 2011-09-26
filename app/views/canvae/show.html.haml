@@ -17,9 +17,6 @@
         %a#unfollow{:href => "#", :style => hidden_if(!current_user.following?(@canvas))}
           %img{:src => "/images/icons/unfollow.png"}
                         
-    %p
-      %b Mission:
-      = @canvas.mission
 
     %p
       %b Creator:

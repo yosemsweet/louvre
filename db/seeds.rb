@@ -64,7 +64,6 @@ if Rails.env.development?
 
   open_canvas = Canvas.create(
     :name => "Open canvas",
-    :mission => "The mission that is the mission for canvas 1",
     :image => "https://s3.amazonaws.com/randomfile/1.png",
     :open => true,
     :creator_id => user.id
@@ -72,7 +71,6 @@ if Rails.env.development?
 
   closed_canvas = Canvas.create(
     :name => "Closed canvas",
-    :mission => "The mission that is the mission for canvas 2",
     :image => "https://s3.amazonaws.com/randomfile/2.png",
     :open => false,
     :creator_id => user.id
