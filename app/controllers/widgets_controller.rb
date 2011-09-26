@@ -117,10 +117,9 @@ class WidgetsController < ApplicationController
   def update
 		# logger.debug 'message0'
     @widget = Widget.find(params[:id])
-		
-		# logger.debug 'message1'
+
 	  authorize! :manage, @widget
-		# logger.debug 'message2'
+
     if @widget.update_attributes(params[:widget].merge(:editor_id => current_user.id))
       head :ok
     else

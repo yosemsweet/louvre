@@ -10,46 +10,43 @@ describe "Widgets Requests" do
   describe "POST /widgets" do
     
     before(:each) do
-      WidgetsController.any_instance.stubs(:current_user).returns(nil)
       
       @canvas = Factory.create(:canvas)
       @widget_count = Widget.all.length
       
-
-      post "/widgets", :canvas_id => @canvas.id, 
-            :widget =>  { 
-              :creator_id => @user.id,
-              :content_type => "link_content",
-              :text => "testtext",
-              :page_id => nil, 
-              :link => "http://www.test.com",
-              :title => "testtitle" 
-            } 
-      @latest_widget = Widget.last 
+			@user.set_canvas_role(@canvas,:member)
+      WidgetsController.any_instance.stubs(:current_user).returns(@user)
+			
+			@attr = { 
+        :creator_id => @user.id,
+				:editor_id => @user.id,
+        :content_type => "link_content",
+        :text => "testtext",
+        :page_id => nil, 
+        :link => "http://www.test.com",
+        :title => "testtitle" 
+      }
     end
     
     it "should create a new widget" do
-      Widget.all.length.should == @widget_count + 1
+      lambda do
+        post "/widgets", :canvas_id => @canvas.id, :widget => @attr
+      end.should change(Widget, :count).by(1)	
     end
     
     it "should have the widget with the correct canvas" do
-      puts Widget.last.text
-      
-       @latest_widget = Widget.last
-       
-       puts @latest_widget.text
-       puts @canvas.id
-       
-      @latest_widget.canvas.id.should  == @canvas.id
+      post "/widgets", :canvas_id => @canvas.id, :widget => @attr
+      assigns(:widget).canvas.id.should  == @canvas.id
     end
 
     it "should have the inserted text" do
-      @latest_widget = Widget.last
-      @latest_widget.text.should == 'testtext'
+      post "/widgets", :canvas_id => @canvas.id, :widget => @attr
+      assigns(:widget).text.should == 'testtext'
     end
 
     it "should have set link to http://www.test.com" do
-      @latest_widget.link.should == "http://www.test.com"
+      post "/widgets", :canvas_id => @canvas.id, :widget => @attr
+      assigns(:widget).link.should == "http://www.test.com"
     end
 
   end
