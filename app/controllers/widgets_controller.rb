@@ -134,6 +134,10 @@ class WidgetsController < ApplicationController
 		widget = Widget.find(params[:id])
 		
 		authorize! :manage, widget
+
+		p = widget.page	
+		p.editor_id = current_user.id
+		p.save!
 		
 		if widget.update_position(params[:position])
 			head :ok
