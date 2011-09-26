@@ -36,7 +36,19 @@ describe Page do
 					page.should_not be_valid
 				end
 			end
-
+			
+			context "Editor" do
+				it "should have an editor" do
+					page = Factory.build(:page)
+					page.should respond_to(:editor)
+				end
+				
+				it "should be required" do
+					page = Factory.build(:page, :editor => nil)
+					page.should_not be_valid
+				end
+			end
+			
 			context "Canvas" do
 				it "should have a canvas" do
 					page = Factory.build(:page)
