@@ -7,7 +7,6 @@ class Page < ActiveRecord::Base
 	has_many :events, :as => :loggable
 	
   validates_presence_of :title, :creator, :editor, :canvas
-  # validates_presence_of :title, :creator, :canvas
 
   has_paper_trail
   acts_as_opengraph :values => { :type => "cause" }
