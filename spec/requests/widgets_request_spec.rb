@@ -10,46 +10,43 @@ describe "Widgets Requests" do
   describe "POST /widgets" do
     
     before(:each) do
-      WidgetsController.any_instance.stubs(:current_user).returns(nil)
       
       @canvas = Factory.create(:canvas)
       @widget_count = Widget.all.length
       
-
-      post "/widgets", :canvas_id => @canvas.id, 
-            :widget =>  { 
-              :creator_id => @user.id,
-              :content_type => "link_content",
-              :text => "testtext",
-              :page_id => nil, 
-              :link => "http://www.test.com",
-              :title => "testtitle" 
-            } 
-      @latest_widget = Widget.last 
+			@user.set_canvas_role(@canvas,:member)
+      WidgetsController.any_instance.stubs(:current_user).returns(@user)
+			
+			@attr = { 
+        :creator_id => @user.id,
+				:editor_id => @user.id,
+        :content_type => "link_content",
+        :text => "testtext",
+        :page_id => nil, 
+        :link => "http://www.test.com",
+        :title => "testtitle" 
+      }
     end
     
     it "should create a new widget" do
-      Widget.all.length.should == @widget_count + 1
+      lambda do
+        post "/widgets", :canvas_id => @canvas.id, :widget => @attr
+      end.should change(Widget, :count).by(1)	
     end
     
     it "should have the widget with the correct canvas" do
-      puts Widget.last.text
-      
-       @latest_widget = Widget.last
-       
-       puts @latest_widget.text
-       puts @canvas.id
-       
-      @latest_widget.canvas.id.should  == @canvas.id
+      post "/widgets", :canvas_id => @canvas.id, :widget => @attr
+      assigns(:widget).canvas.id.should  == @canvas.id
     end
 
     it "should have the inserted text" do
-      @latest_widget = Widget.last
-      @latest_widget.text.should == 'testtext'
+      post "/widgets", :canvas_id => @canvas.id, :widget => @attr
+      assigns(:widget).text.should == 'testtext'
     end
 
     it "should have set link to http://www.test.com" do
-      @latest_widget.link.should == "http://www.test.com"
+      post "/widgets", :canvas_id => @canvas.id, :widget => @attr
+      assigns(:widget).link.should == "http://www.test.com"
     end
 
   end
@@ -117,6 +114,11 @@ describe "Widgets Requests" do
 	      it "should set the new widget's position" do
 	        @latest_widget.position.should == 1
 	      end
+	
+				it "should set the new widget's editor" do
+					@latest_widget.editor.should == @user
+				end
+	
 	    end
 
 			context "user is not a member" do
@@ -208,9 +210,9 @@ describe "Widgets Requests" do
 			context "user is a member" do
 	      before(:each) do
 	        canvas = Factory.create(:canvas)
-	        p = Factory.create(:page)  
-	        @w1 = Factory.create(:widget, :canvas => canvas, :page_id => p.id, :position => 1)
-	        @w2 = Factory.create(:widget, :canvas => canvas, :page_id => p.id, :position => 2)
+	        @p = Factory.create(:page)  
+	        @w1 = Factory.create(:widget, :canvas => canvas, :page_id => @p.id, :position => 1)
+	        @w2 = Factory.create(:widget, :canvas => canvas, :page_id => @p.id, :position => 2)
 					@user.set_canvas_role(canvas,:member)
 	        put "/widgets/#{@w2.id}/move/1"
 	      end
@@ -222,6 +224,11 @@ describe "Widgets Requests" do
 	      it "should update the position of other widgets on the page appropriately" do
 	        @w1.reload.position.should == 2
 	      end
+	
+				it "should update the editor of the page" do
+					@p.reload.editor.should == @user
+				end
+	
       end
 
 			context "user is not a member" do
@@ -380,7 +387,6 @@ describe "Widgets Requests" do
       
     end
     
-    
     describe "PUT /widgets/[widget_id]/remove_answer/[answer_id]" do
 	
 			context "user is a member" do
@@ -389,20 +395,37 @@ describe "Widgets Requests" do
 	          { :message => "This is an answer.", :commenter => "Bob Dylan", :comment_date => 15.minutes.ago },
 	          { :message => "Another one.", :commenter => "James Dean", :comment_date => 7.hours.ago }
 	        ].to_json
-	        @widget = Factory.create(:question_widget, :answer => @answer)
-					@user.set_canvas_role(@widget.canvas,:member)
+					@creator = Factory.create(:user)
+					@canvas = Factory.create(:canvas)
+					@creator.set_canvas_role(@canvas,:member)
+					@user.set_canvas_role(@canvas,:member)
+	        @widget = Factory.create(:question_widget, :canvas => @canvas, :answer => @answer, :creator => @creator, :editor => @creator)
+	
+	        put "/widgets/#{@widget.id}/remove_answer/0"
 	      end
 
 	      it "should work" do
-	        put "/widgets/#{@widget.id}/remove_answer/0"
 	        response.status.should be(200)
 	      end
 
 	      it "should remove the answer" do
-	        put "/widgets/#{@widget.id}/remove_answer/0"
 	        @widget.reload.answers.length.should == 1
 	        @widget.reload.answers.first["message"].should == "Another one."
 	      end
+	
+				it "should update the editor of the widget" do
+					@widget.reload.editor.should == @user
+				end
+				
+				it "should update the editor of the widget" do
+					@widget.reload.editor.should == @user
+				end
+				
+				it "should not update the creator of the widget" do
+					@widget.reload.creator.should_not == @user
+				end
+				
+	
 			end
 		
 			context "user is not a member" do

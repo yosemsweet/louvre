@@ -152,7 +152,7 @@ describe CanvaeController do
 		
 		it "should require authorization to :delete" do
 			canvas = Factory.create(:canvas)
-			#don't actually destroy the canvas, we just want to ensure we call destory on it.
+			#don't actually destroy the canvas, we just want to ensure we call destroy on it.
 			canvas.stubs(:destroy).returns(canvas)
 			Canvas.stubs(:find).returns(canvas)
 			should_require_authorization_to(:action => :delete, :object => canvas) do
@@ -405,4 +405,44 @@ describe CanvaeController do
 	    end
 		end
 	end
+	
+	
+	context "put update" do
+		
+		describe "updating a canvas created by someone else" do
+			before :each do
+				@creator = Factory.create(:user)
+				@canvas = Factory.create(:canvas, :creator_id => @creator, :editor_id => @creator)
+				
+		    @user = Factory.create(:user)
+				@user.set_canvas_role(@canvas,:owner)
+				@creator.set_canvas_role(@canvas,:owner)
+				
+		   	CanvaeController.any_instance.stubs(:current_user).returns(@user)
+				
+	      @attr = { :name => "New Name" }
+
+	      put :update, :id => @canvas, :canvas => @attr
+	
+	      @canvas.reload
+			end
+			
+			it "should update the canvas editor" do
+				@canvas.editor.should == @user
+			end
+			
+			it "should not update canvas creator" do
+				@canvas.creator.should == @creator
+			end
+			
+			it "creator and editor should be different people" do
+				@canvas.creator.should_not == @canvas.editor
+			end
+			
+		end
+		
+	end
+	
+	
+	
 end

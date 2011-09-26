@@ -34,7 +34,7 @@
         = f.text_area :question
          
     %input{:type => "hidden", :name => "widget[content_type]", :value => "#{widget.content_type}"}
-    %input{:type => "hidden", :name => "widget[creator_id]", :value => "#{current_user.id}"}
+    %input{:type => "hidden", :name => "widget[editor_id]", :value => "#{current_user.id}"}
 
     - if widget.page
       %input{:type => "hidden", :name => "page_id", :value => "#{widget.page.id}"}

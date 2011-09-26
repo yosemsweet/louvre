@@ -25,9 +25,18 @@ describe Widget do
     it "should be able to have a creator" do
       widget.should respond_to(:creator)
     end
-  
+		
     it "should require a creator" do
 			widget.creator = nil
+      widget.should_not be_valid
+    end
+		
+    it "should be able to have an editor" do
+      widget.should respond_to(:editor)
+    end
+		
+    it "should require an editor" do
+			widget.editor = nil
       widget.should_not be_valid
     end
 	
@@ -348,7 +357,7 @@ describe Widget do
 			
 		end
 	end
-	
+
   # describe "#permalink" do
   #   
   #   it "should return the url for that widget" do

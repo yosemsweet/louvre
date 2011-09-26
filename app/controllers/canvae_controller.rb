@@ -36,6 +36,7 @@ class CanvaeController < ApplicationController
     @canvas = Canvas.new(params[:canvas])
 
 		@canvas.creator = current_user
+		@canvas.editor = current_user
 
     if @canvas.save
       redirect_to(@canvas, :notice => 'Canvas created!')
@@ -48,7 +49,7 @@ class CanvaeController < ApplicationController
     @canvas = Canvas.find(params[:id])
 		authorize! :update, @canvas
 
-    if @canvas.update_attributes(params[:canvas])
+    if @canvas.update_attributes(params[:canvas].merge(:editor_id => current_user.id))
       redirect_to(@canvas, :notice => 'Canvas was successfully updated.')
     else
       render :action => "edit"

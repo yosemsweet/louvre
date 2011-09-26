@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
 	
-  factory :user, :aliases => [:creator] do
+  factory :user, :aliases => [:creator, :editor] do
 	  provider "facebook"
     sequence :uid do |n|
       "00#{n}"
@@ -22,6 +22,7 @@ FactoryGirl.define do
 	  mission "Better clothing for women of a certain age!"
 	  image "http://www.carniola.org/theglory/images/McHammer.gif"
 		creator
+		editor
   end
 
   factory :event do
@@ -35,6 +36,7 @@ FactoryGirl.define do
   factory :page do
     title "My Page"
     creator
+    editor
     canvas
   end
 
@@ -46,15 +48,17 @@ FactoryGirl.define do
   
   factory :canvas_widget do
     creator
+		editor
     canvas
 		content_type "test_content"
 	end
 
   factory :widget do
     creator
+		editor
     page
     canvas
-		content_type "test_content"
+		content_type "text_content"
 	end
 
 	factory :text_widget, :parent => :widget do

@@ -13,13 +13,15 @@ class Widget < ActiveRecord::Base
   belongs_to :page
   belongs_to :canvas
 	belongs_to :creator, :class_name => "User"
+	belongs_to :editor, :class_name => "User"
 	belongs_to :parent, :class_name => "Widget"
 		
   has_paper_trail :meta => { :page_id => Proc.new{ |widget| widget.page ? widget.page.id : nil }}
+
   acts_as_opengraph :values => { :type => "cause" }
 	acts_as_followable
     
-  validates_presence_of :canvas, :creator, :content_type
+  validates_presence_of :canvas, :creator, :content_type, :editor
   validates_presence_of :alt_text, :image,  :if => :image?
 	validates_presence_of :link, :title,  :if => :link?
 
