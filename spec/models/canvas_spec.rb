@@ -8,6 +8,14 @@ describe Canvas do
 		it "should respond to name" do
 			canvas.should respond_to(:name)
 		end
+		
+		it "should respond to creator" do
+			canvas.should respond_to(:creator)
+		end
+		
+		it "should respond to editor" do
+			canvas.should respond_to(:editor)
+		end
 				
 		it "should respond to image" do
 			canvas.should respond_to(:image)
@@ -62,6 +70,11 @@ describe Canvas do
 			canvas.should be_valid
 		end
 	
+		it "should be invalid with invalid parameters" do
+			canvas = Factory.build(:canvas, :name => "", :creator_id => "", :editor_id => "")
+			canvas.should_not be_valid
+		end
+
 	  it "should save properly to the database" do
 	    canvas = Factory.build(:canvas)
 	    canvas.save!
@@ -108,6 +121,18 @@ describe Canvas do
 				
 				it "should be required" do
 					canvas = Factory.build(:canvas, :creator => nil)
+					canvas.should_not be_valid
+				end
+			end
+			
+			context "Editor" do
+				it "should have an editor" do
+					canvas = Factory.build(:canvas)
+					canvas.should respond_to(:editor)
+				end
+				
+				it "should be required" do
+					canvas = Factory.build(:canvas, :editor => nil)
 					canvas.should_not be_valid
 				end
 			end
