@@ -65,9 +65,10 @@ class PagesController < ApplicationController
   end
 
   def update
-		@page =   Page.find(params[:id])
+		@page = Page.find(params[:id])
+
 		authorize! :update, @page
-		
+
     if @page.update_attributes(params[:page])
       redirect_to(canvas_page_path(@page.canvas, @page), :notice => 'Page was successfully updated.')
     else
