@@ -68,7 +68,7 @@ class Widget < ActiveRecord::Base
     else
       # Get all the tags matching this name.
       (Widget.joins(:tags) & Tag.where(:name => tag_names)).group("widgets.id, widgets.position, widgets.page_id, widgets.canvas_id,
-					widgets.creator_id, widgets.content_type, widgets.created_at, widgets.updated_at, widgets.text, widgets.parent_id, widgets.alt_text,
+					widgets.creator_id, widgets.editor_id, widgets.content_type, widgets.created_at, widgets.updated_at, widgets.text, widgets.parent_id, widgets.alt_text,
 					widgets.image, widgets.link, widgets.title, widgets.question, widgets.answer")
     end
   end
