@@ -36,7 +36,6 @@ And I should see "Edit"
 Scenario: Make canvas closed
   Given I am creating a canvas
   When I specify that canvas should be "closed"
-  Then vomit the page
   And I press "Save"
   Then that canvas should require membership to edit
 
