@@ -1,12 +1,5 @@
 - if current_user
   = form_for widget, {:html => {:style => "display:none;", :class => "edit_widget"}} do |f| 
-    .field
-      = f.label :tag_names, "Tags"
-      - names = widget.tags.map{|o| o.name.strip}
-      
-      - class_names = widget.id ? 'widget_tag_ids' : 'widget_tag_ids new_widget_form'
-      = f.text_field :tag_names, {"data-current_tags" => names.to_json, :class => class_names }
-      
     - case widget.content_type  
     - when 'text_content'
       .field
@@ -41,9 +34,19 @@
     - else
       %input{:type => "hidden", :name => "canvas_id", :value => "#{widget.canvas.id}"}
       
-    .actions
-      = f.submit 'Save'
-      
+    .tagHolder{:style => "width:100%"}
+      .field{:style => "width: 600px; float:left"}
+        = f.label :tag_names, "Tags"
+        - names = widget.tags.map{|o| o.name.strip}
+
+        - class_names = widget.id ? 'widget_tag_ids' : 'widget_tag_ids new_widget_form'
+        = f.text_field :tag_names, {"data-current_tags" => names.to_json, :class => class_names }
+
+      .actions{:style => "float:right; padding: 20px 50px 0 0 "}
+        = f.submit 'Save'
+    
+    .clear{:style => "clear:both"}
+    
     - if widget.answer
       .field
         = f.label 'answer'

@@ -1,7 +1,4 @@
 = form_for @widget do |f|
-  .field
-    = f.label :tag_ids, "Tags"
-    = f.text_field :tag_ids, "data-pre" => @widget.tags.map(&:attributes).to_json
   - case @widget.content_type  
   - when 'text_content'
     .field
@@ -39,6 +36,10 @@
   - else
     %input{:type => "hidden", :name => "canvas_id", :value => "#{@widget.canvas.id}"}
 
+  .field
+    = f.label :tag_ids, "Tags"
+    = f.text_field :tag_ids, "data-pre" => @widget.tags.map(&:attributes).to_json
+    
   .actions
     = f.submit 'Save'
 
