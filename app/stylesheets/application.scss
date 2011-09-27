@@ -54,7 +54,6 @@ h1#logo a {
   width: 100%;
   background: url('/images/blue-background.png') repeat;
   height:36px;
-  color: #fff;
   font: {
     family: "Arial";
     size: 12px;
@@ -63,76 +62,84 @@ h1#logo a {
 		color: $white;
 		@include logo-font;
 	}
-  
-#user-nav { 
-		float:right;
+	
+	a {
 		color: $white;
-		margin-right: 10px;
-		margin-top:8px;
-		a {
-			color: $white;
-			text-decoration:none;
-		}
+		text-decoration:none;
 	}
-  .content{
-    margin:auto;
-    width:960px;
-    
-		
+	
 
-    #left{
-      float:left;
+	
+  // MENU
+  $menu-width: 250px;
+  $menu-padding: 10px;
+  ul.sf-menu{
+    margin:0px;
+    float:left;
+    -webkit-padding-start: 0px;
+    z-index: 999999999;
+  }
+  li#canvae-menu{
+      list-style-type: none;
+      line-height: 35px;
+      padding-right: 15px;
+      margin-right: 20px;
+      
+      >a{
+        padding-right: 15px;
+        background: url('/images/arrow.png') no-repeat right center;
+      }
     }
     
-    #right{     
-      float:right;
-      .user{
-        background:none;
-      }
-      
-      li.member{
-        background: url('/images/r2d2.png') no-repeat left center;
-        padding-left: 36px;
-      }
-      
-      .message-count{
-        float:right;
-        line-height:20px;
-        
-        height:20px;
-        margin: 8px 0 8px 10px;
-        padding: 0 5px;
-        
-        background-color:#f9492c;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        
-        text-align: center;
-      }
-      .setting{
-        height: 20px;
-        margin-top: 5px;
-      }
+  #canvae-menu{
+    z-index: 100;
+    
+    a{
+      padding-left:10px;
+      font-size: 1.1em;
     }
     
     ul{
-      margin:0px;
-      float:left;
-      -webkit-padding-start: 0px;
+      position: absolute;
+      border:1px #AAA solid;
+      a{
+        color: black;
+      }
+      
+      padding-left: 0;
+    }
+    li{
+      list-style-type: none;
+      margin-right: 0px;  
+      background-color:#ECF0F9;
+      
     }
     
-    li{
-      display: inline;
-      list-style-type: none;
-      height:36px;
-      line-height: 36px;
-      padding-right: 15px;
-      margin-right: 20px;
-      float:left;
-      background: url('/images/arrow.png') no-repeat right center;
+    li.owner, li.member{
+      width: $menu-width - $menu-padding;
+      padding-left:  $menu-padding;
+      border-bottom:1px black solid;
+    }
+    
+    li.owner {
+      font-weight: bold;
+    }
+    
+    li.new{
+      width: $menu-width - 2 * $menu-padding;
+      padding-left: 2 * $menu-padding;
+      a{
+        font-style: italic;
+      }
     }
   }
+  
+  #user-nav { 
+		float:right;
+		margin-right: 10px;
+		margin-top:8px;
+		color: $white;
+	}
 }
 
 

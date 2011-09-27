@@ -121,7 +121,11 @@ class User < ActiveRecord::Base
       CanvasUserRole.where(:canvas_id => canvas.id, :user_id => self.id).delete_all
       CanvasUserRole.create!(:canvas_id => canvas.id, :user_id => self.id, :role => role_name)
     end
-  end  
+  end
+  
+  def canvas_roles
+    canvas_user_roles.not_banned
+  end
 
 	
 end

@@ -2,6 +2,14 @@ Given /^there is a canvas$/ do
   set_that Factory.create(:canvas)
 end
 
+Given /^I am a member of (\d+) canvae$/ do |number|
+  set_that that(User)
+  canvas_list = Factory.create_list(:canvas, number.to_i )
+  canvas_list.each do |c|
+    (that User).set_canvas_role(c, :member)
+  end
+end
+
 Given /^I am the owner of a canvas$/ do
 	set_that that(User)
   set_that Factory.create(:canvas, :creator => that(User))

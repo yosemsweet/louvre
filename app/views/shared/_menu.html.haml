@@ -1,0 +1,8 @@
+- if current_user
+  = javascript_include_tag 'superfish'
+  = render_navigation(:expand_all => true) 
+:javascript 
+  $(document).ready(function() { 
+        $('ul.sf-menu').superfish(); 
+    });
+- end

@@ -20,7 +20,6 @@ module HtmlSelectorsHelpers
 		when /the new (.+) widget form/
       "#inline_form .widget.#{$1}_content"
       
-      
   	when /the new widget form/
       "#inline_form .widget"
 			
@@ -31,6 +30,9 @@ module HtmlSelectorsHelpers
 			klass = $1.classify.constantize
 			object = that klass
 			".#{klass.to_s.downcase}[data-#{klass.to_s.downcase}_id='#{object.id}'] .#{$2}"
+		
+		when "the communities menu"
+		  "#menubar #canvae-menu #new_canvas-menu"
 		
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
