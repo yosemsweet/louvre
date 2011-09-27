@@ -9,5 +9,5 @@ end
 
 When /^I log in with "([^"]*)"$/ do |provider|
 	visit "/auth/#{provider.downcase}"
-	set_current_user User.last
+	set_current_user (that User)
 end

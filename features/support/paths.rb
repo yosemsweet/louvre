@@ -13,10 +13,13 @@ module NavigationHelpers
     when /Thanks for your interest/
       '/thankyou'
 
+		when /log in/
+			login_path
+
 		when /log out/
 			logout_path
 			
-		when /the New Canvas page/
+		when /the new canvas page/
 			new_canvas_path
 			
 		when /New Page page/
@@ -38,6 +41,10 @@ module NavigationHelpers
 		  canvas = that Canvas
 		  canvas_path(canvas)
 		
+		when /that canvas' settings page/
+			canvas = that Canvas
+			edit_canvas_path(canvas)
+		
 		when /that canvas' ban management page/
 			canvas = that Canvas
 			banned_canvas_path(canvas)
@@ -57,9 +64,6 @@ module NavigationHelpers
 		when /that page/
 			page = that Page
 			canvas_page_path(page.canvas, page)
-		  
-		when /the user hud page/
-		  hud_user_path
 
 		when /my account page/
 		  edit_user_path

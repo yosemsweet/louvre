@@ -33,15 +33,11 @@ SimpleNavigation::Configuration.run do |navigation|
   # Define the primary navigation
   navigation.items do |primary|
     primary.item :canvae, "Communities", canvae_path, :class => "sf-menu" do |menu| 
-      #menu.item "owner", "owner", "", :class => "heading"
       current_user.canvas_roles.where(:role => :owner).each do |cur|
-        menu.item "canvas_#{cur.canvas.id}", cur.canvas.name, canvas_path(cur.canvas), :class => "owner event_item" 
+        menu.item "canvas_#{cur.canvas.id}", cur.canvas.name, canvas_path(cur.canvas), :class => "owner" 
       end
-      
-      
-      #menu.item "member", "member", "", :class => "heading"
       current_user.canvas_roles.where(:role => :member).each do |cur|
-        menu.item "canvas_#{cur.canvas.id}", cur.canvas.name, canvas_path(cur.canvas), :class => "member event_item" 
+        menu.item "canvas_#{cur.canvas.id}", cur.canvas.name, canvas_path(cur.canvas), :class => "member" 
       end
       
       menu.item :new_canvas, "Set up your own community", new_canvas_path, :class => "new event_item"

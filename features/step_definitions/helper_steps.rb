@@ -8,12 +8,6 @@ Given /^that (.+) has a (.+) widget$/ do |model, type|
   set_that (that klass).widgets.create(widget_prototype)
 end
 
-When /^(?:I )wait until all Ajax requests are complete$/ do
-  wait_until do
-    page.evaluate_script('$.active') == 0
-  end
-end
-
 Given /^I am "([^"]*)"$/ do |name|
  set_current_user( Factory.create(:user, :name => name) )
 end
@@ -21,6 +15,17 @@ end
 Given /^I am logged in$/ do
   @user = Factory.create(:user)
   set_current_user(@user)
+end
+
+When /^(?:I )wait until all Ajax requests are complete$/ do
+  wait_until do
+    page.evaluate_script('$.active') == 0
+  end
+end
+
+When /^(?:|I )click on ([^"]*)$/ do |selector|
+  selector = selector_for(selector)
+  page.find(selector).click
 end
 
 When /^I click "([^"]*)" for "([^"]*)"$/ do |link, user|
@@ -89,8 +94,6 @@ Then /^I should see all (.+) in (.+)$/ do |model,scope|
 	end
 end
 
-# eval page.find(".item[data-user_id
-
 Then /^I should not see the "([^"]*)" image$/ do |image|
 	page.should have_selector("##{image}")
 	page.find("##{image}").should_not be_visible
@@ -124,8 +127,12 @@ Then /^the "([^"]*)" should contain "([^"]*)"$/ do |scope, content|
   page.find(scope).should have_content(content)
 end
 
-When /^(?:|I )click on ([^"]*)$/ do |selector|
-  selector = selector_for(selector)
-  page.find(selector).click
+
+Then /^I should be redirected to (.+)$/ do |page_name|
+	current_path = URI.parse(current_url).path
+  current_path.should == path_to(page_name)
 end
 
+Then /^pending (.+)$/ do |message|
+	puts message
+end

@@ -10,7 +10,7 @@ class StaticController < ApplicationController
 
   def login
 		session[:return_to] = request.referer
-    render :layout => 'basic'
+    render :layout => 'redesign'
   end
   
   def test

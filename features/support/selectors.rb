@@ -32,7 +32,7 @@ module HtmlSelectorsHelpers
 			".#{klass.to_s.downcase}[data-#{klass.to_s.downcase}_id='#{object.id}'] .#{$2}"
 		
 		when "the communities menu"
-		  "#menubar #canvae-menu #new_canvas-menu"
+		  "#menubar #canvae-menu"
 		
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

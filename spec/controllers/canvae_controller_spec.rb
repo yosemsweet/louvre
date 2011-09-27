@@ -2,6 +2,29 @@ require 'spec_helper'
 
 describe CanvaeController do
 
+	describe "GET new" do
+		it "should require authentication" do
+			should_require_authentication do
+				 get :new
+			end
+		end
+		
+		context "logged in" do
+			before (:each) do
+				@user = Factory.build(:user)
+				controller.stubs(:current_user).returns(@user)
+		  end
+		
+			it "should create a new canvas" do
+				@canvas = Factory.build(:canvas, :name=>"stubbed canvas")
+				Canvas.stubs(:new).returns(@canvas)
+			
+				get :new
+				response.should return_status(302).with_location(canvas_path(@canvas))
+			end
+		end
+	end
+
 	describe "GET index" do
 		it "should not require authentication" do
 			should_not_require_authentication do

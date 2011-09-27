@@ -9,6 +9,7 @@ Louvre::Application.routes.draw do
   match "coming_soon_publishing" => "static#coming_soon_publishing"
   
   match "/auth/:provider/callback" => "sessions#create"  
+	match "/login" => "static#login"
 	match "/logout" => "sessions#destroy", :as => :logout
 
   resources :comments
@@ -18,7 +19,6 @@ Louvre::Application.routes.draw do
 	scope :path => "/users", :controller => :users do
   	get "/" => "users#index", :as => :users
 		put "/:id" => "users#update"
-		get "/hud" => "users#hud", :as => :hud_user
   	get "/edit" => "users#edit", :as => :edit_user
 	end
   
