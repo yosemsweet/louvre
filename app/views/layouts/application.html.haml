@@ -38,18 +38,11 @@
             |
             = link_to "Home", root_url
             |
-            = link_to "Hud", hud_user_path, :id => "show_hud"
-            |
             = link_to "Log out", logout_path
           - else
             = login_link :text => "Log in with Facebook"
         = render :partial => "shared/menu" if current_user    
-        -# %h1#logo
-        -#   -if @title 
-        -#     = link_to_unless_current @title, canvas_path(@canvas) 
-        -#   -else 
-        -#     loorp
-          
+    
     #body
 
       .container

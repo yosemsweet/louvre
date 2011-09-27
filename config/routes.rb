@@ -19,7 +19,6 @@ Louvre::Application.routes.draw do
 	scope :path => "/users", :controller => :users do
   	get "/" => "users#index", :as => :users
 		put "/:id" => "users#update"
-		get "/hud" => "users#hud", :as => :hud_user
   	get "/edit" => "users#edit", :as => :edit_user
 	end
   

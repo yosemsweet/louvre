@@ -17,12 +17,12 @@
   
   $("#follow button").click(function(){
     FollowHelper.toggle_follow_status();
-    FollowHelper.follow('widget', widget_id, reload_hud);
+    FollowHelper.follow('widget', widget_id);
   });
   
   $("#stop_following button").click(function(){
     FollowHelper.toggle_follow_status();
-    FollowHelper.stop_following('widget', widget_id, reload_hud);    
+    FollowHelper.stop_following('widget', widget_id);    
   });
   
   countComments(widget_url, function(n){
@@ -54,7 +54,7 @@
       function(response) {
           var widget_id = _.last(response.href.split('/')) * 1;
           if (user !== 0){
-            FollowHelper.follow('widget', widget_id, reload_hud);
+            FollowHelper.follow('widget', widget_id);
           }
           mpq.push(["track","comment_added", {'type':"facebook", "widget":widget_id,"user": request.user_id}]);
       }

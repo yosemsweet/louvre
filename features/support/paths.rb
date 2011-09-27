@@ -64,9 +64,6 @@ module NavigationHelpers
 		when /that page/
 			page = that Page
 			canvas_page_path(page.canvas, page)
-		  
-		when /the user hud page/
-		  hud_user_path
 
 		when /my account page/
 		  edit_user_path
