@@ -10,7 +10,10 @@ Scenario: Going to new canvas url creates a canvas if you authenticated
   When I go to the new canvas page
   Then I should be on that canvas' homepage
   And I should be an owner of that canvas
+<<<<<<< HEAD
 
+=======
+>>>>>>> 978ead0b889baa11842ef87047ad4b4629f7e3d4
 
 @omniauth_test  
 Scenario: Create a new canvae - not authenticated
