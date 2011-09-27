@@ -28,5 +28,21 @@ class StaticController < ApplicationController
   def coming_soon
     render :layout => "redesign"
   end
-  
+
+  def coming_soon_community
+    render :layout => "redesign"
+  end
+
+  def coming_soon_ideas
+    render :layout => "redesign"
+  end
+
+  def coming_soon_feed
+    render :layout => "redesign"
+  end
+
+  def coming_soon_publishing
+    render :layout => "redesign"
+  end
+
 end 

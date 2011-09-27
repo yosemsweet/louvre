@@ -3,6 +3,10 @@ Louvre::Application.routes.draw do
   root :to => "static#redesign"
   
   match "coming_soon" => "static#coming_soon"
+  match "coming_soon_community" => "static#coming_soon_community"
+  match "coming_soon_ideas" => "static#coming_soon_ideas"
+  match "coming_soon_feed" => "static#coming_soon_feed"
+  match "coming_soon_publishing" => "static#coming_soon_publishing"
   
   match "/auth/:provider/callback" => "sessions#create"  
 	match "/logout" => "sessions#destroy", :as => :logout
@@ -28,7 +32,9 @@ Louvre::Application.routes.draw do
 			get 'applicants'
 	    #delete 'applicants/:user_id' => "canvae#applicants_delete"
 		end
+		
     resource :canvas_follow
+		
 		resources :pages do
 		  member do
         get 'versions'
@@ -40,8 +46,8 @@ Louvre::Application.routes.draw do
 	    post 'applicants' => 'canvae#applicants_create'
 	    post 'members' => "canvae#members_create"
     end
-    
 	end
+	
   delete "/canvae/:id/applicants/:user_id" => "canvae#applicants_delete", :as => :applicants_delete
 
   match "/widgets/create_via_email"  => "widgets#create_via_email"
