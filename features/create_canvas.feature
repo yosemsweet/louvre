@@ -11,6 +11,7 @@ Scenario: Going to new canvas url creates a canvas if you authenticated
   Then I should be on that canvas' homepage
   And I should be an owner of that canvas
 
+
 @omniauth_test  
 Scenario: Create a new canvae - not authenticated
   Then pending supported by canvae_controller_spec

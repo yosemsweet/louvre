@@ -23,11 +23,6 @@ When /^(?:I )wait until all Ajax requests are complete$/ do
   end
 end
 
-When /^(?:|I )click on ([^"]*)$/ do |selector|
-  selector = selector_for(selector)
-  page.find(selector).click
-end
-
 When /^I click "([^"]*)" for "([^"]*)"$/ do |link, user|
   page.find(:xpath, "//*[contains(child::text(), user)]") do |scope|
 		page.should have_link(link)
@@ -126,7 +121,6 @@ end
 Then /^the "([^"]*)" should contain "([^"]*)"$/ do |scope, content|
   page.find(scope).should have_content(content)
 end
-
 
 Then /^I should be redirected to (.+)$/ do |page_name|
 	current_path = URI.parse(current_url).path
