@@ -6,6 +6,10 @@ Given /^there is an input stream widget$/ do
 	(that Canvas).widgets.create(Factory.create(:widget, :page => nil))	
 end
 
+Given /^there is a link with "([^"]*)", "([^"]*)", and "([^"]*)"$/ do |title, link, text|
+	widget = Factory.create(:link_widget, :canvas => Canvas.last, :content_type => "link_content", :title => title, :link => link, :text => text)
+end
+
 Given /^that widget has a tag "([^"]*)"$/ do |tag|
   testtag = Factory.create(:tag, :name => tag)
   testtag2 = Factory.create(:tag, :name => "tag2")
