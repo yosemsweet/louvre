@@ -91,3 +91,8 @@ Then /^"?(I|[^"]*)"? should ?(|not) be an admin$/ do |name, type|
 		user.should be_admin
 	end
 end
+
+Then /^that canvas should require membership to edit$/ do
+	(that Canvas).reload.open?.should be_false
+end
+

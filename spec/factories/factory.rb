@@ -19,7 +19,6 @@ FactoryGirl.define do
     sequence :name do |n|
       "Canvas #{n}"
     end
-	  mission "Better clothing for women of a certain age!"
 	  image "http://www.carniola.org/theglory/images/McHammer.gif"
 		creator
 		editor

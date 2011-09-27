@@ -134,5 +134,5 @@ Then /^I should be redirected to (.+)$/ do |page_name|
 end
 
 Then /^pending (.+)$/ do |message|
-	pending message
+	puts message
 end

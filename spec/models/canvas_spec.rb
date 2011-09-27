@@ -99,13 +99,6 @@ describe Canvas do
 				end
 			end
 		
-			context "Mission" do
-				it "should be required" do
-					canvas = Factory.build(:canvas, :mission => "")
-					canvas.should_not be_valid
-				end
-			end
-			
 			context "Open" do
 				it "should default to true" do
 					canvas = Canvas.new

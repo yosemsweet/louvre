@@ -23,7 +23,7 @@ Given /^(?:this|that) canvas has a page (?:titled|called) "([^"]*)"$/ do |pageti
 end
 
 Given /^I am creating a canvas$/ do
-  visit path_to("the New Canvas page")
+  visit path_to("the new canvas page")
 	canvas = Factory.build(:canvas)
 	fill_in("Name", :with => canvas.name)
 	fill_in("Mission", :with => canvas.mission)
@@ -53,10 +53,6 @@ end
 
 Then /^I should see any ongoing discussions for that canvas$/ do
 	page.should have_selector("#discussions")
-end
-
-Then /^that canvas should require membership to edit$/ do
-	(that Canvas).open?.should be_false
 end
 
 

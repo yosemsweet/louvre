@@ -26,10 +26,17 @@ class CanvaeController < ApplicationController
   end
 
   def new
-    canvas_name = params[:canvas_name] || ""
-    @canvas = Canvas.new(:name => canvas_name)
+		@canvas = Canvas.new(:name => current_user.name)
 
-		add_breadcrumb "Add Canvas", new_canvas_path()
+		@canvas.creator = current_user
+		@canvas.editor = current_user
+
+		if @canvas.save
+		  redirect_to(@canvas, :notice => 'Canvas created!')
+		else
+			debugger
+		  render :action => "new" 
+		end
   end
 
   def create

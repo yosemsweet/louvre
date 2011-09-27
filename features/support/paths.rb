@@ -19,7 +19,7 @@ module NavigationHelpers
 		when /log out/
 			logout_path
 			
-		when /the New Canvas page/
+		when /the new canvas page/
 			new_canvas_path
 			
 		when /New Page page/
@@ -40,6 +40,10 @@ module NavigationHelpers
 		when /that canvas' homepage/
 		  canvas = that Canvas
 		  canvas_path(canvas)
+		
+		when /that canvas' settings page/
+			canvas = that Canvas
+			edit_canvas_path(canvas)
 		
 		when /that canvas' ban management page/
 			canvas = that Canvas
