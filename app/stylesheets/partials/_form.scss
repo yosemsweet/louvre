@@ -1,8 +1,14 @@
-#new_canvas input {
-	height:30px;
+.edit_canvas input {
+	width:600px;
+	font-size:25px;
+}
+
+.edit_canvas .input_note {
+	font-size:12px;
 	width:600px;
 }
-#new_canvas .submit_button {
-	height:30px;
-	width:auto;
+
+
+#canvas_name_text {
+	font-size:25px;
 }

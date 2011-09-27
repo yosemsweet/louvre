@@ -13,7 +13,6 @@ class Canvas < ActiveRecord::Base
 	validates :name, :presence => true, :uniqueness => true
 	validates :creator, :presence => true
 
-
   acts_as_opengraph :values => { :type => "cause" }	
 	acts_as_followable
 

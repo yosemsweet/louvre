@@ -1,18 +1,15 @@
-= form_for @canvas do |f|
-  -if @canvas.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@canvas.errors.count, "error")} prohibited this canvas from being saved:"
-      %ul
-        - @canvas.errors.full_messages.each do |msg|
-          %li= msg
+-if can?(:update, @canvas)
+  - content_for :javascripts do
+    = javascript_include_tag 'canvas_edit.js', :media => 'screen, projection'
 
-  .field
-    = f.text_field :name
-  .field
-    = f.label :image
-    = f.text_field :image
-  .field
-    = f.label :open?
-    = f.check_box :open?
-  .actions
-    = f.submit 'Save',  {:class => "submit_button"}
+#canvas_name_text= @canvas.name
+-if can?(:update, @canvas)
+  = form_for @canvas do |f|
+    .field
+      = f.text_field :name
+      .input_note#canvas_name_input_note
+      -if @canvas.created_at == @canvas.updated_at
+        :javascript
+          $(function(){
+            open_canvas_name_edit();
+            });

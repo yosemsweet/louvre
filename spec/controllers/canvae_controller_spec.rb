@@ -121,7 +121,6 @@ describe CanvaeController do
 						:id => canvas.id,
 	          :canvas => {
 								:name => canvas.name, 
-								:mission => canvas.mission, 
 								:image => canvas.image,
 								:open => canvas.open
 							}
