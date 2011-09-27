@@ -98,11 +98,7 @@ describe Canvas do
 					canvas_duplicate_name.should_not be_valid
 				end
 			end
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 978ead0b889baa11842ef87047ad4b4629f7e3d4
 			context "Open" do
 				it "should default to true" do
 					canvas = Canvas.new
