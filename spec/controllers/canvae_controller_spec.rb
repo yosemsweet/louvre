@@ -8,6 +8,7 @@ describe CanvaeController do
 				 get :new
 			end
 		end
+		
 		context "logged in" do
 			before (:each) do
 				@user = Factory.build(:user)
