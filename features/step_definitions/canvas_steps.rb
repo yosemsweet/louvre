@@ -29,6 +29,10 @@ Given /^I am creating a canvas$/ do
 	fill_in("Image", :with => canvas.image)
 end
 
+Given /^(?:I have|I've) created a new canvas$/ do
+	visit path_to("the new canvas page")
+end
+
 Given /^that canvas is closed$/ do
   (that Canvas).open = false
 end
@@ -54,4 +58,11 @@ Then /^I should see any ongoing discussions for that canvas$/ do
 	page.should have_selector("#discussions")
 end
 
+Then /^that canvas should be named "([^"]*)"$/ do |name|
+  (that Canvas).name.should == name
+end
+
+Then /^that canvas should have an example widget$/ do
+  Widget.for_canvas((that Canvas), 0).should_not be_empty
+end
 

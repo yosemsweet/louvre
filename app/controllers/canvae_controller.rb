@@ -26,15 +26,20 @@ class CanvaeController < ApplicationController
   end
 
   def new
-		@canvas = Canvas.new(:name => current_user.name)
+		@canvas = Canvas.new(:name => current_user.name.possessive + " Community")
 
 		@canvas.creator = current_user
 		@canvas.editor = current_user
 
 		if @canvas.save
+			widget = @canvas.widgets.create(
+				:content_type => "text_content", 
+				:text => "<p><b>Here is your first snippet</b></p>" +
+								 "<p>You and your friends can edit this, comment on it, or replace it with something better!",
+				:creator => current_user,
+				:editor => current_user)
 		  redirect_to(@canvas, :notice => 'Canvas created!')
 		else
-			debugger
 		  render :action => "new" 
 		end
   end

@@ -22,6 +22,16 @@ describe CanvaeController do
 				get :new
 				response.should return_status(302).with_location(canvas_path(@canvas))
 			end
+			
+			it "should set the new canvas' name to Creator's Community" do
+				get :new
+				assigns(:canvas).name.should == "#{@user.name.possessive} Community"
+			end
+			
+			it "should assign a new text widget to the canvas" do
+				get :new
+				assigns(:canvas).widgets.where(:page_id => nil).should_not be_empty
+			end
 		end
 	end
 

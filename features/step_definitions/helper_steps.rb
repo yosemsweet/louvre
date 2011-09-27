@@ -8,15 +8,6 @@ Given /^that (.+) has a (.+) widget$/ do |model, type|
   set_that (that klass).widgets.create(widget_prototype)
 end
 
-Given /^I am "([^"]*)"$/ do |name|
- set_current_user( Factory.create(:user, :name => name) )
-end
-
-Given /^I am logged in$/ do
-  @user = Factory.create(:user)
-  set_current_user(@user)
-end
-
 When /^(?:I )wait until all Ajax requests are complete$/ do
   wait_until do
     page.evaluate_script('$.active') == 0

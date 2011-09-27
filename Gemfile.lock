@@ -196,6 +196,7 @@ GEM
       rails (~> 3)
     pg (0.11.0)
     polyglot (0.3.2)
+    possessify (1.0.2)
     pyu-ruby-sasl (0.0.3.3)
     rack (1.2.4)
     rack-mount (0.6.14)
@@ -308,6 +309,7 @@ DEPENDENCIES
   omniauth (~> 0.3)
   paper_trail
   pg
+  possessify
   rails (= 3.0.9)
   rails-footnotes (>= 3.7.5.rc4)
   rails3-generators

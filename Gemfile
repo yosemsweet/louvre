@@ -15,6 +15,7 @@ gem "html_truncator"
 gem "mixpanel"
 gem "koala"
 gem "cancan"
+gem "possessify"
 gem "pg"
 gem "simple-navigation"
 
