@@ -3,7 +3,6 @@
 %table
   %tr
     %th Name
-    %th Mission
     %th Image
     %th Creator
     %th
@@ -13,7 +12,6 @@
   - @canvae.each do |canvas|
     %tr
       %td= canvas.name
-      %td= canvas.mission
       %td= canvas.image
       %td= canvas.creator_id
       %td= link_to 'Show', canvas

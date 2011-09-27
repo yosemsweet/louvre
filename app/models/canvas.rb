@@ -11,7 +11,7 @@ class Canvas < ActiveRecord::Base
   has_many :applicants, :through => :canvas_applicants
 	has_many :events, :as => :loggable
 
-  validates_presence_of :name, :mission, :creator, :editor
+  validates_presence_of :name, :creator, :editor
   validates_uniqueness_of :name
 
   acts_as_opengraph :values => { :type => "cause" }	

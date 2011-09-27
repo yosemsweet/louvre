@@ -17,7 +17,6 @@ describe CanvaeController do
 				post :create, 
 					:canvas => {
 						:name => canvas.name, 
-						:mission => canvas.mission, 
 						:image => canvas.image,
 						:open => canvas.open
 					}
@@ -30,7 +29,6 @@ describe CanvaeController do
 				post :create, 
 					:canvas => {
 						:name => canvas.name, 
-						:mission => canvas.mission, 
 						:image => canvas.image,
 						:open => canvas.open
 					}
@@ -50,21 +48,18 @@ describe CanvaeController do
 					results = post :create, 
 						:canvas => {
 							:name => canvas.name, 
-							:mission => canvas.mission, 
 							:image => canvas.image,
 							:open => canvas.open
 						}
 
 	        assigns(:canvas).name.should == canvas.name 
 					assigns(:canvas).creator.should == @user
-					assigns(:canvas).mission.should == canvas.mission
 	      end
      
 	      it "redirects to canvas" do
 	        results = post :create, 
 	          :canvas => {
 								:name => canvas.name, 
-								:mission => canvas.mission, 
 								:image => canvas.image,
 								:open => canvas.open
 							}
@@ -83,7 +78,6 @@ describe CanvaeController do
 				post :create, 
 					:canvas => {
 						:name => canvas.name, 
-						:mission => canvas.mission, 
 						:image => canvas.image,
 						:open => canvas.open
 					}
@@ -114,14 +108,12 @@ describe CanvaeController do
 						:id => canvas.id, 
 						:canvas => {
 							:name => canvas.name + "foo", 
-							:mission => canvas.mission, 
 							:image => canvas.image,
 							:open => canvas.open
 						}
 
 	        assigns(:canvas).name.should == canvas.name  + "foo"
 					assigns(:canvas).creator.should == canvas.creator
-					assigns(:canvas).mission.should == canvas.mission
 	      end
     
 	      it "redirects to canvas page" do
@@ -129,7 +121,6 @@ describe CanvaeController do
 						:id => canvas.id,
 	          :canvas => {
 								:name => canvas.name, 
-								:mission => canvas.mission, 
 								:image => canvas.image,
 								:open => canvas.open
 							}

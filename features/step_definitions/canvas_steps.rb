@@ -18,7 +18,6 @@ Given /^I am creating a canvas$/ do
   visit path_to("the New Canvas page")
 	canvas = Factory.build(:canvas)
 	fill_in("Name", :with => canvas.name)
-	fill_in("Mission", :with => canvas.mission)
 	fill_in("Image", :with => canvas.image)
 end
 

@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	reload_event_count = function(){
 		if($('#event_count').html() == '')
-			$('#event_count').html('<img src="/images/mini-spinner.gif">');
+			$('#event_count').html('<img src="/images/loading-small.gif">');
 		$.get('/event_count', function(data) {
 			$('#event_count').html(data);
 	
