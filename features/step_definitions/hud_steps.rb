@@ -9,3 +9,10 @@ Then /^I should see that canvas' name in the hud$/ do
   end
 end
 
+Then /^I should see links to those canvae$/ do
+  puts page.html
+  (that User).canvas_roles.each do |cur|
+    puts cur.canvas.name
+    page.should have_selector(cur.canvas.name)
+  end
+end

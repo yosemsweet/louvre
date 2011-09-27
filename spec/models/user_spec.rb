@@ -222,6 +222,32 @@ describe User do
     end
   end
   
+  describe "#canvas_roles" do
+    before(:each) do
+      @user = Factory.create(:user)
+      @own_canvas = Factory.create(:canvas, :creator => @user )
+      
+      @member_canvas = Factory.create(:canvas)
+      @user.set_canvas_role(@member_canvas, :member)
+      
+      @banned_canvas = Factory.create(:canvas)
+      @user.set_canvas_role(@banned_canvas, :banned)
+    end
+    
+		it "should exist" do
+			@user.should respond_to(:canvas_roles)
+		end
+		
+		it "should include all canvae that the user belongs to where the user is not banned" do
+			CanvasUserRole.not_banned.where(:user_id => @user.id).each do |canvas_user_role|
+				@user.canvas_roles.should include(canvas_user_role)
+			end
+		end
+		
+		it "should not include canvae where the user is banned" do
+		  @user.canvas_roles.should_not include(CanvasUserRole.where(:user => @user, :canvas => @banned_cavas))
+		end
+  end
 end
 
 

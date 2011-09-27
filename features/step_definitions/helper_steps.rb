@@ -123,3 +123,9 @@ end
 Then /^the "([^"]*)" should contain "([^"]*)"$/ do |scope, content|
   page.find(scope).should have_content(content)
 end
+
+When /^(?:|I )click on ([^"]*)$/ do |selector|
+  selector = selector_for(selector)
+  page.find(selector).click
+end
+

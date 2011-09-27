@@ -16,6 +16,7 @@ gem "mixpanel"
 gem "koala"
 gem "cancan"
 gem "pg"
+gem "simple-navigation"
 
 group :development do
   gem 'rails-footnotes', '>= 3.7.5.rc4'

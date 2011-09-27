@@ -43,11 +43,12 @@
             = link_to "Log out", logout_path
           - else
             = login_link :text => "Log in with Facebook"
-        %h1#logo
-          -if @title 
-            = link_to_unless_current @title, canvas_path(@canvas) 
-          -else 
-            loorp
+        = render :partial => "shared/menu" if current_user    
+        -# %h1#logo
+        -#   -if @title 
+        -#     = link_to_unless_current @title, canvas_path(@canvas) 
+        -#   -else 
+        -#     loorp
           
     #body
 
