@@ -9,6 +9,7 @@ Louvre::Application.routes.draw do
   match "coming_soon_publishing" => "static#coming_soon_publishing"
   
   match "/auth/:provider/callback" => "sessions#create"  
+	match "/login" => "static#login"
 	match "/logout" => "sessions#destroy", :as => :logout
 
   resources :comments

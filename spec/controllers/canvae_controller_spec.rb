@@ -2,6 +2,14 @@ require 'spec_helper'
 
 describe CanvaeController do
 
+	describe "GET new" do
+		it "should require authentication" do
+			should_require_authentication do
+				 get :new
+			end
+		end
+	end
+
 	describe "GET index" do
 		it "should not require authentication" do
 			should_not_require_authentication do

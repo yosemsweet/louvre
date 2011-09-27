@@ -3,16 +3,16 @@ Feature: Require Login with Facebook
   People should be able to
   Get authenticated with Loorp
  
-# @omniauth_test
-# Scenario: Facebook Login
-#   Given I am not authenticated
-#   And I am on the homepage
-#   When I log in with "Facebook"
-#   Then I should see "Logged in"
+@omniauth_test
+Scenario: Facebook Login
+  Given I am not authenticated
+  And I am on the homepage
+  When I log in with "Facebook"
+  Then I should see "Logged in"
 
-# @omniauth_test
-# Scenario: Logout
-#     Given I am authenticated
-#     And I am on the homepage
-#     When I follow "Log out"
-#     Then I should see "Logged out"
+@omniauth_test
+Scenario: Logout
+    Given I am authenticated
+    And I am on the homepage
+    When I follow "Log out"
+    Then I should see "Log in with Facebook"

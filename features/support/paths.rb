@@ -13,6 +13,9 @@ module NavigationHelpers
     when /Thanks for your interest/
       '/thankyou'
 
+		when /log in/
+			login_path
+
 		when /log out/
 			logout_path
 			
