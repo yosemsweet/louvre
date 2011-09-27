@@ -32,7 +32,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
   # Define the primary navigation
   navigation.items do |primary|
-    primary.item :canvae, "Communities", canvae_path, :class => "sf-menu" do |menu| 
+    primary.item :canvae, "Communities", "", :class => "sf-menu" do |menu| 
       current_user.canvas_roles.where(:role => :owner).each do |cur|
         menu.item "canvas_#{cur.canvas.id}", cur.canvas.name, canvas_path(cur.canvas), :class => "owner" 
       end
