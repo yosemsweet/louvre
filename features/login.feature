@@ -8,7 +8,7 @@ Scenario: Facebook Login
   Given I am not authenticated
   And I am on the homepage
   When I log in with "Facebook"
-  Then I should see "Logged in"
+  Then I should not see "Log in with Facebook"
 
 @omniauth_test
 Scenario: Logout

@@ -36,16 +36,3 @@ And I am authenticated
 And there is a canvas
 And I am on that canvas' homepage
 Then I should see "Join"
-
-@omniauth_test
-Scenario: Make canvas closed so people have to apply to become a member
-  Given there is a canvas
-  And I am authenticated
-  And I am an owner of that canvas
-  And I am on that canvas' settings page
-  And I specify that canvas should be "closed"
-  When I press "Save"
-  Then that canvas should require membership to edit
-
-
-
