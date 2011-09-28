@@ -7,7 +7,7 @@ class CanvaeController < ApplicationController
 
   def edit
 		authorize! :edit, @canvas
-		#add_breadcrumb "Edit '#{@canvas.name}'", edit_canvas_path(@canvas)
+		add_breadcrumb "Edit '#{@canvas.name}' settings", edit_canvas_path(@canvas)
   end  
     
   def show

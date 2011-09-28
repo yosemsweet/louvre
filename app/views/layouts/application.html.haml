@@ -55,9 +55,4 @@
             .flash{ :class => type.to_s }
               = value
     
-        = yield 
-    
-    - if current_user
-      #hud
-        %a#hide_hud{:href => "#"} Hide
-        #hud_content
+        = yield

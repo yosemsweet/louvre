@@ -3,16 +3,14 @@ Given /^there is a canvas$/ do
 end
 
 Given /^I am a member of (\d+) canvae$/ do |number|
-  set_that that(User)
   canvas_list = Factory.create_list(:canvas, number.to_i )
   canvas_list.each do |c|
-    (that User).set_canvas_role(c, :member)
+    (current_user).set_canvas_role(c, :member)
   end
 end
 
 Given /^I am the owner of a canvas$/ do
-	set_that that(User)
-  set_that Factory.create(:canvas, :creator => that(User))
+  set_that Factory.create(:canvas, :creator => current_user)
 end
 
 Given /^(?:this|that) canvas has a page (?:titled|called) "([^"]*)"$/ do |pagetitle|
@@ -40,9 +38,9 @@ end
 
 When /^I specify that canvas should be "([^"]*)"$/ do |state|
 	if state == "open"
-		page.check("Open?")
+		page.check("canvas[open]")
 	else
-		page.uncheck("Open?")
+		page.uncheck("canvas[open]")
 	end
 end
 

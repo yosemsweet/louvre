@@ -33,7 +33,7 @@ end
 
 Given /^I have banned "([^"]*)"$/ do |user|
 	member = User.find_by_name(user) || Factory.create(:user, :name => user)
-	member.set_canvas_role(Canvas.last, :banned)
+	member.set_canvas_role((that Canvas), :banned)
 end
 
 When /^I follow the (.*) link for "([^"]*)"$/ do |action, name|

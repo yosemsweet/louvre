@@ -1,15 +1,10 @@
 -if can?(:update, @canvas)
-  - content_for :javascripts do
-    = javascript_include_tag 'canvas_edit.js', :media => 'screen, projection'
-
-#canvas_name_text= @canvas.name
--if can?(:update, @canvas)
   = form_for @canvas do |f|
     .field
-      = f.text_field :name
-      .input_note#canvas_name_input_note
-      -if @canvas.created_at == @canvas.updated_at
-        :javascript
-          $(function(){
-            open_canvas_name_edit();
-            });
+      = f.label 'Name'
+      = f.text_field :name      
+    .field
+      = f.label 'Allow anyone to join this community?'
+      = f.check_box :open?
+    .actions
+      = f.submit 'Save'

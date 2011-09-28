@@ -34,6 +34,9 @@ module HtmlSelectorsHelpers
 		when "the communities menu"
 		  "#menubar #canvae-menu"
 		
+		when "the user details"
+			"#user-nav"
+		
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
