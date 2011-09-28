@@ -68,8 +68,6 @@ h1#logo a {
 		text-decoration:none;
 	}
 	
-
-	
   // MENU
   $menu-width: 250px;
   $menu-padding: 10px;
@@ -100,6 +98,7 @@ h1#logo a {
     }
     
     ul{
+      display: none;
       position: absolute;
       border:1px #AAA solid;
       a{

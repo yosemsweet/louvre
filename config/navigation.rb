@@ -32,12 +32,12 @@ SimpleNavigation::Configuration.run do |navigation|
 
   # Define the primary navigation
   navigation.items do |primary|
-    primary.item :canvae, "Communities", "", :class => "sf-menu" do |menu| 
-      current_user.canvas_roles.where(:role => :owner).each do |cur|
-        menu.item "canvas_#{cur.canvas.id}", cur.canvas.name, canvas_path(cur.canvas), :class => "owner" 
+    primary.item :canvae, "Communities", "#", :class => "community-menu" do |menu| 
+      current_user.canvas_roles.where(:role => :owner).collect(&:canvas).sort{ |x,y| x.name.downcase <=> y.name.downcase }.each do |cur|
+        menu.item "canvas_#{cur.id}", cur.name, canvas_path(cur), :class => "owner" 
       end
-      current_user.canvas_roles.where(:role => :member).each do |cur|
-        menu.item "canvas_#{cur.canvas.id}", cur.canvas.name, canvas_path(cur.canvas), :class => "member" 
+      current_user.canvas_roles.where(:role => :member).collect(&:canvas).sort{|x,y| x.name.downcase <=> y.name.downcase }.each do |cur|
+        menu.item "canvas_#{cur.id}", cur.name, canvas_path(cur), :class => "member" 
       end
       
       menu.item :new_canvas, "Set up your own community", new_canvas_path, :class => "new event_item"
@@ -47,9 +47,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.dom_class = "sf-menu" 
     primary.auto_highlight = false
   end
-  
-  
-    
+
     
     # Add an item to the primary navigation. The following params apply:
     # key - a symbol which uniquely defines your navigation item in the scope of the primary_navigation

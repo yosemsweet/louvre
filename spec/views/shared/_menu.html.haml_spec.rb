@@ -26,10 +26,10 @@ describe 'shared/_menu.html.haml' do
     
       context "current user has canvas_roles" do
         before(:each) do
-          @member_canvas = Factory.create(:canvas)
+          @member_canvas = Factory.create(:canvas, :name => "zzz")
           @user.set_canvas_role(@member_canvas, :member)
           
-          @owner_canvas =  Factory.create(:canvas)
+          @owner_canvas =  Factory.create(:canvas, :name => "owner canvas")
           @user.set_canvas_role(@owner_canvas, :owner)
         end 
         
@@ -54,7 +54,17 @@ describe 'shared/_menu.html.haml' do
             render :partial => "menu"
             rendered.should have_selector("#canvae-menu .new")  
         end
+        
+        it "should list them in alphabetical order" do
+          @owner_canvas_two = Factory.create(:canvas, :name => "aaa")
+          @user.set_canvas_role(@owner_canvas_two, :owner)
+
+          render :partial => "menu"
+          rendered.should have_selector("#canvae-menu ul li:first-child#canvas_#{@owner_canvas_two.id}-menu")
+          rendered.should have_selector("#canvae-menu ul li:nth-child(2)#canvas_#{@owner_canvas.id}-menu")
+        end
       end
+    
     end
   end
   

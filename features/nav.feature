@@ -10,7 +10,6 @@ Scenario: Show the canvases that I am a part of
   And I am a member of 2 canvae
   And I am on the homepage
   When I mouse over "the communities menu"
-  Then vomit the page
   Then I should see links to those canvae within the communities menu
 
   
