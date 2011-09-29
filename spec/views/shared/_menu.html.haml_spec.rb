@@ -50,10 +50,10 @@ describe 'shared/_menu.html.haml' do
           rendered.should have_selector("#canvae-menu #canvas_#{@member_canvas.id}-menu.member")
         end
         
-        it "add a link to create a new canvas" do
-            render :partial => "menu"
-            rendered.should have_selector("#canvae-menu .new")  
-        end
+        # it "add a link to create a new canvas" do
+        #     render :partial => "menu"
+        #     rendered.should have_selector("#canvae-menu .new")  
+        # end
         
         it "should list them in alphabetical order" do
           @owner_canvas_two = Factory.create(:canvas, :name => "aaa")
