@@ -23,13 +23,11 @@
 -if current_user
   :javascript
     $(function(){
-      mpq.push(["name_tag","#{current_user.name}"]);
       mpq.push(["track","hit_homepage",{"logged_in": "true"}]);
     })
 -else
   :javascript
     $(function(){
-      mpq.push(["identify"]);
       mpq.push(["track","hit_homepage",{"logged_in": "false"}]);
     })
   

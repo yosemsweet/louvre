@@ -6,3 +6,15 @@
     canvas_id : #{@canvas.present? ? @canvas.id : 0},
     page_id : #{@page && @page.persisted? ? @page.id : 0}
   };
+  
+-if current_user
+  :javascript
+    $(function(){
+      mpq.push(["name_tag","#{current_user.name}"]);
+    })
+-else
+  :javascript
+    $(function(){
+      mpq.push(["identify"]);
+    })
+        
