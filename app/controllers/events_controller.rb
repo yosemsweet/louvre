@@ -16,7 +16,7 @@ class EventsController < ApplicationController
   end
   
   def count
-    the_canvas_ids = current_user.canvas_user_roles.map{|cid| cid.canvas_id}.join(",")
+    the_canvas_ids = current_user.canvas_user_roles.map{|cid| cid.canvas_id}
     render :json => Event.where("canvas_id IN (?) AND created_at >= ?", the_canvas_ids, current_user.notifications_viewed_at).count()
   end
 end
