@@ -47,10 +47,6 @@ function createBookmarkletDialog(){
 		dialog_element.title = "Link added";
 		dialog_element.innerHTML = "<p><strong>Success!</strong></p><p><a id='close' href='#'>Close</a></p>";
 		$("#loorp_bookmarklet #close").click(removeDialog);
-		
-				
-		// Track submit via bookmarklet event.
-		loorp_mpq.push(["track","click_save_bookmarklet"]);
   });
 
 	$("#loorp_bookmarklet #cancel").click(removeDialog);
@@ -91,7 +87,7 @@ function loadJQueryUI()
 (function() {
 	// Initialize mixpanel.
 	loorp_mpq = [];
-	loorp_mpq.push(["init", "514bbd502c105398458bf10f8b686b0d"]);
+	loorp_mpq.push(["init", request.mixpanel_account]);
 	(function() {
 		var mp = document.createElement("script"); 
 		mp.type = "text/javascript"; 

@@ -72,14 +72,26 @@ class WidgetsController < ApplicationController
       page = nil
       canvas = Canvas.find(params[:canvas_id])
     end
-    
-    if current_user.nil?
-      @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas, :editor_id => params[:widget][:creator_id]))
+
+    if params[:widget][:creator_id].present?
+      @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas, :editor_id => params[:widget][:creator_id]))			
+			user = User.find(params[:widget][:creator_id])
+			method = "bookmarklet"
     else    
       @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas, :creator => current_user, :editor => current_user))
       authorize! :manage, @widget
     end
 
+		user ||= current_user
+		method ||= "site"
+		@mixpanel.track_event("widget_added", {
+					:user_id => user.id, 
+					:distinct_id => user.id, 
+					:mp_name_tag => user.name, 
+					:canvas_id => canvas.id, 
+					:method => method,
+					:ip => request.remote_ip})
+		
     if page
 		  @widget.position_last_on_page
 	  end

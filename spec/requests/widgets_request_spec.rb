@@ -19,7 +19,7 @@ describe "Widgets Requests" do
   			WidgetsController.any_instance.stubs(:current_user).returns(nil)
       end
       
-      it "should return 400" do
+      it "should return 403" do
         params = { 
           :content_type => "link_content",
           :text => "testtext",
@@ -29,7 +29,7 @@ describe "Widgets Requests" do
         }
       
         post "/widgets", :canvas_id => @canvas.id, :widget => params
-        response.should return_status(400)
+        response.should return_status(403)
       end
       
       context "with creator_id in params" do

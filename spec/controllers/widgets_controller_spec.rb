@@ -8,9 +8,24 @@ describe WidgetsController do
   end
 
    describe "Post create" do
-     describe "text widget" do
-     	describe "with json" do
-	      describe "with valid params" do
+		context "mixpanel tracking" do					
+			it "should invoke track event with mixpanel when invoked with permissions" do
+				@mixpanel = Object.new.stubs(:track_event).returns(true)
+				@mixpanel.expects(:track_event).at_least_once
+				Mixpanel::Tracker.stubs(:new).returns(@mixpanel)
+				widget = Factory.build(:widget)
+				@user.set_canvas_role(widget.canvas,:member)
+				
+				post :create, 
+          :widget => {:text => widget.text, :content_type => widget.content_type}, 
+          :format => 'json', 
+          :canvas_id => widget.canvas.id
+			end
+		end
+		
+		describe "text widget" do
+			describe "with json" do
+				describe "with valid params" do
 	        let(:widget) { Factory.build(:text_widget) }
         
 	        it "assigns a newly created widget as @widget" do
@@ -21,14 +36,16 @@ describe WidgetsController do
 	          assigns(:widget).text.should == widget.text and assigns(:widget).creator.should == @user and assigns(:widget).editor.should == @user and assigns(:widget).canvas.should == widget.canvas
 	        end
         
-	        it "returns a success code" do
-						@user.set_canvas_role(widget.canvas,:member)
-	          results = post :create, 
-	            :widget => {:text => widget.text, :content_type => widget.content_type}, 
-	            :format => 'json', 
-	            :canvas_id => widget.canvas.id
-	          results.status.should == 201
-	        end
+					describe "with permissions" do
+		        it "returns a success code" do
+							@user.set_canvas_role(widget.canvas,:member)
+		          results = post :create, 
+		            :widget => {:text => widget.text, :content_type => widget.content_type}, 
+		            :format => 'json', 
+		            :canvas_id => widget.canvas.id
+		          results.status.should == 201
+		        end
+					end
 	      end
 	    end
 	
@@ -45,14 +62,16 @@ describe WidgetsController do
 		          assigns(:widget).image.should == widget.image and assigns(:widget).alt_text.should == widget.alt_text and assigns(:widget).creator.should == @user and assigns(:widget).editor.should == @user and assigns(:widget).canvas.should == widget.canvas
 		        end
 
-		        it "returns a success code" do
-							@user.set_canvas_role(widget.canvas,:member)
-		          results = post :create, 
-								:widget => {:image => widget.image, :alt_text => widget.alt_text, :content_type => widget.content_type}, 
-		            :format => 'json', 
-		            :canvas_id => widget.canvas.id
-		          results.status.should == 201
-		        end
+						describe "with permissions" do
+			        it "returns a success code" do
+								@user.set_canvas_role(widget.canvas,:member)
+			          results = post :create, 
+									:widget => {:image => widget.image, :alt_text => widget.alt_text, :content_type => widget.content_type}, 
+			            :format => 'json', 
+			            :canvas_id => widget.canvas.id
+			          results.status.should == 201
+			        end
+						end
 		      end
 		    end
 			end
@@ -85,7 +104,7 @@ describe WidgetsController do
 	
 	context "put update" do
 		
-		describe "updating a widget created by someone else" do
+		describe "updating a widget created by someone else with valid permissions" do
 			before :each do
 				@canvas = Factory.create(:canvas)
 				
