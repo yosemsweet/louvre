@@ -64,7 +64,7 @@ class WidgetsController < ApplicationController
   end
 
   # POST /widgets
-  def create      
+  def create     
     if params[:page_id]
       page = Page.find(params[:page_id])
       canvas = page.canvas
@@ -73,12 +73,13 @@ class WidgetsController < ApplicationController
       canvas = Canvas.find(params[:canvas_id])
     end
     
-    @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas, :creator => current_user, :editor => current_user))
-    
-		if current_user
-			authorize! :manage, @widget
-		end
-		
+    if current_user.nil?
+      @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas, :editor_id => params[:widget][:creator_id]))
+    else    
+      @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas, :creator => current_user, :editor => current_user))
+      authorize! :manage, @widget
+    end
+
     if page
 		  @widget.position_last_on_page
 	  end

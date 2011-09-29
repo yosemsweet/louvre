@@ -1,34 +1,35 @@
 Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an) (user|admin)$/ do |user, role|
-	if user == "I"
-		member = current_user
-	else
-		member = User.find_by_name(user) || Factory.create(:user, :name => user)
-	end
-	if role == "admin"
-		member.admin = true
-		member.save
-	end
-	
+  if user == "I"
+    member = current_user
+  else
+    member = User.find_by_name(user) || Factory.create(:user, :name => user)
+  end
+  
+  if role == "admin"
+    member.admin = true
+    member.save
+  end
 end
 
 Given /^the following users exist:$/ do |users|
   users.hashes.each do |hash|
-		Factory.create(:user, hash)
-	end
+    Factory.create(:user, hash)
+  end
 end
 
 
 Given /^"?(I|[^"]*)"? (?:am|is) (?:a|an|) (.*) (?:of|to|for) that canvas$/ do |user, role|
-	if user == "I"
-		member = current_user
-	else
-		member = User.where(:name => user).first
-	end
-	if role == "applicant"
-		(that Canvas).canvas_applicants.create(:user_id => member.id)
-	else
-		member.set_canvas_role((that Canvas), role.to_sym)
-	end
+  if user == "I"
+    member = current_user
+  else
+    member = User.where(:name => user).first
+  end
+  
+  if role == "applicant"
+    (that Canvas).canvas_applicants.create(:user_id => member.id)
+  else
+    member.set_canvas_role((that Canvas), role.to_sym)
+  end
 end
 
 Given /^I have banned "([^"]*)"$/ do |user|

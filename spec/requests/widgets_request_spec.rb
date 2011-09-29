@@ -8,46 +8,100 @@ describe "Widgets Requests" do
   end  
   
   describe "POST /widgets" do
-    
-    before(:each) do
+        
+    context "user is not logged in" do
       
-      @canvas = Factory.create(:canvas)
-      @widget_count = Widget.all.length
+      before(:each) do
+        @canvas = Factory.create(:canvas)
+        @widget_count = Widget.all.length
+
+  			@user.set_canvas_role(@canvas,:member)		
+  			WidgetsController.any_instance.stubs(:current_user).returns(nil)
+      end
       
-			@user.set_canvas_role(@canvas,:member)
-      WidgetsController.any_instance.stubs(:current_user).returns(@user)
-			
-			@attr = { 
-        :creator_id => @user.id,
-				:editor_id => @user.id,
-        :content_type => "link_content",
-        :text => "testtext",
-        :page_id => nil, 
-        :link => "http://www.test.com",
-        :title => "testtitle" 
-      }
+      it "should return 400" do
+        params = { 
+          :content_type => "link_content",
+          :text => "testtext",
+          :page_id => nil, 
+          :link => "http://www.test.com",
+          :title => "testtitle" 
+        }
+      
+        post "/widgets", :canvas_id => @canvas.id, :widget => params
+        response.should return_status(400)
+      end
+      
+      context "with creator_id in params" do
+        before (:each) do
+          @params = { 
+            :creator_id => @user.id,
+            :content_type => "link_content",
+            :text => "testtext",
+            :page_id => nil, 
+            :link => "http://www.test.com",
+            :title => "testtitle" 
+          }
+          
+        end
+        
+        it "should return 201" do
+          post "/widgets", :canvas_id => @canvas.id, :widget => @params
+          response.should return_status(201)
+        end
+        
+        it "should create a text widget" do
+          lambda do
+            post "/widgets", :canvas_id => @canvas.id, :widget => @params
+          end.should change(Widget, :count).by(1)
+        end
+        
+        it "editor should be the same as creator" do
+          post "/widgets", :canvas_id => @canvas.id, :widget => @params
+          assigns(:widget).editor.should == @user
+        end
+      end
+      
     end
-    
-    it "should create a new widget" do
-      lambda do
+   
+    context "user is logged in" do
+      
+      before(:each) do
+
+        @canvas = Factory.create(:canvas)
+        @widget_count = Widget.all.length
+
+  			@user.set_canvas_role(@canvas,:member)		
+  			@attr = { 
+          :content_type => "link_content",
+          :text => "testtext",
+          :page_id => nil, 
+          :link => "http://www.test.com",
+          :title => "testtitle" 
+        }
+      end
+      
+      it "should create a new widget" do
+        lambda do
+          post "/widgets", :canvas_id => @canvas.id, :widget => @attr
+        end.should change(Widget, :count).by(1)	
+      end
+
+      it "should have the widget with the correct canvas" do
         post "/widgets", :canvas_id => @canvas.id, :widget => @attr
-      end.should change(Widget, :count).by(1)	
-    end
-    
-    it "should have the widget with the correct canvas" do
-      post "/widgets", :canvas_id => @canvas.id, :widget => @attr
-      assigns(:widget).canvas.id.should  == @canvas.id
-    end
+        assigns(:widget).canvas.id.should  == @canvas.id
+      end
 
-    it "should have the inserted text" do
-      post "/widgets", :canvas_id => @canvas.id, :widget => @attr
-      assigns(:widget).text.should == 'testtext'
-    end
+      it "should have the inserted text" do
+        post "/widgets", :canvas_id => @canvas.id, :widget => @attr
+        assigns(:widget).text.should == 'testtext'
+      end
 
-    it "should have set link to http://www.test.com" do
-      post "/widgets", :canvas_id => @canvas.id, :widget => @attr
-      assigns(:widget).link.should == "http://www.test.com"
-    end
+      it "should have set link to http://www.test.com" do
+        post "/widgets", :canvas_id => @canvas.id, :widget => @attr
+        assigns(:widget).link.should == "http://www.test.com"
+      end
+    end  
 
   end
   

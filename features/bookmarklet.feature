@@ -11,7 +11,7 @@ Scenario: Use bookmarklet brings up add link dialog
 # When I use the bookmarklet
 # And I wait until all Ajax requests are complete
 # Then I see an "Add Link" dialog
- 
+
 @background_user
 @blocked
 Scenario: Select text on page
