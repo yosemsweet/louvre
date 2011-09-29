@@ -49,4 +49,7 @@ Louvre::Application.configure do
 
   config.thehost = "http://www.loorp.com"
 
+	
+  config.middleware.use "Mixpanel::Tracker::Middleware", "514bbd502c105398458bf10f8b686b0d"
+
 end

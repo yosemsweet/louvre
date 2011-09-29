@@ -55,7 +55,6 @@ module Louvre
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
     
-    config.middleware.use "Mixpanel::Tracker::Middleware", "514bbd502c105398458bf10f8b686b0d"
     
   end
 end
