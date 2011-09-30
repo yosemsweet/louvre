@@ -51,4 +51,9 @@ body {
 
 a:visited { color:$visited-link-color; }
 a:link { color:$link-color; }
+a:hover {text-decoration:underline;}
+a {text-decoration:none;}
 
+h3 {
+	margin:0.25em 0em 0.25em 0em;
+}

@@ -1,12 +1,9 @@
 @import "partials/base";
+@import "partials/snippet";
 
 ul#feed {
 	margin: 0;
-	margin-top: 5px;
-	border: 1px dotted #bbb;
-	min-height: 100px;
-	padding: 10px 10px 0 10px;
-	
+	padding: 0;
 	list-style: none;
 
 	.facebook_comments{
@@ -16,8 +13,7 @@ ul#feed {
 
 ul#inline_form{
 	margin: 0;
-	margin-top: 5px;
-	padding: 10px 10px 0 10px;
+	padding:0;
 	list-style: none;
 	
 	.widget {
@@ -47,5 +43,5 @@ ul#feed .widget_image_wrapper img{
 
 
 #canvas_name_text {
-	font-size:25px;
+	font-size:30px;
 }

@@ -8,7 +8,33 @@
 	width:600px;
 }
 
-
 #canvas_name_text {
-	font-size:25px;
+	font-size:30px;
+}
+
+form.edit_widget{
+	label{
+		padding-top:6px;
+		width:110px;
+		display:block;
+		float:left;
+		font-size:14px;
+	}
+	.form_title{
+		Font-weight:bold;
+	}
+	textarea{
+		width:920px;
+		height:70px;
+		margin:3px;
+	}
+	input[type="submit"]{
+		width:auto;
+	}
+	input[type="reset"]{
+		width:auto;
+	}
+	input{
+		width:500px;
+	}
 }

@@ -1,5 +1,4 @@
-%p
-  Tags: 
+-if widget.tags.count > 0 
   %em{:style => "font-size: 10px;"}
-    = widget.tags.map(&:name).join(', ')
-  
+    TAGS: 
+    = widget.tags.map(&:name).join(', ')  

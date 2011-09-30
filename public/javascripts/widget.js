@@ -1,33 +1,31 @@
 $(document).ready(function(){
 
-	// Add widget links.
-	$(".add_widget").click(function(event){
-	  event.preventDefault();
 	
+	// Add widget links.
+	$(".add_widget, .cancel_edit").click(function(event){
+
 		var content_type = $(this).data("content_type");
 		var widget = $("ul#inline_form li.widget." + content_type);
 		
 		// hide all new widgets before opening the one that was clocked on
 		$("ul#inline_form").children().not(widget.parent()).hide();
 		
-		// Control the look of the tabs
-		var is_active = $(this).hasClass("active");
-		$(".add_widget").removeClass("active");
-		if(! is_active){
-			$(this).addClass("active");
-		}
 		// Fire the edit event for the widget.
 		$(".edit", widget).click();
+		
 		// Ensure that the content is hidden to make toggling work properly.
 		$(".content", widget).hide();	
+		
 		// Toggle the display of the widget.
 		widget.parent().toggle();
 		
+	  event.preventDefault();
+	
 	});
 
 	// Edit widget links.
-	$(".widget .edit").live("click", function(event){
-		event.preventDefault();
+	$(".widget .edit, .cancel_edit").live("click", function(event){
+
 	  var widget_id = $(this).parents(".widget").data("widget_id");
 		if(typeof widget_id === "undefined"){
 			widget_id = 0;
@@ -36,12 +34,13 @@ $(document).ready(function(){
 		var widget = $(this).parents(".widget");
 		
 		$(".content", widget).toggle();
-		
+		$(".controls", widget).toggle();
 		$("form.edit_widget", widget).toggle();
-		
 		$("#widget_ckeditor_" + widget_id).ckeditor({toolbar : "Body"});
 		
 	  mpq.push(["track","canvas_edit_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id, widget_id : widget_id}]);
+
+		event.preventDefault();
 	
 	});
 	
@@ -74,7 +73,10 @@ $(document).ready(function(){
 			$(".add_widget").removeClass("active");
 			widget_form_params._method = "PUT";
 			$(this).hide();
-			$(".content", widget).html("<img src='/images/loorping.gif'>").show();
+			
+			$(".content", widget).addClass('align-center');
+			$(".content", widget).html("<img src='/images/loading-medium.gif'>").show();
+			
 			$("#widget_ckeditor_" + widget_id).ckeditor(function(){
 				this.destroy();
 			});
@@ -204,6 +206,16 @@ $(document).ready(function(){
       countComments(request.root_url + "widgets/" + $widget.data("widget_id"), function(n){
        var comments = n > 0 ? n : "" ;
        $('.toggle_facebook_comments', $widget).text( comments );
+     });
+    });
+	}
+
+	update_widget_comment_counts_2 = function(){
+		$(".widget").each(function(){
+    	var $widget = $(this);
+      countComments(request.root_url + "widgets/" + $widget.data("widget_id"), function(n){
+       var comments = n > 0 ? n : "" ;
+       $('.comment_count', $widget).text( comments );
      });
     });
 	}

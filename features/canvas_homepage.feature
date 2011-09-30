@@ -4,10 +4,9 @@ Feature: canvas homepage
   so that I participant in the community 
   
 Scenario: Canvas Homepage Sections
-  Given there is a canvas 
-  And I am on that canvas' homepage
-  And I should see "Feed"
-  And I should see "Pages"
+Given there is a canvas 
+And I am on that canvas' homepage
+And I should see the feed
 
 @omniauth_test
 @javascript

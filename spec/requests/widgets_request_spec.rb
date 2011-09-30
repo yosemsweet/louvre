@@ -517,7 +517,7 @@ describe "Widgets Requests" do
 
 			it "should not show add any add a widget link" do
 				response.body.should_not include("id='toolbar'")
-				response.body.should_not include("class='add_widget'")
+				response.body.should_not include("class='add_widget")
 			end
 
 			it "should not show the edit button on widget" do
@@ -543,7 +543,7 @@ describe "Widgets Requests" do
 
 			it "should show add all add a widget link" do
 				response.body.should include("id='toolbar'")
-				response.body.should include("class='add_widget'")
+				response.body.should include("class='add_widget")
 			end
 
 			it "should show the edit button on widget" do

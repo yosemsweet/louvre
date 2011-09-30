@@ -1,27 +1,17 @@
 .text_content > .body {
-  background :  url('/images/icons/text.png') no-repeat 10px 10px;
+	
 }
 
 .image_content > .body {
-  background :  url('/images/icons/picture.png') no-repeat 10px 10px;
+
 }
 
 .link_content > .body {
-  background :  url('/images/icons/link.png') no-repeat 10px 10px;
+
 }
 
 .question_content > .body {
-  background :  url('/images/icons/question.png') no-repeat 10px 10px;
-}
 
-.top{
-  top: 0;
-  box-shadow: 1px 1px 5px $trim-color;
-}
-
-.bottom{
-  bottom: 0;
-  box-shadow: 1px -1px 5px $trim-color;
 }
 
 .answer {
@@ -33,10 +23,7 @@
 }
 
 .question {
-	background: none repeat scroll 0 0 #D5EDF8;
-	border: 2px solid #92CAE4;
-	color: #205791;
-	padding: 10px;
+
 }
 
 .presentation_widget {
@@ -60,12 +47,14 @@ figcaption {
 }
 
 
+
+.align-center {text-align:center;}
+
+
 $icon-size: 32px;
 .widget .body {
-  @include floating-box;
 	margin: 0;
 	margin-bottom: 10px;
-	min-height: 100px;
 	color: $text-color;	
 
 	@include clearfix;
@@ -135,7 +124,8 @@ $icon-size: 32px;
 $canvas-feed-height: 200px;
 .widget.canvas_feed_widget {
   .body{
-    @include box($background:$accent-color, $border:$accent-color);
+    
+		@include box($background:$accent-color, $border:$accent-color);
   	position:relative;
   	min-height: 200px;
 		.edit_content {

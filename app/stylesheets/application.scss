@@ -14,10 +14,6 @@ h1#logo a {
 	text-decoration:none;
 }
 
-#toolbar, #toolbar-feed {
-	font-size:13px;
-}
-
 #event_count{
 	cursor:pointer;
 	border-radius: 4px;
@@ -46,7 +42,7 @@ h1#logo a {
 
 #event_list_container{
 	position:absolute;
-	width:300px;
+	width:250px;
 	z-index:999999999;
 }
 
@@ -172,6 +168,7 @@ ul#page .widget_image_wrapper img{
   display:inline;
 }
 
+
 .tab {
 	border:1px solid #CCC;
 	padding:3px;
@@ -207,8 +204,14 @@ color: #1A3747;
 }
 
 
-//button
-.button {
+#apply.try-button{
+	width:100px;
+}
+#join.try-button{
+	width:100px;
+}
+
+.try-button {
   border: 1px solid #a15804;
   background: #cf7028;
   background: -webkit-gradient(linear, left top, left bottom, from(#d29300), to(#cf7028));
@@ -216,7 +219,7 @@ color: #1A3747;
   background: -moz-linear-gradient(top, #d29300, #cf7028);
   background: -ms-linear-gradient(top, #d29300, #cf7028);
   background: -o-linear-gradient(top, #d29300, #cf7028);
-  padding: 10px 10px;
+  padding: 10px 20px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
@@ -225,9 +228,13 @@ color: #1A3747;
   box-shadow: rgba(0,0,0,1) 0 1px 0;
   text-shadow: rgba(0,0,0,.4) 0 1px 0;
   color: white;
-  vertical-align: middle; 
+	text-align:center;  
+	vertical-align: middle;
+  font-size: 18px; 
+	cursor:pointer;
   }
-.button:hover {
+
+.try-button:hover {
   border-top-color: #d19200;
   background: #d19200;
   background: -webkit-gradient(linear, left top, left bottom, from(#cf7028), to(#d29300));
@@ -238,7 +245,8 @@ color: #1A3747;
   font-weight: bold;
   cursor: pointer;
   }
-.button:active {
+
+.try-button:active {
   border-top-color: #d19200;
   background: #d19200;
   font-weight: bold; 

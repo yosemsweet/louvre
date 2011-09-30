@@ -8,4 +8,4 @@ Scenario: invite other to join my canvas via facebook send
 Given there is a canvas
 And I am authenticated
 And I am on that canvas' homepage
-Then I can invite other to join my canvas via facebook send
+Then pending I can invite other to join my canvas via facebook send

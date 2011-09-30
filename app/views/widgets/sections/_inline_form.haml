@@ -2,27 +2,35 @@
   = form_for widget, {:html => {:style => "display:none;", :class => "edit_widget"}} do |f| 
     - case widget.content_type  
     - when 'text_content'
+      .form_title
+        Text
       .field
         = f.text_area :text, {:id => "widget_ckeditor_#{widget.id || 0}"}
     - when 'image_content'
+      .form_title
+        Image
       .field
-        = f.label 'image url'
+        = f.label 'URL'
         = f.text_field :image
       .field
-        = f.label 'image alt text'
+        = f.label 'Alt Text'
         = f.text_field :alt_text
     - when 'link_content'
+      .form_title
+        Link
       .field
         = f.label 'title'
         = f.text_field :title
       .field
-        = f.label 'link'
+        = f.label 'URL'
         = f.text_field :link
       .field
+        = f.label 'Quote from site'
+        %br
         = f.text_area :text
     - when 'question_content'
       .field
-        = f.label 'question'
+        = f.label 'Question'
         %br
         = f.text_area :question
          
@@ -36,14 +44,17 @@
       
     .tagHolder{:style => "width:100%"}
       .field{:style => "width: 600px; float:left"}
-        = f.label :tag_names, "Tags"
         - names = widget.tags.map{|o| o.name.strip}
-
         - class_names = widget.id ? 'widget_tag_ids' : 'widget_tag_ids new_widget_form'
+      
+        .x{:style => "float:left; padding:3px 5px 0px 3px;"}
+          Tags
+        
         = f.text_field :tag_names, {"data-current_tags" => names.to_json, :class => class_names }
 
-      .actions{:style => "float:right; padding: 20px 50px 0 0 "}
+      .actions
         = f.submit 'Save'
+        %input.cancel_edit{:type => "reset", :name => "cancel", :value => "Cancel"}
     
     .clear{:style => "clear:both"}
     

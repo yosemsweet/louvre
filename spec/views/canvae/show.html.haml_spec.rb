@@ -18,15 +18,15 @@ describe "canvae/show.html.haml" do
 
 		context "add widget links" do
 			it "has a link to add text widgets" do
-				rendered.should have_selector("a.add_widget[data-content_type='text_content']")
+				rendered.should have_selector(".add_widget[data-content_type='text_content']")
 			end
 			
 			it "has a link to add image widgets" do
-				rendered.should have_selector("a.add_widget[data-content_type='image_content']")
+				rendered.should have_selector(".add_widget[data-content_type='image_content']")
 			end
 			
 			it "has a link to add link widgets" do
-				rendered.should have_selector("a.add_widget[data-content_type='link_content']")
+				rendered.should have_selector(".add_widget[data-content_type='link_content']")
 			end
 			
 		end

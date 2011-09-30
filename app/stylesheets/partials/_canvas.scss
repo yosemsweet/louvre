@@ -25,3 +25,30 @@
 
   }
 }
+.mini_dashboard{
+	font-size:14px;
+	float:right;
+}
+
+.apply-join{
+	float:right;
+	clear:right;
+	margin:10px;
+}
+
+ul.page_list{
+	padding:0;
+	margin:0;
+}
+
+li.page_icon{
+	list-style:none;
+	background:url('/images/page.png') no-repeat top center;
+	padding-top:67px;
+	width:100px;
+	text-align:center;
+	float:left;
+	font-size:13px;
+	line-height:13px;
+	cursor:pointer;
+}

@@ -18,4 +18,5 @@ Scenario: Image markup should be semantic
   Given there is a canvas
   And that canvas has an image widget with caption "I am a caption"
   And I am on that canvas' homepage
+  And I wait until all Ajax requests are complete
   Then the page should include html "<figure><img/><figcaption>I am a caption</figcaption></figure>"
