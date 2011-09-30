@@ -18,6 +18,7 @@ gem "cancan"
 gem "possessify"
 gem "pg"
 gem "simple-navigation"
+gem "randexp"
 
 group :development do
   gem 'rails-footnotes', '>= 3.7.5.rc4'

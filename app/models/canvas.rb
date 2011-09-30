@@ -46,6 +46,13 @@ class Canvas < ActiveRecord::Base
 		canvas_user_roles.banned
 	end
 	
+	def self.random_name
+		begin
+			name = /\w{2,5}ing \w{7}/.gen 
+		end while Canvas.where(:name => name).exists?
+		name
+	end
+	
 	private
 	
 		def add_owner_role

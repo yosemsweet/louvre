@@ -32,6 +32,4 @@ describe 'CanvaeHelper' do
 			helper.bookmarklet(@canvas, @user).should == raw(helper.bookmarklet(@canvas, @user))
 		end
 	end
-
-	
 end

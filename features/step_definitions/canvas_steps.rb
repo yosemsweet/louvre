@@ -56,6 +56,10 @@ Then /^I should see any ongoing discussions for that canvas$/ do
 	page.should have_selector("#discussions")
 end
 
+Then /^that canvas should have a random name starting with "([^"]*)"$/ do |name|
+  (that Canvas).name.start_with?(name).should be_true
+end
+
 Then /^that canvas should be named "([^"]*)"$/ do |name|
   (that Canvas).name.should == name
 end

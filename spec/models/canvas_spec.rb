@@ -161,7 +161,24 @@ describe Canvas do
 			end
 		end
 		
-		context "#recently_updated" do
+		describe '::random_name' do
+			it "should return a string" do
+				Canvas.random_name.should be_kind_of(String)
+			end
+
+			it "should return a different string each time it is called" do
+				a, b, c = Canvas.random_name, Canvas.random_name, Canvas.random_name
+				a.should_not == b
+				b.should_not == c
+				c.should_not == a
+			end
+
+			it "should return a two word string with the first word ending in -ing" do
+				Canvas.random_name.should =~ /\wing \w/
+			end
+		end
+		
+		context "::recently_updated" do
 			
 			before :each do
 				@canvas12 = Factory.create(:canvas)

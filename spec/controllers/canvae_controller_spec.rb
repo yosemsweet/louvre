@@ -1,8 +1,11 @@
 require 'spec_helper'
 
 describe CanvaeController do
-
 	describe "GET new" do
+		before(:each) do
+			controller.stubs(:random_name).returns(/\w/.gen)
+		end
+		
 		it "should require authentication" do
 			should_require_authentication do
 				 get :new
@@ -23,14 +26,27 @@ describe CanvaeController do
 				response.should return_status(302).with_location(canvas_path(@canvas))
 			end
 			
-			it "should set the new canvas' name to Creator's Community" do
+			it "should set the new canvas to open"do
 				get :new
-				assigns(:canvas).name.should == "#{@user.name.possessive} Community"
+				assigns(:canvas).should be_open
 			end
 			
-			it "should assign a new text widget to the canvas" do
-				get :new
-				assigns(:canvas).widgets.where(:page_id => nil).should_not be_empty
+			context "canvas name" do
+				it "should set the new canvas' name to include the creator's name" do
+					get :new
+					assigns(:canvas).name.should include(@user.name.possessive)
+				end
+			
+				it "should set the new canvas' name to a name not already take" do
+					get :new
+					Canvas.where(:name => assigns(:canvas).name).count.should == 1
+					Canvas.where(:name => assigns(:canvas).name).first.should == assigns(:canvas)
+				end
+			
+				it "should assign a new text widget to the canvas" do
+					get :new
+					assigns(:canvas).widgets.where(:page_id => nil).should_not be_empty
+				end
 			end
 		end
 	end
@@ -462,11 +478,7 @@ describe CanvaeController do
 			it "creator and editor should be different people" do
 				@canvas.creator.should_not == @canvas.editor
 			end
-			
 		end
-		
 	end
-	
-	
 	
 end
