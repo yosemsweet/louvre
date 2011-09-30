@@ -173,8 +173,8 @@ describe Canvas do
 				c.should_not == a
 			end
 
-			it "should return a two word string with the first word ending in -ing" do
-				Canvas.random_name.should =~ /\wing \w/
+			it "should return a two word string" do
+				Canvas.random_name.should =~ /\w \w/
 			end
 		end
 		

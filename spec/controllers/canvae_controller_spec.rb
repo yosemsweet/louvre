@@ -1,11 +1,7 @@
 require 'spec_helper'
 
 describe CanvaeController do
-	describe "GET new" do
-		before(:each) do
-			controller.stubs(:random_name).returns(/\w/.gen)
-		end
-		
+	describe "GET new" do		
 		it "should require authentication" do
 			should_require_authentication do
 				 get :new

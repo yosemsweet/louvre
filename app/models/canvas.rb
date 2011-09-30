@@ -1,5 +1,3 @@
-require 'load_dictionary'
-
 class Canvas < ActiveRecord::Base
 	after_save :add_owner_role
 	
@@ -50,7 +48,7 @@ class Canvas < ActiveRecord::Base
 	
 	def self.random_name
 		begin
-			name = /\w{2,5}ing \w{7}/.gen 
+			name = RandomPhrase.phrase(2)
 		end while Canvas.where(:name => name).exists?
 		name
 	end
