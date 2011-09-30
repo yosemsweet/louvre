@@ -1,5 +1,3 @@
-require 'Randexp'
-
 class Randexp::Dictionary
 end
 
