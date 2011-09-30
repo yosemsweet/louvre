@@ -1,3 +1,5 @@
+require 'load_dictionary'
+
 class Canvas < ActiveRecord::Base
 	after_save :add_owner_role
 	
