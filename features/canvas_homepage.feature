@@ -16,5 +16,3 @@ Scenario: Canvas Bookmarklet Widget
   And I am a member of that canvas
   And I am on that canvas' homepage
   Then I can install the canvas bookmarklet
-
-
