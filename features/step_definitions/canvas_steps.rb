@@ -35,7 +35,6 @@ Given /^that canvas is closed$/ do
   (that Canvas).open = false
 end
 
-
 When /^I specify that canvas should be "([^"]*)"$/ do |state|
 	if state == "open"
 		page.check("canvas[open]")
@@ -56,6 +55,10 @@ Then /^I should see any ongoing discussions for that canvas$/ do
 	page.should have_selector("#discussions")
 end
 
+Given /^I should see the feed$/ do
+  should have_html("<ul id='feed'>")
+end
+
 Then /^that canvas should have a random name starting with "([^"]*)"$/ do |name|
   (that Canvas).name.start_with?(name).should be_true
 end
@@ -67,4 +70,6 @@ end
 Then /^that canvas should have an example widget$/ do
   Widget.for_canvas((that Canvas), 0).should_not be_empty
 end
+
+
 

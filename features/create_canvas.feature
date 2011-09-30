@@ -11,7 +11,7 @@ Scenario: Going to new canvas url creates a canvas if you authenticated
   Then I should be on that canvas' homepage
   And I should be an owner of that canvas
 
-@wip
+
 @omniauth_test
 Scenario: A new canvas has a set of default attributes
   Given I am "Bob Dole" 
