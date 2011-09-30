@@ -204,10 +204,10 @@ color: #1A3747;
 }
 
 
-#apply.try-button{
+#apply.button{
 	width:100px;
 }
-#join.try-button{
+#join.button{
 	width:100px;
 }
 
@@ -247,7 +247,7 @@ color: #1A3747;
 
 
 //button
-.try-button {
+.button {
   border: 1px solid #a15804;
   background: #cf7028;
   background: -webkit-gradient(linear, left top, left bottom, from(#d29300), to(#cf7028));
@@ -270,7 +270,7 @@ color: #1A3747;
 	cursor:pointer;
   }
 
-.try-button:hover {
+.button:hover {
   border-top-color: #d19200;
   background: #d19200;
   background: -webkit-gradient(linear, left top, left bottom, from(#cf7028), to(#d29300));
@@ -282,7 +282,7 @@ color: #1A3747;
   cursor: pointer;
   }
 
-.try-button:active {
+.button:active {
   border-top-color: #d19200;
   background: #d19200;
   font-weight: bold; 
