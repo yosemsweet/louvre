@@ -36,19 +36,41 @@
 	margin:10px;
 }
 
-ul.page_list{
-	padding:0;
-	margin:0;
+[data-content_type="page"]{
+	background:url('/images/add-text-24.png')no-repeat 3px 3px;
 }
 
-li.page_icon{
-	list-style:none;
-	background:url('/images/page.png') no-repeat top center;
-	padding-top:67px;
-	width:100px;
-	text-align:center;
+#pages{
+		margin-top:20px;
+
+		ul.page_list{
+			padding:0;
+			margin:0;
+		}
+
+		li.page_icon{
+			list-style:none;
+			padding:10px;
+			margin:10px;
+			width:100px;
+			text-align:center;
+			float:left;
+			font-size:13px;
+			line-height:13px;
+			cursor:pointer;
+			border:1px solid #FFF;
+		}
+		li.page_icon:hover{
+			border:1px solid #CCC;
+			background-color:#FCFCFC;
+			border-radius:5px;
+		}
+}
+
+.bookmarklet{
+	border:1px solid #CCD;
+	background-col10r:#FCFCFF;
+	border-radius:5px;
+	padding:0px 10px 0px 10px;
 	float:left;
-	font-size:13px;
-	line-height:13px;
-	cursor:pointer;
 }

@@ -66,23 +66,22 @@
   = render :collection => Widget.for_canvas(@canvas.id,1), :partial => "widgets/canvas_feed", :as => :widget
   
 
-
 #pages
+  
+  - if can? :create, Page.new(:canvas => @canvas)
+    #toolbar
+      %a.add_page.tab{:href => new_canvas_page_path(@canvas), :data => {:content_type => "page", :canvas_id => @canvas.id}} New Page
 
   %ul.page_list
   - @canvas.pages.each do |page|
     %li.page_icon
-      = link_to page.title, canvas_page_path(@canvas, page)
-  
-  - if can? :create, Page.new(:canvas => @canvas)
-    %p 
-      = link_to 'Create Page', new_canvas_page_path(@canvas)
-  - else
-    %p 
-      %a{href: "#"} Join 
-      this community to create pages.
+      %a{:href => canvas_page_path(@canvas, page)}
+        %img{:src => "/images/page.png"}
+        %div= page.title
 
 %hr
+
+
 
 #inputs
   - if can?(:create, Widget.new(:canvas => @canvas))
@@ -96,8 +95,8 @@
     .toggle-link-help-bookmarklet.info{:style => "display:none"}
       %iframe{:width=>"425", :height=>"349", :src => "http://www.youtube.com/embed/QrwevUN0KdQ"}
       
-    .info
-      %a#bookmarklet{:href => "#", :style => "padding:10px 400px 10px 0"} 
+    .bookmarklet
+      %a#bookmarklet{:href => "#"} 
         = "add to #{@canvas.name}"
 
   - if can?(:create, Widget.new(:canvas => @canvas))
