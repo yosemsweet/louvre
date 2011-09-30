@@ -45,7 +45,7 @@ class WidgetsController < ApplicationController
       @canvas = Canvas.find(params[:canvas_id])
     end
 
-	  authorize! :manage, @widget
+	  authorize! :create, @widget
 
     @widget = @canvas.widgets.new(:content_type => params[:content_type], :page => @page)
 
@@ -58,7 +58,7 @@ class WidgetsController < ApplicationController
     @page = @widget.page
     @canvas = @widget.canvas
 
-	  authorize! :manage, @widget
+	  authorize! :update, @widget
     
     render :layout => 'empty'
   end
@@ -79,7 +79,7 @@ class WidgetsController < ApplicationController
 			method = "bookmarklet"
     else    
       @widget = canvas.widgets.new(params[:widget].merge(:page => page, :canvas => canvas, :creator => current_user, :editor => current_user))
-      authorize! :manage, @widget
+      authorize! :create, @widget
     end
 
 		user ||= current_user
@@ -108,7 +108,7 @@ class WidgetsController < ApplicationController
   def copy_to_page
 		widget = Widget.find(params[:id])
 		
-		authorize! :manage, widget
+		authorize! :update, widget
 		
 		cloned_widget = widget.clone
 		cloned_widget.editor = current_user
@@ -131,7 +131,7 @@ class WidgetsController < ApplicationController
 		# logger.debug 'message0'
     @widget = Widget.find(params[:id])
 
-	  authorize! :manage, @widget
+	  authorize! :update, @widget
 
     if @widget.update_attributes(params[:widget].merge(:editor_id => current_user.id))
       head :ok
@@ -145,7 +145,7 @@ class WidgetsController < ApplicationController
   def move
 		widget = Widget.find(params[:id])
 		
-		authorize! :manage, widget
+		authorize! :update, widget
 
 		p = widget.page	
 		p.editor_id = current_user.id
@@ -162,7 +162,7 @@ class WidgetsController < ApplicationController
   def remove_answer
     widget = Widget.find(params[:id])
 
-		authorize! :manage, widget
+		authorize! :update, widget
 		
     new_answers = widget.answers
     new_answers.delete_at(params[:answer_id].to_i) 
@@ -175,7 +175,7 @@ class WidgetsController < ApplicationController
   def destroy
     widget = Widget.find(params[:id])
 
-	  authorize! :manage, widget
+	  authorize! :destroy, widget
 
     widget.destroy
     head :ok
@@ -191,11 +191,9 @@ class WidgetsController < ApplicationController
     widget = Widget.new(:canvas_id => canvas_id)
 
     if user && user.canvas_role?(widget.canvas,:member)
-	 # && can?(:manage, widget)
       
       widget = Widget.new(:canvas_id => canvas_id, :creator_id => user.id, :editor_id => user.id, :content_type => 'text_content', :text => params['text'])
 
-			# authorize! :manage, widget
 
       if widget.save
         @mixpanel.track_event("Widget Created via Email", {:user_id => user.id, :name_tag => user.name, :canvas_id => canvas_id})

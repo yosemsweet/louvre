@@ -70,7 +70,7 @@ class CanvaeController < ApplicationController
 
   def destroy
     @canvas = Canvas.find(params[:id])
-		authorize! :delete, @canvas
+		authorize! :destroy, @canvas
     @canvas.destroy
     redirect_to(root_url)
   end

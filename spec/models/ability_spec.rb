@@ -7,6 +7,36 @@ describe Ability do
     @user = Factory.create(:user)
   end
   
+  context "for a Canvas" do
+    before(:each) do
+      @canvas = Factory.create(:canvas)
+    end
+    
+    it "should not allow members to apply" do
+      @user.set_canvas_role(@canvas, :member)
+      @ability = Ability.new(@user)
+      @ability.should_not be_able_to(:apply, @canvas)
+    end
+    
+    it "should not allow owners to apply" do
+      @user.set_canvas_role(@canvas, :owner)
+      @ability = Ability.new(@user)
+      @ability.should_not be_able_to(:apply, @canvas)
+    end
+    
+    it "should not allow banned to apply" do
+      @user.set_canvas_role(@canvas, :banned)
+      @ability = Ability.new(@user)
+      @ability.should_not be_able_to(:apply, @canvas)
+    end
+    
+    it "should allow users to apply" do
+      @ability = Ability.new(@user)
+      @ability.should be_able_to(:apply, @canvas)
+    end
+    
+  end
+  
   context "for a page" do
     before(:each) do
       @canvas = Factory.create(:canvas)

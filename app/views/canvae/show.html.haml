@@ -13,13 +13,12 @@
 .mini_dashboard
   Creator:
   = @canvas.creator
-  -if can?(:update, @canvas)
+  - if can?(:update, @canvas)
     |
     = link_to @canvas.members.length.to_s + ' Members', members_canvas_path(@canvas)
-  - if can?(:manage, CanvasApplicant.new(:canvas_id => @canvas.id))
+  - if can?(:update, CanvasApplicant.new(:canvas_id => @canvas.id))
     |
     = link_to @canvas.applicants.length.to_s + ' Applicants', applicants_canvas_path(@canvas)
-
 
 - if can?(:apply, @canvas)
   .apply-join

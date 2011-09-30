@@ -46,7 +46,7 @@ module ControllerMacros
 	end
 	
 	def should_require_authorization_to(*args, &action)
-		defaults = {:action => :manage, :object => nil, :not_authorized_status => 403}.merge(args.extract_options!)
+		defaults = {:action => :update, :object => nil, :not_authorized_status => 403}.merge(args.extract_options!)
 		options = defaults.merge(args.extract_options!)
 
 		user = Factory.build(:user)

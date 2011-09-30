@@ -2,7 +2,7 @@ Feature: Create a canvas
   As Gill
   I want to create a new canvas
   So that I can help Women of a Certain Age be Fashionable
- 
+@wip
 @omniauth_test
 Scenario: Going to new canvas url creates a canvas if you authenticated
   Given I am "Gill"

@@ -1,11 +1,11 @@
 - class_string = widget.content_type
-- if can? :manage , widget
+- if can? :update , widget
   - class_string = widget.content_type + " widget_editable"
 
 %li.widget.canvas_feed_widget.snippet{:data => {:widget_id => widget.id} , :class => class_string }
   
   .controls
-    - if can? :manage , widget
+    - if can? :update , widget
       %img.tool.edit{:src => "/images/edit5.png"}
       / %img.tool{:src => "/images/delete5.png"}
     %div.tool.comment_count.toggle_facebook_comments
@@ -19,6 +19,6 @@
         - if widget.id
           = comments_for(widget, :href => widget.permalink, :width => 938)
 
-  - if can? :manage , widget
+  - if can? :update , widget
     .edit_content
       = render_widget_section("inline_form", widget)

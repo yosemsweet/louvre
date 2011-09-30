@@ -195,7 +195,7 @@ describe CanvaeController do
 			#don't actually destroy the canvas, we just want to ensure we call destroy on it.
 			canvas.stubs(:destroy).returns(canvas)
 			Canvas.stubs(:find).returns(canvas)
-			should_require_authorization_to(:action => :delete, :object => canvas) do
+			should_require_authorization_to(:action => :destroy, :object => canvas) do
 				delete :destroy, :id => canvas.id
 			end
 		end
