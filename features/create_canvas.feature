@@ -23,12 +23,29 @@ Scenario: A new canvas has a set of default attributes
 Scenario: Create a new canvae - not authenticated
   Then pending supported by canvae_controller_spec
 
-# @wip
-# @javascript
-# @omniauth_test
-# Scenario: After canvas is created by first time canvas creator, lightbox orientation div should show up 
-#   Given I am authenticated
-#   And I am the owner of a canvas
-#   When I go to that canvas' homepage
-#   Then I should see an orientation box
+@javascript
+@omniauth_test
+Scenario: After canvas is created by first time canvas creator, lightbox orientation div should show up 
+  Given I am authenticated
+  And I am the owner of a canvas
+  When I go to that canvas' homepage
+  Then "orientation box" should be visible
+
+@javascript
+@omniauth_test
+Scenario: After canvas is updated, lightbox orientation div should show up 
+  Given I am authenticated
+  And I am the owner of a canvas
+  And I am on that canvas' settings page
+  And I press "Save"
+  When I go to that canvas' homepage
+  Then "orientation box" should not be there
+ 
+@javascript
+@omniauth_test
+Scenario: lightbox orientation div should show up if I am not the owner
+  Given there is a canvas
+  And I am authenticated
+  When I go to that canvas' homepage
+  Then "orientation box" should not be there
 

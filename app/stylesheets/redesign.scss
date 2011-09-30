@@ -1,3 +1,4 @@
+@import "partials/base";
 body{
   margin:0px;
 }
@@ -14,7 +15,7 @@ body{
   width: 100%;
   background: url('/images/blue-background.png') repeat;
   height:36px;
-  color: #fff;
+  color: $white;
   font: {
     family: "Arial";
     size: 12px;
@@ -26,38 +27,6 @@ body{
     
     #left{
       float:left;
-    }
-    
-    #right{     
-      float:right;
-      .user{
-        background:none;
-      }
-      
-      li.member{
-        background: url('/images/r2d2.png') no-repeat left center;
-        padding-left: 36px;
-      }
-      
-      .message-count{
-        float:right;
-        line-height:20px;
-        
-        height:20px;
-        margin: 8px 0 8px 10px;
-        padding: 0 5px;
-        
-        background-color:#f9492c;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        
-        text-align: center;
-      }
-      .setting{
-        height: 20px;
-        margin-top: 5px;
-      }
     }
     
     ul{
@@ -130,8 +99,9 @@ body{
       #action{
         width: 220px;
         height: 25px;
-        padding-top: 15px;
+        padding: 15px;
         margin:auto;
+        font-size: 18px;
         
         color:#fff;
         
@@ -307,43 +277,5 @@ body{
     height: 50px;
     width:100%;
     background: url('/images/shadow.png') repeat no-repeat;
-  }
-  
-  .try-button {
-    border: 1px solid #a15804;
-    background: #cf7028;
-    background: -webkit-gradient(linear, left top, left bottom, from(#d29300), to(#cf7028));
-    background: -webkit-linear-gradient(top, #d29300, #cf7028);
-    background: -moz-linear-gradient(top, #d29300, #cf7028);
-    background: -ms-linear-gradient(top, #d29300, #cf7028);
-    background: -o-linear-gradient(top, #d29300, #cf7028);
-    padding: 10px 20px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8
-    px;
-    -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
-    -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
-    box-shadow: rgba(0,0,0,1) 0 1px 0;
-    text-shadow: rgba(0,0,0,.4) 0 1px 0;
-    color: white;
-    vertical-align: middle;
-    font-size: 18px; 
-    }
-  .try-button:hover {
-    border-top-color: #d19200;
-    background: #d19200;
-    background: -webkit-gradient(linear, left top, left bottom, from(#cf7028), to(#d29300));
-    background: -webkit-linear-gradient(top, #cf7028, #d29300);
-    background: -moz-linear-gradient(top, #cf7028, #d29300);
-    background: -ms-linear-gradient(top, #cf7028, #d29300);
-    background: -o-linear-gradient(top, #cf7028, #d29300);    
-    font-weight: bold;
-    }
-  .try-button:active {
-    border-top-color: #d19200;
-    background: #d19200;
-    font-weight: bold; 
-    }
-  
+  }  
 }

@@ -1,0 +1,49 @@
+@import "partials/base";
+
+#intro{
+  margin:10px 0 0 0;
+  font: {
+    family: Helvetica, Arial, sans-serif;
+    size: 1em;
+  }
+  
+  #action{
+    float:right;
+    min-width: 150px;
+    padding: 10px 5px;
+    height: 25px;
+    margin:auto;
+
+    color:$white;
+    text-align:center;
+    text-transform:uppercase;
+    text-decoration:none;
+  }
+  
+  .inner{
+    margin: 0 0 10px 5px;
+    padding: 0 0 10px 10px;
+    
+    ul{
+      margin: 10px 0px 0px 10px;
+    }
+  }
+  .get-started{
+    float:right;
+    color: $green;
+    line-height: 1.5em;
+    padding-right:70px;
+    margin-bottom:20px;
+    margin-right: 2px;
+    background: url('/images/help-arrow-right.png') no-repeat right bottom;
+    .heading{
+      font:{
+        family: Journal, Helvetica, Arial, sans-serif;
+        size: 2em;       
+      }
+    }
+    .content{
+      font-size:0.8em;
+    }
+  }
+}

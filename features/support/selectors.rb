@@ -36,6 +36,9 @@ module HtmlSelectorsHelpers
 		
 		when "the user details"
 			"#user-nav"
+			
+		when "orientation box"
+			"#intro"
 		
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

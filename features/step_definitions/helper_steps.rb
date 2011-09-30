@@ -109,6 +109,15 @@ Then /^"([^"]*)" should ?(|not) be visible$/ do |selector, type|
   end
 end
 
+Then /^"([^"]*)" should ?(|not) be there$/ do |selector, type|
+  selector = selector_for(selector)
+  if type == "not"
+    page.should_not have_selector(selector)
+  else
+  	page.should have_selector(selector)
+  end
+end
+
 Then /^the "([^"]*)" should contain "([^"]*)"$/ do |scope, content|
   page.find(scope).should have_content(content)
 end

@@ -4,6 +4,9 @@
 - content_for :javascripts do
   = javascript_include_tag 'canvas_show'  
 
+- if current_user == @canvas.creator && @canvas.created_at == @canvas.updated_at
+  = render 'shared/welcome'
+
 .span-4.first
   #overview
     = image_tag @canvas.image if @canvas.image.present?

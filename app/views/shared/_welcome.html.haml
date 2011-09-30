@@ -1,12 +1,28 @@
 :javascript
   $(document).ready(function(){
-  		$("#model-activity").dialog();
+  		$("#intro").dialog({ 
+  		    modal: true, width: 600, resizable: false
+  		  });
+  		
+  		$("#action").click(function(){$("#intro").dialog("close");});
   	});
+= stylesheet_link_tag 'compiled/welcome', :media => 'screen, projection'
   
-#model-activity{:title=>"Welcome to your first canvas"}
+#intro{:title=>"Set up your first community at Loorp"}
+  Creating a community is easy with Loorp. In just a few simple steps, your community will be all set up to go. <br><br>
   .inner
-    Welcome to Loorp!
-    
-    You can start this fun process by doing a, b, and c.
-    
-    Stay in the Loorp!
+    Follow the green arrows and you'll learn how to:
+    %ul
+      %li
+        add, organize, and edit snippets
+      %li
+        customize your community
+      %li
+        invite all your friends      
+  %a#action.button
+    Start
+  .get-started
+    .heading
+      Got it already?
+    .content
+      Let's get started!
