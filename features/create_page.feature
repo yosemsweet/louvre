@@ -12,7 +12,7 @@ And I am a member of that canvas
 @omniauth_test
 Scenario: Start Create Page - authenticated
 And I am on that canvas' homepage
-When I follow "Create Page"
+When I follow "New Page"
 Then I should be on "New Page page"
 
 @omniauth_test
