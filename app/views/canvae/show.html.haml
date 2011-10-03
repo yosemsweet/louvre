@@ -66,8 +66,8 @@
   - if can? :create, Page.new(:canvas => @canvas)
     #toolbar
       %a.add_page.tab{:href => new_canvas_page_path(@canvas), :data => {:content_type => "page", :canvas_id => @canvas.id}} New Page
-    -if can?(:view_hint, @canvas.pages.first)
-      = render 'shared/hint', :title => 'Need some organization?', :content => "add snippets to pages to organize them", :klass => "left-up", :target => "add-page"
+    -# -if can?(:view_hint, @canvas.pages.first)
+    -#   = render 'shared/hint', :title => 'Need some organization?', :content => "add snippets to pages to organize them", :klass => "left-up", :target => "add-page"
   %ul.page_list
   - @canvas.pages.each do |page|
     %li.page_icon_grid

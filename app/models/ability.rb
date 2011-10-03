@@ -42,7 +42,7 @@ class Ability
       canvas.creator == user && canvas.created_at == canvas.updated_at && user.canvae.count == 1
     end
     
-    can :view_hint, Page do |page|
+    can :view_page_hint, Page do |page|
       page.canvas.creator == user && page.canvas.pages.count == 0 && page.created_at == page.updated_at && user.canvae.count == 1
     end
   

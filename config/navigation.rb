@@ -39,8 +39,8 @@ SimpleNavigation::Configuration.run do |navigation|
       current_user.canvas_roles.where(:role => :member).collect(&:canvas).sort{|x,y| x.name.downcase <=> y.name.downcase }.each do |cur|
         menu.item "canvas_#{cur.id}", cur.name, canvas_path(cur), :class => "member" 
       end
-      # comment out creating communities for now
-      #menu.item :new_canvas, "Set up your own community", new_canvas_path, :class => "new event_item"
+      
+      menu.item :new_canvas, "Set up your own community", new_canvas_path, :class => "new event_item"
     end
   
     primary.dom_id = "menubar"

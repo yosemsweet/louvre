@@ -12,8 +12,10 @@
         Start saving time with Loorp
       .title#tag-line
         Try it for yourself. Help your community collect, <br>organize & publish with just a few clicks.
-      %a#action.button{ :href => "http://loorp.wufoo.eu/forms/loorps-beta-program" }
-        Try It For Free!
+      -# %a#action.button{ :href => "http://loorp.wufoo.eu/forms/loorps-beta-program" }
+        -# Try It For Free!
+      = link_to 'Try It For Free!', new_canvas_path, { :class=>"button", :id=>"action" }
+        
         
   #explanation
     %ul
