@@ -33,7 +33,6 @@
       #join.button
         Join Now
   
-
 #canvas_name_text= @canvas.name
 -if can?(:update, @canvas)
   = form_for @canvas do |f|
@@ -46,9 +45,8 @@
             open_canvas_name_edit();
           });
 
-%br
-
 - if can?(:create, Widget.new(:canvas => @canvas))
+  %br
   #toolbar
     %a.add_widget.tab{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
     %a.add_widget.tab{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
@@ -60,12 +58,11 @@
       %div{:style => "display:none;"}
         = render :partial => "widgets/canvas_feed", :object => widget, :as => :widget
       
-%br
 %ul#feed
   //= render :collection => @canvas.widgets, :partial => "widgets/canvas_feed", :as => :widget
   = render :collection => Widget.for_canvas(@canvas.id,1), :partial => "widgets/canvas_feed", :as => :widget
-  
 
+  
 #pages
   
   - if can? :create, Page.new(:canvas => @canvas)
@@ -74,157 +71,37 @@
 
   %ul.page_list
   - @canvas.pages.each do |page|
-    %li.page_icon
+    %li.page_icon_grid
       %a{:href => canvas_page_path(@canvas, page)}
         %img{:src => "/images/page.png"}
-        %div= page.title
+        .page_icon_title= page.title
 
-%hr
+- if can?(:create, Widget.new(:canvas => @canvas))
+  %hr
 
+  #inputs
 
-
-#inputs
-  - if can?(:create, Widget.new(:canvas => @canvas))
-    %h2.bookmarklet
-      Install Bookmarklet
-
-    %p
-      ="Drag the box below to your bookmark toolbar."
-    %p
-      %a.link-help-bookmarklet{:href => "#"} How to install a bookmarklet?
-    .toggle-link-help-bookmarklet.info{:style => "display:none"}
-      %iframe{:width=>"425", :height=>"349", :src => "http://www.youtube.com/embed/QrwevUN0KdQ"}
-      
     .bookmarklet
+      Install Bookmarklet by dragging to your
       %a#bookmarklet{:href => "#"} 
         = "add to #{@canvas.name}"
+      %a.link-help-bookmarklet{:href => "#"} ?
+      .toggle-link-help-bookmarklet.info{:style => "display:none"}
+        %iframe{:width=>"425", :height=>"349", :src => "http://www.youtube.com/embed/QrwevUN0KdQ"}
 
-  - if can?(:create, Widget.new(:canvas => @canvas))
-    %h2
-      Add Content by Email
-    %p
+    .add-by-email
       Easily add content to the feed by sending an email to this address:
       = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
       
-    %p
-      %a.link-help-email{:href => "#"} What's this?
-    .toggle-link-help-email.info{:style => "display:none"}
-      Note that you must register your sending email address before adding content by email. Do this on your
-      = link_to "account settings page", edit_user_path
+      %a.link-help-email{:href => "#"} ?
+      .toggle-link-help-email.info{:style => "display:none"}
+        Note that you must register your sending email address before adding content by email. Do this on your
+        = link_to "account settings page", edit_user_path
 
--if false
-  / 
-  / 
-  / .span-4.first
-  /   #overview
-  /     = image_tag @canvas.image if @canvas.image.present?
-  /     %p
-  /       %b Name:
-  /       = @canvas.name
-  /       = render "facebook_share"
-  /       - if current_user
-  /         %a#follow{:href => "#", :style => hidden_if(current_user.following?(@canvas))}
-  /           %img{:src => "/images/icons/follow.png"}
-  /         %a#unfollow{:href => "#", :style => hidden_if(!current_user.following?(@canvas))}
-  /           %img{:src => "/images/icons/unfollow.png"}
-  /                         
-  / 
-  /     %p
-  /       %b Creator:
-  /       = @canvas.creator
-  /     
-  /     - if can?(:update, @canvas)
-  /       = link_to 'Edit', edit_canvas_path(@canvas)
-  /       %br
-  /         = link_to 'Members', members_canvas_path(@canvas)
-  /         %span.item_count== (#{@canvas.members.length})
-  /     - if can?(:manage, CanvasApplicant.new(:canvas_id => @canvas.id))
-  /       = link_to 'Applicants', applicants_canvas_path(@canvas)
-  /       %span.item_count== (#{@canvas.applicants.length})
-  /       
-  /   - if can?(:apply, @canvas)
-  /   
-  /     - if @canvas.closed?
-  /       %a#apply{:href => "#"} Apply
-  /     
-  /       #apply-form
-  /         %form#applicant_form
-  /           %div Please let us know why you would like to join this community
-  /           %textarea#note{:value => current_user.id, :name => "note", :style => "height:125px"}
-  / 
-  /     - else
-  /       %a#join{:href => "#"} Join
-  / 
-  /   
-  /     
-  /   #pages
-  /     %h2
-  /       Pages
-  /     %ul
-  /     - @canvas.pages.each do |page|
-  /       %li
-  /         = link_to page.title, canvas_page_path(@canvas, page)
-  /     
-  /     - if can? :create, Page.new(:canvas => @canvas)
-  /       %p 
-  /         = link_to 'Create Page', new_canvas_page_path(@canvas)
-  /     - else
-  /       %p 
-  /         %a{href: "#"} Join 
-  /         this community to create pages.
-  / 
-  / .span-20.last
-  /   #inputs
-  /     - if can?(:create, Widget.new(:canvas => @canvas))
-  /       %h2.bookmarklet
-  /         Install Bookmarklet
-  / 
-  /       %p
-  /         ="Drag the box below to your bookmark toolbar."
-  /       %p
-  /         %a.link-help-bookmarklet{:href => "#"} How to install a bookmarklet?
-  /       .toggle-link-help-bookmarklet.info{:style => "display:none"}
-  /         %iframe{:width=>"425", :height=>"349", :src => "http://www.youtube.com/embed/QrwevUN0KdQ"}
-  /         
-  /       .info
-  /         %a#bookmarklet{:href => "#", :style => "padding:10px 400px 10px 0"} 
-  /           = "add to #{@canvas.name}"
-  / 
-  /     - if can?(:create, Widget.new(:canvas => @canvas))
-  /       %h2
-  /         Add Content by Email
-  /       %p
-  /         Easily add content to the feed by sending an email to this address:
-  /         = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
-  /         
-  /       %p
-  /         %a.link-help-email{:href => "#"} What's this?
-  /       .toggle-link-help-email.info{:style => "display:none"}
-  /         Note that you must register your sending email address before adding content by email. Do this on your
-  /         = link_to "account settings page", edit_user_path
-  /         
-  /   %h2 Feed
-  /   - if can?(:create, Widget.new(:canvas => @canvas))
-  /     #toolbar
-  /       %a.add_widget{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
-  /       %a.add_widget{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
-  /       %a.add_widget{:href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id}} Add Link
-  /       %a.add_widget{:href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id}} Add Question
-  /     
-  /   %ul#inline_form
-  /     - @new_widgets.each do |t, widget|
-  /       %div{:style => "display:none;"}
-  /         = render :partial => "widgets/canvas_feed", :object => widget, :as => :widget  
-  /   %ul#feed
-  /     = render :collection => @canvas.widgets, :partial => "widgets/canvas_feed", :as => :widget
-
-
-- if current_user
-  :javascript
-    $("a#bookmarklet")
-      .mousedown(function(){
-        // Track the bookmarklet install.
-        mpq.push(['track','install_bookmark']);
-      })
-      .attr("href", "#{raw(bookmarklet(@canvas, current_user))}");
-
+    :javascript
+      $("a#bookmarklet")
+        .mousedown(function(){
+          // Track the bookmarklet install.
+          mpq.push(['track','install_bookmark']);
+        })
+        .attr("href", "#{raw(bookmarklet(@canvas, current_user))}");
