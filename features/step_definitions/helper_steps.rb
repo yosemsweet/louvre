@@ -102,9 +102,9 @@ end
 Then /^"([^"]*)" should ?(|not) be visible$/ do |selector, type|
   selector = selector_for(selector)
   if type == "not"
-    page.find(selector).should_not be_visible
+    page.find(selector).should_not be_visible 
   else
-  	page.should have_selector(selector)
+    page.should have_selector(selector)
     page.find(selector).should be_visible
   end
 end

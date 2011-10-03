@@ -96,6 +96,10 @@ $(document).ready(function(){
 	
 	// PUBLIC METHODS
 	update_after_edit = function(){
+	  if ($("[data-target=edit-widget]").length){
+	    $("[data-target=edit-widget]").hide();
+	  }
+	    
 		reload_widgets();
 	}
 	

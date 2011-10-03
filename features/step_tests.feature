@@ -79,3 +79,12 @@ Scenario: Given I am authenticated, there is a canvas, and an owner of a canvas
   And there is a canvas
   And I am an owner of that canvas
   Then I should be an owner of that canvas
+  
+@omniauth_test
+Scenario: Given I am authenticated, I am the creator of 2 canvae, and I am the creator of 2 canvae
+  Given I am authenticated
+  And I am the owner of 2 canvae
+  Then I should be an owner of those 2 canvae
+  
+  
+  

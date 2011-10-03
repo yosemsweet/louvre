@@ -29,6 +29,9 @@ $(function(){
   $(".edit_canvas").live("submit", function(){
     var canvas_form_params = $(this).serialize();
     var new_canvas_name = $("#canvas_name").val();
+    if ($("[data-target=edit-title]").length){
+	    $("[data-target=edit-title]").hide();
+	  }
     $("#canvas_name").hide();
     $('#canvas_name_text').html('<img src="/images/loading-medium.gif">');
     $("#canvas_name_text").fadeIn();

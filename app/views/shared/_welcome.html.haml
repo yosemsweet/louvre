@@ -1,32 +1,35 @@
-:javascript
-  $(document).ready(function(){
-  		$("#intro").dialog({ 
-  		    modal: true, width: 600, resizable: false
-  		  });
-  		
-  		$("#action").click(function(){
-  		  $("#intro").dialog("close");
-  		  open_canvas_name_edit();
-  		});
-  		
-  	});
-= stylesheet_link_tag 'compiled/welcome', :media => 'screen, projection'
+- if current_user == @canvas.creator &&  current_user.canvae.count <= 1 && @canvas.created_at == @canvas.updated_at
+  :javascript
+    $(document).ready(function(){
+    		$("#intro").dialog({ 
+    		    modal: true, width: 600, resizable: false
+    		  });
+    	  $("#action").click(function(){
+    	    $("#intro").dialog("close");
+    	    open_canvas_name_edit();
+    	  });
+    	});
+    	  
   
-#intro{:title=>"Set up your first community at Loorp"}
-  Creating a community is easy with Loorp. In just a few simple steps, your community will be all set up to go. <br><br>
-  .inner
-    Follow the green arrows and you'll learn how to:
-    %ul
-      %li
-        add, organize, and edit snippets
-      %li
-        customize your community
-      %li
-        invite all your friends      
-  %a#action.button
-    Start
-  .get-started
-    .heading
-      Got it already?
-    .content
-      Let's get started!
+  = stylesheet_link_tag 'compiled/welcome', :media => 'screen, projection'
+  
+  #intro{:title=>"Set up your first community at Loorp"}
+    Creating a community is easy with Loorp. In just a few simple steps, your community will be all set up to go. 
+    %br
+    %br
+    .inner
+      Follow the green arrows and you'll learn how to:
+      %ul
+        %li
+          add, organize, and edit snippets
+        %li
+          customize your community
+        %li
+          invite all your friends      
+    %a#action.button
+      Start
+    .get-started
+      .heading
+        Got it already?
+      .content
+        Let's get started!

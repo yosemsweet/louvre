@@ -13,6 +13,11 @@ Given /^I am the owner of a canvas$/ do
   set_that Factory.create(:canvas, :creator => current_user)
 end
 
+Given /^I am the owner of (\d+) canvae$/ do |number|
+  canvas_list = Factory.create_list(:canvas, number.to_i, :creator => current_user)
+  set_that canvas_list.last
+end
+
 Given /^(?:this|that) canvas has a page (?:titled|called) "([^"]*)"$/ do |pagetitle|
 	page_prototype = Factory.build(:page, :title => pagetitle).attributes.except(
 		"created_at", "updated_at", "page_id", "canvas_id", "id")
@@ -71,5 +76,9 @@ Then /^that canvas should have an example widget$/ do
   Widget.for_canvas((that Canvas), 0).should_not be_empty
 end
 
-
+Then /^I should be an owner of those (\d+) canvae$/ do |number|
+  Canvas.last(2).each do |c|
+    c.creator.should == current_user
+  end
+end
 

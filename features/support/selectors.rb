@@ -39,6 +39,9 @@ module HtmlSelectorsHelpers
 			
 		when "orientation box"
 			"#intro"
+			
+		when "edit title hints"
+		  "[data-target=edit-title]"
 		
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -246,6 +246,56 @@ color: #1A3747;
 }
 
 
+//hints
+.get-started{
+  position:absolute;
+  color: $green;
+  line-height: 1.1em;
+  margin-right: 2px;
+  
+  .heading{
+    font:{
+      family: Journal, Helvetica, Arial, sans-serif;
+      size: 2em;       
+    }
+  }
+  .content{
+    font-size:0.8em;
+  }
+}
+
+.get-started[data-target=edit-title]{
+  margin-left: 200px;
+}
+
+.get-started[data-target=edit-widget]{
+  margin-left: 480px;
+  margin-top: -40px;
+}
+.get-started[data-target=add-page]{
+  margin-left: 95px;
+  margin-top: -60px;
+  padding-top: 10px;
+  
+}
+
+.get-started.right-down{
+  text-align:right;
+  padding-right:90px;
+  margin-bottom:10px;
+  background: url('/images/help-arrow-right-down.png') no-repeat right bottom;
+}
+.get-started.left-up{
+  padding-left:90px;
+  background: url('/images/help-arrow-left-up.png') no-repeat left bottom;
+}
+.get-started.left-down{
+  padding-left:90px;
+  background: url('/images/help-arrow-left-down.png') no-repeat left top;
+}
+
+
+
 //button
 .button {
   border: 1px solid #a15804;
