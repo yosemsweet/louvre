@@ -39,11 +39,6 @@
     .field
       = f.text_field :name
       .input_note#canvas_name_input_note
-      -if @canvas.created_at == @canvas.updated_at
-        :javascript
-          $(function(){
-            open_canvas_name_edit();
-          });
 
 - if can?(:create, Widget.new(:canvas => @canvas))
   %br

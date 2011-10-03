@@ -4,7 +4,11 @@
   		    modal: true, width: 600, resizable: false
   		  });
   		
-  		$("#action").click(function(){$("#intro").dialog("close");});
+  		$("#action").click(function(){
+  		  $("#intro").dialog("close");
+  		  open_canvas_name_edit();
+  		});
+  		
   	});
 = stylesheet_link_tag 'compiled/welcome', :media => 'screen, projection'
   
