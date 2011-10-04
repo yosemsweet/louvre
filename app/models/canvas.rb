@@ -12,7 +12,6 @@ class Canvas < ActiveRecord::Base
 	has_many :events, :as => :loggable
 
   validates_presence_of :name, :creator, :editor
-  validates_uniqueness_of :name
 
   acts_as_opengraph :values => { :type => "cause" }	
 	acts_as_followable

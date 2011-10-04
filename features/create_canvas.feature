@@ -11,13 +11,12 @@ Scenario: Going to new canvas url creates a canvas if you authenticated
   Then I should be on that canvas' homepage
   And I should be an owner of that canvas
 
-
 @omniauth_test
 Scenario: A new canvas has a set of default attributes
   Given I am "Bob Dole" 
   And I am authenticated
   And I've created a new canvas
-  Then that canvas should have a random name starting with "Bob Dole's"
+  Then that canvas should be named "Bob Dole's Community"
   And that canvas should have an example widget
 
 @omniauth_test  

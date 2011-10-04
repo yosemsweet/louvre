@@ -90,13 +90,6 @@ describe Canvas do
 			  	canvas = Factory.build(:canvas, :name => "")
 			    canvas.should_not be_valid
 			  end
-		
-				it "should be unique" do
-					canvas = Factory.create(:canvas, :name =>"foo")
-					canvas.should be_valid
-					canvas_duplicate_name = Factory.build(:canvas, :name =>"foo")
-					canvas_duplicate_name.should_not be_valid
-				end
 			end
 		
 			context "Open" do

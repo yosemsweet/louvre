@@ -26,7 +26,7 @@ class CanvaeController < ApplicationController
   end
 
   def new
-		@canvas = Canvas.new(:name => current_user.name.possessive + " " + Canvas.random_name, :open => true)
+		@canvas = Canvas.new(:name => "#{current_user.name.possessive} Community", :open => true)
 
 		@canvas.creator = current_user
 		@canvas.editor = current_user

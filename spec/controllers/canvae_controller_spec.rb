@@ -28,15 +28,9 @@ describe CanvaeController do
 			end
 			
 			context "canvas name" do
-				it "should set the new canvas' name to include the creator's name" do
+				it "should set the new canvas' name to Creator's Community" do
 					get :new
-					assigns(:canvas).name.should include(@user.name.possessive)
-				end
-			
-				it "should set the new canvas' name to a name not already take" do
-					get :new
-					Canvas.where(:name => assigns(:canvas).name).count.should == 1
-					Canvas.where(:name => assigns(:canvas).name).first.should == assigns(:canvas)
+					assigns(:canvas).name.should ==  "#{@user.name.possessive} Community"
 				end
 			
 				it "should assign a new text widget to the canvas" do
