@@ -50,6 +50,7 @@ Louvre::Application.routes.draw do
 	
   delete "/canvae/:id/applicants/:user_id" => "canvae#applicants_delete", :as => :applicants_delete
 
+  match "/widgets/:id/tags"  => "widgets#widget_tags"
   match "/widgets/create_via_email"  => "widgets#create_via_email"
   match "/events"  => "events#index"
   match "/event_count"  => "events#count"

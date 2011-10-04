@@ -30,9 +30,37 @@ class WidgetsController < ApplicationController
 
 		@widget = Widget.find(params[:id])
 		
-		add_canvas_breadcrumb(@widget.canvas)
-		add_page_breadcrumb(@widget.page) if @widget.page
-		add_breadcrumb @widget.content.truncate(30), widget_path(@widget)
+
+		
+		respond_to do |format|
+      format.html{
+        add_canvas_breadcrumb(@widget.canvas)
+    		add_page_breadcrumb(@widget.page) if @widget.page
+    		add_breadcrumb @widget.text.truncate(30), widget_path(@widget)
+      }
+      format.json{
+        render :json => @widget.to_json
+      }
+    end
+		
+  end
+
+  # GET /widgets/:id
+  def widget_tags
+    authorize! :read, @widget
+
+		@widget = Widget.find(params[:id])
+		@tags = @widget.tags
+		
+		respond_to do |format|
+      format.html{
+
+      }
+      format.json{
+        render :json => @tags.to_json
+      }
+    end
+		
   end
 
   # GET /widgets/:id/new

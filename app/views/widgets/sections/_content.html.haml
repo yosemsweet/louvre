@@ -1,7 +1,8 @@
 - case widget.content_type
 
 - when 'text_content'
-  = raw(widget.text)  
+  .text
+    = raw(widget.text)  
 
 - when 'image_content'
   %figure.widget_image_wrapper
@@ -19,7 +20,7 @@
     -if widget.creator
       %strong= widget.creator.name
       \:
-      = widget.question
+      .question_text= widget.question
       
   - if widget.answer
     %div.answer

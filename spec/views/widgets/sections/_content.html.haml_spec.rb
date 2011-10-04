@@ -31,7 +31,7 @@ describe "widgets/sections/_content.html.haml" do
 
 			it "should display all the widget text" do
 				render :partial => "widgets/sections/content", :object => @widget, :as => :widget
-				rendered.strip.should == @widget.text.strip
+				rendered.strip.should include(@widget.text.strip)
 			end
 		end
 	end

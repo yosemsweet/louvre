@@ -217,7 +217,10 @@ $page-feed-preview-width:220px;
   }
 
 }
-
+.tags{
+	font-style:italic;
+	font-size:10px;
+}
 .widget.editable_widget .body {
   @include box($background:$accent-color, $border:$accent-color);
 	position:relative;
@@ -227,7 +230,9 @@ $page-feed-preview-width:220px;
   
   padding: 0 0 0 10px;
   
-	.tags { display: none; }
+	.tags {
+		display: none;
+	}
 	.content {
 	  @include box;
 	  position:relative;

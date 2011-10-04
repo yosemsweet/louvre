@@ -27,7 +27,7 @@ $(document).ready(function(){
 		$('#event_count').addClass("no_new_events");
 		$('#event_list_container').html('');
 		$('#event_list_container').addClass("loading_events_container");
-		$('#event_list_container').fadeToggle(function(){
+		$('#event_list_container').slideToggle(function(){
 			$.get('/events', function(data) {
 				$('#event_list_container').removeClass("loading_events_container");
 				$('#event_list_container').html(data);
