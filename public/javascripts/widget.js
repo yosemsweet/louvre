@@ -95,11 +95,13 @@ $(document).ready(function(){
 				
 					// get the tags for this widget
 					$.getJSON('/widgets/'+widget_id+'/tags.json', function(data) {
-						var taglist = 'TAGS:'
+						taglist = '';
 						$.each(data, function(index,value) { 
-						  if(index != 0)
-								taglist = taglist + ",";
-							taglist = taglist + " " + value.tag.name;
+						  if(index == 0){
+								taglist = 'TAGS: ' + value.tag.name
+							}else{
+								taglist = taglist + ", " + value.tag.name;
+							}
 						});
 						$("[data-widget_id="+widget_id+"] .content .tags").html(taglist);
 					});
