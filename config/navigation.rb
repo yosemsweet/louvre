@@ -44,7 +44,7 @@ SimpleNavigation::Configuration.run do |navigation|
     end
   
     primary.dom_id = "menubar"
-    primary.dom_class = "sf-menu" 
+    primary.dom_class = "menu" 
     primary.auto_highlight = false
   end
 

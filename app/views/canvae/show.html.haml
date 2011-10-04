@@ -44,7 +44,7 @@
 - if can?(:create, Widget.new(:canvas => @canvas))
   %br
   #toolbar
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
+    %a.add_widget.tab{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Snippet
     %a.add_widget.tab{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
     %a.add_widget.tab{:href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id}} Add Link
     %a.add_widget.tab{:href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id}} Add Question
@@ -77,23 +77,27 @@
   %hr
 
   #inputs
-
-    .bookmarklet
-      Install Bookmarklet by dragging to your
+    .title-italic Other ways to add a snippet:
+    %br
+    .title-bold 
+      Bookmarklet:
       %a#bookmarklet{:href => "#"} 
         = "add to #{@canvas.name}"
-      %a.link-help-bookmarklet{:href => "#"} ?
-      .toggle-link-help-bookmarklet.info{:style => "display:none"}
-        %iframe{:width=>"425", :height=>"349", :src => "http://www.youtube.com/embed/QrwevUN0KdQ"}
+      %img.link-help-bookmarklet{:src => "/images/info-green-24.png"}
+    .toggle-link-help-bookmarklet.info{:style => "display:none"}
+      Use the bookmarklet to add snippet on the fly.
+      %br
+      Install the bookmarklet by dragging the bookmarklet to the bookmark toolbar.
+      %iframe{:width=>"425", :height=>"349", :src => "http://www.youtube.com/embed/QrwevUN0KdQ"}
 
-    .add-by-email
-      Easily add content to the feed by sending an email to this address:
-      = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
-      
-      %a.link-help-email{:href => "#"} ?
-      .toggle-link-help-email.info{:style => "display:none"}
-        Note that you must register your sending email address before adding content by email. Do this on your
-        = link_to "account settings page", edit_user_path
+    -# .add-by-email
+    -#   Easily add content to the feed by sending an email to this address:
+    -#   = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
+    -#   
+    -#   %a.link-help-email{:href => "#"} ?
+    -#   .toggle-link-help-email.info{:style => "display:none"}
+    -#     Note that you must register your sending email address before adding content by email. Do this on your
+    -#     = link_to "account settings page", edit_user_path
 
     :javascript
       $("a#bookmarklet")

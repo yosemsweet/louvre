@@ -1,5 +1,5 @@
 $(function(){
-  click_to_edit_text = 'click on canvas name to edit';
+  click_to_edit_text = 'click to edit';
   hit_enter_to_save_text = 'hit enter to save changes';
   old_canvas_name = $("#canvas_name").val();    
 

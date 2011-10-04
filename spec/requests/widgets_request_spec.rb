@@ -537,9 +537,10 @@ describe "Widgets Requests" do
 				response.body.should include("id='bookmarklet'")
 			end
 
-			it "should show the email" do
-				response.body.should include("Easily add content to the feed by sending an email to this address:")
-			end
+      # remove from canvas homepage
+      # it "should show the email" do
+      #   response.body.should include("Easily add content to the feed by sending an email to this address:")
+      # end
 
 			it "should show add all add a widget link" do
 				response.body.should include("id='toolbar'")
