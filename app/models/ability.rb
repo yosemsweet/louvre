@@ -5,8 +5,7 @@ class Ability
     # Define abilities for the passed in user here. For example:
   
     user ||= User.new # guest user (not logged in)
-    can :read, :all    
-    can :view_hint, nil
+    can :read, :all
 
     can :apply, Canvas do |canvas|
       user.persisted? && !user.canvas_role?(canvas,:member) && user.canvas_role(canvas) != :banned
@@ -37,18 +36,6 @@ class Ability
     end
 
 		can :make_admin, User	if user.admin == true
-		
-    can :view_hint, Canvas do |canvas|
-      canvas.creator == user && canvas.created_at == canvas.updated_at && user.canvae.count == 1
-    end
-    
-    can :view_page_hint, Page do |page|
-      page.canvas.creator == user && page.canvas.pages.count == 0 && page.created_at == page.updated_at && user.canvae.count == 1
-    end
-  
-    can :view_hint, Widget do |widget| 
-      widget.canvas.creator == user && widget.canvas.widgets.count <= 1 && widget.created_at == widget.updated_at && user.canvae.count == 1
-    end
-    
+
   end
 end

@@ -274,9 +274,11 @@ color: #1A3747;
 }
 .get-started[data-target=add-page]{
   margin-left: 95px;
-  margin-top: -60px;
-  padding-top: 10px;
-  
+  margin-top: -50px;
+  padding-top: 10px; 
+}
+.get-started[data-target=first-canvas]{
+  margin-left: 175px;
 }
 
 .get-started.right-down{
@@ -284,6 +286,11 @@ color: #1A3747;
   padding-right:90px;
   margin-bottom:10px;
   background: url('/images/help-arrow-right-down.png') no-repeat right bottom;
+}
+.get-started.right-up{
+  text-align:right;
+  padding-right:90px;
+  background: url('/images/help-arrow-right-down.png') no-repeat right top;
 }
 .get-started.left-up{
   padding-left:90px;

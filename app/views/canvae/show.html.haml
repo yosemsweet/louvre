@@ -37,8 +37,8 @@
   = form_for @canvas do |f|
     .field
       = f.text_field :name
-      -if can?(:view_hint, @canvas)
-        = render 'shared/hint', :title => 'What would you like to call your community?', :content => "Don't stress, you can always change it later.", :klass => "left-up", :target => "edit-title"
+      = hint_for(@canvas, @current_user, "canvas")
+        
       .input_note#canvas_name_input_note
 
 - if can?(:create, Widget.new(:canvas => @canvas))
@@ -53,8 +53,7 @@
     - @new_widgets.each do |t, widget|
       %div{:style => "display:none;"}
         = render :partial => "widgets/canvas_feed", :object => widget, :as => :widget
--if can?(:view_hint, @canvas.widgets.first)
-  = render 'shared/hint', :title => "We've added a snippet to your feed already", :content => "Click here to edit.", :klass => "right-down", :target => "edit-widget"
+= hint_for(@canvas, current_user, "widget")
 \
 %ul#feed
   //= render :collection => @canvas.widgets, :partial => "widgets/canvas_feed", :as => :widget
@@ -66,8 +65,7 @@
   - if can? :create, Page.new(:canvas => @canvas)
     #toolbar
       %a.add_page.tab{:href => new_canvas_page_path(@canvas), :data => {:content_type => "page", :canvas_id => @canvas.id}} New Page
-    -# -if can?(:view_hint, @canvas.pages.first)
-    -#   = render 'shared/hint', :title => 'Need some organization?', :content => "add snippets to pages to organize them", :klass => "left-up", :target => "add-page"
+    = hint_for(@canvas, current_user, "page")
   %ul.page_list
   - @canvas.pages.each do |page|
     %li.page_icon_grid

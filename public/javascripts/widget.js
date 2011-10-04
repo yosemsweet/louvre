@@ -4,6 +4,11 @@ $(document).ready(function(){
 	// Add widget links.
 	$(".add_widget, .cancel_edit").click(function(event){
 
+    // hide hints
+    if ($("[data-target=edit-widget]").length){
+      $("[data-target=edit-widget]").hide();
+    }
+
 		var content_type = $(this).data("content_type");
 		var widget = $("ul#inline_form li.widget." + content_type);
 		
