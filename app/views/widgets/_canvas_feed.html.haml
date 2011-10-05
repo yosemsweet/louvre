@@ -7,7 +7,7 @@
   .controls
     - if can? :update , widget
       %img.tool.edit{:src => "/images/edit5.png", :title => "Edit Snippet"}
-      / %img.tool{:src => "/images/delete5.png"}
+      %img.tool.delete{:src => "/images/delete5.png", :title => "Delete Snippet"}
     %div.tool.comment_count.toggle_facebook_comments{:title => "View/Add Comments"}
 
   .loading

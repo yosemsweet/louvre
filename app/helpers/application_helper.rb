@@ -19,6 +19,7 @@ module ApplicationHelper
     mixpanel_integration google_analytics
     FollowHelper
     jquery.textboxlist.mod
+    apprise-1.5.min
     )
   end
   
@@ -35,6 +36,7 @@ module ApplicationHelper
     http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css
     compiled/application
     jquery.textboxlist
+    apprise.min
     )
   end
 

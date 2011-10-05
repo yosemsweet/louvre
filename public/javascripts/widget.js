@@ -139,14 +139,12 @@ $(document).ready(function(){
 				}
 
 			});
-			
-
-			
 				
 		} else {
+
 			$("#flash").html("<div class='error'>Form inputs are invalid. Please check your form and try again.</div>").show();
-			
 			setTimeout(function(){$('#flash').fadeOut('slow')}, 2000);
+
 		}
 		
 		return(false);
@@ -156,28 +154,26 @@ $(document).ready(function(){
 
 	// Delete widget links.
 	$(".widget .delete").live("click", function(event){
-    var $widget = $(this).parents(".widget");
-    var widget_id = $widget.data("widget_id");
-    
-    // Delete from the server.
-    $.post("/widgets/" + widget_id, { _method : 'DELETE' });
-    
-    // Remove from the DOM.
-    $widget.remove();
-    
-    // Track the event.
-    mpq.push(["track","page_remove_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id, widget_id : widget_id}]);
-    
+		var $widget = $(this).parents(".widget");
+		var widget_id = $widget.data("widget_id");
+		apprise('Are you sure you want to delete this snippet?', {'verify':true, 'animate':true}, function(r){
+			if(r){ 
+				$.post("/widgets/" + widget_id, { _method : 'DELETE' });
+				$widget.fadeOut('slow', function() {
+				    $widget.remove();
+					});
+				mpq.push(["track","page_remove_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id, widget_id : widget_id}]);
+			}
+		});
     event.preventDefault();
   });
 
 	// Widget comment toggler links.
 	$(".widget .toggle_facebook_comments").live('click', function(event){
-	  event.preventDefault();
-	
 		$facebook_comments = $(this).parents(".widget").find(".facebook_comments");
 		$facebook_comments.toggle();
   	FB.XFBML.parse($facebook_comments.get(0));
+	  event.preventDefault();
 	});
 	
 	$(".widget .delete_answer").live('click', function(event){
@@ -186,7 +182,6 @@ $(document).ready(function(){
 			var widget_id = $(this).parents(".widget").data("widget_id");
 			var answer_id = $(this).parent("li").index() ;
 			$(this).parent("li").fadeOut(500, function(){$(this).remove()});
-			
 			$.post("/widgets/" + widget_id + "/remove_answer/" + answer_id, {_method: "PUT"});
 		}
 	});
