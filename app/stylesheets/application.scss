@@ -28,6 +28,8 @@ h1#logo a {
 
 .loading_events_container{
 	background:url('/images/loading-medium.gif') no-repeat center center;
+	border-radius: 0px 0px 5px 5px;
+  box-shadow: 0px 0px 10px 0px #666;
 	background-color: #ECF0F9;
 	width:300px;
 	height:40px;
@@ -44,6 +46,7 @@ h1#logo a {
 	position:absolute;
 	width:250px;
 	z-index:999999999;
+	margin-top:3px;
 }
 
 #header-toolbar{
@@ -70,53 +73,45 @@ h1#logo a {
   ul.menu{
     margin:0px;
     float:left;
-    -webkit-padding-start: 0px;
     z-index: 999999999;
-  }
-  li#canvae-menu{
+	  li{
       list-style-type: none;
-      line-height: 35px;
+    }
+  }
+
+	li.top-menu-item{
+		padding-top:10px;
+		>a{
       padding-right: 15px;
-      margin-right: 20px;
-      
-      >a{
-        padding-right: 15px;
-        background: url('/images/arrow.png') no-repeat right center;
-      }
-      >a:hover{
-        font-weight: bold;
-      }
+      background: url('/images/arrow.png') no-repeat right center;
     }
-    
-  #canvae-menu{
-    z-index: 100;
-    
-    a{
-      padding-left:10px;
-      font-size: 1.1em;
+    >a:hover{
+      text-shadow: 0 0 10px #FFFFFF;
     }
-    
+
     ul{
-      display: none;
+      margin-top:3px;
+			display: none;
       position: absolute;
-      border:1px #AAA solid;
-      a{
-        color: black;
-      }
-      
-      padding-left: 0;
+      border:1px solid #666;
+      background-color:#ECF0F9;
+			padding:0px;
+			border-radius: 0px 0px 5px 5px;
+			box-shadow: 0px 0px 10px 0px #666;
     }
     li{
-      list-style-type: none;
-      margin-right: 0px;  
-      background-color:#ECF0F9;
-      
-    }
-    
-    li.owner, li.member{
-      width: $menu-width - $menu-padding;
-      padding-left:  $menu-padding;
-      border-bottom:1px black solid;
+      cursor:pointer;
+			padding:2px 15px;
+			list-style-type: none;
+			a{
+				color: #333;
+			}
+      &:hover{
+				background-color:#666;
+				a{
+					color:#FFF;
+				}
+			}
     }
     
     li.owner {
@@ -124,11 +119,7 @@ h1#logo a {
     }
     
     li.new{
-      width: $menu-width - 2 * $menu-padding;
-      padding-left: 2 * $menu-padding;
-      a{
-        font-style: italic;
-      }
+			border-top:1px solid #CCC;
     }
   }
   

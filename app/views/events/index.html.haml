@@ -3,25 +3,36 @@
     padding:0px;
     margin:0px;
     }
-  #event_list a {
-    text-decoration:none;
-    color:black;}
-  .event_item {
+  #event_list{
     border:1px solid #AAA;
     border-top:0px;
-    padding:8px;
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: 0px 0px 10px 0px #666;
     background-color: #ECF0F9;
-    color:black;
+  }
+
+  #event_list a {
+    text-decoration:none;
+    color:#333;
     }
+      
+  .event_item {
+    border-top:1px solid #AAA;
+    padding:8px;
+    }
+
   .event_item:hover{
     background-color: #DCE0E9;
   }
+
   .event_time_ago {
     font-size:11px;
   }
+
   .new_event {
     background-color: #CBD0D8;
   }
+
 #event_list  
   - if @events.count == 0
     %div.event_item== No Notifications

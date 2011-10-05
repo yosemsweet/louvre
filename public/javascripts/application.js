@@ -40,6 +40,10 @@ $(document).ready(function(){
 			$('#event_list_container').fadeToggle();
 	});
 
+	
+	
+
+
 	$('#flash').delay(500).fadeIn('normal', function() {
      $(this).delay(2500).fadeOut('slow');
   });

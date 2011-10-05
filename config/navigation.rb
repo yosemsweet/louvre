@@ -32,9 +32,9 @@ SimpleNavigation::Configuration.run do |navigation|
 
   # Define the primary navigation
   navigation.items do |primary|
-    primary.item :canvae, "Communities", "#", :class => "community-menu" do |menu| 
+    primary.item :canvae, "Communities", "#", :class => "top-menu-item" do |menu| 
       current_user.canvas_roles.where(:role => :owner).collect(&:canvas).sort{ |x,y| x.name.downcase <=> y.name.downcase }.each do |cur|
-        menu.item "canvas_#{cur.id}", cur.name, canvas_path(cur), :class => "owner" 
+        menu.item "canvas_#{cur.id}", cur.name, canvas_path(cur), :class => "menu-item owner" 
       end
       current_user.canvas_roles.where(:role => :member).collect(&:canvas).sort{|x,y| x.name.downcase <=> y.name.downcase }.each do |cur|
         menu.item "canvas_#{cur.id}", cur.name, canvas_path(cur), :class => "member" 
