@@ -5,9 +5,6 @@ RSpec::Matchers.define :have_widget_elements_for do |widget|
 		expected_elements = {
 			:widget => ".widget",
 			:content_type => ".#{widget.content_type}",
-			:body => ".body",
-			:title => ".title",
-			:toolbox => ".toolbox",
 			:content => ".content"
 		}
 

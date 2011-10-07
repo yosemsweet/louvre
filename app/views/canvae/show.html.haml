@@ -31,6 +31,7 @@
     - else
       #join.button
         Join Now
+        
 #canvas_name_text= @canvas.name
 
 -if can?(:update, @canvas)
@@ -56,9 +57,7 @@
 = hint_for(@canvas, current_user, "widget")
 \
 %ul#feed
-  //= render :collection => @canvas.widgets, :partial => "widgets/canvas_feed", :as => :widget
   = render :collection => Widget.for_canvas(@canvas.id,1), :partial => "widgets/canvas_feed", :as => :widget
-
   
 #pages
   

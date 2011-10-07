@@ -30,7 +30,6 @@ describe "widgets/_page_feed.html.haml" do
 		
 		it "should have facebook comment elements" do
 			rendered.should have_selector(".comment_count")
-			rendered.should have_selector("a.toggle_facebook_comments[href='#']")
 		end
 		
 		it "should have an element with a tags class" do

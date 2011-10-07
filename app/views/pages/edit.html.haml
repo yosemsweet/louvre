@@ -4,56 +4,53 @@
   = stylesheet_link_tag 'compiled/page.css', :media => 'screen, projection'
 
 .span-16
-  %h1 Page
 
-  = form_for([@page.canvas, @page], :html => {:id => "update_page"}) do |f|
-    .field
-      = f.label :title
-      = f.text_field :title, :class => "title"
-      = f.submit 'Update'
+  #page_title_text= @page.title
 
-  #toolbar
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Text
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Image
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Link
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Question
-
-
-  %ul#inline_form
-    - @new_widgets.each do |t, widget|
-      %div{:style => "display:none;"}
-        = render :partial => "widgets/editable", :object => widget, :as => :widget   
+  -if can?(:update, @page)
+    = form_for([@page.canvas, @page]) do |f|
+      .field
+        = f.text_field :title
+        .input_note#page_title_input_note
+    %br
+    #toolbar
+      %a.add_widget.tab{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Text
+      %a.add_widget.tab{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Image
+      %a.add_widget.tab{:href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Link
+      %a.add_widget.tab{:href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id, :page_id => @page.id}} Add Question
+  
+    %ul#inline_form
+      - @new_widgets.each do |t, widget|
+        %div{:style => "display:none;"}
+          = render :partial => "widgets/editable", :object => widget, :as => :widget   
            
-  %ul#page
-  
-  %h3== Other pages on "#{@page.canvas.name}"
-  %ul
-    - @page.canvas.pages.each do |page|
-      %li= link_to page.title, canvas_page_path(@canvas, page)
-  
+    
+    %ul#page
+    
+    #pages
+      %h3== Other pages on "#{@page.canvas.name}"
+      %ul.page_list
+      - @page.canvas.pages.each do |page|
+        -if page != @page
+          %li.page_icon_grid
+            %a{:href => canvas_page_path(@canvas, page)}
+              %img{:src => "/images/page.png"}
+              .page_icon_title= page.title
+
 
 .span-8.last
-  %h2 Feed
-  
-  / #toolbar-feed
-  /   %a.add_widget_mock.tab{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Text
-  /   %a.add_widget_mock.tab{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
-  /   %a.add_widget_mock.tab{:href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id}} Add Link
-  /   %a.add_widget_mock.tab{:href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id}} Add Question
-    
-  
+  %div{:style=>"text-align:right;"}
+    /= link_to "follow", "#", :id => "follow",  :class => "blue-button", :title => "Click to follow"
+    /= link_to "following", "#", :id => "unfollow",  :class => "grey-button", :title => "You are following this page. Click to unfollow", :style => hidden_if(!current_user.following?(@page))
+    = link_to 'View Page', canvas_page_path(@page.canvas, @page), :class => "blue-button"
+    = link_to "Versions", versions_canvas_page_path(@page.canvas, @page), :id => "versions",  :class => "blue-button"
+
+  %br
+  %h3 Snippets
   %form
     .field
       %label{:for => "tag_names"} Filter by tags:
-      %input#tag_names{:type => "text", :name => "tag_names", :style => "background-color: #333; width:50px", :width => "50px"}
+      %input#tag_names{:type => "text", :name => "tag_names"}
   
   %ul#feed{:style => "height: 800px; overflow-y: auto; padding-left:0px"}
     = render :collection => @page.canvas.widgets, :partial => "widgets/page_feed", :as => :widget
-
-.span-24.last
-  = link_to 'Show', canvas_page_path(@page.canvas, @page)
-  \|
-  = link_to "Versions", versions_canvas_page_path(@page.canvas, @page)
-  \|
-  = link_to 'View Canvas', canvas_path(@page.canvas)
-

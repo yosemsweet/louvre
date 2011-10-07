@@ -43,5 +43,5 @@ ul#feed .widget_image_wrapper img{
 
 
 #canvas_name_text {
-	font-size:30px;
+	@include header-font
 }

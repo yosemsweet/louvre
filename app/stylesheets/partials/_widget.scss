@@ -114,7 +114,8 @@ $icon-size: 32px;
 	list-style: none;
 }
 
-.widget.presentation_widget .body{
+.widget.presentation_widget{
+	
 }
 
 .edit_content {
@@ -183,34 +184,10 @@ $scrolly-excerpt-width:172px;
 	}
 }
 
-$page-feed-height:100px;
-$page-feed-width:290px;
-$page-feed-preview-width:220px;
-
-.widget.page_feed_widget .body {
-  @include floating-box;
-  @include box($background:$accent-color, $border:$accent-color);
-	overflow: visible;
-	position:relative;
-  width:$page-feed-width;
+.widget.page_feed_widget {
   cursor: move;
-  
-  .title{
-    width:span(1);
-    height:100%;
-  }
-
-	.comments { display:none; }
-
   .content {
-  	   @include box;
-     box-shadow: inset 0 0 5px $trim-color;
      position:relative;
-     margin-left:50px;
-  
-     height: $page-feed-height;
-     width: $page-feed-preview-width;
-     
      overflow: hidden;
      text-overflow: ellipsis;
      word-wrap: break-word;
@@ -221,41 +198,39 @@ $page-feed-preview-width:220px;
 	font-style:italic;
 	font-size:10px;
 }
-.widget.editable_widget .body {
-  @include box($background:$accent-color, $border:$accent-color);
-	position:relative;
-	
-	min-height: 0;
-	cursor:move;
-  
-  padding: 0 0 0 10px;
-  
-	.tags {
-		display: none;
-	}
-	.content {
-	  @include box;
-	  position:relative;
-	  padding:10px;
-		overflow:hidden;
-	}
-	
-	.toolbox{
-	  display:none;
-	  background-color:transparentize($accent-grey, 0.3);
-	}
-}
+// .widget.editable_widget .body {
+//   @include box($background:$accent-color, $border:$accent-color);
+// 	position:relative;
+// 	
+// 	min-height: 0;
+// 	cursor:move;
+//   
+//   padding: 0 0 0 10px;
+//   
+// 	.tags {
+// 		display: none;
+// 	}
+// 	.content {
+// 	  @include box;
+// 	  position:relative;
+// 	  padding:10px;
+// 		overflow:hidden;
+// 	}
+// 	
+// 	.toolbox{
+// 	  display:none;
+// 	  background-color:transparentize($accent-grey, 0.3);
+// 	}
+// }
 
 .widget.loading{
+	background: url('/images/loading-medium.gif') no-repeat center center ;
 	.content{
 		opacity: .7; 
 		filter: alpha(opacity=70);	
 	}
 	.comment_count {
 		display: none;
-	}
-	.body {
-		background: url('/images/loorping.gif') no-repeat center center ;
 	}
 	.tags {
 		display: none;

@@ -13,31 +13,35 @@
     %ul#presentation_page{:style => "padding-left:0px;"}
       = render :partial => "widgets/presentation", :collection => @widgets, :as => :widget
 
-    - if can? :edit, @page
-      = link_to 'Edit', edit_canvas_page_path(@page.canvas, @page)
-    
-    - if current_user
-      \|
-      = link_to "Versions", versions_canvas_page_path(@page.canvas, @page), :id => "versions"
-
     %h2 comments
-    = comments_for(@page, :href => canvas_page_url(@page.canvas, @page) )
-  
+    = comments_for(@page, :href => canvas_page_url(@page.canvas, @page), :width => 610 )
 
 .span-8.last
-  
-  - if cannot? :edit, @page
-    %p 
-      %a{href: "#"} Join 
-      this community to edit pages.
 
-  - if current_user
-    %a#follow{:href => "#", :style => hidden_if(current_user.following?(@page))}
-      %img{:src => "/images/icons/follow.png"}
-    %a#unfollow{:href => "#", :style => hidden_if(!current_user.following?(@page))}
-      %img{:src => "/images/icons/unfollow.png"}
+  %div{:style=>"text-align:right;"}
+    - if current_user
+      = link_to "follow", "#", :id => "follow",  :class => "blue-button", :title => "Click to follow"
+      = link_to "following", "#", :id => "unfollow",  :class => "grey-button", :title => "You are following this page. Click to unfollow", :style => hidden_if(!current_user.following?(@page))
+      = link_to "Versions", versions_canvas_page_path(@page.canvas, @page), :id => "versions",  :class => "blue-button"
+        
+    - if can? :edit, @page
+      = link_to 'Edit Page', edit_canvas_page_path(@page.canvas, @page), :class => "blue-button"
 
+
+  %br
   %div Other Pages:
-  %ul
+  %ul.related_page_link
     - @page.canvas.pages.each do |page|
-      %li= link_to page.title, canvas_page_path(@page.canvas, page), :class => "related_page_link"
+      -if page != @page
+        %a.related_page_link{:href => canvas_page_path(@page.canvas, page),}
+          %li.related_page_link
+            .page_title=page.title
+            .last_modified{:style => "font-size:11px;"}
+              Last Modified by
+              =page.editor
+              %br
+              -if page.updated_at > 12.hours.ago 
+                #{time_ago_in_words(page["updated_at"])} ago
+              -else
+                on #{page.updated_at.strftime("%b %d %Y %I:%M %p")}
+            

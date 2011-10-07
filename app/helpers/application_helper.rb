@@ -34,6 +34,7 @@ module ApplicationHelper
   def application_stylesheets
     %w(
     http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css
+    http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Serif:400,700
     compiled/application
     jquery.textboxlist
     apprise.min

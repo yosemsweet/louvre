@@ -38,6 +38,9 @@ $(document).ready(function(){
 		
 		var widget = $(this).parents(".widget");
 		
+		$facebook_comments = $(this).parents(".widget").find(".facebook_comments");
+		$facebook_comments.hide();
+		
 		$(".content", widget).toggle();
 		$(".controls", widget).toggle();
 		$("form.edit_widget", widget).toggle();
@@ -173,6 +176,7 @@ $(document).ready(function(){
 		$facebook_comments = $(this).parents(".widget").find(".facebook_comments");
 		$facebook_comments.toggle();
   	FB.XFBML.parse($facebook_comments.get(0));
+		update_widget_comment_counts();
 	  event.preventDefault();
 	});
 	
@@ -254,16 +258,6 @@ $(document).ready(function(){
 	}
 	
 	update_widget_comment_counts = function(){
-		$(".widget").each(function(){
-    	var $widget = $(this);
-      countComments(request.root_url + "widgets/" + $widget.data("widget_id"), function(n){
-       var comments = n > 0 ? n : "" ;
-       $('.toggle_facebook_comments', $widget).text( comments );
-     });
-    });
-	}
-
-	update_widget_comment_counts_2 = function(){
 		$(".widget").each(function(){
     	var $widget = $(this);
       countComments(request.root_url + "widgets/" + $widget.data("widget_id"), function(n){

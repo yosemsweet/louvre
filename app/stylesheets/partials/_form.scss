@@ -1,15 +1,18 @@
-.edit_canvas input[type=text] {
-	width:600px;
-	font-size:25px;
+.edit_canvas, .edit_page{
+	input[type=text] {
+		width:500px;
+		font-size:25px;
+	}
 }
 
-.edit_canvas .input_note {
+.input_note {
 	font-size:12px;
-	width:600px;
+	color:#999;
+	width:500px;
 }
 
-#canvas_name_text {
-	font-size:30px;
+#canvas_name_text,  #page_title_text{
+	@include header-font
 }
 
 form.edit_widget{
@@ -24,7 +27,7 @@ form.edit_widget{
 		Font-weight:bold;
 	}
 	textarea{
-		width:920px;
+		width:95%;
 		height:70px;
 		margin:3px;
 	}
@@ -35,6 +38,6 @@ form.edit_widget{
 		width:auto;
 	}
 	input{
-		width:500px;
+		width:450px;
 	}
 }
