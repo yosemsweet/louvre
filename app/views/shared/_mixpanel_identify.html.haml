@@ -1,0 +1,11 @@
+-if current_user
+  :javascript
+    $(function(){
+      mpq.push(["name_tag","#{current_user.name}"]);
+      mpq.push(["identify","#{current_user.id}"]);
+    });
+-else
+  :javascript
+    $(function(){
+      mpq.push(["identify"]);
+    });

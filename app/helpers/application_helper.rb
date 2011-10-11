@@ -16,7 +16,8 @@ module ApplicationHelper
     application
     widget
     facebook_integration
-    mixpanel_integration google_analytics
+    mixpanel_integration 
+		google_analytics
     FollowHelper
     jquery.textboxlist.mod
     apprise-1.5.min
@@ -27,7 +28,8 @@ module ApplicationHelper
     %w(
     https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js
     http://connect.facebook.net/en_US/all.js
-    mixpanel_integration google_analytics
+    mixpanel_integration 
+		google_analytics
     )
   end
   
