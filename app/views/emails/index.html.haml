@@ -1,4 +1,6 @@
-
+-if @emails.count == 0
+  no registered emails addresses
+  
 -@emails.each do |email|
   %li
     = email.address
