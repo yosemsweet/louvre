@@ -43,7 +43,7 @@ $(function(){
       $("title").html(new_canvas_name);
       $("#logo a").text(new_canvas_name);
 			$("a#bookmarklet").text('Add to ' + new_canvas_name);
-
+			$("#menubar li.menu-item a.selected").text(new_canvas_name)
     });
     return false;
     event.preventDefault();
