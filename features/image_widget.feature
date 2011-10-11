@@ -10,7 +10,7 @@ Given there is a canvas
 And I am authenticated
 And I am a member of that canvas
 And I am on that canvas' homepage
-When I follow "Add Image"
+When I follow "Share a photo"
 Then "the new image widget form" should be visible
 
 @javascript

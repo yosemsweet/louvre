@@ -23,5 +23,5 @@ Scenario: Show Add Link from
 Given I am authenticated
 And I am a member of that canvas
 And I am on that canvas' homepage
-When I follow "Add Link"
+When I follow "Post a link"
 Then "the new link widget form" should be visible
