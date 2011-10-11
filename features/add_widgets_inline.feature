@@ -12,6 +12,6 @@ And I am a member of that canvas
 And I am on that canvas' homepage
 When I follow "Add Snippet"
 Then "the new text widget form" should be visible
-When I follow "Add Image"
+When I follow "Share a photo"
 Then "the new image widget form" should be visible
 And "the new text widget form" should not be visible

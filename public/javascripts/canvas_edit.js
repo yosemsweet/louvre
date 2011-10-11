@@ -1,6 +1,6 @@
 $(function(){
   click_to_edit_text = 'click to edit';
-  hit_enter_to_save_text = 'hit enter to save changes';
+  hit_enter_to_save_text = '<b>hit enter to save changes</b>';
   old_canvas_name = $("#canvas_name").val();    
 
   open_canvas_name_edit = function(){
@@ -43,7 +43,7 @@ $(function(){
       $("title").html(new_canvas_name);
       $("#logo a").text(new_canvas_name);
 			$("a#bookmarklet").text('Add to ' + new_canvas_name);
-
+			$("#menubar li.menu-item a.selected").text(new_canvas_name)
     });
     return false;
     event.preventDefault();

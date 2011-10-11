@@ -45,10 +45,10 @@
 - if can?(:create, Widget.new(:canvas => @canvas))
   %br
   #toolbar
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add Snippet
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Add Image
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id}} Add Link
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id}} Add Question
+    %a.add_widget.tab{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add snippet
+    %a.add_widget.tab{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Share a photo
+    %a.add_widget.tab{:href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id}} Post a link
+    %a.add_widget.tab{:href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id}} Ask a question
   
   %ul#inline_form
     - @new_widgets.each do |t, widget|
