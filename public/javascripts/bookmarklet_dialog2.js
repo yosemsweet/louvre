@@ -10,7 +10,6 @@ function getText()
   else if (document.selection){
     txt = document.selection.createRange().text;
   }
-  
   return txt;
 }
 
@@ -34,6 +33,9 @@ function bookmarkletbox() {
     // get highlighted text
     var highlighted_text = getText();
     
+    // get title
+    var title = document.title;
+    
     // create bookmarklet div
     var bookmarklet = document.createElement('div');
     bookmarklet.id = 'bookmarklet';
@@ -42,7 +44,7 @@ function bookmarkletbox() {
     <div class="bookmarklet-body" id="bookmarklet_body">\
       <form id="snippet" name="snippet">\
         <div class="bookmarklet-field"><label class="bookmarklet-field-label" for="snippet-title">Title</label>\
-        <input id="snippet_title" name="snippet_title" type="text" class="bookmarklet-input-field" /></div>\
+        <input id="snippet_title" name="snippet_title" type="text" class="bookmarklet-input-field" value="'+title+'"/></div>\
         <div class="bookmarklet-field"><label class="bookmarklet-field-label" for="snippet-url">Url</label>\
         <input type="text" class="bookmarklet-input-field" name="snippet_link" id="snippet_link" value="' + bookmarkURL + '"/> \
         <div class="bookmarklet-field"><label value="snippet-text">Quote from site</label><br>\
