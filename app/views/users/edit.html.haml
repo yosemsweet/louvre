@@ -13,6 +13,7 @@
   
 :javascript
   var load_emails = function() {
+    $("ul#email-list").html('<img src="/images/loading-medium.gif">');
     $("ul#email-list").load("/emails/");
   }
   

@@ -77,12 +77,11 @@
 
   #inputs
     .title-italic Other ways to add a snippet:
-    %br
-    .title-bold 
-      Bookmarklet:
+    .add-by-bookmarklet 
+      by Bookmarklet
       %a#bookmarklet{:href => "#"} 
         = "Add to #{@canvas.name}"
-      %img.bookmarklet-infolink{:src => "/images/info-green-24.png"}
+      %img.bookmarklet-infolink.infolink{:src => "/images/info-green-24.png"}
     
     .bookmarklet-infocontent{:style => "display:none"}
       %p
@@ -91,22 +90,41 @@
         Install by dragging the bookmarklet to the bookmark toolbar in your browser.
       %iframe{:width=>"500", :height=>"411", :src => "http://www.youtube.com/embed/Nu2fJGyj0nA"}
 
-    -# .add-by-email
-    -#   Easily add content to the feed by sending an email to this address:
-    -#   = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
-    -#   
-    -#   %a.link-help-email{:href => "#"} ?
-    -#   .toggle-link-help-email.info{:style => "display:none"}
-    -#     Note that you must register your sending email address before adding content by email. Do this on your
-    -#     = link_to "account settings page", edit_user_path
+    .add-by-email
+      by Email
+      = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
+      %img.email-infolink.infolink{:src => "/images/info-green-24.png"}
+      
+      .email-infocontent{:style => "display:none"}
+        Easily add content to the feed by sending an email to this address:
+        = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
+        %br
+        %br
+        Note that you must register your sending email address before adding content by email. You can do this on your
+        = link_to "account settings page", edit_user_path
+        %br
+        %br
+        Registered Email Addresses:
+        %ul#email-list
+        
 
     :javascript
       
       $(".bookmarklet-infolink").click(function(){
         $(".bookmarklet-infocontent").dialog({
           width: 530,
-          title: 'How to install our Bookmarklet'
+          title: 'How to install our bookmarklet'
         });
+      });
+      
+      $(".email-infolink").click(function(){
+        $(".email-infocontent").dialog({
+          width: 530,
+          title: 'How to email snippets'
+        });
+        $("ul#email-list").html('<img src="/images/loading-medium.gif">');
+        $("ul#email-list").load("/emails/");
+        
       });
       
       $("a#bookmarklet")
