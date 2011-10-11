@@ -1,0 +1,61 @@
+#bookmarklet{
+  position: fixed;
+  z-index: 10000000000;
+  top: 100px;
+  left: 100px;
+  width:550px;
+  border: 3px solid #CCC;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  background-color: white;
+  text-align: left;
+}
+.bookmarklet-heading{
+  height: 30px;
+  width:auto;
+  padding: 10px 5px 5px 45px;
+  background: url("http://loorp.com/images/add-link-24.png") no-repeat 10px 10px;
+  background-color: #263344;
+  color: white;
+  border-radius: 5px 5px 0px 0px;
+  -moz-border-radius: 5px 5px 0px 0px;
+  font-size: 18px;
+}
+.bookmarklet-body{padding: 10px 20px 50px 20px;width:auto;}
+.bookmarklet-input-field{width:500px;}
+form.link_snippet textarea{
+  height: 70px;
+  margin: 3px;
+  padding:0px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.bookmarklet-field-label{
+  float:left;
+  width: 50px;
+}
+.bookmarklet-field{padding:4px 0px;}
+.bookmarklet-field label{color: #333;}
+.bookmarklet-button{
+  float:right;
+  border: 1px solid #A15804;
+  background: #CF7028;
+  background: -webkit-gradient(linear, left top, left bottom, from(#D29300), to(#CF7028));
+  background: -webkit-linear-gradient(top, #D29300, #CF7028);
+  background: -moz-linear-gradient(top, #D29300, #CF7028);
+  background: -ms-linear-gradient(top, #D29300, #CF7028);
+  background: -o-linear-gradient(top, #D29300, #CF7028);
+  padding: 10px 20px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: #000 0 1px 0;
+  -moz-box-shadow: #000 0 1px 0;
+  box-shadow: #000 0 1px 0;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 16px;
+}

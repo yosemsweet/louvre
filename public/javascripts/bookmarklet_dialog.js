@@ -12,8 +12,6 @@ function createBookmarkletDialog(){
 	var bookmarkURL = jQuery(location).attr('href');
 	rangy.init();
 	
-	
-	
 	rangy.getSelection().refresh();
 	// Generate the dialog markup.
 	var dialog_element = document.createElement('div');

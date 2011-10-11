@@ -1,4 +1,4 @@
-- if current_user == @canvas.creator &&  current_user.canvae.count <= 1 && @canvas.created_at == @canvas.updated_at
+- if @canvas.widgets.count <= 1 && current_user == @canvas.creator && current_user.canvae.count <= 1 && @canvas.created_at == @canvas.updated_at
   :javascript
     $(document).ready(function(){
     		$("#intro").dialog({ 
