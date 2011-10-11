@@ -38,7 +38,7 @@ function bookmarkletbox() {
     
     // create bookmarklet div
     var bookmarklet = document.createElement('div');
-    bookmarklet.id = 'bookmarklet';
+    bookmarklet.id = 'bookmarklet-dialog';
     bookmarklet.innerHTML = '\
     <div class="bookmarklet-heading">Add a link snippet to your community</div>\
     <div class="bookmarklet-body" id="bookmarklet_body">\
@@ -57,15 +57,15 @@ function bookmarkletbox() {
     
     // remove bookmarklet loading message
     if(document.getElementById('loading')!=""){
-      // destory loading text
-      document.getElementById('loading').style.visibility = 'hidden'; 
-    }
+        // destory loading text
+        document.getElementById('loading').style.visibility = 'hidden'; 
+      }
   }
 }
 
 // close created dialog box
 function closeBookmarklet(){
-  var bookmarklet = document.getElementById("bookmarklet");
+  var bookmarklet = document.getElementById("bookmarklet-dialog");
   page_body.removeChild(bookmarklet);
   bookmarklet_loaded = false;
 }
