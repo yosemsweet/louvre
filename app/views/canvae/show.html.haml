@@ -82,12 +82,14 @@
       Bookmarklet:
       %a#bookmarklet{:href => "#"} 
         = "Add to #{@canvas.name}"
-      %img.link-help-bookmarklet{:src => "/images/info-green-24.png"}
-    .toggle-link-help-bookmarklet.info{:style => "display:none"}
-      Use the bookmarklet to add snippet on the fly.
-      %br
-      Install the bookmarklet by dragging the bookmarklet to the bookmark toolbar.
-      %iframe{:width=>"425", :height=>"349", :src => "http://www.youtube.com/embed/QrwevUN0KdQ"}
+      %img.bookmarklet-infolink{:src => "/images/info-green-24.png"}
+    
+    .bookmarklet-infocontent{:style => "display:none"}
+      %p
+        Select text from any web page and post it instantly to your community, just by clicking a special bookmark.
+      %p
+        Install by dragging the bookmarklet to the bookmark toolbar in your browser.
+      %iframe{:width=>"500", :height=>"411", :src => "http://www.youtube.com/embed/Nu2fJGyj0nA"}
 
     -# .add-by-email
     -#   Easily add content to the feed by sending an email to this address:
@@ -99,6 +101,14 @@
     -#     = link_to "account settings page", edit_user_path
 
     :javascript
+      
+      $(".bookmarklet-infolink").click(function(){
+        $(".bookmarklet-infocontent").dialog({
+          width: 530,
+          title: 'How to install our Bookmarklet'
+        });
+      });
+      
       $("a#bookmarklet")
         .mousedown(function(){
           // Track the bookmarklet install.
