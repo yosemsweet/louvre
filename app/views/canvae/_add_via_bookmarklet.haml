@@ -1,0 +1,31 @@
+%a.add_widget.tab.bookmarklet-infolink.infolink{:href => "#", :title => "Add snippets via bookmarklet", :data => {:content_type => "install_bookmarklet"}} Install Bookmarklet
+
+.bookmarklet-infocontent{:style => "display:none"}
+  %div{:style => 'float:left; width:300px'}
+    %p
+      Select text from any web page and post it instantly to your community, just by clicking a special bookmark.
+    %p
+      Install by dragging the bookmarklet to the bookmark toolbar in your browser.
+    %img{:src=>"/images/arrow-up.png", :style => "position:absolute; left:230px; top:170px;"}
+    %p{:style => "text-align:center; border:2px dashed #999; padding:20px; margin:10px 30px; border-radius:15px;"}
+      %a#bookmarklet{:href => "#", :style => " cursor:move;"} 
+        = "Add to #{@canvas.name}"
+  %div{:style => 'float:right; width:425px'}
+    %iframe{:width=>"425", :height=>"339", :src => "http://www.youtube.com/embed/Nu2fJGyj0nA"}
+
+:javascript
+
+  $(".bookmarklet-infolink").click(function(){
+    $(".bookmarklet-infocontent").dialog({
+      width: 775,
+      title: 'Install our bookmarklet',
+      modal: true
+    });
+  });
+  
+  $("a#bookmarklet")
+    .mousedown(function(){
+      // Track the bookmarklet install.
+      mpq.push(['track','install_bookmark']);
+    })
+    .attr("href", "#{raw(bookmarklet_no_jquery(@canvas, current_user))}");

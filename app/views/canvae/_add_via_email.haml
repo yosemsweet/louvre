@@ -1,0 +1,25 @@
+%a.add_widget.tab.email-infolink.infolink{:href => "#", :title => "Add snippets via email", :data => {:content_type => "register_email"}} Register email
+
+
+.email-infocontent{:style => "display:none"}
+  Easily add content to the feed by sending an email to this address:
+  = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
+  %br
+  %br
+  Note that you must register your sending email address before adding content by email. You can do this on your
+  = link_to "account settings page", edit_user_path
+  %br
+  %br
+  Registered Email Addresses:
+  %ul#email-list
+
+:javascript
+  $(".email-infolink").click(function(){
+    $(".email-infocontent").dialog({
+      width: 530,
+      title: 'How to email snippets',
+      modal: true
+    });
+    $("ul#email-list").html('<img src="/images/loading-medium.gif">');
+    $("ul#email-list").load("/emails/");
+  });

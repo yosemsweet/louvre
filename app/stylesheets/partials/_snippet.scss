@@ -16,6 +16,12 @@
 [data-content_type="question_content"]{
 	background:url('/images/add-question-24.png')no-repeat 3px 3px;
 }
+[data-content_type="install_bookmarklet"]{
+	background:url('/images/bookmark.png')no-repeat 3px 3px;
+}
+[data-content_type="register_email"]{
+	background:url('/images/email.png')no-repeat 3px 3px;
+}
 
 .tab {
 	margin:0px;
