@@ -19,6 +19,9 @@
     |
     = link_to @canvas.applicants.length.to_s + ' Applicants', applicants_canvas_path(@canvas)
 
+
+    
+
 - if can?(:apply, @canvas)
   .apply-join
     - if @canvas.closed?
@@ -49,6 +52,10 @@
     %a.add_widget.tab{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Share a photo
     %a.add_widget.tab{:href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id}} Post a link
     %a.add_widget.tab{:href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id}} Ask a question
+    
+    %div{:style => "float:right;"}
+      = render 'add_via_bookmarklet'
+      = render 'add_via_email'
   
   %ul#inline_form
     - @new_widgets.each do |t, widget|
@@ -73,65 +80,3 @@
       %a{:href => canvas_page_path(@canvas, page)}
         %img{:src => "/images/page.png"}
         .page_icon_title= page.title
-
-- if can?(:create, Widget.new(:canvas => @canvas))
-  %hr
-
-  #inputs
-    .title-italic Other ways to add a snippet:
-    .add-by-bookmarklet 
-      by Bookmarklet
-      %a#bookmarklet{:href => "#"} 
-        = "Add to #{@canvas.name}"
-      %img.bookmarklet-infolink.infolink{:src => "/images/info-green-24.png"}
-    
-    .bookmarklet-infocontent{:style => "display:none"}
-      %p
-        Select text from any web page and post it instantly to your community, just by clicking a special bookmark.
-      %p
-        Install by dragging the bookmarklet to the bookmark toolbar in your browser.
-      %iframe{:width=>"500", :height=>"411", :src => "http://www.youtube.com/embed/Nu2fJGyj0nA"}
-
-    .add-by-email
-      by Email
-      = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
-      %img.email-infolink.infolink{:src => "/images/info-green-24.png"}
-      
-      .email-infocontent{:style => "display:none"}
-        Easily add content to the feed by sending an email to this address:
-        = link_to "#{@canvas.id}@feed.loorp.com", "mailto:#{@canvas.id}@feed.loorp.com"
-        %br
-        %br
-        Note that you must register your sending email address before adding content by email. You can do this on your
-        = link_to "account settings page", edit_user_path
-        %br
-        %br
-        Registered Email Addresses:
-        %ul#email-list
-        
-
-    :javascript
-      
-      $(".bookmarklet-infolink").click(function(){
-        $(".bookmarklet-infocontent").dialog({
-          width: 530,
-          title: 'How to install our bookmarklet'
-        });
-      });
-      
-      $(".email-infolink").click(function(){
-        $(".email-infocontent").dialog({
-          width: 530,
-          title: 'How to email snippets'
-        });
-        $("ul#email-list").html('<img src="/images/loading-medium.gif">');
-        $("ul#email-list").load("/emails/");
-        
-      });
-      
-      $("a#bookmarklet")
-        .mousedown(function(){
-          // Track the bookmarklet install.
-          mpq.push(['track','install_bookmark']);
-        })
-        .attr("href", "#{raw(bookmarklet_no_jquery(@canvas, current_user))}");

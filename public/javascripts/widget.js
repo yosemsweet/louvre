@@ -7,12 +7,13 @@ $(document).ready(function(){
     if ($("[data-target=edit-widget]").length){
       $("[data-target=edit-widget]").hide();
     }
-
 		var content_type = $(this).data("content_type");
 		var widget = $("ul#inline_form li.widget." + content_type);
 		
 		// hide all new widgets before opening the one that was clocked on
 		$("ul#inline_form").children().not(widget.parent()).hide();
+		
+		$(widget).removeClass('edit-mode');
 		
 		// Fire the edit event for the widget.
 		$(".edit", widget).click();
@@ -57,6 +58,7 @@ $(document).ready(function(){
 		$facebook_comments = $(this).parents(".widget").find(".facebook_comments");
 		$facebook_comments.hide();
 		
+		$(widget).toggleClass('edit-mode');
 		$(".content", widget).toggle();
 		$(".controls", widget).toggle();
 		$("form.edit_widget", widget).toggle();
@@ -98,6 +100,7 @@ $(document).ready(function(){
 			widget_form_params._method = "PUT";
 			$(this).hide();
 			
+			$(widget).removeClass('edit-mode');
 			$(".loading", widget).addClass('align-center');
 			$(".loading", widget).html("<img src='/images/loading-medium.gif'>").show();
 			$(".content", widget).hide();

@@ -29,9 +29,8 @@ List the email addresses that you want to send input stream content from.
   $(".delete").live("click", function(event) {
     event.preventDefault();
     if (confirm("Are you sure?")) {
-    $.post($(this).attr("href"),{
-    _method:"DELETE"},
-    load_emails);
-    
+      $.post($(this).attr("href"),{
+      _method:"DELETE"},
+      load_emails);
     }
   })

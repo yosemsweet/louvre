@@ -16,6 +16,20 @@
 [data-content_type="question_content"]{
 	background:url('/images/add-question-24.png')no-repeat 3px 3px;
 }
+[data-content_type="install_bookmarklet"]{
+	background:url('/images/bookmark.png')no-repeat 3px 3px;
+}
+[data-content_type="register_email"]{
+	background:url('/images/email.png')no-repeat 3px 3px;
+}
+
+.form-title {
+	margin:0px;
+	padding:6px 5px 0px 31px;
+	margin-right:5px;
+	height:24px;
+	font-weight:bold;
+}
 
 .tab {
 	margin:0px;
@@ -73,10 +87,12 @@
 
 	}
 }
-.question_content{
-	background:#D5EDF8;
+
+.edit-mode, .edit-mode .edit_content{
+	background:#EEE;
 }
-.question_content .edit_content{
+
+.question_content, .question_content .edit_content{
 	background:#D5EDF8;
 }
 
