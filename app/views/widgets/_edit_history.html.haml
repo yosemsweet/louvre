@@ -1,9 +1,10 @@
-- @widget.versions.each_with_index do |v, i|
+- @widget.versions.reverse.each_with_index do |v, i|
   %div
-    = v.created_at.to_date.to_s
-    - if v.whodunnit.to_i > 0
-      = User.find(v.whodunnit).name
-      - if i == 0
-        created snippet
-      - else
-        edited snippet
+    - if v.whodunnit.to_i > 0 && i != @widget.versions.length
+      = v.created_at.to_date.to_s
+      = User.find(v.whodunnit).name 
+      edited snippet
+%div
+  = @widget.created_at.to_date.to_s
+  = @widget.creator.name
+  created snippet
