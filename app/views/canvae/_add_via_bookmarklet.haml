@@ -10,14 +10,15 @@
     %p{:style => "text-align:center; border:2px dashed #999; padding:20px; margin:10px 30px; border-radius:15px;"}
       %a#bookmarklet{:href => "#", :style => " cursor:move;"} 
         = "Add to #{@canvas.name}"
-  %div{:style => 'float:right; width:425px'}
-    %iframe{:width=>"425", :height=>"339", :src => "http://www.youtube.com/embed/Nu2fJGyj0nA"}
+  %div{:style => 'float:right; width:460px'}
+    %iframe{:width=>"460", :height=>"360", :src => "http://www.youtube.com/embed/_j6zNNJBV1U"}
+
 
 :javascript
 
   $(".bookmarklet-infolink").click(function(){
     $(".bookmarklet-infocontent").dialog({
-      width: 775,
+      width: 810,
       title: 'Install our bookmarklet',
       modal: true
     });
