@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-	
 	// Add widget links.
 	$(".add_widget, .cancel_edit").click(function(event){
 
@@ -27,6 +26,23 @@ $(document).ready(function(){
 	  event.preventDefault();
 	
 	});
+
+
+  $(".widget .widget_history").live("click", function(event){
+	
+  	var widget_id = $(this).parents(".widget").data("widget_id");
+		// alert(widget_id);
+    $(".widget_history_content").dialog({
+      width: 500,
+      title: 'Snippet Edit History',
+			modal: true
+    });
+		
+    $(".widget_history_content").html('<img src="/images/loading-medium.gif">');
+    $(".widget_history_content").load("/widgets/" + widget_id + '/edit_history');
+
+  });
+
 
 	// Edit widget links.
 	$(".widget .edit, .cancel_edit").live("click", function(event){

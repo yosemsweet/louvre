@@ -1,5 +1,9 @@
 class WidgetsController < ApplicationController 
   before_filter :require_login, :only => [:new, :edit, :update, :move, :copy_to_page, :destroy]
+	
+  before_filter :only => [:edit_history, :show, :widget_tags, :edit, :update] do
+    @widget = Widget.find(params[:id])
+  end
 
   # GET /widgets
   def index 
@@ -18,6 +22,10 @@ class WidgetsController < ApplicationController
     render :partial => params[:display], :collection => @widgets, :as => :widget
   end
   
+	def edit_history
+    render :partial => "edit_history"
+	end
+
   # GET /widgets/for_page/:canvas_id/:display  
   def for_page
     @widgets = Widget.for_page(params[:page_id])
@@ -28,10 +36,6 @@ class WidgetsController < ApplicationController
   def show
     authorize! :read, @widget
 
-		@widget = Widget.find(params[:id])
-		
-
-		
 		respond_to do |format|
       format.html{
         add_canvas_breadcrumb(@widget.canvas)
@@ -49,7 +53,6 @@ class WidgetsController < ApplicationController
   def widget_tags
     authorize! :read, @widget
 
-		@widget = Widget.find(params[:id])
 		@tags = @widget.tags
 		
 		respond_to do |format|
@@ -82,7 +85,6 @@ class WidgetsController < ApplicationController
 
   # GET /widgets/:id/edit
   def edit
-    @widget = Widget.find(params[:id])
     @page = @widget.page
     @canvas = @widget.canvas
 
@@ -157,8 +159,6 @@ class WidgetsController < ApplicationController
   # PUT /widgets/:id
   def update
 		# logger.debug 'message0'
-    @widget = Widget.find(params[:id])
-
 	  authorize! :update, @widget
 
     if @widget.update_attributes(params[:widget].merge(:editor_id => current_user.id))

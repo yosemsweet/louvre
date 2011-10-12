@@ -25,7 +25,6 @@ class Widget < ActiveRecord::Base
   validates_presence_of :alt_text, :image,  :if => :image?
 	validates_presence_of :link, :title,  :if => :link?
 
-
   # Get an array of the facebook comment messages for this widget.
   def comments
     graph = Koala::Facebook::GraphAPI.new

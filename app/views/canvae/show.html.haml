@@ -59,6 +59,8 @@
 %ul#feed
   = render :collection => Widget.for_canvas(@canvas.id,1), :partial => "widgets/canvas_feed", :as => :widget
   
+.widget_history_content
+
 #pages
   
   - if can? :create, Page.new(:canvas => @canvas)

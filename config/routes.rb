@@ -59,8 +59,9 @@ Louvre::Application.routes.draw do
     collection do    
       get 'for_page/:page_id/:display' => "widgets#for_page"
       get 'for_canvas/:canvas_id/:display' => "widgets#for_canvas"
-    end
+    end	
     member do
+			get 'edit_history' => "widgets#edit_history"
       post 'copy_to_page/:page_id' => "widgets#copy_to_page"
       put 'move/:position' => "widgets#move"
       put 'remove_answer/:answer_id' => "widgets#remove_answer"
