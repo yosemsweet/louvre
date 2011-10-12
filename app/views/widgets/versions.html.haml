@@ -1,0 +1,8 @@
+%h3 Widget History
+
+- @widget.versions.each do |v|
+  %p
+    %strong= v.created_at.to_date
+    = v.changeset
+
+

@@ -1,0 +1,9 @@
+- @widget.versions.each_with_index do |v, i|
+  %div
+    = v.created_at.to_date.to_s
+    - if v.whodunnit.to_i > 0
+      = User.find(v.whodunnit).name
+      - if i == 0
+        created snippet
+      - else
+        edited snippet
