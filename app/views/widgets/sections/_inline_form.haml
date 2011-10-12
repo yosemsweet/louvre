@@ -2,13 +2,11 @@
   = form_for widget, {:html => {:style => "display:none;", :class => "edit_widget"}} do |f| 
     - case widget.content_type  
     - when 'text_content'
-      .form_title
-        Text
+      .form-title{:data => {:content_type => "text_content"}} Text Snippet
       .field
         = f.text_area :text, {:id => "widget_ckeditor_#{widget.id || 0}"}
     - when 'image_content'
-      .form_title
-        Image
+      .form-title{:data => {:content_type => "image_content"}} Photo
       .field
         = f.label 'URL'
         = f.text_field :image
@@ -16,8 +14,7 @@
         = f.label 'Alt Text'
         = f.text_field :alt_text
     - when 'link_content'
-      .form_title
-        Link
+      .form-title{:data => {:content_type => "link_content"}} Link
       .field
         = f.label 'title'
         = f.text_field :title
@@ -26,12 +23,11 @@
         = f.text_field :link
       .field
         = f.label 'Quote from site'
-        %br
         = f.text_area :text
     - when 'question_content'
+      .form-title{:data => {:content_type => "question_content"}} Question
       .field
         = f.label 'Question'
-        %br
         = f.text_area :question
          
     %input{:type => "hidden", :name => "widget[content_type]", :value => "#{widget.content_type}"}
@@ -43,11 +39,11 @@
       %input{:type => "hidden", :name => "canvas_id", :value => "#{widget.canvas.id}"}
       
     .tagHolder{:style => "width:100%"}
-      .field{:style => "width: 600px; float:left"}
+      .tagfield{:style => "width: 600px; float:left; margin-top:3px;"}
         - names = widget.tags.map{|o| o.name.strip}
         - class_names = widget.id ? 'widget_tag_ids' : 'widget_tag_ids new_widget_form'
       
-        .x{:style => "float:left; padding:3px 5px 0px 3px;"}
+        .x{:style => "width:61px; float:left; padding:3px 5px 0px 3px;font-weight:bold;font-size:13px;"}
           Tags
         
         = f.text_field :tag_names, {"data-current_tags" => names.to_json, :class => class_names }

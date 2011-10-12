@@ -11,9 +11,8 @@
     
 - when 'link_content'
   %blockquote{:cite => "#{widget.link}"}= widget.text.html_safe if widget.text
-  %p
-    %a{:href => "#{widget.link}", :class => "link #{'source' if widget.text && !widget.text.empty?}"}
-      %cite= widget.title
+  %a{:href => "#{widget.link}", :class => "link #{'source' if widget.text && !widget.text.empty?}"}
+    %cite= widget.title
       
 - when 'question_content'
   %div.question
