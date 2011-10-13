@@ -37,11 +37,9 @@ class WidgetsController < ApplicationController
     authorize! :read, @widget
 
 		respond_to do |format|
-      format.html{
-        add_canvas_breadcrumb(@widget.canvas)
-    		add_page_breadcrumb(@widget.page) if @widget.page
-    		add_breadcrumb @widget.text.truncate(30), widget_path(@widget)
-      }
+      format.html {
+	
+			}
       format.json{
         render :json => @widget.to_json
       }

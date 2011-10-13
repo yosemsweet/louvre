@@ -47,10 +47,6 @@
 
       .container
       
-        -if !(params[:controller] == "canvae" && params[:action] == "show")
-          #breadcrumbs{:style => "border-bottom: 1px dotted; padding: 3px;"}
-            = render_breadcrumbs
-      
         #flash.span-24{:style => "display:none; position: fixed; top: 0; z-index: 999999999"}
           -flash.each do |type, value|
             .flash{ :class => type.to_s }

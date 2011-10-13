@@ -3,14 +3,11 @@ class ApplicationController < ActionController::Base
   
   before_filter :initialize_mixpanel
   before_filter :update_last_action
-
   
   rescue_from CanCan::AccessDenied do |exception|
     render :status => :forbidden, :text => "You don't have permissions for that action. #{exception}"
   end
   
-  add_breadcrumb "Home", :root_path
-
   def require_login
     if !current_user
       session[:redirect] = request.url
@@ -39,14 +36,6 @@ class ApplicationController < ActionController::Base
       current_user.can_email = 1
       current_user.save
     end
-  end
-  
-  def add_canvas_breadcrumb(canvas)
-    add_breadcrumb canvas.name, canvas_path(canvas)
-  end
-  
-  def add_page_breadcrumb(page)
-		add_breadcrumb page.title, canvas_page_path(page.canvas, page)
   end
 
   def initialize_mixpanel

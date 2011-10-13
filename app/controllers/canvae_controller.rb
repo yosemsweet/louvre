@@ -7,7 +7,6 @@ class CanvaeController < ApplicationController
 
   def edit
 		authorize! :edit, @canvas
-		add_breadcrumb "Edit '#{@canvas.name}' settings", edit_canvas_path(@canvas)
   end  
     
   def show
@@ -18,7 +17,6 @@ class CanvaeController < ApplicationController
       :link_widget => Widget.new(:content_type => "link_content", :canvas => @canvas),
       :question_widget => Widget.new(:content_type => "question_content", :canvas => @canvas)
     }
-		add_canvas_breadcrumb(@canvas)
   end
     
   def index

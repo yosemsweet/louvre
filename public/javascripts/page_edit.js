@@ -41,11 +41,6 @@ $(document).ready(function(){
       $("#page_title_text").html(new_page_title);
       $("#page_title_text").fadeIn();
       $("#page_title_input_note").html(click_to_edit_text);
-			$("#page_breadcrumb").html('Edit ' + new_page_title);      
-			//$("title").html(new_page_title);
-      //$("#logo a").text(new_page_title);
-			//$("a#bookmarklet").text('Add to ' + new_page_title);
-
     });
     return false;
     event.preventDefault();

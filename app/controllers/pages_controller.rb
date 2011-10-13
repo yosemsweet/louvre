@@ -6,14 +6,12 @@ class PagesController < ApplicationController
 		# for header in application layout
     @title = @page.canvas.name
     @canvas = @page.canvas
-		add_canvas_breadcrumb(@page.canvas)
   end
 
   def show
     authorize! :read, @page
     
     @widgets = Widget.for_page(@page.id)
-    add_page_breadcrumb(@page)
   end
 
   def edit
@@ -27,11 +25,9 @@ class PagesController < ApplicationController
       :question_widget => Widget.new(:content_type => "question_content", :canvas => @canvas)
     }
 
-		add_breadcrumb "<span id='page_breadcrumb'>Edit #{@page.title}</span>", edit_canvas_page_path(@page.canvas, @page)
   end
 
   def versions
-    add_breadcrumb "Versions of '#{@page.title}'", versions_canvas_page_path(@page.canvas, @page)
   end
 
   def new
@@ -42,8 +38,6 @@ class PagesController < ApplicationController
     @page = Page.new
     @page.canvas = canvas
 		
-		add_canvas_breadcrumb(canvas)
-		add_breadcrumb "Add Page", new_canvas_page_path(canvas)
   end
   
   def create
