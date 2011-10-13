@@ -7,3 +7,5 @@
     page_id : #{@page && @page.persisted? ? @page.id : 0},
     mixpanel_account : "#{MIXPANEL_CONFIG[:token]}"
   };
+  
+%script{:src => "/javascripts/mixpanel_integration.js"}

@@ -3,8 +3,8 @@
   %head
     %title= @title || "Loorp! v0"
     = render :partial => "layouts/stylesheets"    
-    = render :partial => 'layouts/load_request_data'    
     = render :partial => "layouts/javascripts"
+    = render :partial => 'layouts/load_request_data'
     = csrf_meta_tag
     = yield :opengraph_meta_tags
   %body

@@ -16,7 +16,6 @@ module ApplicationHelper
     application
     widget
     facebook_integration
-    mixpanel_integration 
 		google_analytics
     FollowHelper
     jquery.textboxlist.mod
