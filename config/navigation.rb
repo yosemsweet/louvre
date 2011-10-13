@@ -33,13 +33,11 @@ SimpleNavigation::Configuration.run do |navigation|
   # Define the primary navigation
   navigation.items do |primary|
     primary.item :canvae, "Communities", "#", :class => "top-menu-item" do |menu| 
-      if current_user.canvae.count > 0
-        current_user.canvas_roles.where(:role => :owner).collect(&:canvas).sort{ |x,y| x.name.downcase <=> y.name.downcase }.each do |cur|
-          menu.item "canvas_#{cur.id}", cur.name, canvas_path(cur), :class => "menu-item owner" 
-        end
-        current_user.canvas_roles.where(:role => :member).collect(&:canvas).sort{|x,y| x.name.downcase <=> y.name.downcase }.each do |cur|
-          menu.item "canvas_#{cur.id}", cur.name, canvas_path(cur), :class => "member" 
-        end
+      current_user.canvas_roles.where(:role => :owner).collect(&:canvas).sort{ |x,y| x.name.downcase <=> y.name.downcase }.each do |cur|
+        menu.item "canvas_#{cur.id}", cur.name, canvas_path(cur), :class => "menu-item owner" 
+      end
+      current_user.canvas_roles.where(:role => :member).collect(&:canvas).sort{|x,y| x.name.downcase <=> y.name.downcase }.each do |cur|
+        menu.item "canvas_#{cur.id}", cur.name, canvas_path(cur), :class => "member" 
       end
       menu.item :new_canvas, "Set up your own community", new_canvas_path, :class => "new event_item"
     end
