@@ -116,6 +116,8 @@ $(document).ready(function(){
 				this.destroy();
 			});
 			$(this)[0].reset();
+			//reset tags
+			
 
 			$.post( $(this).attr("action"), widget_form_params, function(){
 				
@@ -170,6 +172,8 @@ $(document).ready(function(){
 					});
 
 				}else{
+				  $(widget).parent().hide();
+				  $(".loading", widget).hide();
 					update_after_edit();
 				}
 
@@ -251,31 +255,36 @@ $(document).ready(function(){
 	new_widget_forms_tokenized = 0;
 	
 	make_textbox_list = function(){
-		$('.widget_tag_ids').each(function(){
-			if (new_widget_forms_tokenized == 0 || !$(this).hasClass('new_widget_form')){
-				var t = new $.TextboxList($(this), { 
-			    unique: true,
-			    addKeys: [],
-			    plugins: {
-			      autocomplete: {
-			        minLength: 2,
-			        queryRemote: true,
-			        remote: {
-			          url: '/tags'}
-			        }
-			      }
-			    });
-
-				var tag_names = $(this).data('current_tags');
-
-			  _.each(tag_names, function(tag){
-			    t.add(tag);
-			  });
-			}
-		});
+    $('.widget_tag_ids').each(function(){
+     if (new_widget_forms_tokenized == 0 || !$(this).hasClass('new_widget_form')){
+       var t = new $.TextboxList($(this), { 
+         unique: true,
+         addKeys: [],
+         plugins: {
+           autocomplete: {
+             minLength: 2,
+             queryRemote: true,
+             remote: {
+               url: '/tags'}
+             }
+           }
+         });
+    
+       var tag_names = $(this).data('current_tags');
+    
+       _.each(tag_names, function(tag){
+         t.add(tag);
+       });
+     }
+    });
 		
 		new_widget_forms_tokenized = 1;
 		
+	}
+	
+	clear_new_textbox_list = function(){
+    $('.new_widget_form').siblings('.textboxlist').each(function(){$(this).remove();})
+    new_widget_forms_tokenized = 0;
 	}
 	
 	reset_new_widget_forms = function(){

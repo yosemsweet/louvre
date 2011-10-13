@@ -63,7 +63,9 @@ $(document).ready(function(){
 	    enable_widget_previews();     
 			update_widget_comment_counts();
 			reset_new_widget_forms();
+			clear_new_textbox_list();
 			make_textbox_list();
+			
 	  });
 	}  
 
