@@ -10,8 +10,8 @@
     %figcaption= widget.alt_text
     
 - when 'link_content'
-  %blockquote{:cite => "#{widget.link}", :style => "margin-top: 20px; margin-bottom: 5px; margin-left: 50px; padding-left: 15px; border-left: 3px solid #ccc;"}= widget.text.html_safe if widget.text
-  .cite_link{:style => "margin-bottom: 15px; text-align: right"}
+  %blockquote.widget_link_block{:cite => "#{widget.link}"}= widget.text.html_safe if widget.text
+  .cite_link
     %a{:href => "#{widget.link}", :target => "_blank", :class => "link #{'source' if widget.text && !widget.text.empty?}"}
       %cite= "- #{widget.title}"
       
