@@ -1,12 +1,9 @@
 $(document).ready(function(){
 
+	
 	// Add widget links.
 	$(".add_widget, .cancel_edit").click(function(event){
 
-    // hide hints
-    if ($("[data-target=edit-widget]").length){
-      $("[data-target=edit-widget]").hide();
-    }
 		var content_type = $(this).data("content_type");
 		var widget = $("ul#inline_form li.widget." + content_type);
 		
@@ -46,10 +43,11 @@ $(document).ready(function(){
   });
 
 
+
 	// Edit widget links.
 	$(".widget .edit, .cancel_edit").live("click", function(event){
 
-	  var widget_id = $(this).parents(".widget").data("widget_id");
+		var widget_id = $(this).parents(".widget").data("widget_id");
 		if(typeof widget_id === "undefined"){
 			widget_id = 0;
 		}
@@ -66,6 +64,13 @@ $(document).ready(function(){
 		$("#widget_ckeditor_" + widget_id).ckeditor({toolbar : "Body"});
 		
 	  mpq.push(["track","canvas_edit_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id, widget_id : widget_id}]);
+
+    // hide hints
+		if($("form.edit_widget", widget).is(":visible")){
+			if ($("[data-target=edit-widget]").length){
+	      $("[data-target=edit-widget]").hide();
+	    }
+		}
 
 		event.preventDefault();
 	
@@ -129,7 +134,7 @@ $(document).ready(function(){
 						$("[data-widget_id="+widget_id+"] .content .tags").html(taglist);
 					});
 					
-					// get the widget info and popultae both the displays and the forms
+					// get the widget info and populate both the displays and the forms
 					$.getJSON('/widgets/'+widget_id+'.json', function(data) {
 					
 						if(data.widget.content_type == "text_content"){
