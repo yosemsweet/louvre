@@ -36,7 +36,8 @@ $(document).ready(function(){
     $(".widget_history_content").dialog({
       width: 500,
       title: 'Snippet Edit History',
-			modal: true
+			modal: true,
+			height: 400
     });
 		
     $(".widget_history_content").html('<img src="/images/loading-medium.gif">');
