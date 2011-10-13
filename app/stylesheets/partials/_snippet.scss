@@ -62,6 +62,7 @@
 	border-radius:5px;
 	padding:6px;
 	margin-bottom:10px;
+	background-color:#FFF;
 	.controls{
 		float:right;
 		.tool{
@@ -86,6 +87,13 @@
 	.content{
 
 	}
+}
+
+.drag-snippets-here{
+	font-size:50px;
+	text-align:center;
+	margin:10px;
+	color:#AAA;
 }
 
 .edit-mode, .edit-mode .edit_content{
