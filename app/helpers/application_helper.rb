@@ -6,8 +6,8 @@ module ApplicationHelper
 
   def application_javascripts
     %w(
-    https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js
-    https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js
+    http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js
+    http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js
     http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.1.7/underscore-min.js
     http://connect.facebook.net/en_US/all.js
     http://texteditor.suite101.com.s3.amazonaws.com/ckeditor.js
@@ -25,7 +25,7 @@ module ApplicationHelper
   
   def basic_javascripts
     %w(
-    https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js
+    http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js
     http://connect.facebook.net/en_US/all.js
     mixpanel_integration 
 		google_analytics
