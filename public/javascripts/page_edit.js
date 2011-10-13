@@ -71,7 +71,7 @@ $(document).ready(function(){
 	  	// Get the tags to filter by
 		  var tag_names = $("#tag_names").val();
 		  $("ul#feed").load("/widgets/for_canvas/" + request.canvas_id + "/page_feed?tag_names=" + tag_names, function(){
-    
+
 		    // Make the widgets draggable.
 		    $("li.widget", $(this)).draggable({
 		      appendTo: "body",
@@ -84,9 +84,9 @@ $(document).ready(function(){
 					stop: function(){drag_in_progress=false;}
 		    });
     
-		    enable_widget_previews();
+		    // enable_widget_previews();
 	 			update_widget_comment_counts();
-	  });
+	  	});
 		}
 	}
 	
@@ -109,6 +109,7 @@ $(document).ready(function(){
 			$("ul#page").html('<img src="/images/loading-medium.gif"><br>loading snippets...');
 			
 		$("ul#page").load("/widgets/for_page/" + request.page_id + "/editable/", function(){
+			$('ul#page').prepend('<li class="drag-snippets-here">Drag Snippets Here</li>');
 			reset_new_widget_forms(); 
 			make_textbox_list();
 		});

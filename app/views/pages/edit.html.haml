@@ -28,14 +28,15 @@
     %ul#page
     
     #pages
-      %h3== Other pages on "#{@page.canvas.name}"
-      %ul.page_list
-      - @page.canvas.pages.each do |page|
-        -if page != @page
-          %li.page_icon_grid
-            %a{:href => canvas_page_path(@canvas, page)}
-              %img{:src => "/images/page.png"}
-              .page_icon_title= page.title
+      -if @page.canvas.pages.count > 1
+        %h3== Other pages on "#{@page.canvas.name}"
+        %ul.page_list
+        - @page.canvas.pages.each do |page|
+          -if page != @page
+            %li.page_icon_grid
+              %a{:href => canvas_page_path(@canvas, page)}
+                %img{:src => "/images/page.png"}
+                .page_icon_title= page.title
 
 
 .span-8.last

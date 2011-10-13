@@ -71,7 +71,11 @@ ul#page {
 	margin: 0;
 	margin-top: 5px;
 	min-height: 100px;
-	padding: 0;
+	padding: 10px;
+	border-radius:10px;
+	background-color:#FAFAFA;
+	border:2px dashed #999;
+	
 	
 	li.placeholder {
 		background-color: white;
