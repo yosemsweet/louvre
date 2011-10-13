@@ -1,0 +1,13 @@
+-if can?(:update, @canvas)
+  = javascript_include_tag 'canvas_edit.js', :media => 'screen, projection'
+
+#canvas_header
+  #canvas_name_text= @canvas.name
+
+  -if can?(:update, @canvas)
+    = form_for @canvas do |f|
+      .field
+        = f.text_field :name
+        = hint_for(@canvas, current_user, "canvas")
+        
+        .input_note#canvas_name_input_note

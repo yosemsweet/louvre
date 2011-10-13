@@ -46,7 +46,6 @@ GEM
     addressable (2.2.6)
     archive-tar-minitar (0.5.2)
     arel (2.0.10)
-    breadcrumbs_on_rails (2.1.0)
     builder (2.1.2)
     cancan (1.6.5)
     capybara (1.0.1)
@@ -285,7 +284,6 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_opengraph!
-  breadcrumbs_on_rails
   cancan
   capybara
   capybara-webkit!

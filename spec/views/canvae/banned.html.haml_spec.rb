@@ -3,7 +3,7 @@ describe "canvae/banned.html.haml" do
     @canvas = Factory.create(:canvas)
 		Factory.create(:user).set_canvas_role(@canvas, :banned)
   end
-  
+
 	context "logged in" do
 	  before do
 			user = Factory.create(:user)

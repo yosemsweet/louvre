@@ -10,7 +10,6 @@ gem 'omniauth', "~> 0.3"
 gem "acts_as_opengraph", :git => "git@github.com:yosemsweet/acts_as_opengraph.git"
 gem "paper_trail"  
 gem 'engineyard'
-gem "breadcrumbs_on_rails"
 gem "html_truncator"
 gem "mixpanel"
 gem "koala"

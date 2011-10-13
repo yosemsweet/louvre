@@ -19,7 +19,7 @@ Scenario Outline: Link widgets display as a sourced quote on page
   
 @omniauth_test
 @javascript
-Scenario: Show Add Link from 
+Scenario: Show Add Link form 
 Given I am authenticated
 And I am a member of that canvas
 And I am on that canvas' homepage

@@ -36,7 +36,7 @@ class CanvaeController < ApplicationController
 								 "<p>You and your friends can edit this, comment on it, or replace it with something better!",
 				:creator => current_user,
 				:editor => current_user)
-		  redirect_to(@canvas, :notice => 'Canvas created!')
+		  redirect_to(@canvas, :notice => "#{@canvas.name} created!")
 		else
 		  render :action => "new" 
 		end
@@ -49,7 +49,7 @@ class CanvaeController < ApplicationController
 		@canvas.editor = current_user
 
     if @canvas.save
-      redirect_to(@canvas, :notice => 'Canvas created!')
+      redirect_to(@canvas, :notice => "#{@canvas.name} created!")
     else
       render :action => "new" 
     end
@@ -60,7 +60,7 @@ class CanvaeController < ApplicationController
 		authorize! :update, @canvas
 
     if @canvas.update_attributes(params[:canvas].merge(:editor_id => current_user.id))
-      redirect_to(@canvas, :notice => 'Canvas was successfully updated.')
+      redirect_to(@canvas, :notice => "#{@canvas.name} was successfully updated.")
     else
       render :action => "edit"
     end

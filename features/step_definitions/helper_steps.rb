@@ -48,6 +48,12 @@ Then /^(?:|I )should see the "([^"]*)" button$/ do |text|
   button_is_visible.should == true
 end
 
+Then /^(?:|I )should see that (canvas|page|user|widget)'s? (\S+)$/ do |model, attribute|
+	model = "canvae" if model == "canvas"
+	klass = model.singularize.camelize.constantize
+	Then %(I should see "#{that(klass).send(attribute)}")
+end
+
 Then /^(?:|I )should not see the "([^"]*)" button$/ do |text|
   button_is_visible = page.has_button?(text) && page.find_button(text).visible?  
   button_is_visible.should == false

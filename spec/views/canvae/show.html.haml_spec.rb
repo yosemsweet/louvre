@@ -11,23 +11,6 @@ describe "canvae/show.html.haml" do
 		render
   end
 
-	context "canvas name" do
-		it "should display the canvas name" do
-			rendered.should have_selector('#canvas_name_text')
-		end
-		
-		context "as a canvas owner" do
-			before(:each) do
-				@user.set_canvas_role(@canvas, :owner)
-				render
-			end
-			
-			it "should have a canvas edit form" do
-				rendered.should have_selector("#edit_canvas_#{@canvas.id}")
-			end
-		end
-	end
-	
 	context "input feed" do
 		it "displays the canvas input feed" do
 			rendered.should have_selector('#feed')

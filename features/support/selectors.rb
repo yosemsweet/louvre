@@ -34,6 +34,9 @@ module HtmlSelectorsHelpers
 		when "the communities menu"
 		  "#menubar #canvae-menu"
 		
+		when "the canvas header"
+			"#canvas_header"
+		
 		when "the user details"
 			"#user-nav"
 			

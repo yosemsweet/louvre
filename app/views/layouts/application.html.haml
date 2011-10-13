@@ -52,6 +52,9 @@
             .flash{ :class => type.to_s }
               = value
     
+        
+        = render :partial => 'canvae/header' if @canvas
+        
         = yield
         
     = render :partial => 'shared/live_help'
