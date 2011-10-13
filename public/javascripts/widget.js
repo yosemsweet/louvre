@@ -128,26 +128,33 @@ $(document).ready(function(){
 						$("[data-widget_id="+widget_id+"] .content .tags").html(taglist);
 					});
 					
-					// get the widget info
+					// get the widget info and popultae both the displays and the forms
 					$.getJSON('/widgets/'+widget_id+'.json', function(data) {
 					
 						if(data.widget.content_type == "text_content"){
 							$("[data-widget_id="+widget_id+"] .content .text").html(data.widget.text);
+							$("form#edit_widget_"+widget_id+" textarea#widget_ckeditor_"+widget_id).val(data.widget.text);
 						
 						}else if(data.widget.content_type == "image_content"){
 							$("[data-widget_id="+widget_id+"] .content .widget_image_wrapper img").attr('src',data.widget.image);
 							$("[data-widget_id="+widget_id+"] .content .widget_image_wrapper img").attr('alt',data.widget.alt_text);
 							$("[data-widget_id="+widget_id+"] .content .widget_image_wrapper img").attr('title',data.widget.alt_text);
 							$("[data-widget_id="+widget_id+"] .content .widget_image_wrapper figcaption").html(data.widget.alt_text);
+							$("form#edit_widget_"+widget_id+" input#widget_image").val(data.widget.image);
+							$("form#edit_widget_"+widget_id+" input#widget_alt_text").val(data.widget.alt_text);
 						
 						}else if(data.widget.content_type == "link_content"){
 							$("[data-widget_id="+widget_id+"] .content a").attr('href',data.widget.link);
 							$("[data-widget_id="+widget_id+"] .content a cite").html(data.widget.title);
 							$("[data-widget_id="+widget_id+"] .content blockquote").attr('cite',data.widget.link);
 							$("[data-widget_id="+widget_id+"] .content blockquote").html(data.widget.text);
+							$("form#edit_widget_"+widget_id+" input#widget_title").val(data.widget.title);
+							$("form#edit_widget_"+widget_id+" input#widget_link").val(data.widget.link);
+							$("form#edit_widget_"+widget_id+" textarea#widget_text").val(data.widget.text);
 						
 						}else if(data.widget.content_type == "question_content"){
 							$("[data-widget_id="+widget_id+"] .content .question .question_text").html(data.widget.question);
+							$("form#edit_widget_"+widget_id+" textarea#widget_question").val(data.widget.question);
 						
 						}
 						
