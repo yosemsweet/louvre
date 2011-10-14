@@ -2,12 +2,15 @@
   = javascript_include_tag 'canvas_edit.js', :media => 'screen, projection'
 
 #canvas_header
-  #canvas_name_text= @canvas.name
-
-  -if can?(:update, @canvas)
-    = form_for @canvas do |f|
-      .field
-        = f.text_field :name
-        = hint_for(@canvas, current_user, "canvas")
-        
-        .input_note#canvas_name_input_note
+  .content
+    %span#canvas_name_text= link_to @canvas.name, @canvas
+          
+    .mini_dashboard
+      Creator:
+      = @canvas.creator
+      - if can?(:update, @canvas)
+        |
+        = link_to @canvas.members.length.to_s + ' Members', members_canvas_path(@canvas)
+      - if can?(:update, CanvasApplicant.new(:canvas_id => @canvas.id))
+        |
+        = link_to @canvas.applicants.length.to_s + ' Applicants', applicants_canvas_path(@canvas)

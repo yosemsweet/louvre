@@ -1,13 +1,15 @@
-Given /^there is a widget$/ do
-	(that Canvas).widgets.create(Factory.create(:widget))	
+Given /^(?:there is|that canvas has) a widget$/ do
+	widget = (that Canvas).widgets.create(Factory.create(:widget, :canvas => that(Canvas)).attributes)
+	set_that(widget)
 end
 
 Given /^there is an input stream widget$/ do
-	(that Canvas).widgets.create(Factory.create(:widget, :page => nil))	
+	widget = (that Canvas).widgets.create(Factory.create(:widget, :canvas => that(Canvas), :page => nil).attributes)
+	set_that(widget)
 end
 
 Given /^there is a link with "([^"]*)", "([^"]*)", and "([^"]*)"$/ do |title, link, text|
-	widget = Factory.create(:link_widget, :canvas => Canvas.last, :content_type => "link_content", :title => title, :link => link, :text => text)
+	widget = Factory.create(:link_widget, :canvas => that(Canvas), :content_type => "link_content", :title => title, :link => link, :text => text)
 end
 
 Given /^that widget has a tag "([^"]*)"$/ do |tag|
@@ -41,4 +43,8 @@ Given /^I update the widget's text with "([^"]*)"$/ do |text|
     fill_in('widget_text', :with=>text)
     click_button("Save")
   end
+end
+
+Then /^that canvas should have that widget$/ do
+  that(Canvas).widgets.should include(that Widget)
 end

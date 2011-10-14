@@ -59,11 +59,15 @@ module NavigationHelpers
 
 		when /that widget's page/
 		  widget = that Widget
-		  canvas_widget_path(widget.canvas, widget)
+		  widget_path(widget)
 		
 		when /that page/
 			page = that Page
 			canvas_page_path(page.canvas, page)
+			
+		when /that page's edit view"/
+  	  page = Page.where(:title => "#{$1}").first
+  	  edit_canvas_page_path(page.canvas, page)
 
 		when /my account page/
 		  edit_user_path

@@ -1,0 +1,17 @@
+#canvas_header {
+  margin-top:$menu-height;
+  .content {
+    margin:auto;
+    width:960px;
+    #canvas_name_text {
+      @include header-font;
+      padding: 6px;
+    }
+    
+    .mini_dashboard {
+    }
+  }
+    
+  border-bottom: 3px solid #EEE;
+}
+

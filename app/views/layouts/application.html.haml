@@ -42,6 +42,8 @@
           - else
             = login_link :text => "Log in with Facebook"
         = render :partial => "shared/menu" if current_user    
+        
+    = render :partial => 'canvae/header' if @canvas
     
     #body
 
@@ -51,10 +53,7 @@
           -flash.each do |type, value|
             .flash{ :class => type.to_s }
               = value
-    
-        
-        = render :partial => 'canvae/header' if @canvas
-        
+                  
         = yield
         
     = render :partial => 'shared/live_help'

@@ -3,6 +3,7 @@ class WidgetsController < ApplicationController
 	
   before_filter :only => [:edit_history, :show, :widget_tags, :edit, :update] do
     @widget = Widget.find(params[:id])
+		@canvas = @widget.canvas
   end
 
   # GET /widgets

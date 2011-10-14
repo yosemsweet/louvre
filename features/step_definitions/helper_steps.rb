@@ -17,8 +17,13 @@ end
 When /^I click "([^"]*)" for "([^"]*)"$/ do |link, user|
   page.find(:xpath, "//*[contains(child::text(), user)]") do |scope|
 		page.should have_link(link)
-		When I click link
+		page.click_link(link)
 	end
+end
+
+When /^I follow that canvas' name$/ do
+  page.should have_link(that(Canvas).name)
+	page.click_link(that(Canvas).name)
 end
 
 When /^I mouse over "([^"]*)"$/ do |selector|

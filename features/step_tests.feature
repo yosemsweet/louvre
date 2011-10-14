@@ -86,5 +86,10 @@ Scenario: Given I am authenticated, I am the creator of 2 canvae, and I am the c
   And I am the owner of 2 canvae
   Then I should be an owner of those 2 canvae
   
+Scenario: Given there is a canvas, and that canvas has a widget, then that canvas has that widget
+  Given there is a canvas
+  And that canvas has a widget
+  Then that canvas should have that widget
+  
   
   

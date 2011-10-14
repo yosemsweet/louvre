@@ -56,14 +56,14 @@ body{
     height:320px;
     padding-top:35px;
     background: url('/images/green-background.png') repeat-x center top;
-    border-bottom: 1px solid #698e23;
+    border-bottom: 1px solid $header-border-color;
     
     
     #header-content{
       width: 960px;
       margin:auto;
       text-align: center;
-      text-shadow: 1px 1px 1px #71870D; 
+      text-shadow: 1px 1px 1px $header-text-shadow-color; 
       
       .title{
         padding: 5px 0px;
