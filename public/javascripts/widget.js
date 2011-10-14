@@ -200,6 +200,8 @@ $(document).ready(function(){
 				$.post("/widgets/" + widget_id, { _method : 'DELETE' });
 				$widget.fadeOut('slow', function() {
 				    $widget.remove();
+						if($("ul#page li").length == 0)
+							$("ul#page").append('<div class="drag-snippets-here">Drag Snippets Here</div>');
 					});
 				mpq.push(["track","page_remove_widget", {user_id : request.user_id, canvas_id : request.canvas_id, page_id : request.page_id, widget_id : widget_id}]);
 			}

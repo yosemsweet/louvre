@@ -90,11 +90,14 @@
 }
 
 .drag-snippets-here{
+	width:600px;
 	font-size:50px;
 	text-align:center;
-	margin:10px;
 	color:#AAA;
+	position:fixed;
+	margin:10px;
 }
+
 
 .edit-mode, .edit-mode .edit_content{
 	background:#EEE;

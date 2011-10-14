@@ -211,8 +211,8 @@ $scrolly-excerpt-width:172px;
 .widget.loading{
 	background: url('/images/loading-medium.gif') no-repeat center center ;
 	.content{
-		opacity: .7; 
-		filter: alpha(opacity=70);	
+		opacity: .1; 
+		filter: alpha(opacity=10);	
 	}
 	.comment_count {
 		display: none;
