@@ -106,17 +106,21 @@ $(document).ready(function(){
     
 	var reload_page_widgets = function(){
 		if($("ul#page").html() == '')
-			$("ul#page").html('<img src="/images/loading-medium.gif"><br>loading snippets...');
-			
+			$("ul#page").html('<div style="text-align:center; padding-top:40px;"><img src="/images/loading-medium.gif"></div>');
 		$("ul#page").load("/widgets/for_page/" + request.page_id + "/editable/", function(){
-			$('ul#page').prepend('<li class="drag-snippets-here">Drag Snippets Here</li>');
+			if($("ul#page li").length == 0)
+				$("ul#page").append('<div class="drag-snippets-here">Drag Snippets Here</div>');
+			else
+				$('.drag-snippets-here').remove();
 			reset_new_widget_forms(); 
 			make_textbox_list();
 		});
+
 	}
 
 	reload_page_widgets();
 	reload_feed_widgets();
+
 
 	$("ul#page").sortable({
 		axis: 'y',
@@ -129,6 +133,7 @@ $(document).ready(function(){
 		},
 		update: function(event, ui){     
 			// Get the dragged widget id.
+				$('.drag-snippets-here').remove();
 				var widget_id = ui.item.data("widget_id");
 				// Compute the new position of this widget.
 				var position = ui.item.index() + 1;
