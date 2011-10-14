@@ -23,8 +23,7 @@
       - @new_widgets.each do |t, widget|
         %div{:style => "display:none;"}
           = render :partial => "widgets/editable", :object => widget, :as => :widget   
-           
-    
+
     %ul#page
     
     #pages
@@ -37,7 +36,6 @@
               %a{:href => canvas_page_path(@canvas, page)}
                 %img{:src => "/images/page.png"}
                 .page_icon_title= page.title
-
 
 .span-8.last
   %div{:style=>"text-align:right;"}

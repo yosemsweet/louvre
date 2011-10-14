@@ -29,7 +29,6 @@ $(document).ready(function(){
   $(".widget .widget_history").live("click", function(event){
 	
   	var widget_id = $(this).parents(".widget").data("widget_id");
-		// alert(widget_id);
     $(".widget_history_content").dialog({
       width: 500,
       title: 'Snippet Edit History',
@@ -239,9 +238,9 @@ $(document).ready(function(){
 	);
 	
 	// Show the widget toolbox when we hover over widgets.
-	$(".widget_editable")
-    .live('mouseover', function(){$(this).find('.toolbox').show()})
-    .live('mouseout', function(){$(this).find('.toolbox').hide()})
+	// $(".widget_editable")
+	//     .live('mouseover', function(){$(this).find('.toolbox').show()})
+	//     .live('mouseout', function(){$(this).find('.toolbox').hide()})
 	
 	
 	
