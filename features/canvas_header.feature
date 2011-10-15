@@ -51,8 +51,7 @@ Scenario: Canvas name links to canvas home
   When I follow that canvas' name within the canvas header
   Then I should be on that canvas' homepage
   
-@wip
 Scenario: Canvas name doesn't link to canvas home if on Canvas homepage
   Given there is a canvas
   And I am on that canvas' homepage
-  Then there should not be a link with that canvas' name within the canvas header
+  Then "that canvas' homepage link" should not be there within the canvas header

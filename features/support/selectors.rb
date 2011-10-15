@@ -36,6 +36,9 @@ module HtmlSelectorsHelpers
 		
 		when "the canvas header"
 			"#canvas_header"
+			
+		when "that canvas' homepage link"
+			"a[href='#{path_to(%|that canvas' homepage|)}']"
 		
 		when "the user details"
 			"#user-nav"

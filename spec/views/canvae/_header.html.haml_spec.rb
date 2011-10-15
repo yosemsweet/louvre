@@ -28,16 +28,16 @@ describe "canvae/_header.html.haml" do
 					view.stubs(:current_user).returns(@user)
 					view.controller.stubs(:current_user).returns(@user)
 				end
-				
+				 
 				context "as a canvas owner" do
 					
 					before(:each) do
 						@user.set_canvas_role(@canvas, :owner)
 					end
 		
-					it "should have a canvas edit form" do
+					it "should have a canvas edit link" do
 						render :partial => 'header', :object => @canvas, :as => :canvas
-						rendered.should have_selector("#canvas_header #edit_canvas_#{@canvas.id}")
+						rendered.should have_selector("#canvas_header a[href='#{edit_canvas_path(@canvas)}']")
 					end
 					
 				end

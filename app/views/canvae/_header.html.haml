@@ -1,9 +1,11 @@
--if can?(:update, @canvas)
-  = javascript_include_tag 'canvas_edit.js', :media => 'screen, projection'
-
 #canvas_header
   .content
-    %span#canvas_name_text= link_to @canvas.name, @canvas
+    %span#canvas_name_text
+      - if request.path != canvas_path(@canvas)
+        = link_to @canvas.name, @canvas
+      - else
+        = @canvas.name
+    = link_to image_tag("setting-24.png", :alt => "Community settings"), edit_canvas_path(@canvas), :class => "settings"
           
     .mini_dashboard
       Creator:
