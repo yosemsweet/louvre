@@ -16,6 +16,14 @@
   }
 }
 
+@mixin canvas-header-font {
+  font: {
+    family: 'MuseoSans500', sans-serif;
+    size: 1.6em;
+    weight: bold;
+  }
+}
+
 @mixin caption-font {
   font: {
     family: 'Helvetica', 'Arial', sans-serif;

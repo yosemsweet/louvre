@@ -49,6 +49,7 @@ Scenario: lightbox orientation div should show up if I am not the owner
   When I go to that canvas' homepage
   Then "orientation box" should not be there
 
+@wip
 @javascript
 @omniauth_test
 Scenario: edit canvas names hints should show up for the first canvas

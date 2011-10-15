@@ -1,7 +1,10 @@
+= javascript_include_tag 'users_helper'
+
 -klass = "" if !defined?(klass)
 -target = "" if !defined?(target)
-.get-started{:class => klass,:data => {:target => target} }
-  .heading
-    = heading
-  .content
-    = content
+.hint{ :data => {:target => target} }
+  .get-started{:class => klass}
+    .heading
+      = heading
+    .content
+      = content

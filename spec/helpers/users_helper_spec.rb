@@ -20,7 +20,7 @@ describe 'UsersHelper' do
 		
     context "show canvas hint" do
       it "should show canvas hints for first time canvas creator" do
-      	helper.hint_for(@canvas, @user, "canvas").should match("data-target='edit-title'")
+      	helper.hint_for(@canvas, @user, "canvas").should match("data-target='#canvas-settings")
       end
 
       it "should not show hints for users who have more than 1 canvas" do
@@ -31,7 +31,7 @@ describe 'UsersHelper' do
     
     context "show widget hint" do
       it "should show widget hints until updated" do
-      	helper.hint_for(@canvas, @user, "widget").should match("data-target='edit-widget'")
+      	helper.hint_for(@canvas, @user, "widget").should include(%(data-target=".snippet[data-widget_id='#{@canvas.widgets.first.id}'] .tool.edit"))
       end
 
       it "should not show hints for creator who have more than 1 canvas" do
@@ -49,7 +49,7 @@ describe 'UsersHelper' do
     
     context "show page hint" do
       it "should show page hints until page is created" do
-      	helper.hint_for(@canvas, @user, "page").should match("data-target='add-page'")
+      	helper.hint_for(@canvas, @user, "page").should match("data-target='.add_page:first'")
       end
 
       it "should not show page hints for creator who have more than 1 canvas" do

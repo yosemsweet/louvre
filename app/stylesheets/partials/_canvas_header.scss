@@ -1,17 +1,31 @@
 #canvas_header {
   margin-top:$menu-height;
+  margin-bottom: 5px;
+  background: #EEE;
+  border-bottom: 3px solid #EEE;
+  
   .content {
-    margin:auto;
+    margin: auto;
     width:960px;
+    padding: 6px;
+    
     #canvas_name_text {
-      @include header-font;
-      padding: 6px;
+      @include canvas-header-font;
+      display: inline;
+      
+      a:visited { color:$text-color; }
+      a:link { color:$text-color; }
+      a:hover {text-decoration:underline;}
+      a {
+        text-decoration:none;
+        img {
+            padding-top: 2px;
+          }
+        }
     }
     
     .mini_dashboard {
     }
   }
-    
-  border-bottom: 3px solid #EEE;
 }
 

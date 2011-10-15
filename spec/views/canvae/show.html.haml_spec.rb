@@ -33,20 +33,4 @@ describe "canvae/show.html.haml" do
 	
 	end
 	
-	context "links to canvas management tools for owners" do
-	  before(:each) do
-      @user.set_canvas_role(@canvas, :owner)
-      render
-	  end
-	  
-	  it "has a link to applicants page" do
-	    rendered.should have_link("Applicants")
-	  end
-
-	  it "has a link to members page" do
-	    rendered.should have_link("Members")
-	  end 
-	end
-	
-	
 end
