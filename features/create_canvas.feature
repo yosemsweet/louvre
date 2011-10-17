@@ -49,19 +49,18 @@ Scenario: lightbox orientation div should show up if I am not the owner
   When I go to that canvas' homepage
   Then "orientation box" should not be there
 
-@wip
 @javascript
 @omniauth_test
-Scenario: edit canvas names hints should show up for the first canvas
+Scenario: change canvas settings hint should show up for the first canvas
   Given I am authenticated
   And I am the owner of a canvas
   When I go to that canvas' homepage
-  Then "edit title hints" should be visible
+  Then "canvas settings hint" should be visible
 
 @javascript
 @omniauth_test
-Scenario: edit canvas names hints should not show up after first canvas
+Scenario: change canvas settings hint should not show up after first canvas
   Given I am authenticated
   And I am the owner of 2 canvae
   When I go to that canvas' homepage
-  Then "edit title hints" should not be there
+  Then "canvas settings hint" should not be there
