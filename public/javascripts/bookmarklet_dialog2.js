@@ -97,8 +97,8 @@ function ajaxPostBookmarklet(){
 		if(ajaxRequest.readyState == 4){
 		  // success message
 			var bookmarklet_body = document.getElementById('bookmarklet_body');
-      bookmarklet_body.innerHTML = "Snippet Successfully added to your canvas.<br>\
-        Go to <a href='" + host_uri+"/canvae/"+ canvas_id +"'>your canvas</a>.<br>\
+      bookmarklet_body.innerHTML = "Snippet Successfully added to your community.<br>\
+        Go to <a href='" + host_uri+"/canvae/"+ canvas_id +"'>your community</a>.<br>\
         <input type='button' onclick='closeBookmarklet()' value='close' class='bookmarklet-button' />";
 		}
 	}

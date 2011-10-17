@@ -33,11 +33,11 @@
   %ul.related_page_link
     - @page.canvas.pages.each do |page|
       -if page != @page
-        %a.related_page_link{:href => canvas_page_path(@page.canvas, page),}
+        %a.related_page_link{:href => canvas_page_path(@page.canvas, page), :title => page.title}
           %li.related_page_link
             .page_title=page.title
             .last_modified{:style => "font-size:11px;"}
-              Last Modified by
+              Modified by
               =page.editor
               %br
               -if page.updated_at > 12.hours.ago 

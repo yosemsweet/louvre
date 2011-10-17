@@ -37,7 +37,7 @@
 
 .widget_image_wrapper {
 	img {
-		@include image-box;
+		//@include image-box;
 	}
 
 }
@@ -182,6 +182,19 @@ $scrolly-excerpt-width:172px;
 	     word-wrap: break-word;
 	  }
 	}
+}
+
+li.widget.page_feed_widget.snippet{
+	max-height:200px;
+	overflow:hidden;
+	font-size:0.75em;
+	
+	blockquote.widget_link_block{
+		margin: 0px 0px 0px 15px; 
+		padding-left: 15px; 
+		border-left: 1px solid #ccc;
+	}
+	
 }
 
 .widget.page_feed_widget {

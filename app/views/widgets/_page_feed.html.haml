@@ -1,8 +1,8 @@
-%li.widget.page_feed_widget.snippet{:data => {:widget_id => widget.id} , :class => widget.content_type, :style => "max-height:250px; overflow:auto" }
-  .controls
-    %div.tool.comment_count{:title => "Comments"}
+%li.widget.page_feed_widget.snippet{:data => {:widget_id => widget.id} , :class => widget.content_type }
   
   .content
+    .controls
+      %div.tool.comment_count{:title => "Comments"}
     = render_widget_section("content", widget)        
     .tags
       = render_widget_section("tags", widget)
