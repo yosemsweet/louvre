@@ -5,7 +5,7 @@
 @font-face {
     font-family: 'JournalRegular';
     src: url('journal-webfont.eot');
-    src: url('journal-webfont.eot?#iefix') format('embedded-opentype'),
+    src: url('journal-webfont.eot?#iefix') format('eot'),
          url('journal-webfont.woff') format('woff'),
          url('journal-webfont.ttf') format('truetype'),
          url('journal-webfont.svg#JournalRegular') format('svg');

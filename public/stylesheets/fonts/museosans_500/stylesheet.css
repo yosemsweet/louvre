@@ -25,7 +25,7 @@
 @font-face {
     font-family: 'MuseoSans500';
     src: url('MuseoSans_500-webfont.eot');
-    src: url('MuseoSans_500-webfont.eot?#iefix') format('embedded-opentype'),
+    src: url('MuseoSans_500-webfont.eot?#iefix') format('eot'),
          url('MuseoSans_500-webfont.woff') format('woff'),
          url('MuseoSans_500-webfont.ttf') format('truetype'),
          url('MuseoSans_500-webfont.svg#MuseoSans500') format('svg');
