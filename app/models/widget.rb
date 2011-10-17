@@ -18,7 +18,7 @@ class Widget < ActiveRecord::Base
 		
   has_paper_trail :meta => { :page_id => Proc.new{ |widget| widget.page ? widget.page.id : nil }}
 
-  acts_as_opengraph :values => { :type => "cause" }
+  acts_as_opengraph :values => { :type => "article" }
 	acts_as_followable
     
   validates_presence_of :canvas, :creator, :content_type, :editor
@@ -150,6 +150,43 @@ class Widget < ActiveRecord::Base
 	  Widget.new(self.attributes.update :updated_at => nil, :created_at => nil, :position => nil, :parent => self)
 	end
 	 
+	def opengraph_title
+		case self.content_type
+		when "text_content"
+			self.text[0..120]
+		when "image_content"
+			self.alt_text
+		when "link_content"
+			self.title
+		else
+			self.canvas.name
+		end
+	end
+	
+	
+	def opengraph_description
+		case self.content_type
+		when "text_content"
+			self.text.split("\n").first
+		when "image_content"
+			self.alt_text
+		when "link_content"
+			self.text
+		else
+			self.canvas.name
+		end
+	end
+	
+	def opengraph_image
+		case self.content_type
+		when "image_content"
+			self.image
+		else
+			self.canvas.image
+		end
+	end
+	
+	
 	private
 	
 	def remove_page_position

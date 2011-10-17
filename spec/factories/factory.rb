@@ -57,7 +57,7 @@ FactoryGirl.define do
 		editor
     page
     canvas
-		content_type "text_content"
+		content_type "test_content"
 	end
 
 	factory :text_widget, :parent => :widget do

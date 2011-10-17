@@ -1,4 +1,4 @@
-%p 
+- content_for(:opengraph_meta_tags, opengraph_meta_tags_for(@widget, :url => widget_url(@widget), :site_name => @widget.canvas.name))
 = render :partial => 'widgets/canvas_feed', :object => @widget, :as => :widget
 
 - if current_user

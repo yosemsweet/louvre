@@ -281,8 +281,18 @@ describe Widget do
       widget_ids.should_not include(@w3.id)
     end
     
-    
   end
+
+
+	context "facebook integration" do
+		context 'opengraph meta data' do
+			let(:widget) { FactoryGirl.build(:widget) }
+			
+			it "should respond to opengraph_data" do
+				widget.should respond_to(:opengraph_data)
+			end
+		end
+	end
 
 	context "widget types" do
 		describe "text widgets" do
@@ -301,6 +311,40 @@ describe Widget do
 			it "should act as text" do
 				@widget.text?.should == true
 			end
+			
+			context "facebook opengraph" do
+				context "opengraph_title" do
+					context "with long text" do
+						before(:each) do
+							@widget.text = "a" * 121
+						end
+					
+						it "should return the first 120 characters as a title" do
+							@widget.opengraph_title.should == @widget.text[0..120]
+						end
+					end
+				
+					context "with short text" do
+						before(:each) do
+							@widget.text = "a" * 119
+						end
+
+						it "should return the full text as a title" do
+							@widget.opengraph_title.should == @widget.text
+						end
+					end
+				end
+				
+				it "should return article as opengraph type" do
+					@widget.opengraph_type.should == 'article'
+				end
+				
+				it "should return first paragraph as opengraph description" do
+					@widget.text = "a"*50 + "\n" + "b"*30
+					@widget.opengraph_description.should == @widget.text.split("\n").first
+				end
+			end
+			
 		end
 		
 		describe "image widgets" do
@@ -326,6 +370,28 @@ describe Widget do
 				@widget.image?.should == true
 			end
 			
+			context "facebook opengraph" do
+
+				context "opengraph_title" do
+
+					it "should return the image alt_text as a title" do
+						@widget.opengraph_title.should == @widget.alt_text
+					end
+				end
+
+				it "should return article as opengraph type" do
+					@widget.opengraph_type.should == 'article'
+				end
+
+				it "should return image as opengraph image" do
+					@widget.opengraph_image.should == @widget.image
+				end
+
+				it "should return the image alt_text as description" do
+					@widget.opengraph_description.should == @widget.alt_text
+				end
+			end
+					
 		end
 		
 		describe "link widgets" do
@@ -354,7 +420,26 @@ describe Widget do
 				@widget.link?.should == true
 			end
 			
-			
+			context "facebook opengraph" do
+				context "opengraph_title" do
+					it "should return the link title as a title" do
+						@widget.opengraph_title.should == @widget.title
+					end
+				end
+
+				it "should return article as opengraph type" do
+					@widget.opengraph_type.should == 'article'
+				end
+
+				it "should return canvas image as opengraph image" do
+					@widget.opengraph_image.should == @widget.canvas.image
+				end
+
+				it "should return the text as description" do
+					@widget.opengraph_description.should == @widget.text
+				end
+			end
+					
 		end
 	end
 
