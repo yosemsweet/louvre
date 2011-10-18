@@ -19,6 +19,35 @@
       #join.button
         Join Now
 
+#pages
+  - if can? :create, Page.new(:canvas => @canvas)
+    #toolbar
+      %a.add_page.tab{:href => new_canvas_page_path(@canvas), :data => {:content_type => "page", :canvas_id => @canvas.id}} New Page
+    = hint_for(@canvas, current_user, "page")
+  / %ul.page_list
+  / - @canvas.pages.each do |page|
+  /   %li.page_icon_grid
+  /     %a{:href => canvas_page_path(@canvas, page)}
+  /       %img{:src => "/images/page.png"}
+  /       .page_icon_title= page.title
+        
+        
+  %ul.related_page_link{:style => "max-height:135px; overflow:auto;"}
+    - @canvas.pages.each do |page|
+      -if page != @page
+        %a.related_page_link{:href => canvas_page_path(@canvas, page), :title => page.title}
+          %li.related_page_link{:style => "float:left; width:240px;"}
+            .page_title=page.title
+            .last_modified{:style => "font-size:11px;"}
+              Modified by
+              =page.editor
+              %br
+              -if page.updated_at > 12.hours.ago 
+                #{time_ago_in_words(page["updated_at"])} ago
+              -else
+                on #{page.updated_at.strftime("%b %d %Y %I:%M %p")}
+
+
 - if can?(:create, Widget.new(:canvas => @canvas))
   %br
   #toolbar
@@ -42,15 +71,4 @@
   
 .widget_history_content
 
-#pages
-  
-  - if can? :create, Page.new(:canvas => @canvas)
-    #toolbar
-      %a.add_page.tab{:href => new_canvas_page_path(@canvas), :data => {:content_type => "page", :canvas_id => @canvas.id}} New Page
-    = hint_for(@canvas, current_user, "page")
-  %ul.page_list
-  - @canvas.pages.each do |page|
-    %li.page_icon_grid
-      %a{:href => canvas_page_path(@canvas, page)}
-        %img{:src => "/images/page.png"}
-        .page_icon_title= page.title
+
