@@ -92,7 +92,7 @@ $(document).ready(function(){
 		
 		for(var i=0; i < form_elements.length ; i++){
 			var element = form_elements[i];
-			if(element.name.trim() !== "" && element.name !== "widget[tag_names]"){
+			if(element.name.trim() !== "" && element.name !== "widget[tag_names]" && element.name !== "widget[text]"){
 				// Require the field to be filled out.
 				if(element.value.trim() === ""){
 					is_valid = false;
@@ -153,8 +153,14 @@ $(document).ready(function(){
 						}else if(data.widget.content_type == "link_content"){
 							$("[data-widget_id="+widget_id+"] .content a").attr('href',data.widget.link);
 							$("[data-widget_id="+widget_id+"] .content a cite").html(data.widget.title);
-							$("[data-widget_id="+widget_id+"] .content blockquote").attr('cite',data.widget.link);
-							$("[data-widget_id="+widget_id+"] .content blockquote").html(data.widget.text);
+							if(data.widget.text == ""){
+								$("[data-widget_id="+widget_id+"] .content blockquote").hide();
+							}else{
+								$("[data-widget_id="+widget_id+"] .content blockquote").show();
+								$("[data-widget_id="+widget_id+"] .content blockquote").attr('cite',data.widget.link);
+								$("[data-widget_id="+widget_id+"] .content blockquote").html(data.widget.text);
+							}
+							
 							$("form#edit_widget_"+widget_id+" input#widget_title").val(data.widget.title);
 							$("form#edit_widget_"+widget_id+" input#widget_link").val(data.widget.link);
 							$("form#edit_widget_"+widget_id+" textarea#widget_text").val(data.widget.text);

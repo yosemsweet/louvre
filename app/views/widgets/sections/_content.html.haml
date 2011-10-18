@@ -13,9 +13,10 @@
   -if widget.text && !widget.text.empty?
     %blockquote.widget_link_block{:cite => "#{widget.link}"}= widget.text.html_safe
     .cite_link
-      %a{:href => "#{widget.link}", :target => "_blank", :class => "link #{'source'}"}
+      %a{:href => "#{widget.link}", :target => "_blank", :class => "link source"}
         %cite= "- #{widget.title}"
   -else
+    %blockquote.widget_link_block{:cite => "#{widget.link}", :style => "display:none;"}
     %a{:href => "#{widget.link}", :target => "_blank", :class => "link"}
       #{widget.title}
       
