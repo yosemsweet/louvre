@@ -16,7 +16,7 @@
       %a{:href => "#{widget.link}", :target => "_blank", :class => "link #{'source'}"}
         %cite= "- #{widget.title}"
   -else
-    %a{:href => "#{widget.link}", :target => "_blank"}
+    %a{:href => "#{widget.link}", :target => "_blank", :class => "link"}
       #{widget.title}
       
 - when 'question_content'
