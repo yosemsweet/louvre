@@ -34,6 +34,11 @@ When /^(?:|I )reload the page$/ do
   visit(current_path)
 end
 
+When /^(?:|I )reload that (.+)$/ do |model|
+	model = "canvae" if model == "canvas"
+	that(model.classify.constantize).reload
+end
+
 When /^I wait (\d+) second[s?]$/ do |n|
 	sleep n.to_i
 end

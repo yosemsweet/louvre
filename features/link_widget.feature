@@ -15,7 +15,7 @@ Scenario Outline: Link widgets display as a sourced quote on page
   Examples:
   | Title           | Link                    | Text                | Source                                                                                                                     |
   | CNN             | http://www.cnn.com      | Basic Sample Text   |<blockquote cite='http://www.cnn.com'>Basic Sample Text</blockquote><a href='http://www.cnn.com'><cite>CNN</cite></a> | 
-  | CNN             | http://www.cnn.com      |                     |<a href='http://www.cnn.com'><cite>CNN</cite</a>        |
+  | CNN             | http://www.cnn.com      |                     |<a href='http://www.cnn.com'>CNN</a>        |
   
 @omniauth_test
 @javascript
