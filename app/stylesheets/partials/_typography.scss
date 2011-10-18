@@ -40,7 +40,6 @@
   }
 }
 
-
 @mixin logo-font {
   letter-spacing: -2px;
 	height: 45px;
@@ -59,3 +58,9 @@
   }
 }
 
+@mixin hint-font {
+  font:{
+    family: JournalRegular,"MV Boli", "Apple Chancery", "URW Chancery L", cursive;
+    size: 2.25em;       
+  }
+}

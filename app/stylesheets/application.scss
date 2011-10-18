@@ -1,7 +1,8 @@
 @import "partials/base";
+@import "partials/menu";
 @import "partials/canvas_header";
 
-body{
+#body{
 	background-color: $background-color;
 	color: $text-color;
   margin-top:$menu-height;
@@ -51,93 +52,6 @@ h1#logo a {
 	margin-top:3px;
 }
 
-#header-toolbar{
-  position: fixed;
-  top:0;
-  width: 100%;
-  background: url('/images/blue-background.png') repeat;
-  height:$menu-height;
-  font: {
-    family: "Arial";
-    size: 12px;
-  }
-	h1{ 
-		color: $white;
-		@include logo-font;
-	}
-	
-	a {
-		color: $white;
-		text-decoration:none;
-	}
-	
-  // MENU
-  $menu-width: 250px;
-  $menu-padding: 10px;
-  ul.menu{
-    margin:0px;
-    float:left;
-    z-index: 999999999;
-    padding-left: 0;
-	  li{
-      list-style-type: none;
-    }
-  }
-
-	li.top-menu-item{
-		padding-top:10px;
-		>a{
-      padding-right: 15px;
-      background: url('/images/arrow.png') no-repeat right center;
-    }
-    >a:hover{
-      text-shadow: 0 0 10px #FFFFFF;
-    }
-
-    ul{
-      margin-top:3px;
-			display: none;
-      position: absolute;
-      border:1px solid #666;
-      background-color:#ECF0F9;
-			padding:0px;
-			border-radius: 0px 0px 5px 5px;
-			box-shadow: 0px 0px 10px 0px #666;
-    }
-    li{
-      cursor:pointer;
-			padding:2px 15px;
-			list-style-type: none;
-			a{
-				color: #333;
-			}
-      &:hover{
-				background-color:#666;
-				a{
-					color:#FFF;
-				}
-			}
-    }
-    
-    li.owner {
-      font-weight: bold;
-    }
-    
-    li.new{
-			border-top:1px solid #CCC;
-    }
-  }
-  
-  #user-nav { 
-		float:right;
-		margin-right: 10px;
-		margin-top:8px;
-		color: $white;
-		a:hover{
-      text-shadow: 0 0 10px #FFFFFF;
-    }
-	}
-}
 
 
 .flash {
@@ -243,65 +157,6 @@ color: #1A3747;
 .ui-state-focus{
   outline-color: #1A3747;
 }
-
-
-//hints
-
-.hint{
-  position:absolute;
-  color: $header-text-color;
-  text-shadow: 1px 1px 2px $header-text-shadow-color, -1px -1px 2px $white;
-  line-height: 1.2em;
-  margin-right: 2px;
-  display:none;
-
-  .heading{
-    font:{
-      family: JournalRegular, Helvetica, Arial, sans-serif;
-      size: 2.25em;       
-    }
-  }
-  .content{
-    font-size:0.8em;
-  }
-
-    
-  .left {
-    padding-left:90px;
-  }
-
-  .right {
-    	width:200px;
-      text-align:right;
-      padding-right:95px;
-  }
-
-  .up {
-    padding-top:   30px;
-  }
-  
-  .down {
-    padding-top: 0px;
-  }
-
-  .right.down{
-    background: url('/images/help-arrow-right-down.png') no-repeat right bottom;
-  }
-  
-  .right.up{
-    background: url('/images/help-arrow-right-up.png') no-repeat right center;
-  }
-  
-  .left.up{
-    background: url('/images/help-arrow-left-up.png') no-repeat left center;
-  }
-  
-  .left.down{
-    background: url('/images/help-arrow-left-down.png') no-repeat left top;
-  }
-}
-
-
 
 //button
 .button {

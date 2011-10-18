@@ -25,7 +25,7 @@ describe PagesController do
 	    end
 	end
 	
-	  describe "GET 'new'" do
+  describe "GET 'new'" do
 	  before(:each) do
 	    @canvas = Factory(:canvas)
 	    @user = Factory.create(:user)
@@ -33,158 +33,169 @@ describe PagesController do
 			@user.set_canvas_role(@canvas,:member)
 	  end
 	
-	    it "should be successful" do
-	      get :new, :canvas_id => @canvas.id
-	      response.should be_success
-	    end
-	    
-	    it "should have the right title" do
-	      get :new, :canvas_id => @canvas.id
-	      response.body.should have_selector("title", :content => @canvas.name)
-	    end
-	    
-	    it "should have a page title field" do
-	      get :new, :canvas_id => @canvas.id
-	      response.body.should have_selector('input[id="page_title"][name="page[title]"]')
-	    end
+    it "should be successful" do
+      get :new, :canvas_id => @canvas.id
+      response.should be_success
+    end
+    
+    it "should have the right title" do
+      get :new, :canvas_id => @canvas.id
+      response.body.should have_selector("title", :content => @canvas.name)
+    end
+    
+    it "should have a page title field" do
+      get :new, :canvas_id => @canvas.id
+      response.body.should have_selector('input[id="page_title"][name="page[title]"]')
+    end
+
+		it "should assign @canvas" do
+			get :new, :canvas_id => @canvas.id
+			assigns(:canvas).should == @canvas
+		end
 	end
 	
 	
-	  describe "POST 'create'" do
+	describe "POST 'create'" do
 		before(:each) do
 	    @canvas = Factory(:canvas)
 	    @user = Factory.create(:user)
 	    PagesController.any_instance.stubs(:current_user).returns(@user)
 			@user.set_canvas_role(@canvas,:member)
 		end
+
+    describe "failure" do
+      before(:each) do
+        @attr = { :title => "" }
+      end
+
+      it "should not create a page" do
+        lambda do
+          post :create, :canvas_id => @canvas.id, :page => @attr
+        end.should_not change(Page, :count)
+      end
+
+      it "should render the 'new' page" do
+        post :create, :canvas_id => @canvas.id, :page => @attr
+        response.should render_template('new')
+      end
+
+			it "should assign @canvas" do
+				get :new, :canvas_id => @canvas.id
+				assigns(:canvas).should == @canvas
+			end
+    end
 	
-	    describe "failure" do
-	      before(:each) do
-	        @attr = { :title => "" }
-	      end
-	
-	      it "should not create a page" do
-	        lambda do
-	          post :create, :canvas_id => @canvas.id, :page => @attr
-	        end.should_not change(Page, :count)
-	      end
-	
-	      it "should render the 'new' page" do
-	        post :create, :canvas_id => @canvas.id, :page => @attr
-	        response.should render_template('new')
-	      end
-	    end
-		
-	    describe "success" do
-	      before(:each) do
-	        @attr = { :title => "New Page" }
-	      end
-	
-	      it "should create a page" do
-	        post :create, :canvas_id => @canvas.id, :page => @attr
-	        lambda do
-	          post :create, :canvas_id => @canvas.id, :page => @attr
-	        end.should change(Page, :count).by(1)	
-	      end
-	
-	      it "should redirect to the page show page" do
-	        post :create, :canvas_id => @canvas.id, :page => @attr
-	        response.should redirect_to(edit_canvas_page_path(@canvas,assigns(:page)))
-	      end 
-	    end
+		describe "success" do
+			before(:each) do
+			 @attr = { :title => "New Page" }
+			end
+
+			it "should create a page" do
+			 post :create, :canvas_id => @canvas.id, :page => @attr
+			 lambda do
+			   post :create, :canvas_id => @canvas.id, :page => @attr
+			 end.should change(Page, :count).by(1)	
+			end
+
+			it "should redirect to the page show page" do
+			 post :create, :canvas_id => @canvas.id, :page => @attr
+			 response.should redirect_to(edit_canvas_page_path(@canvas,assigns(:page)))
+			end 
+
+		end
 	end
 	
-	  describe "GET 'edit'" do
-	    before(:each) do
-	    @page = Factory(:page)
+  describe "GET 'edit'" do
+    before(:each) do
+    @page = Factory(:page)
+    @user = Factory.create(:user)
+    PagesController.any_instance.stubs(:current_user).returns(@user)
+		@user.set_canvas_role(@page.canvas,:member)
+    end
+
+    it "should be successful" do
+      get :edit, :canvas_id => @page.canvas_id, :id => @page
+      response.should be_success
+    end
+
+    it "should have the right title" do
+      get :edit, :canvas_id => @page.canvas_id, :id => @page
+      response.body.should have_selector("title", :content => @page.canvas.name)
+    end
+
+    it "should have a page title field" do
+      get :edit, :canvas_id => @page.canvas_id, :id => @page
+      response.body.should have_selector('input[id="page_title"][name="page[title]"]')
+    end
+  end
+
+  describe "PUT 'update'" do
+
+    before(:each) do
+      @page = Factory(:page)
 	    @user = Factory.create(:user)
 	    PagesController.any_instance.stubs(:current_user).returns(@user)
 			@user.set_canvas_role(@page.canvas,:member)
-	    end
-	
-	    it "should be successful" do
-	      get :edit, :canvas_id => @page.canvas_id, :id => @page
-	      response.should be_success
-	    end
-	
-	    it "should have the right title" do
-	      get :edit, :canvas_id => @page.canvas_id, :id => @page
-	      response.body.should have_selector("title", :content => @page.canvas.name)
-	    end
-	
-	    it "should have a page title field" do
-	      get :edit, :canvas_id => @page.canvas_id, :id => @page
-	      response.body.should have_selector('input[id="page_title"][name="page[title]"]')
-	    end
-	  end
-	
-	  describe "PUT 'update'" do
-	
-	    before(:each) do
-	      @page = Factory(:page)
-	    @user = Factory.create(:user)
+    end
+
+		# currently there is a problem with the redirect on a failing page update; need investigation
+    # describe "failure" do
+    # 
+    #   before(:each) do
+    #     @attr = { :title => "" }
+    #   end
+    # 
+    #   it "should render the 'edit' page" do
+    #     put :update, :canvas_id => @page.canvas_id, :id => @page, :page => @attr
+    # 				puts response.body
+    #     response.should render_template('edit')
+    #   end
+    # 
+    #   it "should have the right title" do
+    #     put :update, :canvas_id => @page.canvas_id, :id => @page, :page => @attr
+    #     response.body.should have_selector("title", :content => @page.canvas.name)
+    #   end
+    # 
+    # end
+
+    describe "success" do
+      before(:each) do
+        @attr = { :title => "New Title" }
+      end
+    
+      it "should change the user's attributes" do
+        put :update, :canvas_id => @page.canvas_id, :id => @page, :page => @attr
+        @page.reload
+        @page.title.should  == @attr[:title]
+      end
+    
+      it "should redirect to the page show page" do
+        put :update, :canvas_id => @page.canvas_id, :id => @page, :page => @attr
+        response.should redirect_to(canvas_page_path(@page.canvas, @page))
+      end
+    end
+
+  end
+
+  describe "DELETE 'destroy'" do
+    before(:each) do
+      @page = Factory(:page)
+			@user = Factory.create(:user)
 	    PagesController.any_instance.stubs(:current_user).returns(@user)
 			@user.set_canvas_role(@page.canvas,:member)
-	    end
-	
-			# currently there is a problem with the redirect on a failing page update; need investigation
-	    # describe "failure" do
-	    # 
-	    #   before(:each) do
-	    #     @attr = { :title => "" }
-	    #   end
-	    # 
-	    #   it "should render the 'edit' page" do
-	    #     put :update, :canvas_id => @page.canvas_id, :id => @page, :page => @attr
-	    # 				puts response.body
-	    #     response.should render_template('edit')
-	    #   end
-	    # 
-	    #   it "should have the right title" do
-	    #     put :update, :canvas_id => @page.canvas_id, :id => @page, :page => @attr
-	    #     response.body.should have_selector("title", :content => @page.canvas.name)
-	    #   end
-	    # 
-	    # end
-	
-	    describe "success" do
-	      before(:each) do
-	        @attr = { :title => "New Title" }
-	      end
-	    
-	      it "should change the user's attributes" do
-	        put :update, :canvas_id => @page.canvas_id, :id => @page, :page => @attr
-	        @page.reload
-	        @page.title.should  == @attr[:title]
-	      end
-	    
-	      it "should redirect to the page show page" do
-	        put :update, :canvas_id => @page.canvas_id, :id => @page, :page => @attr
-	        response.should redirect_to(canvas_page_path(@page.canvas, @page))
-	      end
-	    end
-	
-	  end
-	
-	  describe "DELETE 'destroy'" do
-	    before(:each) do
-	      @page = Factory(:page)
-	    @user = Factory.create(:user)
-	    PagesController.any_instance.stubs(:current_user).returns(@user)
-			@user.set_canvas_role(@page.canvas,:member)
-	    end
-	
-	    it "should destroy the page" do
-	      lambda do
-	        delete :destroy, :canvas_id => @page.canvas, :id => @page
-	      end.should change(Page, :count).by(-1)
-	    end
-	
-	    it "should redirect to the canvas page" do
-	      delete :destroy, :canvas_id => @page.canvas, :id => @page
-	      response.should redirect_to(canvas_path(@page.canvas))
-	    end  
-	  end
+    end
+
+    it "should destroy the page" do
+      lambda do
+        delete :destroy, :canvas_id => @page.canvas, :id => @page
+      end.should change(Page, :count).by(-1)
+    end
+
+    it "should redirect to the canvas page" do
+      delete :destroy, :canvas_id => @page.canvas, :id => @page
+      response.should redirect_to(canvas_path(@page.canvas))
+    end  
+  end
 	
 	context "put update" do
 		

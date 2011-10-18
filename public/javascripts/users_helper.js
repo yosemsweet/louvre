@@ -8,10 +8,10 @@ $(window).load(function(){
     typeElement = $(this).children(".get-started");
     x = target.offset().left;
     if(typeElement.hasClass("left")) {
-      x += target.width() + 5;
+      x += target.width() + 10;
     }
     else {
-      x -= $(this).width() + 5;
+      x -= $(this).width() + 10;
     }
 
     typeElement = $(this).children(".get-started");

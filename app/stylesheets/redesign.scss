@@ -1,6 +1,8 @@
 @import "partials/base";
+@import "partials/menu";
+
 body{
-  margin:0px;
+  margin:36px 0 0 0;
 }
 
 .right{
@@ -9,43 +11,6 @@ body{
 
 .left{
   float:left;
-}
-
-#header-toolbar{
-  width: 100%;
-  background: url('/images/blue-background.png') repeat;
-  height:36px;
-  color: $white;
-  font: {
-    family: "Arial";
-    size: 12px;
-  }
-  
-  .content{
-    margin:auto;
-    width:960px;
-    
-    #left{
-      float:left;
-    }
-    
-    ul{
-      margin:0px;
-      float:left;
-      -webkit-padding-start: 0px;
-    }
-    
-    li{
-      display: inline;
-      list-style-type: none;
-      height:36px;
-      line-height: 36px;
-      padding-right: 15px;
-      margin-right: 20px;
-      float:left;
-      background: url('/images/arrow.png') no-repeat right center;
-    }
-  }
 }
 
 #content{
