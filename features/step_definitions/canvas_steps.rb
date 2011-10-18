@@ -37,7 +37,8 @@ Given /^(?:I have|I've) created a new canvas$/ do
 end
 
 Given /^that canvas is closed$/ do
-  (that Canvas).open = false
+  that(Canvas).open = false
+	that(Canvas).save
 end
 
 When /^I specify that canvas should be "([^"]*)"$/ do |state|

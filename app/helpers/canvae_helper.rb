@@ -12,4 +12,26 @@ module CanvaeHelper
 			JS
 		bookmarklet.strip
 	end
+	
+	def join_link_for(canvas, user)
+		user ||= User.new
+		unless user.canvas_role?(canvas, :member)
+			if canvas.open?
+				render :partial => "canvae/join"
+			else
+				render :partial => "canvae/apply"
+			end
+		else
+			""
+		end
+	end
+		
+	def join_link(canvas)
+		tag("div", :id => "join", :class => "button")
+	end
+	
+	def apply_link(canvas)
+		tag("div", :id => "apply", :class => "button")
+	end
+	
 end

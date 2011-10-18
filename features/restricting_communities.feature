@@ -30,12 +30,22 @@ Scenario: Trying to edit a page as a non member
   Then I should not see "Edit"
 
 @omniauth_test
-Scenario: Ability to join a closed community as a non member
+Scenario: Ability to join an open community as a non member
   Given I am "Gill"
   And I am authenticated
   And there is a canvas
   And I am on that canvas' homepage
   Then I should see "Join"
+
+@wip
+@omniauth_test
+Scenario: Ability to apply to a closed community as a non member
+  Given I am "Gill"
+  And I am authenticated
+  And there is a canvas
+	And that canvas is closed
+  And I am on that canvas' homepage
+  Then I should see "Apply"
 
 @omniauth_test
 Scenario: Make canvas closed so people have to apply to become a member
