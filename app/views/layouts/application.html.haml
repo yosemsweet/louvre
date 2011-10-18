@@ -42,10 +42,9 @@
           - else
             = login_link :text => "Log in with Facebook"
         = render :partial => "shared/menu" if current_user    
-        
-    = render :partial => 'canvae/header' if @canvas
     
     #body
+      = render :partial => 'canvae/header' if @canvas
 
       .container
       

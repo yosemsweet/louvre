@@ -4,6 +4,7 @@
 body{
 	background-color: $background-color;
 	color: $text-color;
+  margin-top:$menu-height;
 	
 	li.widget {
 		list-style: none;

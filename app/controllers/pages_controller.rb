@@ -32,20 +32,20 @@ class PagesController < ApplicationController
 
   def new
     
-    canvas = Canvas.find(params[:canvas_id])
-    authorize! :create, Page.new(:canvas => canvas)
+    @canvas = Canvas.find(params[:canvas_id])
+    authorize! :create, Page.new(:canvas => @canvas)
     
     @page = Page.new
-    @page.canvas = canvas
+    @page.canvas = @canvas
 		
   end
   
   def create
-    canvas = Canvas.find(params[:canvas_id])
+    @canvas = Canvas.find(params[:canvas_id])
 
-    authorize! :create, Page.new(:canvas => canvas)
+    authorize! :create, Page.new(:canvas => @canvas)
 
-    @page = canvas.pages.new(params[:page])
+    @page = @canvas.pages.new(params[:page])
 
 		@page.creator = current_user
 		@page.editor = current_user
