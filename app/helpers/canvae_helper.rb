@@ -25,5 +25,4 @@ module CanvaeHelper
 			""
 		end
 	end
-
 end
