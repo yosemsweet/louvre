@@ -34,6 +34,11 @@ describe Ability do
       @ability = Ability.new(@user)
       @ability.should be_able_to(:apply, @canvas)
     end
+
+		it "should allow visitors to apply" do
+			@ability = Ability.new(User.new)
+			@ability.should be_able_to(:apply, @canvas)
+		end
     
   end
   

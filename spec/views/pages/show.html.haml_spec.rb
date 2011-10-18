@@ -48,21 +48,4 @@ describe "pages/show.html.haml" do
       rendered.should have_selector("comments[href='#{CGI.escape(canvas_page_url(@page.canvas, @page))}']")
     end
   end
-
-	context "page header" do
-		before(:each) do
-	  	@page = Factory.create(:page)
-		end
-	 
-	 	before do
-		   controller.singleton_class.class_eval do
-		     private
-		       def current_user
-		         nil
-		       end
-		       helper_method :current_user
-		   end
-		 end
-	end
- 
 end
