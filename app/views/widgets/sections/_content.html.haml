@@ -10,10 +10,14 @@
     %figcaption= widget.alt_text
     
 - when 'link_content'
-  %blockquote.widget_link_block{:cite => "#{widget.link}"}= widget.text.html_safe if widget.text
-  .cite_link
-    %a{:href => "#{widget.link}", :target => "_blank", :class => "link #{'source' if widget.text && !widget.text.empty?}"}
-      %cite= "- #{widget.title}"
+  -if widget.text && !widget.text.empty?
+    %blockquote.widget_link_block{:cite => "#{widget.link}"}= widget.text.html_safe
+    .cite_link
+      %a{:href => "#{widget.link}", :target => "_blank", :class => "link #{'source'}"}
+        %cite= "- #{widget.title}"
+  -else
+    %a{:href => "#{widget.link}", :target => "_blank"}
+      #{widget.title}
       
 - when 'question_content'
   %div.question

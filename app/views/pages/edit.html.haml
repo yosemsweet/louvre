@@ -41,9 +41,9 @@
   %div{:style=>"text-align:right;"}
     /= link_to "follow", "#", :id => "follow",  :class => "blue-button", :title => "Click to follow"
     /= link_to "following", "#", :id => "unfollow",  :class => "grey-button", :title => "You are following this page. Click to unfollow", :style => hidden_if(!current_user.following?(@page))
-    = link_to 'View Page', canvas_page_path(@page.canvas, @page), :class => "blue-button"
     = link_to "Versions", versions_canvas_page_path(@page.canvas, @page), :id => "versions",  :class => "blue-button"
-
+    = link_to 'View Page', canvas_page_path(@page.canvas, @page), :class => "blue-button"
+    
   %br
   %h3 Snippets
   %form

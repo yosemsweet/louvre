@@ -42,3 +42,39 @@ ul#feed .widget_image_wrapper img{
 	max-width:700px;
 	max-height:140px;
 }
+
+
+ul.related_page_link{
+	margin: 0;
+	margin-top: 5px;
+	padding: 0;
+	list-style: none;
+}
+
+li.related_page_link{
+	border: 1px solid #FFFFFF;
+	background:url('/images/page-56.png') no-repeat 3px 3px;
+	height:59px;
+	padding: 3px 3px 0px 64px;
+	margin: 0px 0px 3px 0px;
+	list-style:none;
+	.page_title{
+		white-space:nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.last_modified{
+		color:#666;
+	}
+
+	&:hover{
+		background-color: #ECF0F9;
+	  border: 1px solid #B4BBCD;
+	  border-radius: 4px;
+		
+	}
+}
+
+a.related_page_link:hover{
+	text-decoration:none;
+}
