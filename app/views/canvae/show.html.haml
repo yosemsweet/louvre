@@ -25,7 +25,8 @@
     - @canvas.pages.each do |page|
       %a.related_page_link{:href => canvas_page_path(@canvas, page), :title => page.title}
         %li.related_page_link{:style => "float:left; width:300px;"}
-          %div.page_icon{:style => "background: url('#{page.icon}') no-repeat; "}
+          /%div.page_icon{:style => "background: url('#{page.icon}') no-repeat; "}
+          %img.page_icon{:src => page.icon}
           .page_title=page.title
           .last_modified{:style => "font-size:11px;"}
             Modified by
