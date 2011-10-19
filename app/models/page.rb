@@ -21,4 +21,13 @@ class Page < ActiveRecord::Base
     Version.where("(item_type = \'Widget\' AND page_id = \'#{self.id}\') OR (item_type = \'Page\' AND item_id = \'#{self.id}\')").order("created_at DESC")
   end
 	
+	def icon
+	  image_widget = self.widgets.where(:content_type => "image_content").limit(1)
+	  if image_widget.empty?
+	    widget_icon = "/images/page.png"
+	  else
+	    widget_icon = image_widget[0].image
+	  end
+	end
+	
 end

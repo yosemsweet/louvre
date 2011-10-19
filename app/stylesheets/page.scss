@@ -128,6 +128,16 @@ ul#presentation_page .widget_image_wrapper img{
 	max-height:400px;
 }
 
+div.page_icon{
+	height:54px;
+	width:54px;
+	float:left;
+	margin-right:5px;
+	border:1px solid #AAA;
+	border-radius:5px;
+	background-size: 54px 54px; 
+}
+
 ul.related_page_link{
 	margin: 0;
 	margin-top: 5px;
@@ -137,9 +147,10 @@ ul.related_page_link{
 
 li.related_page_link{
 	border: 1px solid #FFFFFF;
-	background:url('/images/page-56.png') no-repeat 3px 3px;
+	//background:url('/images/page-56.png') no-repeat 3px 3px;
 	height:59px;
-	padding: 3px 3px 0px 64px;
+	//padding: 3px 3px 0px 64px;
+	padding: 3px 3px 0px 3px;
 	margin: 0px 0px 3px 0px;
 	list-style:none;
 	.page_title{
