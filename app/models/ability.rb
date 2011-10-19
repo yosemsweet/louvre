@@ -8,7 +8,7 @@ class Ability
     can :read, :all
 
     can :apply, Canvas do |canvas|
-      user.persisted? && !user.canvas_role?(canvas,:member) && user.canvas_role(canvas) != :banned
+      !user.canvas_role?(canvas,:member) && user.canvas_role(canvas) != :banned
     end
     
     can :create, CanvasUserRole do |canvas_user_role|

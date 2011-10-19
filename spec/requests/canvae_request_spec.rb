@@ -14,12 +14,13 @@ describe "Canvae Requests" do
 		  Canvas.any_instance.stubs(:open?).returns true
 		end
 		
-    describe "POST /canvae/:canvas_id/members" do
+    describe "GET /canvae/:canvas_id/join" do
       
       it "should allow user to join canvas" do
-        post "/canvae/#{@canvas.id}/members"
+        get "/canvae/#{@canvas.id}/join"
         @user.canvas_role(@canvas).should == :member
-        response.status.should == 200
+        response.status.should == 302
+				response.should redirect_to canvas_path(@canvas)
       end
       
     end
@@ -33,10 +34,10 @@ describe "Canvae Requests" do
 		  Canvas.any_instance.stubs(:open?).returns true
 		end
 		
-    describe "POST /canvae/:canvas_id/members" do
+    describe "GET /canvae/:canvas_id/join" do
       
       it "should redirect to login" do
-        post "/canvae/#{@canvas.id}/members"
+        get "/canvae/#{@canvas.id}/join"
         response.location.should include("auth/")
         response.status.should == 302
       end
@@ -52,10 +53,10 @@ describe "Canvae Requests" do
 		  Canvas.any_instance.stubs(:open?).returns false
 		end
    
-    describe "POST /canvae/:canvas_id/members" do
+    describe "GET /canvae/:canvas_id/join" do
      
       it "should return forbidden" do
-        post "/canvae/#{@canvas.id}/members"
+        get "/canvae/#{@canvas.id}/join"
         @user.canvas_role(@canvas).should_not == :member
         response.status.should == 403   
       end
@@ -236,4 +237,79 @@ describe "Canvae Requests" do
 		
 	end
 	
+	describe "Canvas Requests" do
+
+	  before(:each) do
+	     @user = Factory.create(:user)
+	     # Stub the current_user method so it appears like a user is logged in.
+	     CanvaeController.any_instance.stubs(:current_user).returns(@user)
+	     @canvas = Factory.create(:canvas)
+	  end
+
+	  describe "GET /canvae/:canvas_id/applicants" do
+
+	    it "should work for owners" do
+	      @user.set_canvas_role(@canvas, :owner)
+	      get applicants_canvas_path(@canvas)
+	      response.status.should == 200
+	    end
+
+	    it "should not work for non owners" do
+	      get applicants_canvas_path(@canvas)
+	      response.status.should == 403
+	    end
+
+	  end
+
+	  describe "GET /canvae/:canvas_id/join" do
+
+	    context "for a closed canvas" do
+	      before(:each) do
+	        Canvas.any_instance.stubs(:open?).returns false
+	        @applicant = Factory.create(:user)
+	      end
+
+	      it "it should work and return 200" do
+	        @user.set_canvas_role(@canvas, :owner)
+	        get members_canvas_path(@canvas, :user_id => @applicant.id)
+	        response.status.should == 200
+	      end
+	
+				# it "should make an applicant a member" do
+				# 	        @user.set_canvas_role(@canvas, :owner)
+				# 	        get members_canvas_path(@canvas, :user_id => @applicant.id)
+				# 	        @applicant.canvas_role(@canvas).should == :member
+				# end
+
+	      it "should not work for non owners" do
+	        get members_canvas_path(@canvas, :user_id => @applicant.id)
+	        response.status.should == 403
+	      end
+	    end
+
+	  end
+
+	  describe "DELETE /canvae/:canvas_id/applicants/:user_id" do
+	    it "should remove the applicant from the applicant list if you are an owner" do
+	      @user.set_canvas_role(@canvas, :owner)
+	      Canvas.any_instance.stubs(:open?).returns false
+	      @applicant = Factory.create(:user)
+	      CanvasApplicant.create(:canvas_id => @canvas.id, :user_id => @applicant.id)
+	      @canvas.applicants.exists?(:id => @applicant.id).should == true
+	      delete applicants_delete_path(@canvas, @applicant)
+	      response.status.should == 200
+	      @canvas.applicants.exists?(:id => @applicant.id).should == false
+	    end
+
+	     it "should fail if you are not an owner" do
+	        Canvas.any_instance.stubs(:open?).returns false
+	        @applicant = Factory.create(:user)
+	        CanvasApplicant.create(:canvas_id => @canvas.id, :user_id => @applicant.id)
+	        @canvas.applicants.exists?(:id => @applicant.id).should == true
+	        delete applicants_delete_path(@canvas, @applicant)
+	        response.status.should == 403
+	      end
+	  end
+
+	end
 end

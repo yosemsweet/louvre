@@ -5,6 +5,10 @@ class CanvaeController < ApplicationController
     @title = @canvas.name
   end
 
+	prepend_before_filter :only => [:members_create] do
+		session[:success_redirect] = request.env["HTTP_REFERER"]
+	end
+
   def edit
 		authorize! :edit, @canvas
   end  
@@ -96,12 +100,23 @@ class CanvaeController < ApplicationController
   end
   
   def members_create
-    @canvas = Canvas.find(params[:id])
-    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
-    authorize! :create, CanvasUserRole.new(:canvas_id => @canvas.id, :user_id => @user.id)
-    @canvas.canvas_applicants.where(:user_id => @user.id).delete_all
-    @user.set_canvas_role(@canvas, :member)
-    head :ok
+		if current_user
+	    @canvas = Canvas.find(params[:id])
+
+			begin
+		    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
+
+		    if can? :create, CanvasUserRole.new(:canvas_id => @canvas.id, :user_id => @user.id)
+			    @canvas.canvas_applicants.where(:user_id => @user.id).delete_all
+			    @user.set_canvas_role(@canvas, :member)
+			    redirect_to session[:success_redirect] || canvas_path(@canvas)
+				else
+					head :forbidden
+				end
+			rescue
+				head :bad_request
+			end
+		end
   end
 
  	def banned_create		

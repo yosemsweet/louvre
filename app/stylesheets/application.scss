@@ -119,9 +119,23 @@ color: #1A3747;
 
 #apply.button{
 	width:100px;
+	height: 10px;
 }
 #join.button{
-	width:100px;
+	padding: 5px 10px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+	-moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+	box-shadow: rgba(0,0,0,1) 0 1px 0;
+	text-shadow: rgba(0,0,0,.4) 0 1px 0;
+	color: white;
+	font-size: 14px;
+	text-decoration: none;
+	vertical-align: middle;
+	width: 100px;
+	float: right;
 }
 
 .tab {

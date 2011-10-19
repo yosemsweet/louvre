@@ -6,19 +6,6 @@
 
 = render 'shared/welcome'
 
-- if can?(:apply, @canvas)
-  .apply-join
-    - if @canvas.closed?
-      #apply.button
-        Apply Now
-      #apply-form
-        %form#applicant_form
-          %div Please let us know why you would like to join this community
-          %textarea#note{:value => current_user.id, :name => "note", :style => "height:125px"}
-    - else
-      #join.button
-        Join Now
-
 -if @canvas.id == 46
   %br
   %p
@@ -27,6 +14,28 @@
     If you're looking to be part of an exclusive community who's specific purpose is to help one another through the accumulation, organization, and sharing of knowledge and information focused specifically on this German Marquis Brand, then Engineered for Magic is for you.
   %p
     Our passion is one driven by powerful emotions, childhood dreams and uncompromising aspirations. Porsche: Engineered for magic
+
+#pages
+  - if can? :create, Page.new(:canvas => @canvas)
+    #toolbar
+      %a.add_page.tab{:href => new_canvas_page_path(@canvas), :data => {:content_type => "page", :canvas_id => @canvas.id}} New Page
+    = hint_for(@canvas, current_user, "page")
+      
+        
+  %ul.related_page_link{:style => "max-height:135px; overflow:auto;"}
+    - @canvas.pages.each do |page|
+      -if page != @page
+        %a.related_page_link{:href => canvas_page_path(@canvas, page), :title => page.title}
+          %li.related_page_link{:style => "float:left; width:240px;"}
+            .page_title=page.title
+            .last_modified{:style => "font-size:11px;"}
+              Modified by
+              =page.editor
+              %br
+              -if page.updated_at > 12.hours.ago 
+                #{time_ago_in_words(page["updated_at"])} ago
+              -else
+                on #{page.updated_at.strftime("%b %d %Y %I:%M %p")}
 
 #pages
   - if can? :create, Page.new(:canvas => @canvas)
@@ -55,7 +64,6 @@
                 #{time_ago_in_words(page["updated_at"])} ago
               -else
                 on #{page.updated_at.strftime("%b %d %Y %I:%M %p")}
-
 
 - if can?(:create, Widget.new(:canvas => @canvas))
   %br

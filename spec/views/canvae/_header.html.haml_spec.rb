@@ -83,5 +83,19 @@ describe "canvae/_header.html.haml" do
 			
 		end
 		
+		context "canvas join" do
+			context "it should call join_link_for" do
+				before(:each) do
+					view.stubs(:join_link_for).returns("Join Link For helper")
+					view.controller.stubs(:join_link_for).returns("Join Link For helper")
+				end
+				
+				it "should have a join link" do
+					render :partial => 'header', :object => @canvas, :as => :canvas
+					rendered.should have_content("Join Link For helper")
+				end
+			end
+		end
+		
 	end
 end

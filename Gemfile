@@ -36,6 +36,7 @@ group :development, :test do
   gem 'guard-cucumber'
   gem 'cucumber-rails', '~>1.0'
   gem 'cucumber', '~>1.0'
+  gem 'http_logger', '~>0.1'
   gem "rb-fsevent"
 end
 

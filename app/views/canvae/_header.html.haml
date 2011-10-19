@@ -5,16 +5,20 @@
         = link_to @canvas.name, @canvas
       - else
         = @canvas.name
+        
     - if can?(:update, @canvas)
       = link_to image_tag("setting-24.png", :width => 24, :height => 24, :alt => "Community settings"), edit_canvas_path(@canvas), :id => "canvas-settings", :class => "settings"
       = hint_for(@canvas, @current_user, "canvas")
-          
-    .mini_dashboard
-      Creator:
-      = @canvas.creator
+
+    .mini_dashboard  
+      - if can?(:update, @canvas)
+        Creator:
+        = @canvas.creator
       - if can?(:update, @canvas)
         |
         = link_to @canvas.members.length.to_s + ' Members', members_canvas_path(@canvas)
       - if can?(:update, CanvasApplicant.new(:canvas_id => @canvas.id))
         |
         = link_to @canvas.applicants.length.to_s + ' Applicants', applicants_canvas_path(@canvas)
+
+    = join_link_for @canvas, current_user || nil

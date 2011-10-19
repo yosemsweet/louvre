@@ -13,7 +13,7 @@ describe 'UsersHelper' do
 			helper.should respond_to(:hint_for)
 		end
 		
-		it "should accept 2 parameters, a canvas and a user" do
+		it "should accept 3 parameters, a canvas and a user, and a target" do
 			helper.should respond_to(:hint_for).with(3).arguments
 
 		end
