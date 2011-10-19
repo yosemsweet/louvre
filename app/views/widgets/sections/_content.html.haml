@@ -7,7 +7,7 @@
 - when 'image_content'
   %figure.widget_image_wrapper
     %img.widget_image{ :src => "#{widget.image}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}"}
-    %figcaption= widget.alt_text
+    %figcaption{:style => "margin-bottom: 10px"}= widget.alt_text
     
 - when 'link_content'
   -if widget.text && !widget.text.empty?
