@@ -462,20 +462,19 @@ describe CanvaeController do
 			
 		 	describe "with valid params" do
 	      
+	      it "returns a 200" do
+	        results = get :members_create, 
+						:id => canvas.id
+	        response.status.should == 302
+					response.should redirect_to canvas_path(canvas)
+	      end
+
 	      it "give member a member role for canvas" do
-					results = post :members_create,
-						:id => canvas.id,
-						:user_id => @user.id
+					results = get :members_create,
+						:id => canvas.id
 					@user.canvas_role(canvas).should == :member
 	      end
     
-	      it "returns a 200" do
-	        results = post :members_create, 
-						:id => canvas.id,
-						:user_id => @user.id
-	        response.status.should == 200
-	      end
-	
 	    end
 	
 			describe "with invalid params" do
