@@ -23,7 +23,7 @@ Scenario: Given I am an admin
 Scenario: Given I am so and so
   Given I am "Bob Dole" 
   Then I should be "Bob Dole"
-  
+
 @omniauth_test
 Scenario: Given I am so and so and authenticated
   Given I am "Bob Dole" 

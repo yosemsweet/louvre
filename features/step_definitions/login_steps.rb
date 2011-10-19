@@ -19,6 +19,10 @@ Then /^I should be "([^"]*)"$/ do |name|
 	current_user.name.should == name
 end
 
+Then /^I should be authenticated$/ do
+	current_user.should be_present
+end
+
 Then /^I should see my name$/ do
 	unless current_url == ""
 		Then %Q(I should see "#{current_user.name}" within the user details) 
