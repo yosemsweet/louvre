@@ -1,9 +1,13 @@
 - content_for :javascripts do
   = javascript_include_tag 'apply'
 
-#apply.button
-  Apply Now
-#apply-form
-  %form#applicant_form
-    %div Please let us know why you would like to join this community
-    %textarea#note{:name => "note", :style => "height:125px"}
+-if current_user
+  #apply.button
+    Apply Now
+  #apply-form
+    %form#applicant_form
+      %div Please let us know why you would like to join this community
+      %textarea#note{:name => "note", :style => "height:50px"}
+
+- else
+  = link_to("Sign In to Apply", "/auth/facebook", :id => "apply", :class => "button")

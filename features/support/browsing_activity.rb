@@ -24,7 +24,7 @@ module KnowsBrowsingActivity
 	end
 	
 	def host_uri
-	  "http://localhost:3000"
+	  "http://loorp.local:3000"
 	end
 end
 

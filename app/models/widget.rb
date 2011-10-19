@@ -48,7 +48,7 @@ class Widget < ActiveRecord::Base
     if Rails.env.production?
       "http://loorp.com/widgets/#{self.id}"
     else
-      "http://localhost:3000/widgets/#{self.id}"
+      "http://loorp.local:3000/widgets/#{self.id}"
     end
   end
 

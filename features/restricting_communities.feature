@@ -37,16 +37,27 @@ Scenario: Ability to join an open community as a non member
   And I am on that canvas' homepage
   Then I should see "Join"
 
-@wip
 @omniauth_test
 Scenario: Joining an open community when not logged in forces login, and results in becoming a member
-  Given I am "Bob Dole" 
-	And I am not authenticated
+  Given I am "Bob Dole"
   And there is a canvas
-  And I am on that canvas' homepage
+  And I am on that canvas' homepage 
+	And I am not authenticated
   When I follow "Join"
 	Then I should be authenticated
   And I should be a member of that canvas
+
+@omniauth_test
+Scenario: Joining an open community when not logged in but already a member, forces login, and message
+  Given I am "Bob Dole" 
+	And I am not authenticated
+  And there is a canvas
+  And I am a member of that canvas
+  And I am on that canvas' homepage
+  When I follow "Join"
+	Then I should be authenticated
+	And I should see "You are already a member of "
+  
   
 @omniauth_test
 Scenario: Ability to apply to a closed community as a non member

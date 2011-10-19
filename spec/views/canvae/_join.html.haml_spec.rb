@@ -9,10 +9,26 @@ describe "canvae/join.html.haml" do
 
 
 	context "#join" do
-		it "should exist" do
-			render :partial => 'join', :object => @canvas, :as => :canvas
-			rendered.should have_selector('#join')
-		end
-	
+	  context "not logged in" do
+	     it "should exist" do
+   			render :partial => 'join', :object => @canvas, :as => :canvas
+   			rendered.should have_selector('#join')
+   		end
+  	end
+    
+    
+	  context "logged in" do
+	    before(:each) do
+	      @user = Factory.create(:user)
+    		view.stubs(:current_user).returns(@user)
+    		view.controller.stubs(:current_user).returns(@user)
+    	end
+    	
+	    it "should exist" do
+  			render :partial => 'join', :object => @canvas, :as => :canvas
+  			rendered.should have_selector('#join')
+  		end  		
+	  end
+	 
 	end
 end

@@ -447,7 +447,7 @@ describe Widget do
   #   
   #   it "should return the url for that widget" do
   #       widget = Factory.build(:text_widget)
-  #       widget.permalink.should == "http://localhost:3000/widgets/#{widget.id}"
+  #       widget.permalink.should == "http://loorp.local:3000/widgets/#{widget.id}"
   #     end
   #   
   #   end

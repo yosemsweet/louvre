@@ -24,7 +24,7 @@ Louvre::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
-  config.thehost = "http://localhost:3000"
+  config.thehost = "http://loorp.local:3000"
 
   config.middleware.use "Mixpanel::Tracker::Middleware", "4f0b61d0b89a599241853b757b39baf4"
   
