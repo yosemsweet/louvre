@@ -21,6 +21,7 @@ $(document).ready(function(){
 		// Toggle the display of the widget.
 		widget.parent().toggle();
 		
+		return(false);
 	  event.preventDefault();
 	
 	});
@@ -76,7 +77,7 @@ $(document).ready(function(){
 	});
 	
 	// Handle widget form saves.
-	$(".widget form.edit_widget").live("submit", function(){
+	$(".widget form.edit_widget").live("submit", function(event){
 
 		var widget_id = $(this).parents(".widget").data("widget_id");
 		if(typeof widget_id === "undefined"){
