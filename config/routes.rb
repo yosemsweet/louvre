@@ -28,6 +28,7 @@ Louvre::Application.routes.draw do
 			post 'banned' => "canvae#banned_create"
 			delete 'banned' => "canvae#banned_destroy"
 			get 'members' => "canvae#members"
+			get 'join' => "canvae#members_create"
 			post 'members' => "canvae#members_create"
 			get 'applicants'
 	    #delete 'applicants/:user_id' => "canvae#applicants_delete"

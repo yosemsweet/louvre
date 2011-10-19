@@ -17,21 +17,13 @@ module CanvaeHelper
 		user ||= User.new
 		unless user.canvas_role?(canvas, :member)
 			if canvas.open?
-				render :partial => "canvae/join"
+				render :partial => "canvae/join", :object => canvas, :as => :canvas
 			else
-				render :partial => "canvae/apply"
+				render :partial => "canvae/apply", :object => canvas, :as => :canvas
 			end
 		else
 			""
 		end
 	end
-		
-	def join_link(canvas)
-		tag("div", :id => "join", :class => "button")
-	end
-	
-	def apply_link(canvas)
-		tag("div", :id => "apply", :class => "button")
-	end
-	
+
 end
