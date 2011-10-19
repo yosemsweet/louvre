@@ -4,7 +4,7 @@ $(document).ready(function(){
 		event.preventDefault();
 		$("#join").remove();    
     $.post('/canvae/' + request.canvas_id + '/members');
- 		console.log('i joined');
+		location.reload();
 	});
 
 });

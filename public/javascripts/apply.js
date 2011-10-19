@@ -5,7 +5,7 @@ $(document).ready(function(){
 		modal:true,
 		width:435,
 		height:360,
-		title:"Appply to This Community",
+		title:"Apply to This Community",
 		buttons:{
 			"ok":function(){
 				$("#apply").remove();

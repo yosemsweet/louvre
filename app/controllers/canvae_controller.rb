@@ -97,11 +97,20 @@ class CanvaeController < ApplicationController
   
   def members_create
     @canvas = Canvas.find(params[:id])
-    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
-    authorize! :create, CanvasUserRole.new(:canvas_id => @canvas.id, :user_id => @user.id)
-    @canvas.canvas_applicants.where(:user_id => @user.id).delete_all
-    @user.set_canvas_role(@canvas, :member)
-    head :ok
+
+		begin
+	    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
+	    if can? :create, CanvasUserRole.new(:canvas_id => @canvas.id, :user_id => @user.id)
+		    @canvas.canvas_applicants.where(:user_id => @user.id).delete_all
+		    @user.set_canvas_role(@canvas, :member)
+				redirect_to canvas_path(@canvas)
+		    # head :ok
+			else
+				head :forbidden
+			end
+		rescue
+			head :bad_request
+		end
   end
 
  	def banned_create		

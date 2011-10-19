@@ -401,14 +401,14 @@ describe CanvaeController do
 		it "should require authentication" do
 			should_require_authentication do
 				canvas = Factory.create(:canvas)
-				get :banned, :id => canvas.id
+				get :members, :id => canvas.id
 			end
 		end
 
 		it "should require authorization to :update" do 
 			canvas = Factory.create(:canvas)
 			should_require_authorization_to(:action => :update, :object => canvas) do
-				get :banned, :id => canvas.id
+				get :members, :id => canvas.id
 			end
 		end
 		context "logged in with permissions" do
@@ -436,6 +436,67 @@ describe CanvaeController do
 		end
 	end
 	
+	
+	describe "POST members_create" do
+		it "should require authentication" do
+			should_require_authentication do
+				canvas = Factory.create(:canvas)
+				post :members_create,
+					:id => canvas.id,
+					:user_id => Factory.create(:user)
+			end
+		end
+		
+		context "logged in" do
+		
+			let(:canvas) { Factory.create(:canvas) }
+		
+			before(:each) do
+				@user = Factory.create(:user)
+		    controller.stubs(:current_user).returns(@user)
+				@owner = Factory.create(:user)
+				@owner.set_canvas_role(canvas, :owner)
+				@member = Factory.create(:user, :name => "member")
+				@member.set_canvas_role(canvas, :member)
+			end
+			
+		 	describe "with valid params" do
+	      
+	      it "give member a member role for canvas" do
+					results = post :members_create,
+						:id => canvas.id,
+						:user_id => @user.id
+					@user.canvas_role(canvas).should == :member
+	      end
+    
+	      it "returns a 200" do
+	        results = post :members_create, 
+						:id => canvas.id,
+						:user_id => @user.id
+	        response.status.should == 200
+	      end
+	
+	    end
+	
+			describe "with invalid params" do
+
+	      it "should return a bad request if user doesn't exist" do
+					results = post :members_create,
+						:id => canvas.id,
+						:user_id => User.last.id + 1
+						response.status.should == 400
+	      end
+
+	      it "should return a 403 if user is a canvas member" do
+					results = post :members_create,
+						:id => canvas.id,
+						:user_id => @member.id
+						response.status.should == 403
+	      end
+	
+	    end
+		end
+	end
 	
 	context "put update" do
 		
