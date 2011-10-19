@@ -47,12 +47,11 @@
       = render :partial => 'canvae/header' if @canvas
 
       .container
-      
-        #flash.span-24{:style => "display:none; position: fixed; top: 0; z-index: 999999999"}
+        #flash.span-24{:style => "display:none; position: fixed; top: 0; z-index: 999999999;"}
           -flash.each do |type, value|
-            .flash{ :class => type.to_s }
+            .flash{ :class => type.to_s, :style => ""}
               = value
-                  
+     
         = yield
         
     = render :partial => 'shared/live_help'

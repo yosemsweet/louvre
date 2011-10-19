@@ -45,8 +45,9 @@ $(document).ready(function(){
 			
 	});
 
-	$('#flash').delay(500).fadeIn('normal', function() {
-     $(this).delay(2500).fadeOut('slow');
+	//$('#flash').delay(500).fadeIn('normal', function() {
+  $('#flash').delay(750).show("slide", { direction: "up" }, 1000, function() { 
+		$(this).delay(3000).hide("slide", { direction: "up" }, 1000);
   });
 
 	// Enable page following buttons.
