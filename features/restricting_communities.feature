@@ -40,11 +40,13 @@ Scenario: Ability to join an open community as a non member
 @wip
 @omniauth_test
 Scenario: Joining an open community when not logged in forces login, and results in becoming a member
-  Given I am not authenticated
+  Given I am "Bob Dole" 
+	And I am not authenticated
   And there is a canvas
   And I am on that canvas' homepage
   When I follow "Join"
-  Then I should be a member of that canvas
+	Then I should be authenticated
+  And I should be a member of that canvas
   
 @omniauth_test
 Scenario: Ability to apply to a closed community as a non member

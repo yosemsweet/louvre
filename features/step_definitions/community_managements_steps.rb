@@ -59,7 +59,7 @@ end
 
 Then /^"?(I|[^"]*)"? should ?(|not) be ?(?:a|an|)? (.+) (?:of|by|for) that canvas$/ do |name, type, role|
 	if name == "I"
-		user = current_user
+		user = current_user.reload
 	else
 		user = User.find_by_name(name)
 	end
