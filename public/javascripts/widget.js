@@ -79,8 +79,13 @@ $(document).ready(function(){
 	// Handle widget form saves.
 	$(".widget form.edit_widget").live("submit", function(event){
 		
-    event.preventDefault();
-		if(event.preventDefault) {event.preventDefault();}
+
+		if(event.preventDefault) {
+			event.preventDefault();
+		} else {
+			event.returnValue = false;
+		}
+		
 		
 		var widget_id = $(this).parents(".widget").data("widget_id");
 		if(typeof widget_id === "undefined"){
