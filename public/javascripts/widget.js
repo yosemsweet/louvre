@@ -79,19 +79,18 @@ $(document).ready(function(){
 	// Handle widget form saves.
 	$(".widget form.edit_widget").live("submit", function(event){
 		
-		console.log('line 1');
+
 		if(event.preventDefault) {
 			event.preventDefault();
 		} else {
 			event.returnValue = false;
 		}
-		console.log('line 2');
+		
 		
 		var widget_id = $(this).parents(".widget").data("widget_id");
 		if(typeof widget_id === "undefined"){
 			widget_id = 0;
 		}
-			console.log('line 3');
 		
 		var widget = $(this).parents(".widget");
 		var widget_form_params = $(this).serialize();
@@ -109,7 +108,6 @@ $(document).ready(function(){
 				}
 			}
 		}
-			console.log('line 4');
 		if(is_valid){
 			// On success
 			$(".add_widget").removeClass("active");
@@ -128,11 +126,9 @@ $(document).ready(function(){
 			$(this)[0].reset();
 			//reset tags
 			
-			console.log('line 5');
 
 			$.post( $(this).attr("action"), widget_form_params, function(){
 				
-				console.log('line 6');
 				if(widget_id != 0){
 				
 					// get the tags for this widget
@@ -190,15 +186,10 @@ $(document).ready(function(){
 					});
 
 				}else{
-					console.log('line 7');
 				  $(widget).parent().hide();
 				  $(".loading", widget).hide();
 					update_after_edit();
 				}
-					console.log('line 8');
-					return(false);
-					event.preventDefault();
-					
 
 			});
 				
@@ -208,7 +199,6 @@ $(document).ready(function(){
 			setTimeout(function(){$('#flash').fadeOut('slow')}, 2000);
 
 		}
-			console.log('line 9');
 		
 		return(false);
 
