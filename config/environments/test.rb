@@ -31,7 +31,7 @@ Louvre::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
   
-  config.thehost = "http://localhost:3000"
+  config.thehost = "http://loorp.local:3000"
 
   config.middleware.use "Mixpanel::Tracker::Middleware", "c7d014abbe0a439c7b35fb2947064c26"
 end

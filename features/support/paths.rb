@@ -73,7 +73,7 @@ module NavigationHelpers
 		  edit_user_path
 		  
 		when /cnn/ 
-		  "http://localhost:3000"
+		  "http://loorp.local:3000"
 		  
   	when /the edit page for "([^"]*)"/
   	  page = Page.where(:title => "#{$1}").first

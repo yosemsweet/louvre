@@ -105,11 +105,17 @@ class CanvaeController < ApplicationController
 
 			begin
 		    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
-
 		    if can? :create, CanvasUserRole.new(:canvas_id => @canvas.id, :user_id => @user.id)
-			    @canvas.canvas_applicants.where(:user_id => @user.id).delete_all
-			    @user.set_canvas_role(@canvas, :member)
-			    redirect_to session[:success_redirect] || canvas_path(@canvas)
+          
+          if !@user.canvas_role?(@canvas, :member)
+            @canvas.canvas_applicants.where(:user_id => @user.id).delete_all
+  			    @user.set_canvas_role(@canvas, :member)
+  			    notice = "Welcome to #{@canvas.name}"
+  			  else
+  			    notice = "You are already a member of #{@canvas.name}"
+          end
+          
+			    redirect_to session[:success_redirect] || canvas_path(@canvas), :notice => notice
 				else
 					head :forbidden
 				end
