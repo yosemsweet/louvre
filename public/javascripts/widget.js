@@ -42,8 +42,6 @@ $(document).ready(function(){
 
   });
 
-
-
 	// Edit widget links.
 	$(".widget .edit, .cancel_edit").live("click", function(event){
 
@@ -78,15 +76,7 @@ $(document).ready(function(){
 	
 	// Handle widget form saves.
 	$(".widget form.edit_widget").live("submit", function(event){
-		
 
-		if(event.preventDefault) {
-			event.preventDefault();
-		} else {
-			event.returnValue = false;
-		}
-		
-		
 		var widget_id = $(this).parents(".widget").data("widget_id");
 		if(typeof widget_id === "undefined"){
 			widget_id = 0;
@@ -99,15 +89,18 @@ $(document).ready(function(){
 		var form_elements = $(this)[0].elements;
 		var is_valid = true;
 		
-		for(var i=0; i < form_elements.length ; i++){
-			var element = form_elements[i];
-			if(element.name.trim() !== "" && element.name !== "widget[tag_names]" && element.name !== "widget[text]"){
-				// Require the field to be filled out.
-				if(element.value.trim() === ""){
-					is_valid = false;
+		$(this).find("input,textarea").each(function(){
+				if(typeof $(this).attr("name") != 'undefined') {
+					if($.trim($(this).attr("name")) !== "" && $(this).attr("name") !== "widget[tag_names]"){
+						
+						if($.trim($(this).val()) === ""){
+							is_valid = false;
+						}
+					}
 				}
 			}
-		}
+		);
+		
 		if(is_valid){
 			// On success
 			$(".add_widget").removeClass("active");
@@ -201,7 +194,8 @@ $(document).ready(function(){
 		}
 		
 		return(false);
-
+		event.preventDefault();
+		
 	});
 
 	// Delete widget links.
