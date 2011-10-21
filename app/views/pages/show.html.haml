@@ -26,6 +26,9 @@
         
     - if can? :edit, @page
       = link_to 'Edit Page', edit_canvas_page_path(@page.canvas, @page), :class => "blue-button"
+        
+    - if current_user.admin?
+      = button_to 'Delete', canvas_page_path(@page.canvas, @page), :method => :delete, :confirm => "Are you sure?", :class => "blue-button"
 
 
   %br
