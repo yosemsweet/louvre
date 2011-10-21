@@ -89,12 +89,19 @@ $(document).ready(function(){
 		var form_elements = $(this)[0].elements;
 		var is_valid = true;
 		
+		// alert($(this)[0].elements["widget[content_type]"].value);
+		var this_content_type = $(this)[0].elements["widget[content_type]"].value;
+		//text_content
+		
 		$(this).find("input,textarea").each(function(){
 				if(typeof $(this).attr("name") != 'undefined') {
 					if($.trim($(this).attr("name")) !== "" && $(this).attr("name") !== "widget[tag_names]"){
-						
-						if($.trim($(this).val()) === ""){
-							is_valid = false;
+						if(this_content_type == 'link_content' && $(this).attr("name") == "widget[text]"){
+							
+						} else {
+							if($.trim($(this).val()) === ""){
+								is_valid = false;
+							}
 						}
 					}
 				}
