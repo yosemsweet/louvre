@@ -5,17 +5,19 @@ describe "pages/show.html.haml" do
   before(:each) do
     @page = Factory.create(:page)
     @widgets = Widget.for_page(@page.id)
+		view.stubs(:current_user).returns(@user)
+		view.controller.stubs(:current_user).returns(@user)
   end
   
-  before do
-     controller.singleton_class.class_eval do
-       private
-         def current_user
-           nil
-         end
-         helper_method :current_user
-     end
-   end
+  # before do
+  #    controller.singleton_class.class_eval do
+  #      private
+  #        def current_user
+  #          nil
+  #        end
+  #        helper_method :current_user
+  #    end
+  #  end
   
   context "opengraph_meta_tags" do
 		before(:each) do
