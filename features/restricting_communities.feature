@@ -56,7 +56,18 @@ Scenario: Joining an open community when not logged in but already a member, for
   And I am on that canvas' homepage
   When I follow "Join"
 	Then I should be authenticated
-	And I should see "You are already a member of "
+	And I should see "You are already a member of"
+
+@omniauth_test
+Scenario: Joining an open community when not logged in but an admin, forces login, and message
+  Given I am "Bob Dole" 
+	And I am not authenticated
+  And there is a canvas
+  And I am an admin
+  And I am on that canvas' homepage
+  When I follow "Join"
+	Then I should be authenticated
+	And I should see "Welcome to "	
   
   
 @omniauth_test

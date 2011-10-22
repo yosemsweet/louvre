@@ -40,7 +40,7 @@ function bookmarkletbox() {
     var bookmarklet = document.createElement('div');
     bookmarklet.id = 'bookmarklet-dialog';
     bookmarklet.innerHTML = '\
-    <div class="bookmarklet-heading">Add a link snippet to your community</div>\
+    <div class="bookmarklet-heading">Add a link snippet to your community<a id="close-link" onclick="closeBookmarklet()"><img src="'+ host_uri+'/images/delete.png"></a></div>\
     <div class="bookmarklet-body" id="bookmarklet_body">\
       <form id="snippet" name="snippet">\
         <div class="bookmarklet-field"><label class="bookmarklet-field-label" for="snippet-title">Title</label>\
@@ -48,18 +48,19 @@ function bookmarkletbox() {
         <div class="bookmarklet-field"><label class="bookmarklet-field-label" for="snippet-url">Url</label>\
         <input type="text" class="bookmarklet-input-field" name="snippet_link" id="snippet_link" value="' + bookmarkURL + '"/> \
         <div class="bookmarklet-field"><label value="snippet-text">Quote from site</label><br>\
-          <TEXTAREA id="snippet_text" name="snippet_text" rows="20" cols="40" class="bookmarklet-input-field">'
+          <TEXTAREA id="snippet_text" name="snippet_text" rows="10" cols="40" class="bookmarklet-input-field">'
           + highlighted_text +'</TEXTAREA></div>\
-        <input type="button" onclick="closeBookmarklet()" value="cancel" class="bookmarklet-button" />\
-        <input type="button" onclick="ajaxPostBookmarklet()"  value="add to community" class="bookmarklet-button" />\
+        <input type="button" onclick="ajaxPostBookmarklet()"  value="add to community" class="bookmarklet-button" name="add" />\
         </form></div>';
     page_body.appendChild(bookmarklet);
     
     // remove bookmarklet loading message
     if(document.getElementById('loading')!=""){
-        // destory loading text
-        document.getElementById('loading').style.visibility = 'hidden'; 
-      }
+      // destory loading text
+      document.getElementById('loading').style.visibility = 'hidden'; 
+    }
+    
+    document.snippet.add.focus();
   }
 }
 

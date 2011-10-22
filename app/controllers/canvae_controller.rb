@@ -106,8 +106,7 @@ class CanvaeController < ApplicationController
 			begin
 		    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
 		    if can? :create, CanvasUserRole.new(:canvas_id => @canvas.id, :user_id => @user.id)
-          
-          if !@user.canvas_role?(@canvas, :member)
+          if !@user.canvas_role?(@canvas, :member) || @user.canvas_role(@canvas) == :admin
             @canvas.canvas_applicants.where(:user_id => @user.id).delete_all
   			    @user.set_canvas_role(@canvas, :member)
   			    notice = "Welcome to #{@canvas.name}"

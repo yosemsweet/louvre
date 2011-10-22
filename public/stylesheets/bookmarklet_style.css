@@ -3,7 +3,7 @@
   z-index: 10000000000;
   top: 100px;
   left: 100px;
-  width:550px;
+  width:450px;
   border: 3px solid #CCC;
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -23,18 +23,16 @@
   -moz-border-radius: 5px 5px 0px 0px;
   font-size: 18px;
 }
-.bookmarklet-body{padding: 10px 20px 50px 20px;width:auto;}
-.bookmarklet-input-field{width:500px;}
+.bookmarklet-body{padding: 10px 20px 35px 20px;width:auto;min-height:220px;}
+.bookmarklet-input-field{width:400px;}
 form.link_snippet textarea{
-  height: 70px;
+  height: 50px;
   margin: 3px;
   padding:0px;
   font-family: Helvetica, Arial, sans-serif;
 }
-.bookmarklet-field-label{
-  float:left;
-  width: 50px;
-}
+.bookmarklet-field-label{float:left;width: 50px;}
+#close-link{padding: 2px 5px 0px 0px;float:right;cursor:pointer;}
 .bookmarklet-field{padding:4px 0px;}
 .bookmarklet-field label{color: #333;}
 .bookmarklet-button{
@@ -46,7 +44,7 @@ form.link_snippet textarea{
   background: -moz-linear-gradient(top, #D29300, #CF7028);
   background: -ms-linear-gradient(top, #D29300, #CF7028);
   background: -o-linear-gradient(top, #D29300, #CF7028);
-  padding: 10px 20px;
+  padding: 5px 20px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
@@ -57,6 +55,11 @@ form.link_snippet textarea{
   color: white;
   text-align: center;
   vertical-align: middle;
-  font-size: 16px;
-  margin: 0px 2px;
+  font-size: 14px;
+  cursor:pointer;
+}
+.bookmarket-button:focus{
+  -webkit-outline-radius: 8px;
+  -moz-outline-radius: 8px;
+  outline-radius: 8px;
 }
