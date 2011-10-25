@@ -29,7 +29,7 @@
       .text{:style => "margin-top:5px;margin-bottom:10px;"}
         .text_here
           %span.ellipsis_text
-            = raw(strip_tags(widget.text))
+            = widget.text.html_safe
 
     - when 'image_content'
       %figure.widget_image_wrapper{:style => "margin-top:5px;margin-bottom:10px;"}
@@ -70,12 +70,6 @@
             %p
               = answer["message"]
 
-
-
-
-    
-
     .facebook_comments
       .fb-discussion
-        - if widget.id
-          = comments_for(widget, :href => widget.permalink, :width => 575)
+        = comments_for(widget, :href => widget.permalink, :width => 575)

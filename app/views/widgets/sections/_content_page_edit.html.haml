@@ -1,4 +1,4 @@
-- if widget.id
+- if widget.id.present?
   .header_and_body{:style => "margin-left:70px;margin-top:5px"}
     - case widget.content_type
 
@@ -6,13 +6,13 @@
       .text{:style => "margin-top:5px;margin-bottom:10px;"}
         .text_here
           %span.ellipsis_text
-            = raw(strip_tags(widget.text))
+            = widget.text.html_safe
 
     - when 'image_content'
       %figure.widget_image_wrapper{:style => "margin-top:5px;margin-bottom:10px;"}
         %img.widget_image{ :src => "#{widget.image}", :alt => "#{widget.alt_text}", :title => "#{widget.alt_text}"}
         %figcaption{:style => "margin-bottom: 10px; font-size:12px;"}= widget.alt_text
-    
+  
     - when 'link_content'
       %div{:style => "margin-top:5px;margin-bottom:10px;"}
         -if widget.text && !widget.text.empty?
@@ -27,7 +27,7 @@
           %blockquote.widget_link_block{:cite => "#{widget.link}", :style => "display:none;"}
           %a{:href => "#{widget.link}", :target => "_blank", :class => "link"}
             #{widget.title}
-      
+    
     - when 'question_content'
       %div.question
         -if widget.creator
@@ -47,18 +47,11 @@
             %p
               = answer["message"]
 
-
-
-
     .tags
-      
       - if widget.creator
         = widget.creator
         &nbsp;&bull;&nbsp;
-      - if widget.creator && widget.updated_at > 12.hours.ago 
-        #{time_ago_in_words(widget["updated_at"])} ago
-      - elsif widget.creator
-        #{widget.updated_at.strftime("%b %d %Y %I:%M %p")}
+      = show_date(widget.update_at)
       = render_widget_section("tags", widget)
 
       &nbsp;&bull;&nbsp;
@@ -72,5 +65,4 @@
 
     .facebook_comments
       .fb-discussion
-        - if widget.id
-          = comments_for(widget, :href => widget.permalink, :width => 575)
+         = comments_for(widget, :href => widget.permalink, :width => 575)

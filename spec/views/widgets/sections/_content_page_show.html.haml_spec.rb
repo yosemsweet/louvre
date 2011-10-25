@@ -68,7 +68,7 @@ describe "widgets/sections/_content_page_show.html.haml" do
 
 		context "without a quote" do
 			before(:each) do
-				@widget = FactoryGirl.create(:quoted_link_widget, :text => nil)
+				@widget = FactoryGirl.create(:link_widget)
 			end
 			
 			it "should not add a source class to the link" do
@@ -108,5 +108,15 @@ describe "widgets/sections/_content_page_show.html.haml" do
 
   end
 
+	context "with a new widget" do
+		before(:each) do
+			@widget = FactoryGirl.build(:widget)
+		end
+		
+		it "should render nothing" do
+			render :partial => "widgets/sections/content_page_show", :object => @widget, :as => :widget
+			rendered.should == ""
+		end
+	end
 
 end

@@ -70,9 +70,6 @@ $(document).ready(function(){
 	// Look for new widgets every 15 seconds.
 	setInterval(load_new_widgets, 15000); 
 
-	// Load the canvas feed.
-	//reload_widgets();
-
 	// Track the fact that the user got here.
 	mpq.push(["track","hit_canvas_homepage"]);  
 	
