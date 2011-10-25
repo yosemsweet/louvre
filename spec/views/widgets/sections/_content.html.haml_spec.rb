@@ -108,9 +108,7 @@ describe "widgets/sections/_content.html.haml" do
 			end
 			
 		end
-
   end
-
 
 	context "with a new widget" do
 		

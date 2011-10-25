@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+<<<<<<< HEAD
 describe "widgets/sections/_content_page_feed.html.haml" do
 	
 	context "for all widget types" do
@@ -18,6 +19,9 @@ describe "widgets/sections/_content_page_feed.html.haml" do
 			rendered.should include("show_date == foo")
 		end
 	end
+=======
+describe "widgets/sections/content_page_feed.html.haml" do
+>>>>>>> f2858e7ed3a8c9cdec0559559c1ee9251b7f28b9
   
 	context "text widget" do
 		before(:each) do
@@ -57,7 +61,11 @@ describe "widgets/sections/_content_page_feed.html.haml" do
   context "image widget" do
 		before(:each) do
 			@widget = FactoryGirl.create(:image_widget)
+<<<<<<< HEAD
 			render :partial => "widgets/sections/content_page_feed", :object => @widget, :as => :widget
+=======
+			render :partial => "widgets/sections/content", :object => @widget, :as => :widget
+>>>>>>> f2858e7ed3a8c9cdec0559559c1ee9251b7f28b9
 		end
 		
     it "should display the image" do
