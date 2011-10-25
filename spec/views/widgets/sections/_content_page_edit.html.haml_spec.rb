@@ -2,6 +2,26 @@ require 'spec_helper'
 
 describe "widgets/sections/_content_page_edit.html.haml" do
   
+	context "for all widget types" do
+
+		before(:each) do
+			@widget = Factory.create(:widget)
+		end
+
+		it "should show creator" do
+			render :partial => "widgets/sections/content_page_edit", :object => @widget, :as => :widget
+			rendered.should include(@widget.creator.name)
+		end
+		
+		it "should show last modified date" do
+			view.stubs(:show_date).returns("show_date called")
+			
+			render :partial => "widgets/sections/content_page_edit", :object => @widget, :as => :widget
+			rendered.should include "show_date called"
+		end
+		
+	end
+
 	context "text widget" do
 		before(:each) do
 			@widget = FactoryGirl.create(:text_widget)
@@ -12,18 +32,17 @@ describe "widgets/sections/_content_page_edit.html.haml" do
 			rendered.should include(@widget.text)
 		end
 		
-		# context "html in text" do
-		# 	let(:html) {"<h2>this is html</h2>"}
-		# 	before(:each) do
-		# 		@widget = FactoryGirl.create(:text_widget, :text => html)
-		# 	end
-		# 	
-		# 	it "should include html tags" do
-		# 		render :partial => "widgets/sections/content_page_edit", :object => @widget, :as => :widget
-		# 		debugger
-		# 		rendered.should include(html)
-		# 	end
-		# end
+		context "html in text" do
+			let(:html) {"<h2>this is html</h2>"}
+			before(:each) do
+				@widget = FactoryGirl.create(:text_widget, :text => html)
+			end
+			
+			it "should include html tags" do
+				render :partial => "widgets/sections/content_page_edit", :object => @widget, :as => :widget
+				rendered.should include(html)
+			end
+		end
 		
 		context "large amounts of text" do
 			before(:each) do
@@ -69,7 +88,7 @@ describe "widgets/sections/_content_page_edit.html.haml" do
 
 		context "without a quote" do
 			before(:each) do
-				@widget = FactoryGirl.build(:quoted_link_widget, :text => nil)
+				@widget = FactoryGirl.create(:link_widget, :text => nil)
 			end
 			
 			it "should not add a source class to the link" do
@@ -109,5 +128,15 @@ describe "widgets/sections/_content_page_edit.html.haml" do
 
   end
 
+	context "with a new widget" do
+		before(:each) do
+			@widget = FactoryGirl.build(:widget)
+		end
+		
+		it "should render nothing" do
+			render :partial => "widgets/sections/content_page_edit", :object => @widget, :as => :widget
+			rendered.should == ""
+		end
+	end
 
 end
