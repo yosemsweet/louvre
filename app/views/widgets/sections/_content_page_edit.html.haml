@@ -1,13 +1,5 @@
 - if widget.id
-  .avatar
-    - if widget.creator
-      %img{:src => widget.creator.image, :style => "float:left;margin:5px"}
   .header_and_body{:style => "margin-left:70px;margin-top:5px"}
-    - if widget.creator
-      .creator{:style => "font-weight:bold;"}
-        = widget.creator
-      
-      
     - case widget.content_type
 
     - when 'text_content'
@@ -54,12 +46,15 @@
               \:
             %p
               = answer["message"]
-    :javascript
-      $("[data-widget_id=#{widget.id}] .text_here").ThreeDots({ max_rows:3 });
+
 
 
 
     .tags
+      
+      - if widget.creator
+        = widget.creator
+        &nbsp;&bull;&nbsp;
       - if widget.creator && widget.updated_at > 12.hours.ago 
         #{time_ago_in_words(widget["updated_at"])} ago
       - elsif widget.creator

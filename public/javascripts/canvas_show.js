@@ -1,5 +1,22 @@
 $(document).ready(function(){
 	
+	// $("#feed .widget.canvas-feed-snippet").hover(function(){
+	// 	widget_id = $(this).data("widget_id")
+	// 	$("[data-widget_id="+widget_id+"] .controls").show();
+	// })
+	
+	$("#feed .widget.canvas-feed-snippet").hover(
+		function(){
+			widget_id = $(this).data("widget_id")
+			if($("form#edit_widget_"+widget_id).is(":hidden"))
+				$("[data-widget_id="+widget_id+"] .controls").fadeIn("fast");
+		},
+		function(){
+			widget_id = $(this).data("widget_id")
+			$("[data-widget_id="+widget_id+"] .controls").fadeOut("fast");
+		}
+	)
+	
 	// Enable canvas following buttons.
 	$("#follow").click(function(event){
 		event.preventDefault();
@@ -64,5 +81,5 @@ $(document).ready(function(){
 	    
 		reload_widgets();
 	}
-	
+	update_widget_comment_counts();
 });

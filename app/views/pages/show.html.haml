@@ -33,14 +33,15 @@
 
   %br
   %div Other Pages:
-  %ul.related_page_link
+  %ul.vertical-list
     - @page.canvas.pages.each do |page|
       -if page != @page
-        %a.related_page_link{:href => canvas_page_path(@page.canvas, page), :title => page.title}
-          %li.related_page_link
-            %img.page_icon{:src => page.icon}
-            .page_title=page.title
-            .last_modified{:style => "font-size:11px;"}
+        %a.vertical-list{:href => canvas_page_path(@page.canvas, page), :title => page.title}
+          %li.vertical-list
+            %img.vertical-list-icon{:src => page.icon}
+            .vertical-list-title
+              =page.title
+            .vertical-list-details
               Modified by
               =page.editor
               %br

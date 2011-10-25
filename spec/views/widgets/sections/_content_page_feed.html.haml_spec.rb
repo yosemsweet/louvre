@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "widgets/sections/_content.html.haml" do
+describe "widgets/sections/content_page_feed.html.haml" do
   
 	context "text widget" do
 		before(:each) do
@@ -8,7 +8,7 @@ describe "widgets/sections/_content.html.haml" do
 		end
 		
 		it "should display widget text" do
-			render :partial => "widgets/sections/content", :object => @widget, :as => :widget
+			render :partial => "widgets/sections/content_page_feed", :object => @widget, :as => :widget
 			rendered.should include(@widget.text)
 		end
 
@@ -46,7 +46,7 @@ describe "widgets/sections/_content.html.haml" do
 
 		context "without a quote" do
 			before(:each) do
-				@widget = FactoryGirl.create(:quoted_link_widget, :text => nil)
+				@widget = FactoryGirl.build(:quoted_link_widget, :text => nil)
 			end
 			
 			it "should not add a source class to the link" do
@@ -83,5 +83,8 @@ describe "widgets/sections/_content.html.haml" do
 				rendered.should have_selector("a.link.source[href='#{@widget.link}']")
 			end
 		end
+
   end
+
+
 end

@@ -516,7 +516,6 @@ describe "Widgets Requests" do
 			end
 
 			it "should not show add any add a widget link" do
-				response.body.should_not include("id='toolbar'")
 				response.body.should_not include("class='add_widget")
 			end
 

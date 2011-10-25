@@ -2,35 +2,18 @@
 - if can? :update , widget
   - class_string = widget.content_type + " widget_editable"
 
-%li.widget.canvas_feed_widget.snippet{:data => {:widget_id => widget.id} , :class => class_string, :style => "max-height: 400px; overflow: auto" }
+%li.widget.canvas-feed-snippet{:data => {:widget_id => widget.id} , :class => class_string, :style => "max-height: 400px; overflow: auto" }
   
   .controls
     - if can? :update , widget
       %img.tool.edit{:src => "/images/edit5.png", :title => "Edit Snippet"}
       %img.tool.delete{:src => "/images/delete5.png", :title => "Delete Snippet"}
-    %div.tool.comment_count.toggle_facebook_comments{:title => "View/Add Comments"}
 
   .loading
   
   .content
     = render_widget_section("content", widget)        
-    .tags
-      = render_widget_section("tags", widget) 
-    .credits
-      Creator: 
-      = widget.creator
-      .widget_history
-        Show History
-    .facebook_comments
-      .fb-discussion
-        - if widget.id
-          = comments_for(widget, :href => widget.permalink, :width => 938)
-
+  
   - if can? :update , widget
     .edit_content
       = render_widget_section("inline_form", widget)
-      
-
-
-
-

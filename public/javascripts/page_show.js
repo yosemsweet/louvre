@@ -1,7 +1,7 @@
 $(function(){
 
 
-	$("a.related_page_link").click(function(){
+	$("a.vertical-list").click(function(){
 	  mpq.push(["track_links",$(".login-link"),"click_login"]);
 	});
 	

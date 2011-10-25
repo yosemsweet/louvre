@@ -128,7 +128,7 @@ ul#presentation_page .widget_image_wrapper img{
 	max-height:400px;
 }
 
-img.page_icon{
+img.vertical-list-icon{
 	height:54px;
 	width:54px;
 	float:left;
@@ -136,14 +136,14 @@ img.page_icon{
 	border:1px solid #AAA;
 }
 
-ul.related_page_link{
+ul.vertical-list{
 	margin: 0;
 	margin-top: 5px;
 	padding: 0;
 	list-style: none;
 }
 
-li.related_page_link{
+li.vertical-list{
 	border: 1px solid #FFFFFF;
 	//background:url('/images/page-56.png') no-repeat 3px 3px;
 	height:59px;
@@ -151,13 +151,14 @@ li.related_page_link{
 	padding: 3px 3px 0px 3px;
 	margin: 0px 0px 3px 0px;
 	list-style:none;
-	.page_title{
+	.vertical-list-title{
 		white-space:nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-	.last_modified{
+	.vertical-list-details{
 		color:#666;
+		font-size:11px;
 	}
 
 	&:hover{
@@ -168,7 +169,7 @@ li.related_page_link{
 	}
 }
 
-a.related_page_link:hover{
+a.vertical-list:hover{
 	text-decoration:none;
 }
 

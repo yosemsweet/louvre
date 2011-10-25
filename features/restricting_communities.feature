@@ -17,7 +17,7 @@ Scenario: Trying to access management links as a non member
   And I am authenticated
   And there is a canvas
   And I am on that canvas' homepage
-  Then I should not see "Members"
+  Then I should not see "0 Members"
   And I should not see "Applicants"
 
 @omniauth_test

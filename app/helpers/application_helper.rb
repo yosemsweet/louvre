@@ -20,6 +20,7 @@ module ApplicationHelper
     FollowHelper
     jquery.textboxlist.mod
     apprise-1.5.min
+    jquery.threedots.min.js
     )
   end
   

@@ -1,7 +1,7 @@
 class WidgetsController < ApplicationController 
   before_filter :require_login, :only => [:new, :edit, :update, :move, :copy_to_page, :destroy]
 	
-  before_filter :only => [:edit_history, :show, :widget_tags, :edit, :update] do
+  before_filter :only => [:edit_history, :show, :widget_tags, :edit, :update, :feed_widget] do
     @widget = Widget.find(params[:id])
 		@canvas = @widget.canvas
   end
@@ -232,6 +232,10 @@ class WidgetsController < ApplicationController
       head :bad_request
     end
     
+  end
+
+  def feed_widget
+    render :partial => "widgets/sections/content", :object => @widget, :as => :widget
   end
 
 end
