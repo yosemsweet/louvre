@@ -48,14 +48,10 @@
               = answer["message"]
 
     .tags
-    
       - if widget.creator
         = widget.creator
         &nbsp;&bull;&nbsp;
-      - if widget.creator && widget.updated_at > 12.hours.ago 
-        #{time_ago_in_words(widget["updated_at"])} ago
-      - elsif widget.creator
-        #{widget.updated_at.strftime("%b %d %Y %I:%M %p")}
+      = show_date(widget.update_at)
       = render_widget_section("tags", widget)
 
       &nbsp;&bull;&nbsp;

@@ -2,6 +2,24 @@ require 'spec_helper'
 
 describe "widgets/sections/_content_page_edit.html.haml" do
   
+	context "for all widget types" do
+
+		before(:each) do
+			@widget = Factory.create(:widget)
+			render :partial => "widgets/sections/content_page_edit", :object => @widget, :as => :widget
+		end
+
+		it "should show creator" do
+			rendered.should include(@widget.creator.name)
+		end
+		
+		it "should show last modified date" do
+			view.stubs(:show_date).returns("show_date == foo")
+			rendered.should include("show_date == foo")
+		end
+		
+	end
+
 	context "text widget" do
 		before(:each) do
 			@widget = FactoryGirl.create(:text_widget)
