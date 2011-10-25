@@ -108,7 +108,6 @@ describe "widgets/sections/_content_page_edit.html.haml" do
 
   end
 
-
 	context "with a new widget" do
 		before(:each) do
 			@widget = FactoryGirl.build(:widget)

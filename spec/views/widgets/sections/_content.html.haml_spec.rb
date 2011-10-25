@@ -4,7 +4,7 @@ describe "widgets/sections/_content.html.haml" do
   
 	context "text widget" do
 		before(:each) do
-			@widget = FactoryGirl.build(:text_widget)
+			@widget = FactoryGirl.create(:text_widget)
 		end
 		
 		it "should display widget text" do
@@ -12,11 +12,34 @@ describe "widgets/sections/_content.html.haml" do
 			rendered.should include(@widget.text)
 		end
 
+		context "html in text" do
+			let(:html) {"<h2>this is html</h2>"}
+			before(:each) do
+				@widget = FactoryGirl.create(:text_widget, :text => html)
+			end
+
+			it "should include html tags" do
+				render :partial => "widgets/sections/content", :object => @widget, :as => :widget
+				rendered.should include(html)
+			end
+		end
+
+		context "large amounts of text" do
+			before(:each) do
+				@widget = FactoryGirl.create(:long_text_widget)
+			end
+
+			it "should display all of the widget text" do
+				render :partial => "widgets/sections/content", :object => @widget, :as => :widget
+				rendered.strip.should include(@widget.text.strip)
+			end
+		end
+
 	end
 
   context "image widget" do
 		before(:each) do
-			@widget = FactoryGirl.build(:image_widget)
+			@widget = FactoryGirl.create(:image_widget)
 			render :partial => "widgets/sections/content", :object => @widget, :as => :widget
 		end
 		
@@ -36,7 +59,7 @@ describe "widgets/sections/_content.html.haml" do
   context "link widget" do
 		
 		before(:each) do
-			@widget = FactoryGirl.build(:link_widget)
+			@widget = FactoryGirl.create(:link_widget)
 		end
 		
     it "should display the link" do
@@ -46,7 +69,7 @@ describe "widgets/sections/_content.html.haml" do
 
 		context "without a quote" do
 			before(:each) do
-				@widget = FactoryGirl.build(:quoted_link_widget, :text => nil)
+				@widget = FactoryGirl.create(:link_widget, :text => nil)
 			end
 			
 			it "should not add a source class to the link" do
@@ -69,8 +92,9 @@ describe "widgets/sections/_content.html.haml" do
 		end
 
 		context "with a quote" do
+		
 			before(:each) do
-				@widget = FactoryGirl.build(:quoted_link_widget)
+				@widget = FactoryGirl.create(:quoted_link_widget)
 			end
 			
 			it "should display the quote" do
@@ -82,9 +106,23 @@ describe "widgets/sections/_content.html.haml" do
 				render :partial => "widgets/sections/content", :object => @widget, :as => :widget
 				rendered.should have_selector("a.link.source[href='#{@widget.link}']")
 			end
+			
 		end
 
   end
 
+
+	context "with a new widget" do
+		
+		before(:each) do
+			@widget = FactoryGirl.build(:widget)
+		end
+		
+		it "should render nothing" do
+			render :partial => "widgets/sections/content", :object => @widget, :as => :widget
+			rendered.should == ""
+		end
+		
+	end
 
 end
