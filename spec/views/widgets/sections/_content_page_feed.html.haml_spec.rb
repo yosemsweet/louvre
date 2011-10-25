@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe "widgets/sections/_content_page_feed.html.haml" do
+describe "widgets/sections/content_page_feed.html.haml" do
   
 	context "text widget" do
 		before(:each) do
-			@widget = FactoryGirl.build(:text_widget)
+			@widget = FactoryGirl.create(:text_widget)
 		end
 		
 		it "should display widget text" do
-			render :partial => "widgets/sections/_content_page_feed", :object => @widget, :as => :widget
+			render :partial => "widgets/sections/content_page_feed", :object => @widget, :as => :widget
 			rendered.should include(@widget.text)
 		end
 
@@ -16,7 +16,7 @@ describe "widgets/sections/_content_page_feed.html.haml" do
 
   context "image widget" do
 		before(:each) do
-			@widget = FactoryGirl.build(:image_widget)
+			@widget = FactoryGirl.create(:image_widget)
 			render :partial => "widgets/sections/content", :object => @widget, :as => :widget
 		end
 		
@@ -36,7 +36,7 @@ describe "widgets/sections/_content_page_feed.html.haml" do
   context "link widget" do
 		
 		before(:each) do
-			@widget = FactoryGirl.build(:link_widget)
+			@widget = FactoryGirl.create(:link_widget)
 		end
 		
     it "should display the link" do
@@ -70,7 +70,7 @@ describe "widgets/sections/_content_page_feed.html.haml" do
 
 		context "with a quote" do
 			before(:each) do
-				@widget = FactoryGirl.build(:quoted_link_widget)
+				@widget = FactoryGirl.create(:quoted_link_widget)
 			end
 			
 			it "should display the quote" do
