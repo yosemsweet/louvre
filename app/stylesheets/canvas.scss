@@ -41,17 +41,21 @@ ul#inline_form{
 ul#feed .widget_image_wrapper img{
 	max-width:700px;
 	max-height:140px;
+	padding:3px;
+	border:1px solid #CCC;
 }
 
 
-ul.related_page_link{
+
+ul.vertical-list{
 	margin: 0;
 	margin-top: 5px;
 	padding: 0;
 	list-style: none;
 }
 
-img.page_icon{
+
+img.vertical-list-icon{
 	height:54px;
 	width:54px;
 	float:left;
@@ -59,21 +63,20 @@ img.page_icon{
 	border:1px solid #AAA;
 }
 
-li.related_page_link{
+li.vertical-list{
 	border: 1px solid #FFFFFF;
-	//background:url('/images/page-56.png') no-repeat 3px 3px;
 	height:59px;
-	//padding: 3px 3px 0px 64px;
 	padding: 3px 3px 0px 3px;
 	margin: 0px 0px 3px 0px;
 	list-style:none;
-	.page_title{
+	.vertical-list-title{
 		white-space:nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-	.last_modified{
+	.vertical-list-details{
 		color:#666;
+		font-size:11px;
 	}
 
 	&:hover{
@@ -84,6 +87,14 @@ li.related_page_link{
 	}
 }
 
-a.related_page_link:hover{
+a.vertical-list:hover{
 	text-decoration:none;
+	cursor:pointer;
 }
+
+.heading{
+	font-weight:bold;
+	margin-top:5px;
+	font-size:18px;
+}
+.controls{display:none;}

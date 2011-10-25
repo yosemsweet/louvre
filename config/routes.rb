@@ -53,6 +53,7 @@ Louvre::Application.routes.draw do
 
   match "/widgets/:id/tags"  => "widgets#widget_tags"
   match "/widgets/create_via_email"  => "widgets#create_via_email"
+  match "/feed_widget/:id"  => "widgets#feed_widget"
   match "/events"  => "events#index"
   match "/event_count"  => "events#count"
   

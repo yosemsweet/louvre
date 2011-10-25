@@ -192,7 +192,7 @@ li.widget.page_feed_widget.snippet{
 	margin:0px;
 	border:0px;
 	border-bottom:1px solid #DDD;
-	padding:5px;
+	padding:0px;
 	
 	
 	blockquote.widget_link_block{
@@ -215,14 +215,12 @@ li.widget.page_feed_widget.snippet{
 }
 .tags{
 	font-style:italic;
-	font-size:10px;
+	font-size:11px;
 }
 .credits{
-	font-style:italic;
-	font-size:10px;
+	font-style:bold;
 }
 .widget_history {
-	float:right;
 	cursor: pointer;
 }
 

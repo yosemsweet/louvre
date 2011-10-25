@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "widgets/sections/_content.html.haml" do
+describe "widgets/sections/_content_page_feed.html.haml" do
   
 	context "text widget" do
 		before(:each) do
@@ -8,7 +8,7 @@ describe "widgets/sections/_content.html.haml" do
 		end
 		
 		it "should display widget text" do
-			render :partial => "widgets/sections/content", :object => @widget, :as => :widget
+			render :partial => "widgets/sections/_content_page_feed", :object => @widget, :as => :widget
 			rendered.should include(@widget.text)
 		end
 

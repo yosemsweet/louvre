@@ -1,20 +1,12 @@
 - if widget.id
-  .avatar
-    - if widget.creator
-      %img{:src => widget.creator.image, :style => "float:left;margin:5px"}
-  .header_and_body{:style => "margin-left:70px;margin-top:5px"}
-    - if widget.creator
-      .creator{:style => "font-weight:bold;"}
-        = widget.creator
-      
+
+  .header_and_body
       
     - case widget.content_type
 
     - when 'text_content'
       .text{:style => "margin-top:5px;margin-bottom:10px;"}
-        .text_here
-          %span.ellipsis_text
-            = raw(strip_tags(widget.text))
+        = raw(widget.text)
 
     - when 'image_content'
       %figure.widget_image_wrapper{:style => "margin-top:5px;margin-bottom:10px;"}
@@ -54,28 +46,3 @@
               \:
             %p
               = answer["message"]
-    :javascript
-      $("[data-widget_id=#{widget.id}] .text_here").ThreeDots({ max_rows:3 });
-
-
-
-    .tags
-      - if widget.creator && widget.updated_at > 12.hours.ago 
-        #{time_ago_in_words(widget["updated_at"])} ago
-      - elsif widget.creator
-        #{widget.updated_at.strftime("%b %d %Y %I:%M %p")}
-      = render_widget_section("tags", widget)
-
-      &nbsp;&bull;&nbsp;
-
-      %span.widget_history
-        Show History
-
-      &nbsp;&bull;&nbsp;
-
-      %span.comment_count.toggle_facebook_comments
-
-    .facebook_comments
-      .fb-discussion
-        - if widget.id
-          = comments_for(widget, :href => widget.permalink, :width => 575)

@@ -15,49 +15,61 @@
   %p
     Our passion is one driven by powerful emotions, childhood dreams and uncompromising aspirations. Porsche: Engineered for magic
 
-#pages
-  - if can? :create, Page.new(:canvas => @canvas)
-    #toolbar
-      %a.add_page.tab{:href => new_canvas_page_path(@canvas), :data => {:content_type => "page", :canvas_id => @canvas.id}} New Page
-    = hint_for(@canvas, current_user, "page")
-      
-  %ul.related_page_link{:style => "max-height:135px; overflow:auto;"}
-    - @canvas.pages.each do |page|
-      %a.related_page_link{:href => canvas_page_path(@canvas, page), :title => page.title}
-        %li.related_page_link{:style => "float:left; width:300px;"}
-          /%div.page_icon{:style => "background: url('#{page.icon}') no-repeat; "}
-          %img.page_icon{:src => page.icon}
-          .page_title=page.title
-          .last_modified{:style => "font-size:11px;"}
-            Modified by
-            =page.editor
-            %br
-            -if page.updated_at > 12.hours.ago 
-              #{time_ago_in_words(page["updated_at"])} ago
-            -else
-              on #{page.updated_at.strftime("%b %d %Y %I:%M %p")}
 
-- if can?(:create, Widget.new(:canvas => @canvas))
-  %br
-  #toolbar
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add snippet
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Share a photo
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id}} Post a link
-    %a.add_widget.tab{:href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id}} Ask a question
-    
-    %div{:style => "float:right;"}
+.span-17.first
+  - if can?(:create, Widget.new(:canvas => @canvas))
+    %div{:style => "font-size:13px;height:20px;"}
       = render 'add_via_bookmarklet'
       = render 'add_via_email'
-  
+    %br
+  #toolbar
+    .heading{:style => "float:left;"}
+      Community Feed
+    - if can?(:create, Widget.new(:canvas => @canvas))
+      %a.add_widget.tab{:style => "float:right;", :href => "#", :data => {:content_type => "question_content", :canvas_id => @canvas.id}} Ask a question
+      %a.add_widget.tab{:style => "float:right;", :href => "#", :data => {:content_type => "link_content", :canvas_id => @canvas.id}} Post a link
+      %a.add_widget.tab{:style => "float:right;", :href => "#", :data => {:content_type => "image_content", :canvas_id => @canvas.id}} Share a photo
+      %a.add_widget.tab{:style => "float:right;", :href => "#", :data => {:content_type => "text_content", :canvas_id => @canvas.id}} Add snippet
+
   %ul#inline_form
     - @new_widgets.each do |t, widget|
       %div{:style => "display:none;"}
         = render :partial => "widgets/canvas_feed", :object => widget, :as => :widget
-= hint_for(@canvas, current_user, "widget")
-\
-%ul#feed
-  = render :collection => Widget.for_canvas(@canvas.id,1), :partial => "widgets/canvas_feed", :as => :widget
+  = hint_for(@canvas, current_user, "widget")
+  \
+  %ul#feed
+    = render :collection => Widget.for_canvas(@canvas.id,1), :partial => "widgets/canvas_feed", :as => :widget
   
-.widget_history_content
+  .widget_history_content
 
-
+.span-7.last
+  #memberlist
+    .heading
+      Community Members
+    = render 'memberlist'
+    
+  %br
+  
+  #pages
+    #toolbar
+      .heading{:style => "float:left;"}
+        Pages
+      - if can? :create, Page.new(:canvas => @canvas)
+        %a.add_page.tab{:style => "float:right;", :href => new_canvas_page_path(@canvas), :data => {:content_type => "page", :canvas_id => @canvas.id}} New Page
+        = hint_for(@canvas, current_user, "page")
+    
+    %div{:style => "border-top:1px solid #CCC; border-bottom:1px solid #DDD;"} 
+      %ul.vertical-list{:style => "max-height:275px; overflow:auto;"}
+        - @canvas.pages.each do |page|
+          %a.vertical-list{:href => canvas_page_path(@canvas, page), :title => page.title}
+            %li.vertical-list{:style => "float:left; width:250px;"}
+              %img.vertical-list-icon{:src => page.icon}
+              .vertical-list-title=page.title
+              .vertical-list-details
+                Modified by
+                =page.editor
+                %br
+                -if page.updated_at > 12.hours.ago 
+                  #{time_ago_in_words(page["updated_at"])} ago
+                -else
+                  on #{page.updated_at.strftime("%b %d %Y %I:%M %p")}

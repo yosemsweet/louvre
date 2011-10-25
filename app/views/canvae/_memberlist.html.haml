@@ -1,0 +1,26 @@
+%div{:style => "border-top:1px solid #CCC; border-bottom:1px solid #DDD;"}
+  %ul.vertical-list
+    %a.vertical-list{:href => "http://www.facebook.com/#{@canvas.creator.uid}", :title => @canvas.creator.name}
+      %li.vertical-list
+        %img.vertical-list-icon{:src => @canvas.creator.image}
+        .vertical-list-title
+          = @canvas.creator.name
+        .vertical-list-details
+          Created Community
+          %br
+          -if @canvas.created_at > 12.hours.ago 
+            #{time_ago_in_words(@canvas["created_at"])} ago
+          -else
+            #{@canvas.created_at.strftime("%b %d %Y %I:%M %p")}
+    - @canvas.members.each do |member|
+      %a.vertical-list{:href => "http://www.facebook.com/#{User.find(member.user_id).uid}", :title => User.find(member.user_id).name}
+        %li.vertical-list
+          %img.vertical-list-icon{:src => User.find(member.user_id).image}
+          .vertical-list-title= User.find(member.user_id).name
+          .vertical-list-details
+            Joined Community
+            %br
+            -if member.created_at > 12.hours.ago 
+              #{time_ago_in_words(member["created_at"])} ago
+            -else
+              #{member.created_at.strftime("%b %d %Y %I:%M %p")}

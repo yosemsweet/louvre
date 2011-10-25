@@ -1,13 +1,28 @@
 - if widget.id
-  .avatar
+  .tags{:style => "background-color:#DDD; padding:5px;"}
+    
     - if widget.creator
-      %img{:src => widget.creator.image, :style => "float:left;margin:5px"}
-  .header_and_body{:style => "margin-left:70px;margin-top:5px"}
-    - if widget.creator
-      .creator{:style => "font-weight:bold;"}
-        = widget.creator
-      
-      
+      = widget.creator
+      &nbsp;&bull;&nbsp;
+    - if widget.creator && widget.updated_at > 12.hours.ago 
+      #{time_ago_in_words(widget["updated_at"])} ago
+    - elsif widget.creator
+      #{widget.updated_at.strftime("%b %d %Y %I:%M %p")}
+  
+    %br
+
+    %span.widget_history
+      Show History
+
+    &nbsp;&bull;&nbsp;
+
+    %span.comment_count.toggle_facebook_comments
+    
+    %br
+    = render_widget_section("tags", widget)
+  
+  
+  .header_and_body{:style => "padding:5px;"}
     - case widget.content_type
 
     - when 'text_content'
@@ -54,26 +69,11 @@
               \:
             %p
               = answer["message"]
-    :javascript
-      $("[data-widget_id=#{widget.id}] .text_here").ThreeDots({ max_rows:3 });
 
 
 
-    .tags
-      - if widget.creator && widget.updated_at > 12.hours.ago 
-        #{time_ago_in_words(widget["updated_at"])} ago
-      - elsif widget.creator
-        #{widget.updated_at.strftime("%b %d %Y %I:%M %p")}
-      = render_widget_section("tags", widget)
 
-      &nbsp;&bull;&nbsp;
-
-      %span.widget_history
-        Show History
-
-      &nbsp;&bull;&nbsp;
-
-      %span.comment_count.toggle_facebook_comments
+    
 
     .facebook_comments
       .fb-discussion

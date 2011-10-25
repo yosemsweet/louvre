@@ -2,8 +2,7 @@ $(document).ready(function(){
 
 	
 	// Add widget links.
-	$(".add_widget, .cancel_edit").click(function(event){
-
+	$(".add_widget").click(function(event){
 		var content_type = $(this).data("content_type");
 		var widget = $("ul#inline_form li.widget." + content_type);
 		
@@ -11,10 +10,10 @@ $(document).ready(function(){
 		$("ul#inline_form").children().not(widget.parent()).hide();
 		
 		$(widget).removeClass('edit-mode');
-		
+
 		// Fire the edit event for the widget.
 		$(".edit", widget).click();
-		
+						
 		// Ensure that the content is hidden to make toggling work properly.
 		$(".content", widget).hide();	
 		
@@ -25,7 +24,6 @@ $(document).ready(function(){
 	  event.preventDefault();
 	
 	});
-
 
   $(".widget .widget_history").live("click", function(event){
 	
@@ -42,6 +40,18 @@ $(document).ready(function(){
 
   });
 
+	$(".cancel_edit").click(function(event){
+		var widget_id = $(this).parents(".widget").data("widget_id");
+		if(typeof widget_id === "undefined"){
+			widget_id = 0;
+		}
+		var widget = $(this).parents(".widget");
+	
+		if (widget_id == 0){
+			widget.parent().toggle();
+		}
+	});
+
 	// Edit widget links.
 	$(".widget .edit, .cancel_edit").live("click", function(event){
 
@@ -49,7 +59,6 @@ $(document).ready(function(){
 		if(typeof widget_id === "undefined"){
 			widget_id = 0;
 		}
-		
 		var widget = $(this).parents(".widget");
 		
 		$facebook_comments = $(this).parents(".widget").find(".facebook_comments");
@@ -145,45 +154,54 @@ $(document).ready(function(){
 					});
 					
 					// get the widget info and populate both the displays and the forms
-					$.getJSON('/widgets/'+widget_id+'.json', function(data) {
-					
-						if(data.widget.content_type == "text_content"){
-							$("[data-widget_id="+widget_id+"] .content .text").html(data.widget.text);
-							$("form#edit_widget_"+widget_id+" textarea#widget_ckeditor_"+widget_id).val(data.widget.text);
-						
-						}else if(data.widget.content_type == "image_content"){
-							$("[data-widget_id="+widget_id+"] .content .widget_image_wrapper img").attr('src',data.widget.image);
-							$("[data-widget_id="+widget_id+"] .content .widget_image_wrapper img").attr('alt',data.widget.alt_text);
-							$("[data-widget_id="+widget_id+"] .content .widget_image_wrapper img").attr('title',data.widget.alt_text);
-							$("[data-widget_id="+widget_id+"] .content .widget_image_wrapper figcaption").html(data.widget.alt_text);
-							$("form#edit_widget_"+widget_id+" input#widget_image").val(data.widget.image);
-							$("form#edit_widget_"+widget_id+" input#widget_alt_text").val(data.widget.alt_text);
-						
-						}else if(data.widget.content_type == "link_content"){
-							$("[data-widget_id="+widget_id+"] .content a").attr('href',data.widget.link);
-							$("[data-widget_id="+widget_id+"] .content a cite").html(data.widget.title);
-							if(data.widget.text == ""){
-								$("[data-widget_id="+widget_id+"] .content blockquote").hide();
-							}else{
-								$("[data-widget_id="+widget_id+"] .content blockquote").show();
-								$("[data-widget_id="+widget_id+"] .content blockquote").attr('cite',data.widget.link);
-								$("[data-widget_id="+widget_id+"] .content blockquote").html(data.widget.text);
-							}
-							
-							$("form#edit_widget_"+widget_id+" input#widget_title").val(data.widget.title);
-							$("form#edit_widget_"+widget_id+" input#widget_link").val(data.widget.link);
-							$("form#edit_widget_"+widget_id+" textarea#widget_text").val(data.widget.text);
-						
-						}else if(data.widget.content_type == "question_content"){
-							$("[data-widget_id="+widget_id+"] .content .question .question_text").html(data.widget.question);
-							$("form#edit_widget_"+widget_id+" textarea#widget_question").val(data.widget.question);
-						
-						}
-						
+					$.get('/feed_widget/'+widget_id, function(data) {
+						$("[data-widget_id="+widget_id+"] .content").html(data);
 						$(".loading", widget).hide();
 						$(".content", widget).fadeIn();
-						$(".controls", widget).fadeIn();
+						$("[data-widget_id="+widget_id+"] .text_here").ThreeDots({ max_rows:3 });
 					});
+					
+					// $.getJSON('/widgets/'+widget_id+'.json', function(data) {
+					// 										
+					// 						if(data.widget.content_type == "text_content"){
+					// 							$("[data-widget_id="+widget_id+"] .content .text .text_here").html(data.widget.text);
+					// 							$("[data-widget_id="+widget_id+"] .content .text .text_here").attr("threedots",data.widget.text);
+					// 							$("[data-widget_id="+widget_id+"] .content .text .text_here").ThreeDots({max_rows:3});
+					// 							
+					// 							$("form#edit_widget_"+widget_id+" textarea#widget_ckeditor_"+widget_id).val(data.widget.text);
+					// 						
+					// 						}else if(data.widget.content_type == "image_content"){
+					// 							$("[data-widget_id="+widget_id+"] .content .widget_image_wrapper img").attr('src',data.widget.image);
+					// 							$("[data-widget_id="+widget_id+"] .content .widget_image_wrapper img").attr('alt',data.widget.alt_text);
+					// 							$("[data-widget_id="+widget_id+"] .content .widget_image_wrapper img").attr('title',data.widget.alt_text);
+					// 							$("[data-widget_id="+widget_id+"] .content .widget_image_wrapper figcaption").html(data.widget.alt_text);
+					// 							$("form#edit_widget_"+widget_id+" input#widget_image").val(data.widget.image);
+					// 							$("form#edit_widget_"+widget_id+" input#widget_alt_text").val(data.widget.alt_text);
+					// 						
+					// 						}else if(data.widget.content_type == "link_content"){
+					// 							$("[data-widget_id="+widget_id+"] .content a").attr('href',data.widget.link);
+					// 							$("[data-widget_id="+widget_id+"] .content a cite").html(data.widget.title);
+					// 							if(data.widget.text == ""){
+					// 								$("[data-widget_id="+widget_id+"] .content blockquote").hide();
+					// 							}else{
+					// 								$("[data-widget_id="+widget_id+"] .content blockquote").show();
+					// 								$("[data-widget_id="+widget_id+"] .content blockquote").attr('cite',data.widget.link);
+					// 								$("[data-widget_id="+widget_id+"] .content blockquote").html(data.widget.text);
+					// 							}
+					// 							
+					// 							$("form#edit_widget_"+widget_id+" input#widget_title").val(data.widget.title);
+					// 							$("form#edit_widget_"+widget_id+" input#widget_link").val(data.widget.link);
+					// 							$("form#edit_widget_"+widget_id+" textarea#widget_text").val(data.widget.text);
+					// 						
+					// 						}else if(data.widget.content_type == "question_content"){
+					// 							$("[data-widget_id="+widget_id+"] .content .question .question_text").html(data.widget.question);
+					// 							$("form#edit_widget_"+widget_id+" textarea#widget_question").val(data.widget.question);
+					// 						
+					// 						}
+					// 						
+					// 						$(".loading", widget).hide();
+					// 						$(".content", widget).fadeIn();
+					// 					});
 
 				}else{
 				  $(widget).parent().hide();
@@ -316,12 +334,16 @@ $(document).ready(function(){
 	
 	update_widget_comment_counts = function(){
 		$(".widget").each(function(){
-    	var $widget = $(this);
-      countComments(request.root_url + "widgets/" + $widget.data("widget_id"), function(n){
-       var comments = n > 0 ? n : "" ;
-       $('.comment_count', $widget).text( comments );
-     });
-    });
+			var $widget = $(this);
+			countComments(request.root_url + "widgets/" + $widget.data("widget_id"), function(n){
+				var comments = n > 0 ? n : "0" ;
+				if(comments == 1)
+					var label = " comment"
+				else
+					var label = " comments"
+				$('.comment_count', $widget).text( comments + label);
+			});
+		});
 	}
 
 	enable_widget_previews = function(){
