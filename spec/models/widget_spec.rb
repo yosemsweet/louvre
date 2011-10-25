@@ -443,13 +443,27 @@ describe Widget do
 		end
 	end
 
-  # describe "#permalink" do
-  #   
-  #   it "should return the url for that widget" do
-  #       widget = Factory.build(:text_widget)
-  #       widget.permalink.should == "http://loorp.local:3000/widgets/#{widget.id}"
-  #     end
-  #   
-  #   end
+  describe "#permalink" do
+		context "widget.id != nil" do
+			let(:widget) { Factory.create(:widget) }
+			
+			it "should return the url for a widget" do
+				widget.permalink.should == Rails.application.config.thehost + "/widgets/#{widget.id}"
+			end
+		
+		end
+		
+		context "widget.id == nil" do
+			let(:widget) { Factory.build(:widget) }
+			
+			it "should raise a RuntimeError" do
+				expect {
+					widget.permalink
+					}.to raise_error RuntimeError 
+			end
+			
+		end
+
+	end
 
 end

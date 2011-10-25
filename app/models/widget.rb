@@ -45,11 +45,8 @@ class Widget < ActiveRecord::Base
   end
 
   def permalink
-    if Rails.env.production?
-      "http://loorp.com/widgets/#{self.id}"
-    else
-      "http://loorp.local:3000/widgets/#{self.id}"
-    end
+		raise "Can't access permalink for a widget without an id" unless self.id.present?
+		Rails.application.config.thehost + "/widgets/#{self.id}"
   end
 
   def tag_ids
