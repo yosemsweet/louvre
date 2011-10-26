@@ -32,20 +32,6 @@ $menu-height:36px;
 @import "partials/hints";
 @import "compass/utilities/general/clearfix";
 
-
-body {
- @include body-font; 
-}
-
-a:visited { color:$visited-link-color; }
-a:link { color:$link-color; }
-a:hover {text-decoration:underline;}
-a {text-decoration:none;}
-
-h3 {
-	margin:0.25em 0em 0.25em 0em;
-}
-
 .notice{
 	font-size:14px;
 	background:#DFF3C0;

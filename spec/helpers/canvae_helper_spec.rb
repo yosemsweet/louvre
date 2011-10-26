@@ -62,8 +62,8 @@ describe 'CanvaeHelper' do
 					@canvas.open = true
 				end
 				
-				it "should return a join button" do
-					Capybara.string(helper.join_link_for(@canvas, @user)).should have_selector("#join.button")
+				it "should return a join link" do
+					Capybara.string(helper.join_link_for(@canvas, @user)).should have_selector("a[href='#{join_canvas_path(@canvas)}']")
 				end
 			end
 			
@@ -72,8 +72,8 @@ describe 'CanvaeHelper' do
 					@canvas.open = false
 				end
 
-				it "should return an apply button" do
-					Capybara.string(helper.join_link_for(@canvas, @user)).should have_selector("#apply.button")
+				it "should return a sign in to apply link" do
+					Capybara.string(helper.join_link_for(@canvas, @user)).should have_selector("#apply a[href='/auth/facebook']")
 				end
 			end
 		end
@@ -90,7 +90,7 @@ describe 'CanvaeHelper' do
 				end
 				
 				it "should return a join button" do
-					Capybara.string(helper.join_link_for(@canvas, @user)).should have_selector("#join.button")
+					Capybara.string(helper.join_link_for(@canvas, @user)).should have_selector("a[href='#{join_canvas_path(@canvas)}']")
 				end
 			end
 			
@@ -100,7 +100,7 @@ describe 'CanvaeHelper' do
 				end
 
 				it "should return an apply button" do
-					Capybara.string(helper.join_link_for(@canvas, @user)).should have_selector("#apply.button")
+					Capybara.string(helper.join_link_for(@canvas, @user)).should have_selector("#apply a")
 				end
 			end
 		end

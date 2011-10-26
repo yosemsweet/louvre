@@ -25,6 +25,13 @@ Given /^(?:this|that) canvas has a page (?:titled|called) "([^"]*)"$/ do |pageti
 	set_that page
 end
 
+Given /^(?:this|that) canvas has a page$/ do
+	page_prototype = Factory.build(:page).attributes.except(
+		"created_at", "updated_at", "page_id", "canvas_id", "id")
+  page = (that Canvas).pages.create(page_prototype)
+	set_that page
+end
+
 Given /^I am creating a canvas$/ do
   visit path_to("the new canvas page")
 	canvas = Factory.build(:canvas)

@@ -461,20 +461,33 @@ describe CanvaeController do
 			end
 			
 		 	describe "with valid params" do
-	      
-	      it "returns a 200" do
-	        results = get :members_create, 
-						:id => canvas.id
-	        response.status.should == 302
-					response.should redirect_to canvas_path(canvas)
-	      end
-
-	      it "give member a member role for canvas" do
+				
+				it "gives member a member role for canvas" do
 					results = get :members_create,
 						:id => canvas.id
 					@user.canvas_role(canvas).should == :member
-	      end
-    
+				end
+
+				it "redirects you to community homepage by default" do
+					results = get :members_create, 
+						:id => canvas.id
+						response.status.should == 302
+					response.should redirect_to canvas_path(canvas)
+				end
+	
+				context "coming from a specific page" do
+					before(:each) do
+						request.env["HTTP_REFERER"] = "/TEST_REFERER"
+					end
+					
+					it "redirects you to the community homepage" do
+		        results = get :members_create, 
+							:id => canvas.id
+		        response.status.should == 302
+						response.should redirect_to canvas_path(canvas)
+		      end
+				end
+				
 	    end
 	
 			describe "with invalid params" do

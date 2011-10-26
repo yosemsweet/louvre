@@ -4,7 +4,7 @@ $(document).ready(function(){
 		autoOpen:false,
 		modal:true,
 		width:435,
-		height:360,
+		height:225,
 		title:"Apply to This Community",
 		buttons:{
 			"ok":function(){

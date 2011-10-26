@@ -35,7 +35,16 @@ Scenario: Ability to join an open community as a non member
   And I am authenticated
   And there is a canvas
   And I am on that canvas' homepage
-  Then I should see "Join"
+  Then I should see a join link
+
+@omniauth_test
+Scenario: Ability to join an open community from a page as a non member
+  Given I am "Bob Dole"
+  And I am authenticated
+  And there is a canvas
+	And that canvas has a page
+  And I am on that page 
+  Then I should see a join link
 
 @omniauth_test
 Scenario: Joining an open community when not logged in forces login, and results in becoming a member
@@ -43,9 +52,19 @@ Scenario: Joining an open community when not logged in forces login, and results
   And there is a canvas
   And I am on that canvas' homepage 
 	And I am not authenticated
-  When I follow "Join"
+  When I follow the join link
 	Then I should be authenticated
   And I should be a member of that canvas
+
+@omniauth_test
+Scenario: Joining an open community from a page takes you to canvas homepage
+  Given I am "Bob Dole"
+  And there is a canvas
+	And that canvas has a page
+  And I am on that page 
+	And I am not authenticated
+  When I follow the join link
+	Then I should be on that canvas' homepage
 
 @omniauth_test
 Scenario: Joining an open community when not logged in but already a member, forces login, and message
@@ -54,7 +73,7 @@ Scenario: Joining an open community when not logged in but already a member, for
   And there is a canvas
   And I am a member of that canvas
   And I am on that canvas' homepage
-  When I follow "Join"
+  When I follow the join link
 	Then I should be authenticated
 	And I should see "You are already a member of"
 
@@ -65,10 +84,9 @@ Scenario: Joining an open community when not logged in but an admin, forces logi
   And there is a canvas
   And I am an admin
   And I am on that canvas' homepage
-  When I follow "Join"
+  When I follow the join link
 	Then I should be authenticated
 	And I should see "Welcome to "	
-  
   
 @omniauth_test
 Scenario: Ability to apply to a closed community as a non member
@@ -78,6 +96,15 @@ Scenario: Ability to apply to a closed community as a non member
 	And that canvas is closed
   And I am on that canvas' homepage
   Then I should see "Apply"
+
+@omniauth_test
+Scenario: Ask to sign in to apply to a closed community when not logged in
+  Given I am "Gill"
+  And I am not authenticated
+  And there is a canvas
+	And that canvas is closed
+  And I am on that canvas' homepage
+  Then I should see "Sign in to apply"
 
 @omniauth_test
 Scenario: Make canvas closed so people have to apply to become a member

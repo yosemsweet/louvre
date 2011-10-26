@@ -8,9 +8,9 @@ class ApplicationController < ActionController::Base
     render :status => :forbidden, :text => "You don't have permissions for that action. #{exception}"
   end
   
-  def require_login(success_url = nil)
+  def require_login
     if !current_user
-      session[:redirect] = success_url || request.url
+      session[:redirect] = request.url
       redirect_to('/auth/facebook', :notice => "Please log in with facebook.")
     end
   end

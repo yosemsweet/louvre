@@ -5,10 +5,6 @@ class CanvaeController < ApplicationController
     @title = @canvas.name
   end
 
-	prepend_before_filter :only => [:members_create] do
-		session[:success_redirect] = request.env["HTTP_REFERER"]
-	end
-
   def edit
 		authorize! :edit, @canvas
   end  
@@ -114,7 +110,7 @@ class CanvaeController < ApplicationController
   			    notice = "You are already a member of #{@canvas.name}"
           end
           
-			    redirect_to session[:success_redirect] || canvas_path(@canvas), :notice => notice
+			    redirect_to canvas_path(@canvas), :notice => notice
 				else
 					head :forbidden
 				end

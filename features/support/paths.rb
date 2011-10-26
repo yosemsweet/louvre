@@ -72,9 +72,6 @@ module NavigationHelpers
 		when /my account page/
 		  edit_user_path
 		  
-		when /cnn/ 
-		  "http://loorp.local:3000"
-		  
   	when /the edit page for "([^"]*)"/
   	  page = Page.where(:title => "#{$1}").first
   	  edit_canvas_page_path(page.canvas, page)

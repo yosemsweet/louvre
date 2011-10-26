@@ -26,6 +26,11 @@ When /^I follow that canvas' name$/ do
 	page.click_link(that(Canvas).name)
 end
 
+When /^(?:|I )follow (.+) link$/ do |link|
+  page.should have_selector(selector_for(link))
+	page.find(selector_for(link)).click
+end
+
 When /^I mouse over "([^"]*)"$/ do |selector|
 	page.find("#{selector_for(selector)}").trigger('mouseover')
 end
@@ -76,6 +81,11 @@ end
 Then /^(?:|the page should include|I should see) html "([^"]*)"$/ do |html|
 	should have_html(html)
 end
+
+Then /^I should see (.+) link$/ do |link|
+  page.should have_selector(selector_for(link))
+end
+
 
 Then /^I should see the "([^"]*)" image$/ do |image|
   page.should have_selector("##{image}")

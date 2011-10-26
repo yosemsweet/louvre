@@ -37,6 +37,9 @@ module HtmlSelectorsHelpers
 		when "the canvas header"
 			"#canvas_header"
 			
+		when /(?:the|a) join/
+			"#join a[href='#{join_canvas_path(that(Canvas))}']"
+			
 		when "that canvas' homepage link"
 			"a[href='#{path_to(%|that canvas' homepage|)}']"
 		

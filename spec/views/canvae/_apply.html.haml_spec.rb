@@ -17,12 +17,12 @@ describe "canvae/apply.html.haml" do
    		
    		it "should ask user to sign up to apply" do
    		  render :partial => 'apply', :object => @canvas, :as => :canvas
-   			rendered.should include("Sign In to Apply")
+   			rendered.should include("Sign in to apply")
    		end
    		
    		it "should link to sign in page" do
    		  render :partial => 'apply', :object => @canvas, :as => :canvas
-   			rendered.should have_selector("a#apply[href='/auth/facebook']")
+   			rendered.should have_selector("a[href='/auth/facebook']")
    		end
   	end
     
@@ -41,7 +41,7 @@ describe "canvae/apply.html.haml" do
   		
   		it "should ask user to sign up to apply" do
    		  render :partial => 'apply', :object => @canvas, :as => :canvas
-   			rendered.should include("Apply Now")
+   			rendered.should include("Apply")
    		end
 	  end
 	  

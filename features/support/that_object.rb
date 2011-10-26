@@ -1,6 +1,7 @@
 module KnowsThatObject
 	def that(klass)
 		that_context[klass.name.to_sym] ||= klass.last
+		that_context[klass.name.to_sym] ||= Factory.create(klass.name.downcase.to_sym)
 		that_context[klass.name.to_sym]
 	end
 	
