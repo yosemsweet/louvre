@@ -6,30 +6,10 @@ body {
  @include body-font; 
 }
 
-#body{
-	background-color: $background-color;
-	color: $text-color;
-  margin-top:$menu-height;
-	
-	li.widget {
-		list-style: none;
-	}
-}
-
-a:visited { color:$visited-link-color; }
-a:link { color:$link-color; }
-a:hover {text-decoration:underline;}
-a {text-decoration:none;}
-
 h1#logo a {
 	color:#FFFFFF;
 	text-decoration:none;
 }
-
-h3 {
-	margin:0.25em 0em 0.25em 0em;
-}
-
 
 #event_count{
 	cursor:pointer;
