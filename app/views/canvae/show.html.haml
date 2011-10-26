@@ -59,10 +59,10 @@
         = hint_for(@canvas, current_user, "page")
     
     %div{:style => "border-top:1px solid #CCC; border-bottom:1px solid #DDD;"} 
-      %ul.vertical-list{:style => "max-height:275px; overflow:auto;"}
+      %ul.vertical-list{:style => "max-height:270px; overflow:auto;"}
         - @canvas.pages.each do |page|
           %a.vertical-list{:href => canvas_page_path(@canvas, page), :title => page.title}
-            %li.vertical-list{:style => "float:left; width:250px;"}
+            %li.vertical-list
               %img.vertical-list-icon{:src => page.icon}
               .vertical-list-title=page.title
               .vertical-list-details
