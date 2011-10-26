@@ -37,21 +37,22 @@
     = render 'canvae/memberlist'
 
   %br
-  %div Other Pages:
-  %ul.vertical-list
-    - @page.canvas.pages.each do |page|
-      -if page != @page
-        %a.vertical-list{:href => canvas_page_path(@page.canvas, page), :title => page.title}
-          %li.vertical-list
-            %img.vertical-list-icon{:src => page.icon}
-            .vertical-list-title
-              =page.title
-            .vertical-list-details
-              Modified by
-              =page.editor
-              %br
-              -if page.updated_at > 12.hours.ago 
-                #{time_ago_in_words(page["updated_at"])} ago
-              -else
-                on #{page.updated_at.strftime("%b %d %Y %I:%M %p")}
+  Other Pages:
+  %div{:style => "border-top:1px solid #CCC; border-bottom:1px solid #DDD; max-height:175px; overflow:auto;"}
+    %ul.vertical-list
+      - @page.canvas.pages.each do |page|
+        -if page != @page
+          %a.vertical-list{:href => canvas_page_path(@page.canvas, page), :title => page.title}
+            %li.vertical-list
+              %img.vertical-list-icon{:src => page.icon}
+              .vertical-list-title
+                =page.title
+              .vertical-list-details
+                Modified by
+                =page.editor
+                %br
+                -if page.updated_at > 12.hours.ago 
+                  #{time_ago_in_words(page["updated_at"])} ago
+                -else
+                  on #{page.updated_at.strftime("%b %d %Y %I:%M %p")}
             
