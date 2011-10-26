@@ -2,8 +2,14 @@
 @import "partials/menu";
 @import "partials/canvas_header";
 
-body {
- @include body-font; 
+#body{
+	background-color: $background-color;
+	color: $text-color;
+  margin-top:$menu-height;
+	
+	li.widget {
+		list-style: none;
+	}
 }
 
 h1#logo a {

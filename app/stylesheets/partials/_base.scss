@@ -45,14 +45,9 @@ $menu-height:36px;
 	text-align:center;
 }
 
-#body{
-	background-color: $background-color;
-	color: $text-color;
-  margin-top:$menu-height;
-	
-	li.widget {
-		list-style: none;
-	}
+
+body {
+ @include body-font; 
 }
 
 a:visited { color:$visited-link-color; }
