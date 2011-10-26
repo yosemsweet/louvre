@@ -1,8 +1,6 @@
 class SessionsController < ApplicationController
 	
 	def create
-	  puts session[:redirect]
-	  puts request.referer
 		session[:return_to] = session[:redirect] || request.referer
 		session[:redirect] = nil
 		auth = request.env["omniauth.auth"]
