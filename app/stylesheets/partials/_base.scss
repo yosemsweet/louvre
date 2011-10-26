@@ -44,3 +44,17 @@ $menu-height:36px;
 	width:450px;
 	text-align:center;
 }
+
+
+body {
+ @include body-font; 
+}
+
+a:visited { color:$visited-link-color; }
+a:link { color:$link-color; }
+a:hover {text-decoration:underline;}
+a {text-decoration:none;}
+
+h3 {
+	margin:0.25em 0em 0.25em 0em;
+}

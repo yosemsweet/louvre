@@ -58,8 +58,8 @@
         %a.add_page.tab{:style => "float:right;", :href => new_canvas_page_path(@canvas), :data => {:content_type => "page", :canvas_id => @canvas.id}} New Page
         = hint_for(@canvas, current_user, "page")
     
-    %div{:style => "border-top:1px solid #CCC; border-bottom:1px solid #DDD;"} 
-      %ul.vertical-list{:style => "max-height:270px; overflow:auto;"}
+    %div{:style => "border-top:1px solid #CCC; border-bottom:1px solid #DDD;max-height:340px; overflow:auto;"} 
+      %ul.vertical-list
         - @canvas.pages.each do |page|
           %a.vertical-list{:href => canvas_page_path(@canvas, page), :title => page.title}
             %li.vertical-list

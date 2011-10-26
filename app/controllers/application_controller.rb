@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   
   before_filter :initialize_mixpanel
   before_filter :update_last_action
+  after_filter do
+    session[:redirect] = request.url
+  end
   
   rescue_from CanCan::AccessDenied do |exception|
     render :status => :forbidden, :text => "You don't have permissions for that action. #{exception}"
