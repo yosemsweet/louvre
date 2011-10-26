@@ -4,6 +4,7 @@ describe "pages/show.html.haml" do
   
   before(:each) do
     @page = Factory.create(:page)
+    @canvas = @page.canvas
     @widgets = Widget.for_page(@page.id)
 		view.stubs(:current_user).returns(@user)
 		view.controller.stubs(:current_user).returns(@user)

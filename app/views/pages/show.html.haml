@@ -29,15 +29,14 @@
         
     - if current_user && current_user.admin?
       = button_to 'Delete', canvas_page_path(@page.canvas, @page), :method => :delete, :confirm => "Are you sure?", :class => "blue-button"
-  %br
 
+  %br
   #memberlist
     .heading
       Community Members
     = render 'canvae/memberlist'
-  
-  %br
 
+  %br
   %div Other Pages:
   %ul.vertical-list
     - @page.canvas.pages.each do |page|
