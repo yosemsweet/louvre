@@ -235,7 +235,7 @@ class WidgetsController < ApplicationController
   end
 
   def feed_widget
-    render :partial => "widgets/sections/content", :object => @widget, :as => :widget
+    render :partial => "widgets/sections/content_page_edit", :object => @widget, :as => :widget
   end
 
 end
