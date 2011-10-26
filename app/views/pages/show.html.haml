@@ -13,9 +13,6 @@
     %ul#presentation_page{:style => "padding-left:0px;"}
       = render :partial => "widgets/presentation", :collection => @widgets, :as => :widget
 
-    %h2 comments
-    = comments_for(@page, :href => canvas_page_url(@page.canvas, @page), :width => 610 )
-
 .span-7.last
 
   %div{:style=>"text-align:right;"}
