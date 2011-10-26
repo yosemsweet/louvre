@@ -6,7 +6,7 @@
 
     - when 'text_content'
       .text{:style => "margin-top:5px;margin-bottom:10px;"}
-        = raw(widget.text)
+        = widget.text.html_safe
 
     - when 'image_content'
       %figure.widget_image_wrapper{:style => "margin-top:5px;margin-bottom:10px;"}

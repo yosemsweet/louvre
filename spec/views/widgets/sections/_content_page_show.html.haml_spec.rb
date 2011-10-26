@@ -8,16 +8,16 @@ describe "widgets/sections/_content_page_show.html.haml" do
 			@widget = Factory.create(:widget)
 		end
 
-		it "should show creator" do
-			render :partial => "widgets/sections/content_page_edit", :object => @widget, :as => :widget
-			rendered.should include(@widget.creator.name)
+		it "should show not show creator" do
+			render :partial => "widgets/sections/content_page_show", :object => @widget, :as => :widget
+			rendered.should_not include(@widget.creator.name)
 		end
 		
-		it "should show last modified date" do
+		it "should  show not show show last modified date" do
 			view.stubs(:show_date).returns("show_date called")
 			
-			render :partial => "widgets/sections/content_page_edit", :object => @widget, :as => :widget
-			rendered.should include "show_date called"
+			render :partial => "widgets/sections/content_page_show", :object => @widget, :as => :widget
+			rendered.should_not include "show_date called"
 		end
 		
 	end

@@ -21,6 +21,8 @@ module UsersHelper
         result = render 'shared/hint', :heading => 'Need some organization?', :content => "Create a page and add snippets to it", :klass => "left down", :target => ".add_page:first"
       end
     end
+		#TODO remove the following line once we have the new hints system in place.
+		result = ""
     return result || ""
   end  
 end
