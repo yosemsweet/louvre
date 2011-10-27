@@ -24,36 +24,3 @@
         = link_to @canvas.applicants.length.to_s + ' Applicants', applicants_canvas_path(@canvas)
 
     
-    %div{:id => "canvas-settings-hint", :style => "display: none"}
-      .hinty
-        .get-started
-          .heading
-            Want to change your community name?
-          .content
-            Check out the community settings by clicking on this icon.
-
-:javascript
-  
-  $("#canvas-settings").qtip({
-    content: $("#canvas-settings-hint").html(),
-    show: 'mouseover',
-    hide: 'mouseout',
-    show: { delay: 0 },
-    position: {
-      corner: { 
-        target: 'bottomLeft', 
-        tooltip: 'topRight'
-      },
-      adjust: { screen: true }
-    },
-    style: {
-      width: 572,
-      border: {
-        width: 5,
-        radius: 10
-      },
-      padding: 10, 
-      tip: true,
-      name: 'light' 
-    }
-  });
