@@ -35,7 +35,6 @@
     - @new_widgets.each do |t, widget|
       %div{:style => "display:none;"}
         = render :partial => "widgets/canvas_feed", :object => widget, :as => :widget
-  = hint_for(@canvas, current_user, "widget")
   \
   %ul#feed
     = render :collection => Widget.for_canvas(@canvas.id,1), :partial => "widgets/canvas_feed", :as => :widget
@@ -56,7 +55,7 @@
         Pages
       - if can? :create, Page.new(:canvas => @canvas)
         %a.add_page.tab{:style => "float:right;", :href => new_canvas_page_path(@canvas), :data => {:content_type => "page", :canvas_id => @canvas.id}} New Page
-        = hint_for(@canvas, current_user, "page")
+        -# = hint_for(@canvas, current_user, "page")
     
     %div{:style => "border-top:1px solid #CCC; border-bottom:1px solid #DDD;"} 
       %ul.vertical-list{:style => "max-height:270px; overflow:auto;"}
@@ -73,3 +72,8 @@
                   #{time_ago_in_words(page["updated_at"])} ago
                 -else
                   on #{page.updated_at.strftime("%b %d %Y %I:%M %p")}
+                  
+
+= hint_for(@canvas, @current_user, "canvas")       
+= hint_for(@canvas, @current_user, "widget")
+= hint_for(@canvas, @current_user, "page")

@@ -10,7 +10,6 @@
         
     - if can?(:update, @canvas)
       = link_to image_tag("setting-24.png", :width => 24, :height => 24, :alt => "Community settings"), edit_canvas_path(@canvas), :id => "canvas-settings", :class => "settings"
-      -# = hint_for(@canvas, @current_user, "canvas")
 
     .mini_dashboard  
       - if can?(:update, @canvas)
